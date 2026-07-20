@@ -1,0 +1,96 @@
+generated: '2026-07-19'
+method: searched
+source: https://docs.li.fi/api-reference/rate-limits, https://docs.li.fi/mcp-server/tools, https://docs.li.fi/cli/installation
+derived_from: openapi/lifi-earn-openapi-original.yml
+docs: https://docs.li.fi/api-reference/rate-limits
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+  oauth2_flows: []
+  model: >-
+    Single static API key, sent as a header. No OAuth, no OIDC, no scopes, no
+    token exchange and no per-user authorization — the key identifies the
+    integrator, not an end user. End-user authority is expressed on-chain by the
+    wallet signature, entirely outside the API.
+spec_gap_note: >-
+  The main LI.FI API OpenAPI (openapi/lifi-openapi-original.yml) declares NO
+  securitySchemes at all, even though the service accepts and rate-limits on
+  x-lifi-api-key. Only the Earn spec declares the scheme. The profile below is
+  upgraded from the documentation rather than taken from the main spec.
+schemes:
+- name: x-lifi-api-key
+  type: apiKey
+  in: header
+  parameter: x-lifi-api-key
+  required: false
+  applies_to: LI.FI API (https://li.quest)
+  sources:
+  - https://docs.li.fi/api-reference/rate-limits
+  note: >-
+    Optional. Anonymous requests are served at a substantially lower rate limit.
+- name: x-lifi-api-key
+  type: apiKey
+  in: header
+  parameter: x-lifi-api-key
+  required: true
+  applies_to: LI.FI Earn API (https://earn.li.fi)
+  sources:
+  - openapi/lifi-earn-openapi-original.yml
+- name: Authorization
+  type: http
+  scheme: bearer
+  applies_to: Hosted MCP server (https://mcp.li.quest/mcp)
+  required: false
+  sources:
+  - https://docs.li.fi/mcp-server/tools
+- name: X-LiFi-Api-Key
+  type: apiKey
+  in: header
+  parameter: X-LiFi-Api-Key
+  applies_to: Hosted MCP server (https://mcp.li.quest/mcp)
+  required: false
+  sources:
+  - https://docs.li.fi/mcp-server/tools
+- name: api-key
+  type: apiKey
+  in: header
+  parameter: api-key
+  applies_to: Intents Solver API (https://order.li.fi)
+  required: true
+  sources:
+  - https://docs.li.fi/llms.txt
+  note: >-
+    Only the Solver API requires a key. The Intents Integrator API is open and
+    needs no authentication.
+anonymous_access:
+  supported: true
+  surfaces:
+  - LI.FI API (reduced rate limit)
+  - Hosted MCP server (reduced rate limit)
+  - Intents Integrator API (no key required at all)
+key_management:
+  obtain: https://li.fi/plans/
+  portal: https://portal.li.fi
+  env_var: LIFI_API_KEY
+  cli_commands:
+  - lifi auth show
+  - lifi auth test
+  mcp_tool: test-api-key
+  rotation_policy: null
+  scoping: >-
+    Keys are not scoped. Rate limits are calculated per key across all endpoints.
+  enforcement: >-
+    LI.FI may temporarily block keys that consistently exceed rate limits or
+    attempt to bypass limits through multiple keys or IPs.
+errors:
+  unauthorized_code: 1010
+  unauthorized_name: UnauthorizedError
+oauth2: false
+openid_connect: false
+mutual_tls: false
+scopes: false
+scopes_note: >-
+  No OAuth scope surface exists, so no scopes/ artifact is produced for this
+  provider.
