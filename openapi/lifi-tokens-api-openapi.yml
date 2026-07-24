@@ -1,0 +1,123 @@
+openapi: 3.0.0
+info:
+  title: LI.FI Earn advanced Tokens API
+  description: Enterprise DeFi yield discovery and tracking API
+  version: 0.1.0
+  contact: {}
+servers:
+- url: https://earn.li.fi
+  description: Production
+security:
+- x-lifi-api-key: []
+tags:
+- name: Tokens
+paths:
+  /v1/tokens:
+    get:
+      parameters:
+      - example: POL,DAI
+        name: chains
+        description: Restrict the resulting tokens to the given chains
+        schema:
+          type: string
+        in: query
+        required: false
+      - example: stablecoin
+        name: tags
+        description: Restrict the resulting tokens to the given token tags (comma separated)
+        schema:
+          type: string
+        in: query
+        required: false
+      - example: EVM,SVM,UTXO,MVM,TVM
+        name: chainTypes
+        description: 'Restrict the resulting tokens to the given chainTypes. Available values: EVM, SVM, UTXO, MVM, TVM.'
+        schema:
+          type: string
+        in: query
+        required: false
+      - example: 0.01
+        name: minPriceUSD
+        description: Filters results by minimum token price in USD. Minimum value for this parameter is 0. Defaults to 0.0001 USD.
+        schema:
+          type: number
+        in: query
+        required: false
+      - name: x-lifi-api-key
+        description: Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.
+        schema:
+          type: string
+        in: header
+      responses:
+        '200':
+          $ref: '#/components/responses/TokensResponse'
+      summary: Fetch all known tokens
+      description: This endpoint can be used to fetch all tokens known to the LI.FI services.
+      tags:
+      - Tokens
+components:
+  schemas:
+    Token:
+      title: Root Type for Token
+      description: Representation of a Token
+      required:
+      - address
+      - chainId
+      - decimals
+      - name
+      - symbol
+      type: object
+      properties:
+        address:
+          description: Address of the token
+          type: string
+        decimals:
+          format: number
+          description: Number of decimals the token uses
+          type: number
+        symbol:
+          description: Symbol of the token
+          type: string
+        chainId:
+          format: number
+          description: Id of the token's chain
+          type: number
+        coinKey:
+          description: Identifier for the token
+          type: string
+        name:
+          description: Name of the token
+          type: string
+        logoURI:
+          description: Logo of the token
+          type: string
+        priceUSD:
+          description: Token price in USD
+          type: string
+      example:
+        address: '0x8f3cf7ad23cd3cadbd9735aff958023239c6a063'
+        symbol: DAI
+        decimals: 18
+        chainId: 137
+        name: (PoS) Dai Stablecoin
+        coinKey: DAI
+        priceUSD: '1'
+        logoURI: https://static.debank.com/image/matic_token/logo_url/0x8f3cf7ad23cd3cadbd9735aff958023239c6a063/549c4205dbb199f1b8b03af783f35e71.png
+  responses:
+    TokensResponse:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              '1':
+                description: The requested tokens
+                type: array
+                items:
+                  $ref: '#/components/schemas/Token'
+      description: ''
+  securitySchemes:
+    x-lifi-api-key:
+      type: apiKey
+      in: header
+      name: x-lifi-api-key

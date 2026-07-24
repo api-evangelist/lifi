@@ -1,0 +1,744 @@
+openapi: 3.0.0
+info:
+  title: LI.FI Earn advanced Analytics API
+  description: Enterprise DeFi yield discovery and tracking API
+  version: 0.1.0
+  contact: {}
+servers:
+- url: https://earn.li.fi
+  description: Production
+security:
+- x-lifi-api-key: []
+tags:
+- name: Analytics
+paths:
+  /v1/analytics/wallets/{wallet_address}:
+    get:
+      parameters:
+      - name: wallet_address
+        description: The address of the wallet
+        schema:
+          type: string
+        in: path
+        required: true
+      - name: integrator
+        description: Filter the transactions by integrator
+        schema:
+          type: string
+        in: query
+        required: true
+      - name: fromTimestamp
+        description: A unix timestamp in seconds. No transaction older than this timestamp will be returned. If no value is passed, then the default value will be 30 days prior the current date.
+        schema:
+          type: integer
+        in: query
+      - name: toTimestamp
+        description: A unix timestamp in seconds. No transaction newer than this timestamp will be returned.
+        schema:
+          type: integer
+        in: query
+      - name: x-lifi-api-key
+        description: Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.
+        schema:
+          type: string
+        in: header
+      responses:
+        '200':
+          $ref: '#/components/responses/WalletAnalyticsResponse'
+      deprecated: true
+      summary: Get all transactions for a wallet
+      description: This endpoint can be used to get all transactions for a wallet.
+      tags:
+      - Analytics
+  /v1/analytics/transfers:
+    get:
+      parameters:
+      - name: integrator
+        description: The integrator string to filter by
+        schema:
+          type: string
+        in: query
+      - name: wallet
+        description: 'The sending OR receiving wallet address '
+        schema:
+          type: string
+        in: query
+      - name: status
+        description: The status of the transfers. Possible values are `ALL`, `DONE`, `PENDING`, and `FAILED`. The default is `DONE`
+        schema:
+          type: string
+        in: query
+      - name: fromTimestamp
+        description: The oldest timestamp that should be taken into consideration. Defaults to 30 days ago
+        schema:
+          type: number
+        in: query
+      - name: toTimestamp
+        description: The newest timestamp that should be taken into consideration. Defaults to now
+        schema:
+          type: number
+        in: query
+      - name: fromChain
+        description: The chain where the transfer originates from.
+        schema:
+          type: string
+        in: query
+      - name: toChain
+        description: The chain where the transfer ends.
+        schema:
+          type: string
+        in: query
+      - name: fromToken
+        description: The token transferred from the originating chain. To use this parameter `fromChain` must be set.
+        schema:
+          type: string
+        in: query
+      - name: toToken
+        description: The token received on the destination chain. To use this parameter `toChain` must be set.
+        schema:
+          type: string
+        in: query
+      responses:
+        '200':
+          $ref: '#/components/responses/TransfersResponse'
+      summary: Get a list of filtered transfers
+      description: This endpoint can be used to retrieve a list of transfers filtered by certain properties. Returns a maximum of 1000 transfers.
+      tags:
+      - Analytics
+  /v2/analytics/transfers:
+    get:
+      parameters:
+      - $ref: '#/components/parameters/paginationLimit'
+      - $ref: '#/components/parameters/paginationNext'
+      - $ref: '#/components/parameters/paginationPrevious'
+      - name: integrator
+        description: Either a single integrator string, or an array of unique integrator strings to filter transfers by.
+        schema:
+          oneOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+        in: query
+      - name: wallet
+        description: 'The sending OR receiving wallet address '
+        schema:
+          type: string
+        in: query
+      - name: status
+        description: The status of the transfers. Possible values are `ALL`, `DONE`, `PENDING`, and `FAILED`. The default is `DONE`
+        schema:
+          type: string
+        in: query
+      - name: fromTimestamp
+        description: The oldest timestamp that should be taken into consideration. Defaults to 30 days ago
+        schema:
+          type: number
+        in: query
+      - name: toTimestamp
+        description: The newest timestamp that should be taken into consideration. Defaults to now
+        schema:
+          type: number
+        in: query
+      - name: fromChain
+        description: The chain where the transfer originates from.
+        schema:
+          type: string
+        in: query
+      - name: toChain
+        description: The chain where the transfer ends.
+        schema:
+          type: string
+        in: query
+      - name: fromToken
+        description: The token transferred from the originating chain. To use this parameter `fromChain` must be set.
+        schema:
+          type: string
+        in: query
+      - name: toToken
+        description: The token received on the destination chain. To use this parameter `toChain` must be set.
+        schema:
+          type: string
+        in: query
+      responses:
+        '200':
+          $ref: '#/components/responses/TransfersV2Response'
+      summary: Get a paginated list of filtered transfers
+      description: A paginated version of the `GET /v1/analytics/transfers endpoint`. This endpoint can be used to retrieve a list of transfers filtered by certain properties.
+      tags:
+      - Analytics
+  /v1/analytics/transfers/summary:
+    get:
+      parameters:
+      - $ref: '#/components/parameters/paginationLimit'
+      - $ref: '#/components/parameters/paginationNext'
+      - $ref: '#/components/parameters/paginationPrevious'
+      - name: fromTimestamp
+        description: 'A Unix timestamp in seconds marking the start of the query period, inclusive. Transactions older than this timestamp will not be included in the summary.
+
+          '
+        schema:
+          type: string
+        in: query
+        required: true
+      - name: toTimestamp
+        description: 'A Unix timestamp in seconds marking the end of the query period, inclusive. Transactions after this timestamp will not be included in the summary. **The maximum range supported by the endpoint is 30 days.**
+
+          '
+        schema:
+          type: string
+        in: query
+        required: true
+      - name: toChain
+        description: 'The ID, or key of the chain on the receiving side of the transfer. This parameter filters the summary to include only transfers received on the specified chain.
+
+          '
+        schema:
+          type: string
+        in: query
+        required: true
+      - name: toToken
+        description: 'The address, or symbol of the token received in the transfers. This parameter filters the summary to include only transfers involving the specified token on the receiving chain.
+
+          '
+        schema:
+          type: number
+        in: query
+        required: true
+      - name: fromChain
+        description: 'The ID, or key of the chain on the sending side of the transfers. This parameter filters the summary to include only transfers sent from the specified chain.
+
+          '
+        schema:
+          type: number
+        in: query
+        required: false
+      - name: integrator
+        description: 'The integrator string to filter transfers by. This parameter filters the summary to include only transfers for the given integrator.
+
+          '
+        schema:
+          type: string
+        in: query
+        required: false
+      responses:
+        '200':
+          $ref: '#/components/responses/TransfersSummaryResponse'
+      summary: Get the total amount of a token received on a specific chain, for cross-chain transfers.
+      description: Calculates and returns the total received token amount per wallet address, per sending chain, within a specified time range, for a given receiving chain and receiving token. Only aggregates cross-chain transfers, meaning transfers with distinct sending and receiving chains.
+      tags:
+      - Analytics
+components:
+  parameters:
+    paginationPrevious:
+      name: previous
+      description: The previous page cursor. Must come from the `previous` field of the response of the previous request.
+      schema:
+        type: string
+      in: query
+      required: false
+    paginationNext:
+      name: next
+      description: The next page cursor. Must come from the `next` field of the response of the previous request.
+      schema:
+        type: string
+      in: query
+      required: false
+    paginationLimit:
+      name: limit
+      description: Pagination limit. Defines the maximum number of returned results.
+      schema:
+        default: 10
+        type: integer
+      in: query
+      required: false
+  responses:
+    TransfersResponse:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              transfers:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StatusResponse'
+          examples:
+            Transfers:
+              value:
+                transfers:
+                - transactionId: '0x8c58bf99537331b38f15f5ca9718b6fcf86bdb678a2935cf0ca2106066f07550'
+                  sending:
+                    txHash: '0x37b56ab04df432aa84f14d94f3af2ef65c10141df37ffe60f216c0505fc43178'
+                    txLink: https://explorer.zksync.io/tx/0x37b56ab04df432aa84f14d94f3af2ef65c10141df37ffe60f216c0505fc43178
+                    amount: '1000000'
+                    token:
+                      address: '0x3355df6D4c9C3035724Fd0e3914dE96A5a83aaf4'
+                      chainId: 324
+                      symbol: USDC
+                      decimals: 6
+                      name: USD Coin
+                      coinKey: USDC
+                      logoURI: https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/logo.png
+                      priceUSD: '1.00'
+                    chainId: 324
+                    gasPrice: '250000000'
+                    gasUsed: '1428505'
+                    gasToken:
+                      address: '0x0000000000000000000000000000000000000000'
+                      chainId: 324
+                      symbol: ETH
+                      decimals: 18
+                      name: ETH
+                      coinKey: ETH
+                      logoURI: https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2/logo.png
+                      priceUSD: '1676.49'
+                    gasAmount: '357126250000000'
+                    gasAmountUSD: '0.60'
+                    amountUSD: '1.0000'
+                    timestamp: 1698076232
+                    value: '0'
+                  receiving:
+                    txHash: '0x37b56ab04df432aa84f14d94f3af2ef65c10141df37ffe60f216c0505fc43178'
+                    txLink: https://explorer.zksync.io/tx/0x37b56ab04df432aa84f14d94f3af2ef65c10141df37ffe60f216c0505fc43178
+                    amount: '999255'
+                    token:
+                      address: '0x493257fD37EDB34451f62EDf8D2a0C418852bA4C'
+                      chainId: 324
+                      symbol: USDT
+                      decimals: 6
+                      name: Tether USD
+                      coinKey: USDT
+                      logoURI: https://static.debank.com/image/brise_token/logo_url/0xc7e6d7e08a89209f02af47965337714153c529f0/3c1a718331e468abe1fc2ebe319f6c77.png
+                      priceUSD: '1.0000'
+                    chainId: 324
+                    gasPrice: '250000000'
+                    gasUsed: '1428505'
+                    gasToken:
+                      address: '0x0000000000000000000000000000000000000000'
+                      chainId: 324
+                      symbol: ETH
+                      decimals: 18
+                      name: ETH
+                      coinKey: ETH
+                      logoURI: https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2/logo.png
+                      priceUSD: '1676.49'
+                    gasAmount: '357126250000000'
+                    gasAmountUSD: '0.60'
+                    amountUSD: '1.0000'
+                    timestamp: 1698076232
+                    value: '0'
+                  lifiExplorerLink: https://explorer.li.fi/tx/0x37b56ab04df432aa84f14d94f3af2ef65c10141df37ffe60f216c0505fc43178
+                  fromAddress: '0x552008c0f6870c2f77e5cc1d2eb9bdff03e30ea0'
+                  toAddress: '0x552008c0f6870c2f77e5cc1d2eb9bdff03e30ea0'
+                  tool: solver3
+                  status: DONE
+                  substatus: COMPLETED
+                  substatusMessage: The transfer is complete.
+      description: Response for `GET /analytics/transfers` endpoint
+    TransfersV2Response:
+      content:
+        application/json:
+          schema:
+            allOf:
+            - $ref: '#/components/schemas/PaginatedResult'
+            - type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/StatusResponse'
+      description: Response for `GET /analytics/transfers/summary` endpoint
+    TransfersSummaryResponse:
+      content:
+        application/json:
+          schema:
+            allOf:
+            - $ref: '#/components/schemas/PaginatedResult'
+            - type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/TransfersSummaryResult'
+      description: Response for `GET /analytics/transfers/summary` endpoint
+  schemas:
+    IncludedSwapSteps:
+      title: Root type for included swaps or protocol steps in the status response
+      description: The included steps contain tool name and details, sending and receiving token data and amounts.
+      type: object
+      properties:
+        tool:
+          description: The tool used for this step
+          type: string
+        toolDetails:
+          description: The details of the tool used for this step. E.g. `1inch` or `feeProtocol`
+          type: object
+          properties:
+            key:
+              description: The tool key
+              type: string
+            name:
+              description: The tool name
+              type: string
+            logoURI:
+              description: The tool logo URL
+              type: string
+        fromAmount:
+          description: The amount that was sent to the tool
+          type: string
+        fromToken:
+          description: The token that was sent to the tool
+          type: string
+        toAmount:
+          description: The amount that was received from the tool
+          type: string
+        toToken:
+          description: The token that was received from the tool
+          type: string
+        bridgedAmount:
+          description: The amount that was sent to the bridge
+          type: string
+    Token:
+      title: Root Type for Token
+      description: Representation of a Token
+      required:
+      - address
+      - chainId
+      - decimals
+      - name
+      - symbol
+      type: object
+      properties:
+        address:
+          description: Address of the token
+          type: string
+        decimals:
+          format: number
+          description: Number of decimals the token uses
+          type: number
+        symbol:
+          description: Symbol of the token
+          type: string
+        chainId:
+          format: number
+          description: Id of the token's chain
+          type: number
+        coinKey:
+          description: Identifier for the token
+          type: string
+        name:
+          description: Name of the token
+          type: string
+        logoURI:
+          description: Logo of the token
+          type: string
+        priceUSD:
+          description: Token price in USD
+          type: string
+      example:
+        address: '0x8f3cf7ad23cd3cadbd9735aff958023239c6a063'
+        symbol: DAI
+        decimals: 18
+        chainId: 137
+        name: (PoS) Dai Stablecoin
+        coinKey: DAI
+        priceUSD: '1'
+        logoURI: https://static.debank.com/image/matic_token/logo_url/0x8f3cf7ad23cd3cadbd9735aff958023239c6a063/549c4205dbb199f1b8b03af783f35e71.png
+    TransactionInfo:
+      title: Root Type for TransactionInfo
+      description: A transaction info object
+      required:
+      - txLink
+      - amount
+      - txHash
+      - token
+      - chainId
+      type: object
+      properties:
+        txHash:
+          description: The hash of the transaction
+          type: string
+        txLink:
+          description: Link to a block explorer showing the transaction
+          type: string
+        amount:
+          description: The amount of the transaction
+          type: string
+        token:
+          $ref: '#/components/schemas/Token'
+          description: Information about the token
+        chainId:
+          description: The id of the chain
+          type: number
+        gasToken:
+          $ref: '#/components/schemas/Token'
+          description: The token in which gas was paid
+        gasAmount:
+          description: The amount of the gas that was paid
+          type: string
+        gasAmountUSD:
+          description: The amount of the gas that was paid in USD
+          type: string
+        gasPrice:
+          description: The price of the gas
+          type: string
+        gasUsed:
+          description: The amount of the gas that was used
+          type: string
+        timestamp:
+          description: The transaction timestamp
+          type: number
+        value:
+          description: The transaction value
+          type: string
+        includedSteps:
+          description: An array of swap or protocol steps included in the LI.FI transaction
+          type: array
+          items:
+            $ref: '#/components/schemas/IncludedSwapSteps'
+      example:
+        txHash: '0xd3ad8fb8798d8440f3a1ec7fd51e102a88e4690f9365fad4eff1a17020376b4a'
+        txLink: https://polygonscan.com/tx/0xd3ad8fb8798d8440f3a1ec7fd51e102a88e4690f9365fad4eff1a17020376b4a
+        amount: '13000000'
+        token:
+          address: '0xd69b31c3225728cc57ddaf9be532a4ee1620be51'
+          symbol: anyUSDC
+          decimals: 6
+          chainId: 137
+          name: USDC
+          coinKey: anyUSDC
+          priceUSD: '0'
+          logoURI: ''
+        gasToken:
+          address: '0x0000000000000000000000000000000000001010'
+          symbol: MATIC
+          decimals: 18
+          chainId: 137
+          name: MATIC
+          coinKey: MATIC
+          priceUSD: '0'
+          logoURI: ''
+        chainId: 137
+        gasAmount: '10000'
+        gasAmountUSD: '0.0'
+        gasPrice: '1000'
+        gasUsed: '1000'
+        timestamp: 1720545119
+        value: '0'
+    StatusResponse:
+      title: Root Type for StatusResponse
+      description: The current status of a transfer
+      required:
+      - sending
+      - status
+      - tool
+      type: object
+      properties:
+        sending:
+          $ref: '#/components/schemas/TransactionInfo'
+          description: The transaction on the sending chain
+        receiving:
+          $ref: '#/components/schemas/TransactionInfo'
+          description: The transaction on the receiving chain
+        feeCosts:
+          description: An array of fee costs for the transaction
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              description:
+                type: string
+              percentage:
+                type: string
+              token:
+                type: object
+                properties:
+                  address:
+                    type: string
+                  decimals:
+                    format: number
+                    type: number
+                  symbol:
+                    type: string
+                  chainId:
+                    format: number
+                    type: number
+                  coinKey:
+                    type: string
+                  name:
+                    type: string
+                  logoURI:
+                    type: string
+              amount:
+                type: string
+              amountUSD:
+                type: string
+              included:
+                type: boolean
+        status:
+          description: The current status of the transfer. Can be `PENDING`, `DONE`, `NOT_FOUND` or `FAILED`
+          enum:
+          - NOT_FOUND
+          - INVALID
+          - PENDING
+          - DONE
+          - FAILED
+          type: string
+        substatus:
+          description: 'A more specific substatus. This is available for PENDING and DONE statuses. More information can be found here: https://docs.li.fi/introduction/user-flows-and-examples/status-tracking'
+          enum:
+          - WAIT_SOURCE_CONFIRMATIONS
+          - WAIT_DESTINATION_TRANSACTION
+          - BRIDGE_NOT_AVAILABLE
+          - CHAIN_NOT_AVAILABLE
+          - REFUND_IN_PROGRESS
+          - UNKNOWN_ERROR
+          - COMPLETED
+          - PARTIAL
+          - REFUNDED
+        substatusMessage:
+          description: A message that describes the substatus
+          type: string
+        tool:
+          description: The tool used for this transfer
+          type: string
+        transactionId:
+          description: The ID of this transfer (NOT a transaction hash).
+          type: string
+        fromAddress:
+          description: The address of the sender.
+          type: string
+        toAddress:
+          description: The address of the receiver.
+          type: string
+        lifiExplorerLink:
+          description: The link to the LI.FI explorer.
+          type: string
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+          description: The transaction metadata which includes integrator's string, etc.
+      example:
+        sending:
+          txHash: '0xd3ad8fb8798d8440f3a1ec7fd51e102a88e4690f9365fad4eff1a17020376b4a'
+          txLink: https://polygonscan.com/tx/0xd3ad8fb8798d8440f3a1ec7fd51e102a88e4690f9365fad4eff1a17020376b4a
+          amount: '13000000'
+          token:
+            address: '0xd69b31c3225728cc57ddaf9be532a4ee1620be51'
+            symbol: anyUSDC
+            decimals: 6
+            chainId: 137
+            name: USDC
+            coinKey: anyUSDC
+            priceUSD: '0'
+            logoURI: ''
+          chainId: 137
+          gasToken:
+            address: '0x0000000000000000000000000000000000001010'
+            symbol: MATIC
+            decimals: 18
+            chainId: 137
+            name: MATIC
+            coinKey: MATIC
+            priceUSD: '0'
+            logoURI: ''
+          gasAmount: '10000'
+          gasAmountUSD: '0.0'
+          gasPrice: '1000'
+          gasUsed: '1000'
+          timestamp: 1720545119
+          value: '0'
+        receiving:
+          txHash: '0xba2793065e20835ef60993144d92e6bc1a86529a70e16c357f66ad13774868ad'
+          txLink: https://bscscan.com/tx/0xba2793065e20835ef60993144d92e6bc1a86529a70e16c357f66ad13774868ad
+          amount: '12100000000000000000'
+          token:
+            address: '0x8965349fb649a33a30cbfda057d8ec2c48abe2a2'
+            symbol: anyUSDC
+            decimals: 18
+            chainId: 56
+            name: USDC
+            coinKey: anyUSDC
+            priceUSD: '0'
+            logoURI: ''
+          chainId: 56
+          gasToken:
+            address: '0x0000000000000000000000000000000000001010'
+            symbol: BNB
+            decimals: 18
+            chainId: 56
+            name: BNB
+            coinKey: BNB
+            priceUSD: '0'
+            logoURI: ''
+          gasAmount: '10000'
+          gasAmountUSD: '0.0'
+          gasPrice: '1000'
+          gasUsed: '1000'
+          timestamp: 1720560232
+          value: '0'
+        tool: anyswap
+        status: DONE
+        substatus: COMPLETED
+        substatusMessage: The transfer is complete.
+        transactionId: '0x0000000000000000000000000000000000001010'
+        fromAddress: '0x0000000000000000000000000000000000001010'
+        toAddress: '0x0000000000000000000000000000000000001010'
+        lifiExplorerLink: https://scan.li.fi/tx/0xd3ad8fb8798d8440f3a1ec7fd51e102a88e4690f9365fad4eff1a17020376b4a
+        metadata:
+          integrator: jumper.exchange
+    TransfersSummaryResult:
+      title: Transfers Summary
+      description: Transfers summary element as returned by GET /v1/analytics/transfers/summary endpoint
+      type: object
+      properties:
+        id:
+          type: object
+          properties:
+            toAddress:
+              description: The address in the receiving side of the transfer
+              type: string
+            sendingChainId:
+              description: The ID of the chain the transfer was sent from
+              type: number
+        totalReceivedAmount:
+          description: The cumulative amount of token received
+          type: number
+    Metadata:
+      title: Root type for Transaction Metadata
+      description: The metadata of the transaction which includes integrator data, etc.
+      type: object
+      properties:
+        integrator:
+          description: Integrator ID
+          type: string
+    PaginatedResult:
+      title: Pagination Query Parameters
+      description: Parameters used to query paginated endpoints
+      type: object
+      properties:
+        hasNext:
+          description: Flag indicating if there is a next page
+          default: false
+          type: boolean
+        hasPrevious:
+          description: Flag indicating if there is a previous page
+          default: false
+          type: boolean
+        next:
+          nullable: true
+          description: Cursor for fetching the next page. Should be passed to `next` in the pagination query.
+          type: string
+        previous:
+          nullable: true
+          description: Cursor for fetching the previous page. Should be passed to `previous` in the pagination query.
+          type: string
+        data:
+          description: 'An array containing the paginated data returned by the endpoint '
+  securitySchemes:
+    x-lifi-api-key:
+      type: apiKey
+      in: header
+      name: x-lifi-api-key

@@ -1,0 +1,187 @@
+openapi: 3.0.0
+info:
+  title: LI.FI Earn advanced Earn Portfolio API
+  description: Enterprise DeFi yield discovery and tracking API
+  version: 0.1.0
+  contact: {}
+servers:
+- url: https://earn.li.fi
+  description: Production
+security:
+- x-lifi-api-key: []
+tags:
+- name: Earn Portfolio
+paths:
+  /v1/portfolio/{userAddress}/positions:
+    get:
+      operationId: PortfolioController_getPositions_v1
+      summary: Get portfolio positions for a user
+      description: Returns a user's DeFi positions across all supported protocols and chains.
+      tags:
+      - Earn Portfolio
+      parameters:
+      - name: userAddress
+        required: true
+        in: path
+        description: User's wallet address (0x-prefixed, 40 hex characters).
+        example: '0x1234567890abcdef1234567890abcdef12345678'
+        schema:
+          type: string
+          pattern: ^0x[a-fA-F0-9]{40}$
+      responses:
+        '200':
+          description: User portfolio positions
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                required:
+                - positions
+                properties:
+                  positions:
+                    type: array
+                    description: List of active positions held by the user across all supported protocols.
+                    items:
+                      type: object
+                      additionalProperties: false
+                      required:
+                      - chainId
+                      - address
+                      - protocolName
+                      - asset
+                      - balanceUsd
+                      - balanceNative
+                      properties:
+                        chainId:
+                          type: integer
+                          description: EVM chain ID where the position is held.
+                          example: 1
+                          minimum: -9007199254740991
+                          maximum: 9007199254740991
+                        address:
+                          type: string
+                          nullable: true
+                          description: The vault or position contract address (0x-prefixed). Null if not applicable for this protocol.
+                          example: '0xa17581a9e3356d9a858b789d68b4d866e593ae94'
+                        protocolName:
+                          type: string
+                          nullable: true
+                          description: Protocol identifier (e.g., `aave-v3`, `morpho`). Null if the protocol cannot be determined.
+                          example: aave-v3
+                        asset:
+                          type: object
+                          description: The token representing this position (e.g., an LP or yield-bearing token).
+                          additionalProperties: false
+                          required:
+                          - address
+                          - name
+                          - symbol
+                          - decimals
+                          properties:
+                            address:
+                              type: string
+                              description: Token contract address.
+                              example: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48'
+                            name:
+                              type: string
+                              description: Token full name.
+                              example: USD Coin
+                            symbol:
+                              type: string
+                              description: Token symbol.
+                              example: USDC
+                            decimals:
+                              type: integer
+                              description: Number of decimal places for the token.
+                              example: 6
+                              minimum: 0
+                              maximum: 9007199254740991
+                        balanceUsd:
+                          type: string
+                          nullable: true
+                          description: Position balance denominated in USD, as a decimal string. Null if USD price is unavailable.
+                          example: '1523.45'
+                        balanceNative:
+                          type: string
+                          description: Position balance in the asset's native token units, as a string.
+                          example: '1523450000'
+              example:
+                positions:
+                - chainId: 1
+                  address: '0xa17581a9e3356d9a858b789d68b4d866e593ae94'
+                  protocolName: aave-v3
+                  asset:
+                    address: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48'
+                    name: USD Coin
+                    symbol: USDC
+                    decimals: 6
+                  balanceUsd: '1523.45'
+                  balanceNative: '1523450000'
+                - chainId: 8453
+                  address: '0x7BfA7C4f149E7415b73bdeDfe609237e29CBF34A'
+                  protocolName: morpho
+                  asset:
+                    address: '0x7BfA7C4f149E7415b73bdeDfe609237e29CBF34A'
+                    name: Morpho USDC Vault
+                    symbol: mUSDC
+                    decimals: 18
+                  balanceUsd: '5000.00'
+                  balanceNative: '4901960784313725490196'
+        '400':
+          description: Invalid wallet address format
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+components:
+  schemas:
+    ValidationError:
+      type: object
+      additionalProperties: false
+      required:
+      - statusCode
+      - message
+      - errors
+      properties:
+        statusCode:
+          type: number
+          description: HTTP status code. Always `400` for validation errors.
+          example: 400
+        message:
+          type: string
+          description: Human-readable summary of the validation failure.
+          example: Validation failed
+        errors:
+          type: array
+          description: List of individual validation errors.
+          items:
+            type: object
+            additionalProperties: false
+            required:
+            - code
+            - message
+            - path
+            properties:
+              code:
+                type: string
+                description: Machine-readable error code.
+                example: invalid_type
+              message:
+                type: string
+                description: Description of this specific validation failure.
+                example: Expected integer, received string
+              path:
+                type: array
+                description: JSON path to the field that failed validation.
+                items:
+                  oneOf:
+                  - type: string
+                  - type: number
+                example:
+                - chainId
+  securitySchemes:
+    x-lifi-api-key:
+      type: apiKey
+      in: header
+      name: x-lifi-api-key

@@ -1,0 +1,254 @@
+openapi: 3.0.0
+info:
+  title: LI.FI Earn advanced Integrators API
+  description: Enterprise DeFi yield discovery and tracking API
+  version: 0.1.0
+  contact: {}
+servers:
+- url: https://earn.li.fi
+  description: Production
+security:
+- x-lifi-api-key: []
+tags:
+- name: Integrators
+paths:
+  /v1/integrators/{integratorId}:
+    get:
+      parameters:
+      - example: fee-demo
+        name: integratorId
+        description: Id of the integrator that requests fee balances
+        schema:
+          type: string
+        in: path
+        required: true
+      - name: x-lifi-api-key
+        description: Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.
+        schema:
+          type: string
+        in: header
+      responses:
+        '200':
+          $ref: '#/components/responses/IntegratorResponse'
+        '404':
+          $ref: '#/components/responses/InvalidIntegratorRequest'
+      summary: Get integrator's collected fees data for all supported chains
+      description: 'This endpoint can be used to request all integrator''s collected fees data by tokens for all supported chains.
+
+        The endpoint returns an `Integrator` object which contains the integrator id and an array of fee balances for all supported chains.'
+      tags:
+      - Integrators
+  /v1/integrators/{integratorId}/withdraw/{chainId}:
+    get:
+      parameters:
+      - example: fee-demo
+        name: integratorId
+        description: Id of the integrator that requests fee withdrawal
+        schema:
+          type: string
+        in: path
+        required: true
+      - example: 137
+        name: chainId
+        description: Specify chainId from which funds should be withdrawn
+        schema:
+          type: string
+        in: path
+        required: true
+      - example:
+        - '0x0000000000000000000000000000000000000000'
+        name: tokenAddresses
+        description: Specify tokens from which funds should be withdraw
+        schema:
+          type: array
+          items:
+            type: string
+        in: query
+        required: false
+      - name: x-lifi-api-key
+        description: Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.
+        schema:
+          type: string
+        in: header
+      responses:
+        '200':
+          $ref: '#/components/responses/IntegratorWithdrawalTransactionResponse'
+        '400':
+          $ref: '#/components/responses/InvalidIntegratorWithdrawalRequest'
+        '404':
+          $ref: '#/components/responses/InvalidIntegratorRequest'
+      summary: Get transaction request for withdrawing collected integrator's fees by chain
+      description: 'This endpoint can be used to get transaction request for withdrawing integrator''s collected fees the specified chain. If a list of token addresses is provided, the generated transaction will only withdraw the specified funds.
+
+        If there is no collected fees for the provided token''s addresses, the `400` error will be thrown.
+
+        The endpoint returns a `IntegratorWithdrawalTransactionResponse` object which contains the transaction request.'
+      tags:
+      - Integrators
+components:
+  responses:
+    InvalidIntegratorWithdrawalRequest:
+      description: None of the requested tokens has a balance
+    InvalidIntegratorRequest:
+      description: Integrator with the name ${integratorId} is not found
+    IntegratorResponse:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/IntegratorResponse'
+          examples:
+            ExampleIntegratorResponse:
+              value:
+                integratorId: fee-demo
+                feeBalances:
+                - chainId: 137
+                  tokenBalances:
+                  - token:
+                      address: '0x0000000000000000000000000000000000000000'
+                      symbol: MATIC
+                      decimals: 18
+                      chainId: 137
+                      name: MATIC
+                      coinKey: MATIC
+                      priceUSD: '0.742896'
+                      logoURI: https://static.debank.com/image/matic_token/logo_url/matic/6f5a6b6f0732a7a235131bd7804d357c.png
+                    amount: 0
+                    amountUsd: 0
+      description: Response of the Integrator request
+    IntegratorWithdrawalTransactionResponse:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/IntegratorWithdrawalResponse'
+          examples:
+            ExampleIntegratorResponse:
+              value:
+                transactionRequest:
+                  data: 0x
+                  to: '0xbD6C7B0d2f68c2b7805d88388319cfB6EcB50eA9'
+      description: Response of the integrator's fee withdrawal transaction request
+  schemas:
+    TokenBalances:
+      type: object
+      properties:
+        token:
+          $ref: '#/components/schemas/Token'
+          type: object
+        amount:
+          description: Fee amount in tokens
+          type: string
+          example: '0'
+        amountUsd:
+          description: Fee amount in USD
+          type: string
+          example: '0'
+    IntegratorResponse:
+      title: Root Type for IntegratorResponse
+      description: Integrator's fee balance by chain
+      required:
+      - integratorId
+      type: object
+      properties:
+        integratorId:
+          description: The integrator's name or wallet address
+          type: string
+        feeBalances:
+          description: The fee balances of the integrator
+          type: array
+          items:
+            $ref: '#/components/schemas/FeeBalances'
+      example:
+        integratorId: fee-demo
+        feeBalances:
+        - chainId: 137
+          tokenBalances:
+          - token:
+              address: '0x0000000000000000000000000000000000000000'
+              symbol: MATIC
+              decimals: 18
+              chainId: 137
+              name: MATIC
+              coinKey: MATIC
+              priceUSD: '0.742896'
+              logoURI: https://static.debank.com/image/matic_token/logo_url/matic/6f5a6b6f0732a7a235131bd7804d357c.png
+            amount: 0
+            amountUsd: 0
+    Token:
+      title: Root Type for Token
+      description: Representation of a Token
+      required:
+      - address
+      - chainId
+      - decimals
+      - name
+      - symbol
+      type: object
+      properties:
+        address:
+          description: Address of the token
+          type: string
+        decimals:
+          format: number
+          description: Number of decimals the token uses
+          type: number
+        symbol:
+          description: Symbol of the token
+          type: string
+        chainId:
+          format: number
+          description: Id of the token's chain
+          type: number
+        coinKey:
+          description: Identifier for the token
+          type: string
+        name:
+          description: Name of the token
+          type: string
+        logoURI:
+          description: Logo of the token
+          type: string
+        priceUSD:
+          description: Token price in USD
+          type: string
+      example:
+        address: '0x8f3cf7ad23cd3cadbd9735aff958023239c6a063'
+        symbol: DAI
+        decimals: 18
+        chainId: 137
+        name: (PoS) Dai Stablecoin
+        coinKey: DAI
+        priceUSD: '1'
+        logoURI: https://static.debank.com/image/matic_token/logo_url/0x8f3cf7ad23cd3cadbd9735aff958023239c6a063/549c4205dbb199f1b8b03af783f35e71.png
+    FeeBalances:
+      type: object
+      properties:
+        chainId:
+          description: The id of the chain
+          type: number
+          example: 137
+        tokenBalances:
+          type: array
+          items:
+            $ref: '#/components/schemas/TokenBalances'
+    IntegratorWithdrawalResponse:
+      title: Root Type for IntegratorWithdrawalResponse
+      description: Transaction request for withdrawing integrator's collected fees for the specified chain
+      required:
+      - transactionRequest
+      type: object
+      properties:
+        transactionRequest:
+          description: The transaction request
+          type: object
+          properties:
+            data:
+              description: The transaction's data
+              type: string
+            to:
+              description: The FeeCollector's contract address for the specified chain
+              type: string
+  securitySchemes:
+    x-lifi-api-key:
+      type: apiKey
+      in: header
+      name: x-lifi-api-key

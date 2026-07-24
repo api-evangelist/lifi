@@ -1,0 +1,64 @@
+openapi: 3.0.0
+info:
+  title: LI.FI Earn advanced Earn Protocols API
+  description: Enterprise DeFi yield discovery and tracking API
+  version: 0.1.0
+  contact: {}
+servers:
+- url: https://earn.li.fi
+  description: Production
+security:
+- x-lifi-api-key: []
+tags:
+- name: Earn Protocols
+paths:
+  /v1/protocols:
+    get:
+      operationId: ProtocolsController_getProtocols_v1
+      summary: List supported protocols
+      description: Returns the list of protocols that have at least one vault available. Derived from current vault data.
+      tags:
+      - Earn Protocols
+      parameters: []
+      responses:
+        '200':
+          description: Supported protocols
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  additionalProperties: false
+                  required:
+                  - name
+                  - url
+                  properties:
+                    name:
+                      type: string
+                      description: Protocol display name.
+                      example: Morpho
+                    logoUri:
+                      type: string
+                      description: URL to the protocol's logo image.
+                      example: https://example.com/morpho-logo.png
+                    url:
+                      type: string
+                      description: Protocol website URL.
+                      example: https://morpho.org
+              example:
+              - name: Morpho
+                logoUri: https://example.com/morpho-logo.png
+                url: https://morpho.org
+              - name: Aave V3
+                logoUri: https://example.com/aave-logo.png
+                url: https://aave.com
+              - name: Euler
+                logoUri: https://example.com/euler-logo.png
+                url: https://www.euler.finance
+components:
+  securitySchemes:
+    x-lifi-api-key:
+      type: apiKey
+      in: header
+      name: x-lifi-api-key

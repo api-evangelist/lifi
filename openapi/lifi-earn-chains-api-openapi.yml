@@ -1,0 +1,75 @@
+openapi: 3.0.0
+info:
+  title: LI.FI Earn advanced Earn Chains API
+  description: Enterprise DeFi yield discovery and tracking API
+  version: 0.1.0
+  contact: {}
+servers:
+- url: https://earn.li.fi
+  description: Production
+security:
+- x-lifi-api-key: []
+tags:
+- name: Earn Chains
+paths:
+  /v1/chains:
+    get:
+      operationId: ChainsController_getChains_v1
+      summary: List chains supported by LI.FI Earn
+      description: 'Returns the list of chains that have at least one Earn vault available. Derived from current vault data.
+
+
+        **This endpoint is scoped to LI.FI Earn (vaults).** Only chains where Earn currently has indexed vaults are returned — it is not a general list of all chains the LI.FI platform supports, and it should not be used to determine SDK / Swaps / Bridges chain coverage.
+
+
+        If you are integrating Swaps or Bridges (via the LI.FI SDK or the main API), call [`GET https://li.quest/v1/chains`](/api-reference/get-information-about-all-currently-supported-chains) instead. That endpoint returns every chain supported by the LI.FI Aggregation API.
+
+        '
+      tags:
+      - Earn Chains
+      parameters: []
+      responses:
+        '200':
+          description: Supported chains
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  additionalProperties: false
+                  required:
+                  - name
+                  - chainId
+                  - networkCaip
+                  properties:
+                    name:
+                      type: string
+                      description: Human-readable chain name.
+                      example: Ethereum
+                    chainId:
+                      type: integer
+                      description: EVM chain ID.
+                      example: 1
+                      minimum: -9007199254740991
+                      maximum: 9007199254740991
+                    networkCaip:
+                      type: string
+                      description: CAIP-2 network identifier.
+                      example: eip155:1
+              example:
+              - name: Ethereum
+                chainId: 1
+                networkCaip: eip155:1
+              - name: Base
+                chainId: 8453
+                networkCaip: eip155:8453
+              - name: Arbitrum One
+                chainId: 42161
+                networkCaip: eip155:42161
+components:
+  securitySchemes:
+    x-lifi-api-key:
+      type: apiKey
+      in: header
+      name: x-lifi-api-key

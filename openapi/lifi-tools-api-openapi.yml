@@ -1,0 +1,123 @@
+openapi: 3.0.0
+info:
+  title: LI.FI Earn advanced Tools API
+  description: Enterprise DeFi yield discovery and tracking API
+  version: 0.1.0
+  contact: {}
+servers:
+- url: https://earn.li.fi
+  description: Production
+security:
+- x-lifi-api-key: []
+tags:
+- name: Tools
+paths:
+  /v1/tools:
+    get:
+      parameters:
+      - name: chains
+        description: The ids of the chains that should be taken into consideration.
+        schema:
+          type: array
+          items:
+            oneOf:
+            - type: string
+              example:
+              - pol
+              - eth
+            - type: integer
+              example:
+              - 1
+              - 56
+        in: query
+      - name: x-lifi-api-key
+        description: Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.
+        schema:
+          type: string
+        in: header
+      responses:
+        '200':
+          $ref: '#/components/responses/ToolsResponse'
+      summary: Get available bridges and exchanges
+      description: This endpoint can be used to get information about the bridges and exchanges available trough our service
+      tags:
+      - Tools
+components:
+  schemas:
+    BridgesEnum:
+      type: string
+      description: Identifier for a bridge tool. Retrieve the latest bridge keys from the `/v1/tools` endpoint. Keywords such as `all`, `none`, `default`, and `[]` are also supported where applicable.
+    ExchangesEnum:
+      type: string
+      description: Identifier for an exchange tool. Retrieve the latest exchange keys from the `/v1/tools` endpoint. Keywords such as `all`, `none`, `default`, and `[]` are also supported where applicable.
+    Bridge:
+      type: object
+      properties:
+        key:
+          $ref: '#/components/schemas/BridgesEnum'
+        name:
+          description: The common name of the tool
+          type: string
+          example: Connext
+        logoURI:
+          description: The logo of the tool
+          type: string
+          example: https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/bridges/relay.svg
+        supportedChains:
+          type: array
+          items:
+            $ref: '#/components/schemas/SupportedChains'
+    Tools:
+      type: object
+      properties:
+        exchanges:
+          type: array
+          items:
+            $ref: '#/components/schemas/Exchange'
+        bridges:
+          type: array
+          items:
+            $ref: '#/components/schemas/Bridge'
+    Exchange:
+      type: object
+      properties:
+        key:
+          $ref: '#/components/schemas/ExchangesEnum'
+        name:
+          description: The common name of the tool
+          type: string
+          example: 0x
+        logoURI:
+          description: The logo of the tool
+          type: string
+          example: https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/exchanges/zerox.svg
+        supportedChains:
+          description: The chains which are supported on this exchange
+          type: string
+          example:
+          - '1'
+          - '137'
+          - '56'
+    SupportedChains:
+      type: object
+      properties:
+        fromChainId:
+          description: Supported `from` chain
+          type: string
+          example: 137
+        toChainId:
+          description: Supported `to` chain
+          type: string
+          example: 1
+  responses:
+    ToolsResponse:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Tools'
+      description: Object listing all the currently enabled bridges and exchanges.
+  securitySchemes:
+    x-lifi-api-key:
+      type: apiKey
+      in: header
+      name: x-lifi-api-key

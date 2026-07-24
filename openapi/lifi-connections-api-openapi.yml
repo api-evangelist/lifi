@@ -1,0 +1,256 @@
+openapi: 3.0.0
+info:
+  title: LI.FI Earn advanced Connections API
+  description: Enterprise DeFi yield discovery and tracking API
+  version: 0.1.0
+  contact: {}
+servers:
+- url: https://earn.li.fi
+  description: Production
+security:
+- x-lifi-api-key: []
+tags:
+- name: Connections
+paths:
+  /v1/connections:
+    get:
+      parameters:
+      - example: POL
+        name: fromChain
+        description: The chain that should be the start of the possible connections.
+        schema:
+          type: string
+        in: query
+        required: true
+      - name: toChain
+        description: The chain that should be the end of the possible connections.
+        schema:
+          type: string
+        in: query
+        required: true
+      - example: DAI
+        name: fromToken
+        description: Only return connections starting with this token.
+        schema:
+          type: string
+        in: query
+        required: false
+      - name: toToken
+        description: Only return connections ending with this token.
+        schema:
+          type: string
+        in: query
+        required: false
+      - example: EVM,SVM,UTXO,MVM,TVM
+        name: chainTypes
+        description: 'Restrict the resulting connections to the given chainTypes. Available values: EVM, SVM, UTXO, MVM, TVM.'
+        schema:
+          type: string
+        in: query
+        required: false
+      - name: allowBridges
+        description: List of bridges that are allowed for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint.
+        schema:
+          type: array
+          items:
+            type: string
+        in: query
+        required: false
+      - name: denyBridges
+        description: List of bridges that are not allowed for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint.
+        schema:
+          type: array
+          items:
+            type: string
+        in: query
+        required: false
+      - name: preferBridges
+        description: List of bridges that should be preferred for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint.
+        schema:
+          type: array
+          items:
+            type: string
+        in: query
+        required: false
+      - name: allowExchanges
+        description: List of exchanges that are allowed for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint.
+        schema:
+          type: array
+          items:
+            type: string
+        in: query
+        required: false
+      - name: denyExchanges
+        description: List of exchanges that are not allowed for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint.
+        schema:
+          type: array
+          items:
+            type: string
+        in: query
+        required: false
+      - name: preferExchanges
+        description: List of exchanges that should be preferred for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint.
+        schema:
+          type: array
+          items:
+            type: string
+        in: query
+        required: false
+      - name: allowSwitchChain
+        description: Whether connections that require chain switch should be included in the response.
+        schema:
+          default: true
+          type: boolean
+        in: query
+        required: false
+      - name: allowDestinationCall
+        description: Whether connections that includes destination call should be included in the response.
+        schema:
+          default: true
+          type: boolean
+        in: query
+        required: false
+      - name: x-lifi-api-key
+        description: Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.
+        schema:
+          type: string
+        in: header
+      responses:
+        '200':
+          $ref: '#/components/responses/ConnectionsResponse'
+      summary: Returns all possible connections between two chains.
+      description: 'This endpoint gives information about all possible transfers between chains.
+
+        `fromChain` and `toChain` are required. Additional filters such as token, bridge, and exchange can be used to narrow the result further.
+
+        Information about which chains and tokens are supported can be taken from the response of the /v1/chains endpoint.
+
+        Information about which bridges and exchanges are supported can be taken from the response of the `/v1/tools` endpoint.'
+      tags:
+      - Connections
+components:
+  responses:
+    ConnectionsResponse:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ConnectionsResponse'
+          examples:
+            ConnectionsResponse:
+              value:
+                connections:
+                - fromChainId: 137
+                  toChainId: 1
+                  fromTokens:
+                  - address: '0x8f3cf7ad23cd3cadbd9735aff958023239c6a063'
+                    chainId: 137
+                  toTokens:
+                  - address: '0x6b175474e89094c44da98b954eedeac495271d0f'
+                    chainId: 1
+                  - address: '0x0000000000000000000000000000000000000000'
+                    chainId: 1
+      description: ''
+  schemas:
+    Connection:
+      title: Root Type for Connection
+      description: A connection from one chain to another defined by tokens that can be exchanged for another.
+      required:
+      - toTokens
+      - toChainId
+      - fromTokens
+      - fromChainId
+      type: object
+      properties:
+        fromChainId:
+          description: The sending chain
+          type: number
+        toChainId:
+          description: The receiving chain
+          type: number
+        fromTokens:
+          description: List of possible tokens that can be sent
+          type: array
+          items:
+            $ref: '#/components/schemas/BaseToken'
+        toTokens:
+          description: List of tokens that can be received
+          type: array
+          items:
+            $ref: '#/components/schemas/BaseToken'
+      example:
+        connections:
+        - fromChainId: 137
+          toChainId: 1
+          fromTokens:
+          - address: '0x8f3cf7ad23cd3cadbd9735aff958023239c6a063'
+            chainId: 137
+          toTokens:
+          - address: '0x6b175474e89094c44da98b954eedeac495271d0f'
+            chainId: 1
+          - address: '0x0000000000000000000000000000000000000000'
+            chainId: 1
+        - fromChainId: 137
+          toChainId: 10
+          fromTokens:
+          - address: '0x8f3cf7ad23cd3cadbd9735aff958023239c6a063'
+            chainId: 137
+          toTokens:
+          - address: '0xda10009cbd5d07dd0cecc66161fc93d7c9000da1'
+            chainId: 10
+          - address: '0x0000000000000000000000000000000000000000'
+            chainId: 10
+        - fromChainId: 137
+          toChainId: 56
+          fromTokens:
+          - address: '0x8f3cf7ad23cd3cadbd9735aff958023239c6a063'
+            chainId: 137
+          toTokens:
+          - address: '0x1af3f329e8be154074d8769d1ffa4ee058b1dbc3'
+            chainId: 56
+          - address: '0x2170ed0880ac9a755fd29b2688956bd959f933f8'
+            chainId: 56
+    BaseToken:
+      title: Root Type for BaseToken
+      description: Minimal token representation returned by the connections endpoint
+      required:
+      - address
+      - chainId
+      type: object
+      properties:
+        address:
+          description: Address of the token
+          type: string
+        chainId:
+          format: number
+          description: Id of the token's chain
+          type: number
+      example:
+        address: '0x8f3cf7ad23cd3cadbd9735aff958023239c6a063'
+        chainId: 137
+    ConnectionsResponse:
+      title: Root Type for ConnectionsResponse
+      description: ''
+      type: object
+      properties:
+        connections:
+          description: The possible connections
+          type: array
+          items:
+            $ref: '#/components/schemas/Connection'
+      example:
+        connections:
+        - fromChainId: 137
+          toChainId: 1
+          fromTokens:
+          - address: '0x8f3cf7ad23cd3cadbd9735aff958023239c6a063'
+            chainId: 137
+          toTokens:
+          - address: '0x6b175474e89094c44da98b954eedeac495271d0f'
+            chainId: 1
+          - address: '0x0000000000000000000000000000000000000000'
+            chainId: 1
+  securitySchemes:
+    x-lifi-api-key:
+      type: apiKey
+      in: header
+      name: x-lifi-api-key

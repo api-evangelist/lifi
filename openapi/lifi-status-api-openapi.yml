@@ -1,0 +1,551 @@
+openapi: 3.0.0
+info:
+  title: LI.FI Earn advanced Status API
+  description: Enterprise DeFi yield discovery and tracking API
+  version: 0.1.0
+  contact: {}
+servers:
+- url: https://earn.li.fi
+  description: Production
+security:
+- x-lifi-api-key: []
+tags:
+- name: Status
+paths:
+  /v1/status:
+    get:
+      parameters:
+      - example: '0xe1ffdcf09d5aa92a2d89b1b39db3f8cadf09428a296cce0d5e387595ac83d08f'
+        name: txHash
+        description: The transaction hash on the sending chain, destination chain or lifi step id
+        schema:
+          type: string
+        in: query
+        required: true
+      - example: stargateV2
+        name: bridge
+        description: The bridging tool used for the transfer
+        schema:
+          $ref: '#/components/schemas/BridgesEnum'
+        in: query
+        required: false
+      - example: OPT
+        name: fromChain
+        description: The sending chain. Can be the chain id or chain key
+        schema:
+          type: string
+        in: query
+        required: false
+      - example: ARB
+        name: toChain
+        description: The receiving chain. Can be the chain id or chain key
+        schema:
+          type: string
+        in: query
+        required: false
+      - name: x-lifi-api-key
+        description: Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.
+        schema:
+          type: string
+        in: header
+      responses:
+        '200':
+          $ref: '#/components/responses/StatusResponse'
+        '400':
+          $ref: '#/components/responses/InvalidStatusRequest'
+      summary: Check the status of a cross chain transfer
+      description: 'Cross chain transfers might take a while to complete. Waiting on the transaction on the sending chain doesn''t help here. For this reason we build a simple endpoint that let''s you check the status of your transfer.
+
+        Important: The endpoint returns a `200` successful response even if the transaction can not be found. This behavior accounts for the case that the transaction hash is valid but the transaction has not been mined yet.
+
+        While none of the parameters `fromChain`, `toChain` and `bridge` are required, passing the `fromChain` parameter will speed up the request and is therefore encouraged.
+
+        If you want to learn more about how to use this endpoint please have a look at our [guide](/introduction/user-flows-and-examples/status-tracking).'
+      tags:
+      - Status
+components:
+  schemas:
+    BridgesEnum:
+      type: string
+      description: Identifier for a bridge tool. Retrieve the latest bridge keys from the `/v1/tools` endpoint. Keywords such as `all`, `none`, `default`, and `[]` are also supported where applicable.
+    IncludedSwapSteps:
+      title: Root type for included swaps or protocol steps in the status response
+      description: The included steps contain tool name and details, sending and receiving token data and amounts.
+      type: object
+      properties:
+        tool:
+          description: The tool used for this step
+          type: string
+        toolDetails:
+          description: The details of the tool used for this step. E.g. `1inch` or `feeProtocol`
+          type: object
+          properties:
+            key:
+              description: The tool key
+              type: string
+            name:
+              description: The tool name
+              type: string
+            logoURI:
+              description: The tool logo URL
+              type: string
+        fromAmount:
+          description: The amount that was sent to the tool
+          type: string
+        fromToken:
+          description: The token that was sent to the tool
+          type: string
+        toAmount:
+          description: The amount that was received from the tool
+          type: string
+        toToken:
+          description: The token that was received from the tool
+          type: string
+        bridgedAmount:
+          description: The amount that was sent to the bridge
+          type: string
+    TransactionInfo:
+      title: Root Type for TransactionInfo
+      description: A transaction info object
+      required:
+      - txLink
+      - amount
+      - txHash
+      - token
+      - chainId
+      type: object
+      properties:
+        txHash:
+          description: The hash of the transaction
+          type: string
+        txLink:
+          description: Link to a block explorer showing the transaction
+          type: string
+        amount:
+          description: The amount of the transaction
+          type: string
+        token:
+          $ref: '#/components/schemas/Token'
+          description: Information about the token
+        chainId:
+          description: The id of the chain
+          type: number
+        gasToken:
+          $ref: '#/components/schemas/Token'
+          description: The token in which gas was paid
+        gasAmount:
+          description: The amount of the gas that was paid
+          type: string
+        gasAmountUSD:
+          description: The amount of the gas that was paid in USD
+          type: string
+        gasPrice:
+          description: The price of the gas
+          type: string
+        gasUsed:
+          description: The amount of the gas that was used
+          type: string
+        timestamp:
+          description: The transaction timestamp
+          type: number
+        value:
+          description: The transaction value
+          type: string
+        includedSteps:
+          description: An array of swap or protocol steps included in the LI.FI transaction
+          type: array
+          items:
+            $ref: '#/components/schemas/IncludedSwapSteps'
+      example:
+        txHash: '0xd3ad8fb8798d8440f3a1ec7fd51e102a88e4690f9365fad4eff1a17020376b4a'
+        txLink: https://polygonscan.com/tx/0xd3ad8fb8798d8440f3a1ec7fd51e102a88e4690f9365fad4eff1a17020376b4a
+        amount: '13000000'
+        token:
+          address: '0xd69b31c3225728cc57ddaf9be532a4ee1620be51'
+          symbol: anyUSDC
+          decimals: 6
+          chainId: 137
+          name: USDC
+          coinKey: anyUSDC
+          priceUSD: '0'
+          logoURI: ''
+        gasToken:
+          address: '0x0000000000000000000000000000000000001010'
+          symbol: MATIC
+          decimals: 18
+          chainId: 137
+          name: MATIC
+          coinKey: MATIC
+          priceUSD: '0'
+          logoURI: ''
+        chainId: 137
+        gasAmount: '10000'
+        gasAmountUSD: '0.0'
+        gasPrice: '1000'
+        gasUsed: '1000'
+        timestamp: 1720545119
+        value: '0'
+    StatusResponse:
+      title: Root Type for StatusResponse
+      description: The current status of a transfer
+      required:
+      - sending
+      - status
+      - tool
+      type: object
+      properties:
+        sending:
+          $ref: '#/components/schemas/TransactionInfo'
+          description: The transaction on the sending chain
+        receiving:
+          $ref: '#/components/schemas/TransactionInfo'
+          description: The transaction on the receiving chain
+        feeCosts:
+          description: An array of fee costs for the transaction
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              description:
+                type: string
+              percentage:
+                type: string
+              token:
+                type: object
+                properties:
+                  address:
+                    type: string
+                  decimals:
+                    format: number
+                    type: number
+                  symbol:
+                    type: string
+                  chainId:
+                    format: number
+                    type: number
+                  coinKey:
+                    type: string
+                  name:
+                    type: string
+                  logoURI:
+                    type: string
+              amount:
+                type: string
+              amountUSD:
+                type: string
+              included:
+                type: boolean
+        status:
+          description: The current status of the transfer. Can be `PENDING`, `DONE`, `NOT_FOUND` or `FAILED`
+          enum:
+          - NOT_FOUND
+          - INVALID
+          - PENDING
+          - DONE
+          - FAILED
+          type: string
+        substatus:
+          description: 'A more specific substatus. This is available for PENDING and DONE statuses. More information can be found here: https://docs.li.fi/introduction/user-flows-and-examples/status-tracking'
+          enum:
+          - WAIT_SOURCE_CONFIRMATIONS
+          - WAIT_DESTINATION_TRANSACTION
+          - BRIDGE_NOT_AVAILABLE
+          - CHAIN_NOT_AVAILABLE
+          - REFUND_IN_PROGRESS
+          - UNKNOWN_ERROR
+          - COMPLETED
+          - PARTIAL
+          - REFUNDED
+        substatusMessage:
+          description: A message that describes the substatus
+          type: string
+        tool:
+          description: The tool used for this transfer
+          type: string
+        transactionId:
+          description: The ID of this transfer (NOT a transaction hash).
+          type: string
+        fromAddress:
+          description: The address of the sender.
+          type: string
+        toAddress:
+          description: The address of the receiver.
+          type: string
+        lifiExplorerLink:
+          description: The link to the LI.FI explorer.
+          type: string
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+          description: The transaction metadata which includes integrator's string, etc.
+      example:
+        sending:
+          txHash: '0xd3ad8fb8798d8440f3a1ec7fd51e102a88e4690f9365fad4eff1a17020376b4a'
+          txLink: https://polygonscan.com/tx/0xd3ad8fb8798d8440f3a1ec7fd51e102a88e4690f9365fad4eff1a17020376b4a
+          amount: '13000000'
+          token:
+            address: '0xd69b31c3225728cc57ddaf9be532a4ee1620be51'
+            symbol: anyUSDC
+            decimals: 6
+            chainId: 137
+            name: USDC
+            coinKey: anyUSDC
+            priceUSD: '0'
+            logoURI: ''
+          chainId: 137
+          gasToken:
+            address: '0x0000000000000000000000000000000000001010'
+            symbol: MATIC
+            decimals: 18
+            chainId: 137
+            name: MATIC
+            coinKey: MATIC
+            priceUSD: '0'
+            logoURI: ''
+          gasAmount: '10000'
+          gasAmountUSD: '0.0'
+          gasPrice: '1000'
+          gasUsed: '1000'
+          timestamp: 1720545119
+          value: '0'
+        receiving:
+          txHash: '0xba2793065e20835ef60993144d92e6bc1a86529a70e16c357f66ad13774868ad'
+          txLink: https://bscscan.com/tx/0xba2793065e20835ef60993144d92e6bc1a86529a70e16c357f66ad13774868ad
+          amount: '12100000000000000000'
+          token:
+            address: '0x8965349fb649a33a30cbfda057d8ec2c48abe2a2'
+            symbol: anyUSDC
+            decimals: 18
+            chainId: 56
+            name: USDC
+            coinKey: anyUSDC
+            priceUSD: '0'
+            logoURI: ''
+          chainId: 56
+          gasToken:
+            address: '0x0000000000000000000000000000000000001010'
+            symbol: BNB
+            decimals: 18
+            chainId: 56
+            name: BNB
+            coinKey: BNB
+            priceUSD: '0'
+            logoURI: ''
+          gasAmount: '10000'
+          gasAmountUSD: '0.0'
+          gasPrice: '1000'
+          gasUsed: '1000'
+          timestamp: 1720560232
+          value: '0'
+        tool: anyswap
+        status: DONE
+        substatus: COMPLETED
+        substatusMessage: The transfer is complete.
+        transactionId: '0x0000000000000000000000000000000000001010'
+        fromAddress: '0x0000000000000000000000000000000000001010'
+        toAddress: '0x0000000000000000000000000000000000001010'
+        lifiExplorerLink: https://scan.li.fi/tx/0xd3ad8fb8798d8440f3a1ec7fd51e102a88e4690f9365fad4eff1a17020376b4a
+        metadata:
+          integrator: jumper.exchange
+    Metadata:
+      title: Root type for Transaction Metadata
+      description: The metadata of the transaction which includes integrator data, etc.
+      type: object
+      properties:
+        integrator:
+          description: Integrator ID
+          type: string
+    Token:
+      title: Root Type for Token
+      description: Representation of a Token
+      required:
+      - address
+      - chainId
+      - decimals
+      - name
+      - symbol
+      type: object
+      properties:
+        address:
+          description: Address of the token
+          type: string
+        decimals:
+          format: number
+          description: Number of decimals the token uses
+          type: number
+        symbol:
+          description: Symbol of the token
+          type: string
+        chainId:
+          format: number
+          description: Id of the token's chain
+          type: number
+        coinKey:
+          description: Identifier for the token
+          type: string
+        name:
+          description: Name of the token
+          type: string
+        logoURI:
+          description: Logo of the token
+          type: string
+        priceUSD:
+          description: Token price in USD
+          type: string
+      example:
+        address: '0x8f3cf7ad23cd3cadbd9735aff958023239c6a063'
+        symbol: DAI
+        decimals: 18
+        chainId: 137
+        name: (PoS) Dai Stablecoin
+        coinKey: DAI
+        priceUSD: '1'
+        logoURI: https://static.debank.com/image/matic_token/logo_url/0x8f3cf7ad23cd3cadbd9735aff958023239c6a063/549c4205dbb199f1b8b03af783f35e71.png
+  responses:
+    InvalidStatusRequest:
+      description: The passed parameters are invalid
+    StatusResponse:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/StatusResponse'
+          examples:
+            ExampleStatusResponse:
+              value:
+                transactionId: '0x5e9bd1e1232bcfb28e660ce116fe910aa058345604334e5f560034f51ef5327c'
+                sending:
+                  txHash: '0xe1ffdcf09d5aa92a2d89b1b39db3f8cadf09428a296cce0d5e387595ac83d08f'
+                  txLink: https://arbiscan.io/tx/0xe1ffdcf09d5aa92a2d89b1b39db3f8cadf09428a296cce0d5e387595ac83d08f
+                  amount: '129486280'
+                  token:
+                    address: '0xFd086bC7CD5C481DCC9C85ebE478A1C0b69FCbb9'
+                    chainId: 42161
+                    symbol: USDT
+                    decimals: 6
+                    name: USDT
+                    coinKey: USDT
+                    logoURI: https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xdAC17F958D2ee523a2206206994597C13D831ec7/logo.png
+                    priceUSD: '1.00074'
+                  chainId: 42161
+                  gasPrice: '10000000'
+                  gasUsed: '477174'
+                  gasToken:
+                    address: '0x0000000000000000000000000000000000000000'
+                    chainId: 42161
+                    symbol: ETH
+                    decimals: 18
+                    name: ETH
+                    coinKey: ETH
+                    logoURI: https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2/logo.png
+                    priceUSD: '3166.21'
+                  gasAmount: '4771740000000'
+                  gasAmountUSD: '0.0151'
+                  amountUSD: '129.5821'
+                  value: '11551536072923'
+                  includedSteps:
+                  - tool: gasZip
+                    toolDetails:
+                      key: gasZip
+                      name: LI.Fuel
+                      logoURI: https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/bridges/lifi.svg
+                    fromAmount: '129486280'
+                    fromToken:
+                      address: '0xFd086bC7CD5C481DCC9C85ebE478A1C0b69FCbb9'
+                      chainId: 42161
+                      symbol: USDT
+                      decimals: 6
+                      name: USDT
+                      coinKey: USDT
+                      logoURI: https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xdAC17F958D2ee523a2206206994597C13D831ec7/logo.png
+                      priceUSD: '1.00074'
+                    toToken:
+                      address: '0xFd086bC7CD5C481DCC9C85ebE478A1C0b69FCbb9'
+                      chainId: 42161
+                      symbol: USDT
+                      decimals: 6
+                      name: USDT
+                      coinKey: USDT
+                      logoURI: https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xdAC17F958D2ee523a2206206994597C13D831ec7/logo.png
+                      priceUSD: '1.00074'
+                    toAmount: '128671479'
+                    bridgedAmount: '128671479'
+                  timestamp: 1729163645
+                receiving:
+                  txHash: '0xd3142ffb0abaefd030e9c108d6fedcd9b5bab9099346531b54f370762301bb4e'
+                  txLink: https://taikoscan.io/tx/0xd3142ffb0abaefd030e9c108d6fedcd9b5bab9099346531b54f370762301bb4e
+                  amount: '128671479'
+                  token:
+                    address: '0x9c2dc7377717603eB92b2655c5f2E7997a4945BD'
+                    chainId: 167000
+                    symbol: USDT(Stargate)
+                    decimals: 6
+                    name: Tether USD
+                    coinKey: USDT
+                    logoURI: https://static.debank.com/image/coin/logo_url/usdt/23af7472292cb41dc39b3f1146ead0fe.png
+                    priceUSD: '1.00074'
+                  chainId: 167000
+                  gasPrice: '60000001'
+                  gasUsed: '109839'
+                  gasToken:
+                    address: '0x0000000000000000000000000000000000000000'
+                    chainId: 167000
+                    symbol: ETH
+                    decimals: 18
+                    name: ETH
+                    coinKey: ETH
+                    logoURI: https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2/logo.png
+                    priceUSD: '3166.21'
+                  gasAmount: '6590340109839'
+                  gasAmountUSD: '0.0209'
+                  amountUSD: '128.7667'
+                  value: '0'
+                  includedSteps: []
+                  timestamp: 1729164251
+                feeCosts:
+                - name: Relay fee
+                  description: The fee required to pay for the relay on the receiving chain
+                  percentage: '0.6802'
+                  token:
+                    chainId: 42161
+                    address: '0x0000000000000000000000000000000000000000'
+                    symbol: ETH
+                    decimals: 18
+                    name: ETH
+                    coinKey: ETH
+                    logoURI: https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2/logo.png
+                    priceUSD: '2616.99'
+                  amount: '2100002100000'
+                  amountUSD: '0.0055'
+                  included: true
+                - name: LayerZero native fee
+                  description: protocol native fee
+                  percentage: '0.0002'
+                  token:
+                    chainId: 42161
+                    address: '0x0000000000000000000000000000000000000000'
+                    symbol: ETH
+                    decimals: 18
+                    name: ETH
+                    coinKey: ETH
+                    logoURI: https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2/logo.png
+                    priceUSD: '2616.99'
+                  amount: '11551536072923'
+                  amountUSD: '0.0302'
+                  included: false
+                lifiExplorerLink: https://scan.li.fi/tx/0xe1ffdcf09d5aa92a2d89b1b39db3f8cadf09428a296cce0d5e387595ac83d08f
+                fromAddress: '0x204dedcf79dbbb02359205f4f64ce2cbdd483906'
+                toAddress: '0x204dedcf79dbbb02359205f4f64ce2cbdd483906'
+                tool: stargateV2Bus
+                status: DONE
+                substatus: COMPLETED
+                substatusMessage: The transfer is complete.
+                metadata:
+                  integrator: dev.jumper.exchange
+                bridgeExplorerLink: https://layerzeroscan.com/tx/0xe1ffdcf09d5aa92a2d89b1b39db3f8cadf09428a296cce0d5e387595ac83d08f
+      description: Response of the Status request
+  securitySchemes:
+    x-lifi-api-key:
+      type: apiKey
+      in: header
+      name: x-lifi-api-key

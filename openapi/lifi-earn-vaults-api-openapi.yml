@@ -1,0 +1,664 @@
+openapi: 3.0.0
+info:
+  title: LI.FI Earn advanced Earn Vaults API
+  description: Enterprise DeFi yield discovery and tracking API
+  version: 0.1.0
+  contact: {}
+servers:
+- url: https://earn.li.fi
+  description: Production
+security:
+- x-lifi-api-key: []
+tags:
+- name: Earn Vaults
+paths:
+  /v1/vaults/{chainId}/{address}:
+    get:
+      operationId: VaultsController_getVault_v1
+      summary: Get vault by chain and address
+      description: Returns the full details for a single vault.
+      tags:
+      - Earn Vaults
+      parameters:
+      - name: address
+        required: true
+        in: path
+        description: Vault contract address (0x-prefixed, 40 hex characters).
+        example: '0x7BfA7C4f149E7415b73bdeDfe609237e29CBF34A'
+        schema:
+          type: string
+          pattern: ^0x[0-9a-fA-F]{40}$
+      - name: chainId
+        required: true
+        in: path
+        description: EVM chain ID of the network the vault is deployed on.
+        example: 8453
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 2147483647
+      responses:
+        '200':
+          description: Vault found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vault'
+              example:
+                address: '0x7BfA7C4f149E7415b73bdeDfe609237e29CBF34A'
+                network: base
+                chainId: 8453
+                slug: morpho-base-usdc-0x7bfa
+                name: Morpho USDC Vault
+                description: Optimized USDC lending vault on Morpho
+                protocol:
+                  name: Morpho
+                  logoUri: https://example.com/morpho-logo.png
+                  url: https://morpho.org
+                underlyingTokens:
+                - address: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'
+                  symbol: USDC
+                  decimals: 6
+                  weight: 1
+                lpTokens:
+                - address: '0x7BfA7C4f149E7415b73bdeDfe609237e29CBF34A'
+                  symbol: mUSDC
+                  decimals: 18
+                  priceUsd: '1.02'
+                rewardTokens: []
+                tags:
+                - stablecoin
+                - lending
+                analytics:
+                  apy:
+                    base: 0.0534
+                    reward: null
+                    total: 0.0534
+                  apy1d: 0.0521
+                  apy7d: 0.0538
+                  apy30d: 0.0545
+                  tvl:
+                    usd: '12500000.00'
+                    native: '12500000000000'
+                  updatedAt: '2026-03-31T14:30:00.000Z'
+                caps:
+                  totalCap: '50000000000000'
+                  maxCap: '100000000000000'
+                timeLock: 0
+                kyc: false
+                syncedAt: '2026-03-31T14:30:00.000Z'
+                isTransactional: true
+                isRedeemable: true
+                depositPacks:
+                - name: morpho-deposit
+                  stepsType: instant
+                redeemPacks:
+                - name: morpho-redeem
+                  stepsType: instant
+        '400':
+          description: Invalid chain ID or address format
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        '404':
+          description: Vault not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+  /v1/vaults:
+    get:
+      operationId: VaultsController_listVaults_v1
+      summary: List vaults with optional filtering
+      description: Returns a paginated list of vaults with optional filtering and sorting.
+      tags:
+      - Earn Vaults
+      parameters:
+      - name: chainId
+        required: false
+        in: query
+        description: Filter by EVM chain ID (e.g., `8453` for Base, `1` for Ethereum).
+        example: 8453
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 2147483647
+      - name: asset
+        required: false
+        in: query
+        description: Filter by underlying token symbol or address (e.g., `USDC`).
+        example: USDC
+        schema:
+          type: string
+          minLength: 1
+      - name: protocol
+        required: false
+        in: query
+        description: Filter by protocol name (e.g., `morpho-v1`, `aave-v3`).
+        example: morpho-v1
+        schema:
+          type: string
+          minLength: 1
+      - name: minTvlUsd
+        required: false
+        in: query
+        description: Minimum TVL in USD. Use this to filter out low-liquidity vaults (e.g., `1000000` for $1M+).
+        example: 100000
+        schema:
+          type: number
+          minimum: 0
+      - name: isTransactional
+        required: false
+        in: query
+        description: Filter by whether the vault supports programmatic deposits and withdrawals via the Composer API. Pass `true` to return only transactional vaults.
+        example: 'true'
+        schema:
+          type: string
+          enum:
+          - 'true'
+          - 'false'
+      - name: isRedeemable
+        required: false
+        in: query
+        description: Filter by whether the vault currently supports redemptions (withdrawals). Pass `true` to return only vaults that can be redeemed.
+        example: 'true'
+        schema:
+          type: string
+          enum:
+          - 'true'
+          - 'false'
+      - name: isComposerSupported
+        required: false
+        in: query
+        description: Filter by whether the vault is fully supported by the LI.FI Composer. Pass `true` to return only vaults ready for end-to-end cross-chain deposit flows.
+        example: 'true'
+        schema:
+          type: string
+          enum:
+          - 'true'
+          - 'false'
+      - name: sortBy
+        required: false
+        in: query
+        description: Sort order for results. `apy` sorts by highest total APY first. `tvl` sorts by highest TVL first.
+        example: apy
+        schema:
+          type: string
+          enum:
+          - apy
+          - tvl
+      - name: cursor
+        required: false
+        in: query
+        description: Pagination cursor from a previous response's `nextCursor` field. Omit to start from the beginning.
+        example: eyJpZCI6MTAwfQ
+        schema:
+          type: string
+          minLength: 1
+      - name: limit
+        required: false
+        in: query
+        description: Number of results per page. Defaults to `50`.
+        example: 10
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+      responses:
+        '200':
+          description: Paginated vault list
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                required:
+                - data
+                - total
+                properties:
+                  data:
+                    type: array
+                    description: Array of vault objects matching the filters.
+                    items:
+                      $ref: '#/components/schemas/Vault'
+                  nextCursor:
+                    type: string
+                    description: Cursor to pass as the `cursor` parameter to fetch the next page. Absent when there are no more results.
+                    example: eyJpZCI6MTAwfQ
+                  total:
+                    type: integer
+                    description: Total number of vaults matching the filters across all pages.
+                    example: 47
+                    minimum: -9007199254740991
+                    maximum: 9007199254740991
+              example:
+                data:
+                - address: '0x7BfA7C4f149E7415b73bdeDfe609237e29CBF34A'
+                  network: base
+                  chainId: 8453
+                  slug: morpho-base-usdc-0x7bfa
+                  name: Morpho USDC Vault
+                  description: Optimized USDC lending vault on Morpho
+                  protocol:
+                    name: Morpho
+                    logoUri: https://example.com/morpho-logo.png
+                    url: https://morpho.org
+                  underlyingTokens:
+                  - address: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'
+                    symbol: USDC
+                    decimals: 6
+                    weight: 1
+                  lpTokens:
+                  - address: '0x7BfA7C4f149E7415b73bdeDfe609237e29CBF34A'
+                    symbol: mUSDC
+                    decimals: 18
+                    priceUsd: '1.02'
+                  rewardTokens: []
+                  tags:
+                  - stablecoin
+                  - lending
+                  analytics:
+                    apy:
+                      base: 0.0534
+                      reward: null
+                      total: 0.0534
+                    apy1d: 0.0521
+                    apy7d: 0.0538
+                    apy30d: 0.0545
+                    tvl:
+                      usd: '12500000.00'
+                      native: '12500000000000'
+                    updatedAt: '2026-03-31T14:30:00.000Z'
+                  caps:
+                    totalCap: '50000000000000'
+                    maxCap: '100000000000000'
+                  timeLock: 0
+                  kyc: false
+                  syncedAt: '2026-03-31T14:30:00.000Z'
+                  isTransactional: true
+                  isRedeemable: true
+                  depositPacks:
+                  - name: morpho-deposit
+                    stepsType: instant
+                  redeemPacks:
+                  - name: morpho-redeem
+                    stepsType: instant
+                nextCursor: eyJpZCI6MTAwfQ
+                total: 47
+        '400':
+          description: Validation failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+components:
+  schemas:
+    Vault:
+      type: object
+      additionalProperties: false
+      required:
+      - address
+      - network
+      - chainId
+      - slug
+      - name
+      - protocol
+      - underlyingTokens
+      - lpTokens
+      - tags
+      - analytics
+      - syncedAt
+      - isTransactional
+      - isRedeemable
+      - depositPacks
+      - redeemPacks
+      properties:
+        address:
+          type: string
+          description: Vault contract address (0x-prefixed, 40 hex characters).
+          example: '0x7BfA7C4f149E7415b73bdeDfe609237e29CBF34A'
+        network:
+          type: string
+          description: Network name as a lowercase string (e.g., `base`, `ethereum`).
+          example: base
+        chainId:
+          type: integer
+          description: EVM chain ID of the network the vault is deployed on.
+          example: 8453
+          minimum: -9007199254740991
+          maximum: 9007199254740991
+        slug:
+          type: string
+          description: URL-safe unique identifier for the vault, combining protocol, network, asset, and a short address suffix.
+          example: morpho-base-usdc-0x7bfa
+        name:
+          type: string
+          description: Human-readable display name for the vault.
+          example: Morpho USDC Vault
+        description:
+          type: string
+          description: Short description of the vault's strategy or purpose.
+          example: Optimized USDC lending vault on Morpho
+        protocol:
+          type: object
+          description: The DeFi protocol that operates this vault.
+          additionalProperties: false
+          required:
+          - name
+          - url
+          properties:
+            name:
+              type: string
+              description: Protocol display name.
+              example: Morpho
+            logoUri:
+              type: string
+              description: URL to the protocol's logo image.
+              example: https://example.com/morpho-logo.png
+            url:
+              type: string
+              description: Protocol website URL.
+              example: https://morpho.org
+        underlyingTokens:
+          type: array
+          description: The tokens you deposit into this vault.
+          items:
+            type: object
+            additionalProperties: false
+            required:
+            - address
+            - symbol
+            - decimals
+            properties:
+              address:
+                type: string
+                description: Token contract address.
+                example: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'
+              symbol:
+                type: string
+                description: Token symbol.
+                example: USDC
+              decimals:
+                type: integer
+                description: Number of decimal places for the token.
+                example: 6
+                minimum: 0
+                maximum: 9007199254740991
+              weight:
+                type: number
+                description: Token weight in the pool, expressed as a fraction between 0 and 1. Only relevant for multi-asset vaults.
+                example: 1
+        lpTokens:
+          type: array
+          description: LP (liquidity provider) tokens received when depositing into the vault.
+          items:
+            type: object
+            additionalProperties: false
+            required:
+            - address
+            - symbol
+            - decimals
+            properties:
+              address:
+                type: string
+                description: LP token contract address.
+                example: '0x7BfA7C4f149E7415b73bdeDfe609237e29CBF34A'
+              symbol:
+                type: string
+                description: LP token symbol.
+                example: mUSDC
+              decimals:
+                type: integer
+                description: Number of decimal places for the LP token.
+                example: 18
+                minimum: 0
+                maximum: 9007199254740991
+              priceUsd:
+                type: string
+                description: Current LP token price in USD, as a decimal string.
+                example: '1.02'
+        rewardTokens:
+          type: array
+          description: Additional reward tokens distributed by the vault (e.g., governance tokens). Empty array if no rewards.
+          items:
+            type: object
+            additionalProperties: false
+            required:
+            - address
+            - symbol
+            - decimals
+            properties:
+              address:
+                type: string
+                description: Reward token contract address.
+                example: '0x0000000000000000000000000000000000000000'
+              symbol:
+                type: string
+                description: Reward token symbol.
+                example: MORPHO
+              decimals:
+                type: integer
+                description: Number of decimal places for the reward token.
+                example: 18
+                minimum: 0
+                maximum: 9007199254740991
+        tags:
+          type: array
+          description: Descriptive labels for filtering and categorisation (e.g., `stablecoin`, `lending`, `yield`).
+          items:
+            type: string
+          example:
+          - stablecoin
+          - lending
+        analytics:
+          type: object
+          description: Real-time yield and TVL analytics for the vault.
+          additionalProperties: false
+          required:
+          - apy
+          - apy1d
+          - apy7d
+          - apy30d
+          - tvl
+          - updatedAt
+          properties:
+            apy:
+              type: object
+              description: Current APY breakdown.
+              additionalProperties: false
+              required:
+              - base
+              - reward
+              - total
+              properties:
+                base:
+                  type: number
+                  nullable: true
+                  description: Base APY from lending fees and protocol yield, expressed as a decimal (e.g., `0.0534` = 5.34%). Null if unavailable.
+                  example: 0.0534
+                reward:
+                  type: number
+                  nullable: true
+                  description: Additional APY from token incentives, expressed as a decimal. Null if no rewards.
+                  example: null
+                total:
+                  type: number
+                  description: Total APY (base + reward), expressed as a decimal.
+                  example: 0.0534
+            apy1d:
+              type: number
+              nullable: true
+              description: 1-day trailing APY, expressed as a decimal. Null if insufficient data.
+              example: 0.0521
+            apy7d:
+              type: number
+              nullable: true
+              description: 7-day trailing APY, expressed as a decimal. Null if insufficient data.
+              example: 0.0538
+            apy30d:
+              type: number
+              description: 30-day trailing APY, expressed as a decimal.
+              example: 0.0545
+            tvl:
+              type: object
+              description: Total value locked in the vault.
+              additionalProperties: false
+              required:
+              - usd
+              properties:
+                usd:
+                  type: string
+                  description: TVL denominated in USD, as a decimal string.
+                  example: '12500000.00'
+                native:
+                  type: string
+                  description: TVL denominated in the vault's native token units, as a string.
+                  example: '12500000000000'
+            updatedAt:
+              type: string
+              format: date-time
+              description: ISO 8601 timestamp of when analytics were last updated.
+              example: '2026-03-31T14:30:00.000Z'
+        caps:
+          type: object
+          description: Deposit capacity limits for the vault. Omitted if the vault has no cap.
+          additionalProperties: false
+          properties:
+            totalCap:
+              type: string
+              description: Total deposit cap in native token units, as a string.
+              example: '50000000000000'
+            maxCap:
+              type: string
+              description: Maximum deposit cap in native token units, as a string.
+              example: '100000000000000'
+        timeLock:
+          type: integer
+          description: Withdrawal time lock in seconds. `0` means withdrawals are instant.
+          example: 0
+          minimum: 0
+          maximum: 9007199254740991
+        kyc:
+          type: boolean
+          description: Whether KYC verification is required to interact with this vault.
+          example: false
+        syncedAt:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp of when vault data was last synced from the provider.
+          example: '2026-03-31T14:30:00.000Z'
+        isTransactional:
+          type: boolean
+          description: Whether the vault supports programmatic deposits and withdrawals via the Composer API.
+          example: true
+        isRedeemable:
+          type: boolean
+          description: Whether the vault currently supports redemptions (withdrawals).
+          example: true
+        depositPacks:
+          type: array
+          description: Available deposit operation configurations. Each pack defines the steps required to deposit into the vault.
+          items:
+            type: object
+            additionalProperties: false
+            required:
+            - name
+            - stepsType
+            properties:
+              name:
+                type: string
+                description: Identifier for the deposit pack.
+                example: morpho-deposit
+              stepsType:
+                type: string
+                description: '`instant` means the deposit executes in a single transaction. `complex` means multiple steps are required.'
+                enum:
+                - instant
+                - complex
+                example: instant
+        redeemPacks:
+          type: array
+          description: Available redemption operation configurations. Each pack defines the steps required to withdraw from the vault.
+          items:
+            type: object
+            additionalProperties: false
+            required:
+            - name
+            - stepsType
+            properties:
+              name:
+                type: string
+                description: Identifier for the redemption pack.
+                example: morpho-redeem
+              stepsType:
+                type: string
+                description: '`instant` means the redemption executes in a single transaction. `complex` means multiple steps are required.'
+                enum:
+                - instant
+                - complex
+                example: instant
+    ValidationError:
+      type: object
+      additionalProperties: false
+      required:
+      - statusCode
+      - message
+      - errors
+      properties:
+        statusCode:
+          type: number
+          description: HTTP status code. Always `400` for validation errors.
+          example: 400
+        message:
+          type: string
+          description: Human-readable summary of the validation failure.
+          example: Validation failed
+        errors:
+          type: array
+          description: List of individual validation errors.
+          items:
+            type: object
+            additionalProperties: false
+            required:
+            - code
+            - message
+            - path
+            properties:
+              code:
+                type: string
+                description: Machine-readable error code.
+                example: invalid_type
+              message:
+                type: string
+                description: Description of this specific validation failure.
+                example: Expected integer, received string
+              path:
+                type: array
+                description: JSON path to the field that failed validation.
+                items:
+                  oneOf:
+                  - type: string
+                  - type: number
+                example:
+                - chainId
+    NotFoundError:
+      type: object
+      additionalProperties: false
+      required:
+      - statusCode
+      - message
+      properties:
+        statusCode:
+          type: integer
+          description: HTTP status code.
+          example: 404
+        message:
+          type: string
+          description: Error message describing what was not found.
+          example: Vault not found
+  securitySchemes:
+    x-lifi-api-key:
+      type: apiKey
+      in: header
+      name: x-lifi-api-key

@@ -1,0 +1,1682 @@
+openapi: 3.0.0
+info:
+  title: LI.FI Earn advanced Quote API
+  description: Enterprise DeFi yield discovery and tracking API
+  version: 0.1.0
+  contact: {}
+servers:
+- url: https://earn.li.fi
+  description: Production
+security:
+- x-lifi-api-key: []
+tags:
+- name: Quote
+paths:
+  /v1/quote:
+    get:
+      parameters:
+      - example: DAI
+        name: fromChain
+        description: The sending chain. Can be the chain id or chain key
+        schema:
+          type: string
+        in: query
+        required: true
+      - example: POL
+        name: toChain
+        description: The receiving chain. Can be the chain id or chain key
+        schema:
+          type: string
+        in: query
+        required: true
+      - example: '0x4ecaba5870353805a9f068101a40e0f32ed605c6'
+        name: fromToken
+        description: The token that should be transferred. Can be the address or the symbol
+        schema:
+          type: string
+        in: query
+        required: true
+      - example: '0x2791bca1f2de4661ed88a30c99a7a9449aa84174'
+        name: toToken
+        description: The token that should be transferred to. Can be the address or the symbol
+        schema:
+          type: string
+        in: query
+        required: true
+      - example: '0x552008c0f6870c2f77e5cC1d2eb9bdff03e30Ea0'
+        name: fromAddress
+        description: The sending wallet address
+        schema:
+          type: string
+        in: query
+        required: true
+      - example: '0x552008c0f6870c2f77e5cC1d2eb9bdff03e30Ea0'
+        name: toAddress
+        description: The receiving wallet address. If none is provided, the fromAddress will be used
+        schema:
+          type: string
+        in: query
+        required: false
+      - example: '1000000'
+        name: fromAmount
+        description: The amount that should be sent including all decimals (e.g. 1000000 for 1 USDC (6 decimals))
+        schema:
+          type: string
+        in: query
+        required: true
+      - name: order
+        description: 'Which kind of route should be preferred **FASTEST**: This sorting criterion prioritizes routes with the shortest estimated execution time. Users who value speed and want their transactions to be completed as quickly as possible should choose the fastest routes. **CHEAPEST**: This criterion focuses on minimizing the cost of the transaction, whether in token amount or USD amount (USD amount minus gas cost). Users looking for the most economical option should choose the cheapest routes.'
+        schema:
+          enum:
+          - FASTEST
+          - CHEAPEST
+          type: string
+        in: query
+      - example: 0.005
+        name: slippage
+        description: The maximum allowed slippage for the transaction as a decimal value. 0.005 represents 0.5%.
+        schema:
+          maximum: 1
+          minimum: 0
+          type: number
+        in: query
+      - example: fee-demo
+        name: integrator
+        description: A string containing tracking information about the integrator of the API
+        schema:
+          type: string
+        in: query
+      - example: 0.02
+        name: fee
+        description: The percent of the integrator's fee that is taken from every transaction. 0.02 represents 2%. The maximum fee amount should be less than 100%.
+        schema:
+          maximum: 1
+          exclusiveMaximum: true
+          minimum: 0
+          type: number
+        in: query
+      - name: referrer
+        description: A string containing tracking information about the referrer of the integrator
+        schema:
+          type: string
+        in: query
+        required: false
+      - example: hop,cbridge
+        name: allowBridges
+        description: List of bridges that are allowed for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint. Also values `all`, `none`, `default` and `[]` are acceptable and mean all tools of the current type (`all`), no tools (for `none` and `[]` cases) and default tool's settings on the current stage.
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/QuoteBridgesEnum'
+        in: query
+      - name: allowExchanges
+        description: List of exchanges that are allowed for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint. Also values `all`, `none`, `default` and `[]` are acceptable and mean all tools of the current type (`all`), no tools (for `none` and `[]` cases) and default tool's settings on the current stage.
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/QuoteExchangesEnum'
+        in: query
+      - example: relay
+        name: denyBridges
+        description: List of bridges that are not allowed for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint. Also values `all`, `none`, `default` and `[]` are acceptable and mean all tools of the current type (`all`), no tools (for `none` and `[]` cases) and default tool's settings on the current stage.
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/QuoteBridgesEnum'
+        in: query
+      - name: denyExchanges
+        description: List of exchanges that are not allowed for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint. Also values `all`, `none`, `default` and `[]` are acceptable and mean all tools of the current type (`all`), no tools (for `none` and `[]` cases) and default tool's settings on the current stage.
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/QuoteExchangesEnum'
+        in: query
+      - name: preferBridges
+        description: List of bridges that should be preferred for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint. Also values `all`, `none`, `default` and `[]` are acceptable and mean all tools of the current type (`all`), no tools (for `none` and `[]` cases) and default tool's settings on the current stage.
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/QuoteBridgesEnum'
+        in: query
+      - name: preferExchanges
+        description: List of exchanges that should be preferred for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint. Also values `all`, `none`, `default` and `[]` are acceptable and mean all tools of the current type (`all`), no tools (for `none` and `[]` cases) and default tool's settings on the current stage.
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/QuoteExchangesEnum'
+        in: query
+      - name: allowDestinationCall
+        description: Whether swaps or other contract calls should be allowed as part of the destination transaction of a bridge transfer. Separate swap transactions on the destination chain are not affected by this flag. By default, parameter is `true`.
+        schema:
+          type: boolean
+        in: query
+      - name: fromAmountForGas
+        description: The amount of the token to convert to gas on the destination side.
+        schema:
+          type: string
+        in: query
+        required: false
+      - name: maxPriceImpact
+        description: The price impact threshold above which routes are hidden. As an example, one should specify 0.15 (15%) to hide routes with more than 15% price impact. The default is 10%.
+        schema:
+          type: number
+        in: query
+      - name: swapStepTimingStrategies
+        description: Timing setting to wait for a certain amount of swap rates. In the format `minWaitTime-${minWaitTimeMs}-${startingExpectedResults}-${reduceEveryMs}`. Please check [docs.li.fi](https://docs.li.fi) for more details.
+        schema:
+          type: array
+          items:
+            type: string
+            example: minWaitTime-600-4-300
+        in: query
+        required: false
+      - name: routeTimingStrategies
+        description: Timing setting to wait for a certain amount of routes to be generated before chosing the best one. In the format `minWaitTime-${minWaitTimeMs}-${startingExpectedResults}-${reduceEveryMs}`. Please check [docs.li.fi](https://docs.li.fi) for more details.
+        schema:
+          type: array
+          items:
+            type: string
+            example: minWaitTime-600-4-300
+        in: query
+        required: false
+      - name: skipSimulation
+        description: Parameter to skip transaction simulation. The quote will be returned faster but the transaction gas limit won't be accurate.
+        schema:
+          type: boolean
+        in: query
+        required: false
+      - name: preset
+        description: Pre-configured routing optimization preset. The preset value `stablecoin` is supported for requesting swap and/or bridging operations involving stablecoin tokens. Each preset provides optimized default settings for slippage, price impact, and tool preferences that can be overridden by custom configuration parameters set in the request.
+        schema:
+          type: string
+          pattern: ^[a-zA-Z0-9-_]+$
+          minLength: 1
+          maxLength: 50
+        in: query
+        required: false
+        example: stablecoin
+      - name: svmPriorityFeeLevel
+        description: Priority fee level for Solana Virtual Machine (SVM) transactions.
+        schema:
+          enum:
+          - NORMAL
+          - FAST
+          - ULTRA
+          type: string
+        in: query
+        required: false
+      - name: x-lifi-api-key
+        description: Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.
+        schema:
+          type: string
+        in: header
+      responses:
+        '200':
+          $ref: '#/components/responses/StepResponse'
+        '400':
+          $ref: '#/components/responses/InvalidQuoteRequest'
+        '404':
+          $ref: '#/components/responses/QuoteNotFound'
+      summary: Get a quote for a token transfer
+      description: 'This endpoint can be used to request a quote for a transfer of one token to another, cross chain or not.
+
+        The endpoint returns a `Step` object which contains information about the estimated result as well as a `transactionRequest` which can directly be sent to your wallet.
+
+        The estimated result can be found inside the `estimate`, containing the estimated `toAmount` of the requested `Token` and the `toAmountMin`, which is the guaranteed minimum value that the transfer will yield including slippage.
+
+        If you want to learn more about how to use this endpoint please have a look at our [guide](/introduction/user-flows-and-examples/requesting-route-fetching-quote).'
+      tags:
+      - Quote
+  /v1/quote/toAmount:
+    get:
+      parameters:
+      - example: DAI
+        name: fromChain
+        description: The sending chain. Can be the chain id or chain key
+        schema:
+          type: string
+        in: query
+        required: true
+      - example: POL
+        name: toChain
+        description: The receiving chain. Can be the chain id or chain key
+        schema:
+          type: string
+        in: query
+        required: true
+      - example: '0x4ecaba5870353805a9f068101a40e0f32ed605c6'
+        name: fromToken
+        description: The token that should be transferred. Can be the address or the symbol
+        schema:
+          type: string
+        in: query
+        required: true
+      - example: '0x2791bca1f2de4661ed88a30c99a7a9449aa84174'
+        name: toToken
+        description: The token that should be transferred to. Can be the address or the symbol
+        schema:
+          type: string
+        in: query
+        required: true
+      - example: '0x552008c0f6870c2f77e5cC1d2eb9bdff03e30Ea0'
+        name: fromAddress
+        description: The sending wallet address
+        schema:
+          type: string
+        in: query
+        required: true
+      - example: '0x552008c0f6870c2f77e5cC1d2eb9bdff03e30Ea0'
+        name: toAddress
+        description: The receiving wallet address. If none is provided, the fromAddress will be used
+        schema:
+          type: string
+        in: query
+        required: false
+      - example: '1000000'
+        name: toAmount
+        description: The amount that will be received including all decimals (e.g. 1000000 for 1 USDC (6 decimals))
+        schema:
+          type: string
+        in: query
+        required: true
+      - name: order
+        description: 'Which kind of route should be preferred **FASTEST**: This sorting criterion prioritizes routes with the shortest estimated execution time. Users who value speed and want their transactions to be completed as quickly as possible should choose the fastest routes. **CHEAPEST**: This criterion focuses on minimizing the cost of the transaction, whether in token amount or USD amount (USD amount minus gas cost). Users looking for the most economical option should choose the cheapest routes.'
+        schema:
+          enum:
+          - FASTEST
+          - CHEAPEST
+          type: string
+        in: query
+      - example: 0.005
+        name: slippage
+        description: The maximum allowed slippage for the transaction as a decimal value. 0.005 represents 0.5%.
+        schema:
+          maximum: 1
+          minimum: 0
+          type: number
+        in: query
+      - example: fee-demo
+        name: integrator
+        description: A string containing tracking information about the integrator of the API
+        schema:
+          type: string
+        in: query
+      - example: 0.02
+        name: fee
+        description: The percent of the integrator's fee that is taken from every transaction. 0.02 represents 2%. The maximum fee amount should be less than 100%.
+        schema:
+          maximum: 1
+          exclusiveMaximum: true
+          minimum: 0
+          type: number
+        in: query
+      - name: referrer
+        description: A string containing tracking information about the referrer of the integrator
+        schema:
+          type: string
+        in: query
+        required: false
+      - example: hop,cbridge
+        name: allowBridges
+        description: List of bridges that are allowed for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint. Also values `all`, `none`, `default` and `[]` are acceptable and mean all tools of the current type (`all`), no tools (for `none` and `[]` cases) and default tool's settings on the current stage.
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/QuoteBridgesEnum'
+        in: query
+      - name: allowExchanges
+        description: List of exchanges that are allowed for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint. Also values `all`, `none`, `default` and `[]` are acceptable and mean all tools of the current type (`all`), no tools (for `none` and `[]` cases) and default tool's settings on the current stage.
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/QuoteExchangesEnum'
+        in: query
+      - example: relay
+        name: denyBridges
+        description: List of bridges that are not allowed for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint. Also values `all`, `none`, `default` and `[]` are acceptable and mean all tools of the current type (`all`), no tools (for `none` and `[]` cases) and default tool's settings on the current stage.
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/QuoteBridgesEnum'
+        in: query
+      - name: denyExchanges
+        description: List of exchanges that are not allowed for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint. Also values `all`, `none`, `default` and `[]` are acceptable and mean all tools of the current type (`all`), no tools (for `none` and `[]` cases) and default tool's settings on the current stage.
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/QuoteExchangesEnum'
+        in: query
+      - name: preferBridges
+        description: List of bridges that should be preferred for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint. Also values `all`, `none`, `default` and `[]` are acceptable and mean all tools of the current type (`all`), no tools (for `none` and `[]` cases) and default tool's settings on the current stage.
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/QuoteBridgesEnum'
+        in: query
+      - name: preferExchanges
+        description: List of exchanges that should be preferred for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint. Also values `all`, `none`, `default` and `[]` are acceptable and mean all tools of the current type (`all`), no tools (for `none` and `[]` cases) and default tool's settings on the current stage.
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/QuoteExchangesEnum'
+        in: query
+      - name: allowDestinationCall
+        description: Whether swaps or other contract calls should be allowed as part of the destination transaction of a bridge transfer. Separate swap transactions on the destination chain are not affected by this flag. By default, parameter is `true`.
+        schema:
+          type: boolean
+        in: query
+      - name: maxPriceImpact
+        description: The price impact threshold above which routes are hidden. As an example, one should specify 0.15 (15%) to hide routes with more than 15% price impact. The default is 10%.
+        schema:
+          type: number
+        in: query
+      - name: swapStepTimingStrategies
+        description: Timing setting to wait for a certain amount of swap rates. In the format `minWaitTime-${minWaitTimeMs}-${startingExpectedResults}-${reduceEveryMs}`. Please check [docs.li.fi](https://docs.li.fi) for more details.
+        schema:
+          type: array
+          items:
+            type: string
+            example: minWaitTime-600-4-300
+        in: query
+        required: false
+      - name: routeTimingStrategies
+        description: Timing setting to wait for a certain amount of routes to be generated before chosing the best one. In the format `minWaitTime-${minWaitTimeMs}-${startingExpectedResults}-${reduceEveryMs}`. Please check [docs.li.fi](https://docs.li.fi) for more details.
+        schema:
+          type: array
+          items:
+            type: string
+            example: minWaitTime-600-4-300
+        in: query
+        required: false
+      - name: svmPriorityFeeLevel
+        description: Priority fee level for Solana Virtual Machine (SVM) transactions.
+        schema:
+          enum:
+          - NORMAL
+          - FAST
+          - ULTRA
+          type: string
+        in: query
+        required: false
+      - name: x-lifi-api-key
+        description: Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.
+        schema:
+          type: string
+        in: header
+      responses:
+        '200':
+          $ref: '#/components/responses/StepResponse'
+        '400':
+          $ref: '#/components/responses/InvalidQuoteRequest'
+        '404':
+          $ref: '#/components/responses/QuoteNotFound'
+      summary: Get a quote for a token transfer
+      description: 'This endpoint is an alternative to the `v1/quote` endpoint, taking a `toAmount` value rather than `fromAmount`. This endpoint will calculate an appropriate `fromAmount` based on the specified `toAmount`, and use this value to generate the quote data.
+
+        This endpoint can be used to request a quote for a transfer of one token to another, cross chain or not.
+
+        The endpoint returns a `Step` object which contains information about the estimated result as well as a `transactionRequest` which can directly be sent to your wallet.
+
+        The estimated result can be found inside the `estimate`, containing the estimated required `fromAmount` of the sending `Token` to meet the `toAmountMin` of the receiving token, which is the guaranteed minimum value that the transfer will yield including slippage.
+
+        If you want to learn more about how to use this endpoint please have a look at our [guide](/introduction/user-flows-and-examples/requesting-route-fetching-quote).'
+      tags:
+      - Quote
+  /v1/quote/contractCall:
+    post:
+      requestBody:
+        description: Object describing what tokens to transfer and how to interact with the destination contract.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContractCallRequest'
+            examples:
+              ContractCallRequestExample:
+                value:
+                  fromChain: BSC
+                  fromToken: '0x1af3f329e8be154074d8769d1ffa4ee058b1dbc3'
+                  fromAddress: '0x552008c0f6870c2f77e5cC1d2eb9bdff03e30Ea0'
+                  toChain: POL
+                  toToken: '0x4e78011ce80ee02d2c3e649fb657e45898257815'
+                  toAmount: '300000000'
+                  toContractAddress: '0xEde3bd57a04960E6469B70B4863cE1c9d9363Cb8'
+                  contractOutputsToken: '0xb0c22d8d350c67420f06f48936654f567c73e8c8'
+                  toContractCallData: 0x...
+                  toContractGasLimit: '900000'
+                  allowBridges:
+                  - relay
+      parameters:
+      - name: x-lifi-api-key
+        description: Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.
+        schema:
+          type: string
+        in: header
+      responses:
+        '200':
+          $ref: '#/components/responses/ToolsResponse'
+      deprecated: true
+      summary: Perform a contract call across blockchains (BETA)
+      description: This endpoint has been deprecated in favour of /quote/contractCalls.
+      tags:
+      - Quote
+  /v1/quote/contractCalls:
+    post:
+      requestBody:
+        description: Object describing what tokens to transfer and how to interact with the destination contracts.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContractCallsRequest'
+            example:
+              fromChain: 10
+              fromToken: '0x4200000000000000000000000000000000000042'
+              fromAddress: '0x552008c0f6870c2f77e5cC1d2eb9bdff03e30Ea0'
+              toChain: 1
+              toToken: ETH
+              toAmount: '100000000000001'
+              contractCalls:
+              - fromAmount: '100000000000001'
+                fromTokenAddress: '0x0000000000000000000000000000000000000000'
+                toTokenAddress: '0xae7ab96520de3a18e5e111b5eaab095312d7fe84'
+                toContractAddress: '0xae7ab96520de3a18e5e111b5eaab095312d7fe84'
+                toContractCallData: 0x
+                toContractGasLimit: '110000'
+              - fromAmount: '100000000000000'
+                fromTokenAddress: '0xae7ab96520de3a18e5e111b5eaab095312d7fe84'
+                toTokenAddress: '0x7f39c581f595b53c5cb19bd0b3f8da6c935e2ca0'
+                toContractAddress: '0x7f39c581f595b53c5cb19bd0b3f8da6c935e2ca0'
+                toFallbackAddress: '0x552008c0f6870c2f77e5cC1d2eb9bdff03e30Ea0'
+                toContractCallData: '0xea598cb000000000000000000000000000000000000000000000000000005af3107a4000'
+                toContractGasLimit: '100000'
+              integrator: muc-hackaton-postman
+      parameters:
+      - name: x-lifi-api-key
+        description: The apiKey allows you to authenticate on the API.
+        schema:
+          type: string
+        in: header
+      responses:
+        '200':
+          $ref: '#/components/responses/ToolsResponse'
+      summary: Perform multiple contract calls across blockchains (BETA)
+      description: 'This endpoint can be used to bridge tokens, swap them and perform a number or arbitrary contract calls on the destination chain. You can find an example of it [here](https://github.com/lifinance/sdk/tree/main/examples).
+
+        This functionality is currently in beta. While we''ve worked hard to ensure its stability and functionality, there might still be some rough edges.'
+      tags:
+      - Quote
+components:
+  schemas:
+    BridgesEnum:
+      type: string
+      description: Identifier for a bridge tool. Retrieve the latest bridge keys from the `/v1/tools` endpoint. Keywords such as `all`, `none`, `default`, and `[]` are also supported where applicable.
+    QuoteExchangesEnum:
+      type: string
+      description: 'Exchange tool identifier or keyword. Retrieve current exchange keys from the `/v1/tools` endpoint. Supported keywords: `all`, `none`, `default`, `[]`.'
+    Token:
+      title: Root Type for Token
+      description: Representation of a Token
+      required:
+      - address
+      - chainId
+      - decimals
+      - name
+      - symbol
+      type: object
+      properties:
+        address:
+          description: Address of the token
+          type: string
+        decimals:
+          format: number
+          description: Number of decimals the token uses
+          type: number
+        symbol:
+          description: Symbol of the token
+          type: string
+        chainId:
+          format: number
+          description: Id of the token's chain
+          type: number
+        coinKey:
+          description: Identifier for the token
+          type: string
+        name:
+          description: Name of the token
+          type: string
+        logoURI:
+          description: Logo of the token
+          type: string
+        priceUSD:
+          description: Token price in USD
+          type: string
+      example:
+        address: '0x8f3cf7ad23cd3cadbd9735aff958023239c6a063'
+        symbol: DAI
+        decimals: 18
+        chainId: 137
+        name: (PoS) Dai Stablecoin
+        coinKey: DAI
+        priceUSD: '1'
+        logoURI: https://static.debank.com/image/matic_token/logo_url/0x8f3cf7ad23cd3cadbd9735aff958023239c6a063/549c4205dbb199f1b8b03af783f35e71.png
+    Tools:
+      type: object
+      properties:
+        exchanges:
+          type: array
+          items:
+            $ref: '#/components/schemas/Exchange'
+        bridges:
+          type: array
+          items:
+            $ref: '#/components/schemas/Bridge'
+    QuoteBridgesEnum:
+      type: string
+      description: 'Bridge tool identifier or keyword. Retrieve current bridge keys from the `/v1/tools` endpoint. Supported keywords: `all`, `none`, `default`, `[]`.'
+    Estimate:
+      title: Root Type for Estimate
+      description: An estimate for the current transfer
+      required:
+      - fromAmount
+      - approvalAddress
+      - toAmount
+      - toAmountMin
+      - tool
+      - executionDuration
+      type: object
+      properties:
+        tool:
+          description: The tools that is being used for this step
+          type: string
+        fromAmount:
+          description: The amount that should be transferred including all decimals
+          type: string
+        fromAmountUSD:
+          description: The amount that should be transferred in USD equivalent
+          type: string
+        toAmount:
+          description: The estimated resulting amount of the `toToken` including all decimals
+          type: string
+        toAmountMin:
+          description: The minimal outcome of the transfer including all decimals
+          type: string
+        toAmountUSD:
+          description: The estimated resulting amount of the `toToken` in USD equivalent
+          type: string
+        approvalAddress:
+          description: The contract address for the approval
+          type: string
+        feeCosts:
+          description: Fees included in the transfer
+          type: array
+          items:
+            $ref: '#/components/schemas/FeeCost'
+        gasCosts:
+          description: Gas costs included in the transfer
+          type: array
+          items:
+            $ref: '#/components/schemas/GasCost'
+        executionDuration:
+          description: The time needed to complete the following step
+          type: number
+        data:
+          description: Arbitrary data that depends on the the used tool
+          type: object
+          properties:
+            bid:
+              type: object
+              properties:
+                user:
+                  type: string
+                router:
+                  type: string
+                initiator:
+                  type: string
+                sendingChainId:
+                  format: number
+                  type: number
+                sendingAssetId:
+                  type: string
+                amount:
+                  type: string
+                receivingChainId:
+                  format: number
+                  type: number
+                receivingAssetId:
+                  type: string
+                amountReceived:
+                  type: string
+                receivingAddress:
+                  type: string
+                transactionId:
+                  type: string
+                expiry:
+                  format: number
+                  type: number
+                callDataHash:
+                  type: string
+                callTo:
+                  type: string
+                encryptedCallData:
+                  type: string
+                sendingChainTxManagerAddress:
+                  type: string
+                receivingChainTxManagerAddress:
+                  type: string
+                bidExpiry:
+                  format: number
+                  type: number
+            bidSignature:
+              type: string
+            gasFeeInReceivingToken:
+              type: string
+            totalFee:
+              type: string
+            metaTxRelayerFee:
+              type: string
+            routerFee:
+              type: string
+      example:
+        fromAmount: '1000000000000000000'
+        toAmount: '999500000000000000'
+        toAmountMin: '999500000000000000'
+        tool: allbridge
+        executionDuration: 60
+        approvalAddress: '0x115909BDcbaB21954bEb4ab65FC2aBEE9866fa93'
+        feeCosts:
+        - name: Gas Fee
+          description: Covers gas expense for sending funds to user on receiving chain.
+          percentage: '0'
+          token:
+            address: '0x63e62989d9eb2d37dfdb1f93a22f063635b07d51'
+            symbol: MIVA
+            decimals: 18
+            chainId: 100
+            name: Minerva Wallet SuperToken
+            coinKey: MIVA
+            priceUSD: '0.0455272371751059'
+            logoURI: ''
+          amount: '0'
+          amountUSD: '0.00'
+          included: true
+        - name: Relay Fee
+          description: Covers gas expense for claiming user funds on receiving chain.
+          percentage: '0'
+          token:
+            address: '0x63e62989d9eb2d37dfdb1f93a22f063635b07d51'
+            symbol: MIVA
+            decimals: 18
+            chainId: 100
+            name: Minerva Wallet SuperToken
+            coinKey: MIVA
+            priceUSD: '0.0455272371751059'
+            logoURI: ''
+          amount: '0'
+          amountUSD: '0.00'
+          included: true
+        - name: Router Fee
+          description: Router service fee.
+          percentage: '0.0005'
+          token:
+            address: '0x63e62989d9eb2d37dfdb1f93a22f063635b07d51'
+            symbol: MIVA
+            decimals: 18
+            chainId: 100
+            name: Minerva Wallet SuperToken
+            coinKey: MIVA
+            priceUSD: '0.0455272371751059'
+            logoURI: ''
+          amount: '500000000000000'
+          amountUSD: '22763618587552.95'
+          included: true
+        gasCosts:
+        - type: SEND
+          price: '1.22'
+          estimate: '140000'
+          limit: '175000'
+          amount: '170800'
+          amountUSD: '0.00'
+          token:
+            address: '0x0000000000000000000000000000000000000000'
+            symbol: xDai
+            decimals: 18
+            chainId: 100
+            name: xDai
+            coinKey: xDai
+            priceUSD: '1'
+            logoURI: https://static.debank.com/image/xdai_token/logo_url/xdai/1207e67652b691ef3bfe04f89f4b5362.png
+        data:
+          bid:
+            user: '0x10fBFF9b9450D3A2d9d1612d6dE3726fACD8809E'
+            router: '0xeE2Ef40F688607CB23618d9312d62392786d13EB'
+            initiator: '0x10fBFF9b9450D3A2d9d1612d6dE3726fACD8809E'
+            sendingChainId: 100
+            sendingAssetId: '0x63e62989d9eb2d37dfdb1f93a22f063635b07d51'
+            amount: '1000000000000000000'
+            receivingChainId: 137
+            receivingAssetId: '0xc0b2983a17573660053beeed6fdb1053107cf387'
+            amountReceived: '999500000000000000'
+            receivingAddress: '0x10fBFF9b9450D3A2d9d1612d6dE3726fACD8809E'
+            transactionId: '0x9f54c1764e19367c44706f4a6253941b81e9ec524af5590091aa8ae67e7644ed'
+            expiry: 1643369368
+            callDataHash: '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470'
+            callTo: '0x0000000000000000000000000000000000000000'
+            encryptedCallData: 0x
+            sendingChainTxManagerAddress: '0x115909BDcbaB21954bEb4ab65FC2aBEE9866fa93'
+            receivingChainTxManagerAddress: '0x6090De2EC76eb1Dc3B5d632734415c93c44Fd113'
+            bidExpiry: 1643110469
+          gasFeeInReceivingToken: '0'
+          totalFee: '500000000000000'
+          metaTxRelayerFee: '0'
+          routerFee: '500000000000000'
+    UnavailableRoutes:
+      type: object
+      properties:
+        filteredOut:
+          description: An object containing information about routes that were intentionally filtered out.
+          type: array
+          items:
+            properties:
+              overallPath:
+                description: The complete representation of the attempted route.
+                type: string
+                example: 100:USDC-hop-137:USDC-137:USDC~137:SUSHI
+              reason:
+                description: Out best attempt at describing the failure.
+                type: string
+        failed:
+          description: An object containing information about failed routes.
+          type: array
+          items:
+            properties:
+              overallPath:
+                description: The complete representation of the attempted route.
+                type: string
+                example: 100:USDC-hop-137:USDC-137:USDC~137:SUSHI
+              subpaths:
+                description: An object with all subpaths that generated one or more errors
+                type: object
+                additionalProperties:
+                  $ref: '#/components/schemas/ToolError'
+    ContractCall:
+      title: Root Type for ContractCall
+      description: Object defining a single arbitrary contract call
+      required:
+      - fromAmount
+      - fromTokenAddress
+      - toContractAddress
+      - toContractCallData
+      - toContractGasLimit
+      type: object
+      properties:
+        fromAmount:
+          description: The amount that will feed into this contract call. This is not dependent on how much was bridged or deposited before - it's the *expected* amount of token available on order to execute the call.
+          type: string
+        fromTokenAddress:
+          description: The token that will feed into this contract call. E.g. a ETH staking transaction would expect to have ETH available.
+          type: string
+        toContractAddress:
+          description: The address of the contract to interact with.
+          type: string
+        toContractCallData:
+          description: The calldata to be sent to the contract for the interaction on the destination chain.
+          type: string
+        toContractGasLimit:
+          description: The estimated gas used by the destination call. If this value is incorrect, the interaction may fail -- choose this carefully!
+          type: string
+        toApprovalAddress:
+          description: If the approval address is different thant the contract to call, specify that address here
+          type: string
+        toTokenAddress:
+          description: If the contract outputs a token, specify its address here. (E.g. staking ETH produces stETH)
+          type: string
+    ExchangesEnum:
+      type: string
+      description: Identifier for an exchange tool. Retrieve the latest exchange keys from the `/v1/tools` endpoint. Keywords such as `all`, `none`, `default`, and `[]` are also supported where applicable.
+    ToolError:
+      title: An error returned by a tool (Exchange or Bridge)
+      description: Describes why a certain operation (like a quote request) failed.
+      type: object
+      properties:
+        errorType:
+          description: The type of error that occurred.
+          enum:
+          - NO_QUOTE
+          type: string
+        code:
+          description: The error code.
+          enum:
+          - NO_POSSIBLE_ROUTE
+          - INSUFFICIENT_LIQUIDITY
+          - TOOL_TIMEOUT
+          - UNKNOWN_ERROR
+          - RPC_ERROR
+          - AMOUNT_TOO_LOW
+          - AMOUNT_TOO_HIGH
+          - FEES_HIGHER_THAN_AMOUNT
+          - DIFFERENT_RECIPIENT_NOT_SUPPORTED
+          - TOOL_SPECIFIC_ERROR
+          - CANNOT_GUARANTEE_MIN_AMOUNT
+          - RATE_LIMIT_EXCEEDED
+          type: string
+        action:
+          $ref: '#/components/schemas/Action'
+        tool:
+          description: The tool that emitted the error.
+          type: string
+        message:
+          description: A human-readable message describing the error.
+          type: string
+    IncludedStep:
+      title: Root Type for Internal Step
+      description: Object that represents one step of an `IncludedSteps` array in `Route`
+      required:
+      - id
+      - action
+      - estimate
+      - tool
+      - type
+      - toolDetails
+      type: object
+      properties:
+        id:
+          description: Unique identifier of the step
+          type: string
+        type:
+          description: The type of the step. `swap` executes a DEX swap on a single chain, `cross` bridges assets between chains, `lifi` runs LiFi's internal multi-action logic, and `protocol` represents protocol-level actions such as fee collection or vault interactions executed inside LiFi managed contracts.
+          enum:
+          - swap
+          - cross
+          - lifi
+          - protocol
+          type: string
+        tool:
+          description: The tool used for this step. E.g. `allbridge`
+          type: string
+        toolDetails:
+          description: The details of the tool used for this step. E.g. `allbridge`
+          type: object
+          properties:
+            key:
+              description: The tool key
+              type: string
+            name:
+              description: The tool name
+              type: string
+            logoURI:
+              description: The tool logo URL
+              type: string
+        action:
+          $ref: '#/components/schemas/Action'
+        estimate:
+          $ref: '#/components/schemas/Estimate'
+    ContractCallsRequest:
+      title: Root type for ContractCallsRequest
+      description: Object defining instructions on how to perform multiple cross-chain/same-chain calls
+      required:
+      - fromChain
+      - fromToken
+      - fromAddress
+      - toChain
+      - toToken
+      - toAmount
+      - contractCalls
+      type: object
+      properties:
+        fromChain:
+          description: The sending chain. Can be the chain id or chain key
+          type: number
+        fromToken:
+          description: The token that should be transferred. Can be the address or the symbol
+          type: string
+        fromAddress:
+          description: The wallet that will send the transaction and contains the starting token
+          type: string
+        toChain:
+          description: The receiving chain. Can be the chain id or chain key
+          type: number
+        toToken:
+          description: The token required to perform the contract interaction (can be something to stake, donate or to be used as payment)
+          type: string
+        toAmount:
+          description: The amount of token required by the contract interaction. The LI.FI API will try and generate a quote that guarantees at least that amount on the destination chain.
+          type: string
+        contractCalls:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContractCall'
+        toFallbackAddress:
+          description: If the call fails, use this address to send the bridged tokens to. If none is specified, the sending address will be used.
+          type: string
+        contractOutputsToken:
+          description: Some contract interactions will output a token. This is the case in things like staking. Omit this parameter if no token should be returned to the user.
+          type: string
+        slippage:
+          format: double
+          description: The maximum allowed slippage for the transaction as a decimal value. 0.005 represents 0.5%.
+          maximum: 1
+          minimum: 0
+          type: number
+        integrator:
+          description: A string containing tracking information about the integrator of the API
+          type: string
+        referrer:
+          description: A string containing tracking information about the referrer of the integrator
+          type: string
+        allowBridges:
+          description: List of bridges that are allowed for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint.
+          type: array
+          items:
+            type: string
+        denyBridges:
+          description: List of bridges that are not allowed for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint.
+          type: array
+          items:
+            type: string
+        preferBridges:
+          description: List of bridges that should be preferred for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint.
+          type: array
+          items:
+            type: string
+        allowExchanges:
+          description: List of exchanges that are allowed for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint.
+          type: array
+          items:
+            type: string
+        denyExchanges:
+          description: List of exchanges that are not allowed for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint.
+          type: array
+          items:
+            type: string
+        preferExchanges:
+          description: List of exchanges that should be preferred for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint.
+          type: array
+          items:
+            type: string
+        allowDestinationCall:
+          description: Whether swaps or other contract calls should be allowed as part of the destination transaction of a bridge transfer. Separate swap transactions on the destination chain are not affected by this flag. By default, parameter is `true`.
+          type: boolean
+        fee:
+          format: double
+          description: The percent of the integrator's fee that is taken from every transaction. The maximum fee amount should be less than 100%.
+          maximum: 1
+          exclusiveMaximum: true
+          minimum: 0
+          type: number
+    GasCost:
+      title: Root Type for GasCost
+      description: Gas costs included in the transfer
+      required:
+      - token
+      - type
+      - amount
+      type: object
+      properties:
+        type:
+          description: Can be one of `SUM`, `APPROVE` or `SEND`
+          type: string
+        price:
+          description: Suggested current standard price for the chain
+          type: string
+        estimate:
+          description: Estimation how much gas will be needed
+          type: string
+        limit:
+          description: Suggested gas limit
+          type: string
+        amount:
+          description: Amount of the gas cost
+          type: string
+        amountUSD:
+          description: Amount of the gas cost in USD
+          type: string
+        token:
+          $ref: '#/components/schemas/Token'
+          description: The used gas token
+      example:
+        type: SEND
+        price: '1.22'
+        estimate: '140000'
+        limit: '175000'
+        amount: '170800'
+        amountUSD: '0.00'
+        token:
+          address: '0x0000000000000000000000000000000000000000'
+          symbol: xDai
+          decimals: 18
+          chainId: 100
+          name: xDai
+          coinKey: xDai
+          priceUSD: '1'
+          logoURI: https://static.debank.com/image/xdai_token/logo_url/xdai/1207e67652b691ef3bfe04f89f4b5362.png
+    Exchange:
+      type: object
+      properties:
+        key:
+          $ref: '#/components/schemas/ExchangesEnum'
+        name:
+          description: The common name of the tool
+          type: string
+          example: 0x
+        logoURI:
+          description: The logo of the tool
+          type: string
+          example: https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/exchanges/zerox.svg
+        supportedChains:
+          description: The chains which are supported on this exchange
+          type: string
+          example:
+          - '1'
+          - '137'
+          - '56'
+    SupportedChains:
+      type: object
+      properties:
+        fromChainId:
+          description: Supported `from` chain
+          type: string
+          example: 137
+        toChainId:
+          description: Supported `to` chain
+          type: string
+          example: 1
+    ContractCallRequest:
+      deprecated: true
+      title: Root type for ContractCallRequest
+      description: Object defining instructions on how to perform a cross chain call
+      required:
+      - fromChain
+      - fromToken
+      - fromAddress
+      - toChain
+      - toToken
+      - toAmount
+      - toContractAddress
+      - toContractCallData
+      - toContractGasLimit
+      type: object
+      properties:
+        fromChain:
+          description: The sending chain. Can be the chain id or chain key
+          type: number
+        fromToken:
+          description: The token that should be transferred. Can be the address or the symbol
+          type: string
+        fromAddress:
+          description: The wallet that will send the transaction and contains the starting token
+          type: string
+        toChain:
+          description: The receiving chain. Can be the chain id or chain key
+          type: number
+        toToken:
+          description: The token required to perform the contract interation (can be something to stake, donate or to be used as payment)
+          type: string
+        toAmount:
+          description: The amount of token required by the contract interaction. The LI.FI API will try and generate a quote that guarantees at least that amount on the destination chain.
+          type: string
+        toContractAddress:
+          description: The address of the contract to interact with
+          type: string
+        contractOutputsToken:
+          description: Some contract interactions will output a token. This is the case in things like staking. Omit this parameter if no token should be returned to the user.
+          type: string
+        toContractCallData:
+          description: The calldata to be sent to the contract for the interaction on the destination chain.
+          type: string
+        toContractGasLimit:
+          description: The estimated gas used by the destination call. If this value is incorrect, the interaction may fail -- choose this carefully!
+          type: string
+        toApprovalAddress:
+          description: If the approval address is different than the contract to call, specify that address here
+          type: string
+        toFallbackAddress:
+          description: If the call fails, use this address to send the bridged tokens to. If none is specified, the sending address will be used.
+          type: string
+        slippage:
+          format: double
+          description: The maximum allowed slippage for the transaction as a decimal value. 0.005 represents 0.5%.
+          maximum: 1
+          minimum: 0
+          type: number
+        integrator:
+          description: A string containing tracking information about the integrator of the API
+          type: string
+        referrer:
+          description: A string containing tracking information about the referrer of the integrator
+          type: string
+        allowBridges:
+          description: List of bridges that are allowed for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint.
+          type: array
+          items:
+            type: string
+        denyBridges:
+          description: List of bridges that are not allowed for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint.
+          type: array
+          items:
+            type: string
+        preferBridges:
+          description: List of bridges that should be preferred for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint.
+          type: array
+          items:
+            type: string
+        allowExchanges:
+          description: List of exchanges that are allowed for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint.
+          type: array
+          items:
+            type: string
+        denyExchanges:
+          description: List of exchanges that are not allowed for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint.
+          type: array
+          items:
+            type: string
+        preferExchanges:
+          description: List of exchanges that should be preferred for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint.
+          type: array
+          items:
+            type: string
+        fee:
+          format: double
+          description: The percent of the integrator's fee that is taken from every transaction. The maximum fee amount should be less than 100%.
+          maximum: 1
+          exclusiveMaximum: true
+          minimum: 0
+          type: number
+        allowDestinationCall:
+          description: Whether swaps or other contract calls should be allowed as part of the destination transaction of a bridge transfer. Separate swap transactions on the destination chain are not affected by this flag. By default, parameter is `true`.
+          type: boolean
+    Action:
+      title: Root Type for Action
+      description: Object describing what happens in a `Step`
+      required:
+      - fromToken
+      - fromAmount
+      - fromChainId
+      - toChainId
+      - toToken
+      type: object
+      properties:
+        fromChainId:
+          format: number
+          description: The id of the chain where the transfer should start
+          type: number
+        fromAmount:
+          description: The amount that should be transferred including all decimals
+          type: string
+        fromToken:
+          $ref: '#/components/schemas/Token'
+          description: The sending token
+        toChainId:
+          format: number
+          description: The id of the chain where the transfer should end
+          type: number
+        toToken:
+          $ref: '#/components/schemas/Token'
+          description: The token that should be transferred to
+        slippage:
+          format: double
+          description: The maximum allowed slippage
+          type: number
+        fromAddress:
+          description: The sending wallet address
+          type: string
+        toAddress:
+          description: The receiving wallet address
+          type: string
+      example:
+        fromChainId: 100
+        fromAmount: '1000000000000000000'
+        fromToken:
+          address: '0x63e62989d9eb2d37dfdb1f93a22f063635b07d51'
+          symbol: MIVA
+          decimals: 18
+          chainId: 100
+          name: Minerva Wallet SuperToken
+          coinKey: MIVA
+          priceUSD: '0.0455272371751059'
+          logoURI: ''
+        toChainId: 137
+        toToken:
+          address: '0xc0b2983a17573660053beeed6fdb1053107cf387'
+          symbol: MIVA
+          decimals: 18
+          chainId: 137
+          name: Minerva Wallet SuperToken
+          coinKey: MIVA
+          priceUSD: '0'
+          logoURI: ''
+        slippage: 0.003
+    Step:
+      title: Root Type for Step
+      description: Object that represents one step of a `Route`
+      required:
+      - id
+      - action
+      - tool
+      - type
+      type: object
+      properties:
+        id:
+          description: Unique identifier of the step
+          type: string
+        type:
+          description: The type of the step. `swap` executes a DEX swap on a single chain, `cross` bridges assets between chains, `lifi` runs LiFi's internal multi-action logic, and `protocol` represents protocol-level actions such as fee collection or vault interactions executed inside LiFi managed contracts.
+          enum:
+          - swap
+          - cross
+          - lifi
+          - protocol
+          type: string
+        tool:
+          description: The tool used for this step. E.g. `relay`
+          type: string
+        toolDetails:
+          description: The details of the tool used for this step. E.g. `relay`
+          type: object
+          properties:
+            key:
+              description: The tool key
+              type: string
+            name:
+              description: The tool name
+              type: string
+            logoURI:
+              description: The tool logo URL
+              type: string
+        action:
+          $ref: '#/components/schemas/Action'
+          description: The action of the step
+        estimate:
+          $ref: '#/components/schemas/Estimate'
+          description: The estimation for the step
+        integrator:
+          description: A string containing tracking information about the integrator of the API
+          type: string
+        includedSteps:
+          type: array
+          items:
+            $ref: '#/components/schemas/IncludedStep'
+        referrer:
+          description: A string containing tracking information about the referrer of the integrator
+          type: string
+        execution:
+          description: An objection containing status information about the execution
+        transactionRequest:
+          description: An ether.js TransactionRequest that can be triggered using a wallet provider. (https://docs.ethers.io/v5/api/providers/types/#providers-TransactionRequest)
+      example:
+        id: '0x48f0a2f93b0d0a9dab992d07c46bca38516c945101e8f8e08ca42af05b9e6aa9'
+        type: cross
+        tool: relay
+        action:
+          fromChainId: 100
+          toChainId: 137
+          fromToken:
+            address: '0x63e62989d9eb2d37dfdb1f93a22f063635b07d51'
+            symbol: MIVA
+            decimals: 18
+            chainId: 100
+            name: Minerva Wallet SuperToken
+            coinKey: MIVA
+            priceUSD: '0.04547537276751318'
+            logoURI: ''
+          toToken:
+            address: '0xc0b2983a17573660053beeed6fdb1053107cf387'
+            symbol: MIVA
+            decimals: 18
+            chainId: 137
+            name: Minerva Wallet SuperToken
+            coinKey: MIVA
+            priceUSD: '0'
+            logoURI: ''
+          fromAmount: '1000000000000000000'
+          slippage: 0.003
+        estimate:
+          fromAmount: '1000000000000000000'
+          toAmount: '999500000000000000'
+          toAmountMin: '999500000000000000'
+          approvalAddress: '0x115909BDcbaB21954bEb4ab65FC2aBEE9866fa93'
+          feeCosts:
+          - name: Gas Fee
+            description: Covers gas expense for sending funds to user on receiving chain.
+            percentage: '0'
+            token:
+              address: '0x63e62989d9eb2d37dfdb1f93a22f063635b07d51'
+              symbol: MIVA
+              decimals: 18
+              chainId: 100
+              name: Minerva Wallet SuperToken
+              coinKey: MIVA
+              priceUSD: '0.04547537276751318'
+              logoURI: ''
+            amount: '0'
+            amountUSD: '0.00'
+            included: true
+          - name: Relay Fee
+            description: Covers gas expense for claiming user funds on receiving chain.
+            percentage: '0'
+            token:
+              address: '0x63e62989d9eb2d37dfdb1f93a22f063635b07d51'
+              symbol: MIVA
+              decimals: 18
+              chainId: 100
+              name: Minerva Wallet SuperToken
+              coinKey: MIVA
+              priceUSD: '0.04547537276751318'
+              logoURI: ''
+            amount: '0'
+            amountUSD: '0.00'
+            included: true
+          - name: Router Fee
+            description: Router service fee.
+            percentage: '0.0005'
+            token:
+              address: '0x63e62989d9eb2d37dfdb1f93a22f063635b07d51'
+              symbol: MIVA
+              decimals: 18
+              chainId: 100
+              name: Minerva Wallet SuperToken
+              coinKey: MIVA
+              priceUSD: '0.04547537276751318'
+              logoURI: ''
+            amount: '500000000000000'
+            amountUSD: '22737686383756.59'
+            included: true
+          gasCosts:
+          - type: SEND
+            price: '1.26'
+            estimate: '140000'
+            limit: '175000'
+            amount: '176400'
+            amountUSD: '0.00'
+            token:
+              address: '0x0000000000000000000000000000000000000000'
+              symbol: xDai
+              decimals: 18
+              chainId: 100
+              name: xDai
+              coinKey: xDai
+              priceUSD: '1'
+              logoURI: https://static.debank.com/image/xdai_token/logo_url/xdai/1207e67652b691ef3bfe04f89f4b5362.png
+          data:
+            bid:
+              user: '0x53F68B2186E4a4aB4dD976eD32de68db45BA360b'
+              router: '0xeE2Ef40F688607CB23618d9312d62392786d13EB'
+              initiator: '0x53F68B2186E4a4aB4dD976eD32de68db45BA360b'
+              sendingChainId: 100
+              sendingAssetId: '0x63e62989d9eb2d37dfdb1f93a22f063635b07d51'
+              amount: '1000000000000000000'
+              receivingChainId: 137
+              receivingAssetId: '0xc0b2983a17573660053beeed6fdb1053107cf387'
+              amountReceived: '999500000000000000'
+              receivingAddress: '0x10fBFF9b9450D3A2d9d1612d6dE3726fACD8809E'
+              transactionId: '0x48f0a2f93b0d0a9dab992d07c46bca38516c945101e8f8e08ca42af05b9e6aa9'
+              expiry: 1643364189
+              callDataHash: '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470'
+              callTo: '0x0000000000000000000000000000000000000000'
+              encryptedCallData: 0x
+              sendingChainTxManagerAddress: '0x115909BDcbaB21954bEb4ab65FC2aBEE9866fa93'
+              receivingChainTxManagerAddress: '0x6090De2EC76eb1Dc3B5d632734415c93c44Fd113'
+              bidExpiry: 1643105290
+            gasFeeInReceivingToken: '0'
+            totalFee: '500000000000000'
+            metaTxRelayerFee: '0'
+            routerFee: '500000000000000'
+        integrator: fee-demo
+    Bridge:
+      type: object
+      properties:
+        key:
+          $ref: '#/components/schemas/BridgesEnum'
+        name:
+          description: The common name of the tool
+          type: string
+          example: Connext
+        logoURI:
+          description: The logo of the tool
+          type: string
+          example: https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/bridges/relay.svg
+        supportedChains:
+          type: array
+          items:
+            $ref: '#/components/schemas/SupportedChains'
+    FeeCost:
+      title: Root Type for FeeCost
+      description: Fees included in the transfer
+      required:
+      - token
+      - percentage
+      - name
+      - amountUSD
+      - included
+      type: object
+      properties:
+        name:
+          description: Name of the fee
+          type: string
+        description:
+          description: Description of the fee costs
+          type: string
+        percentage:
+          description: Percentage of how much fees are taken
+          type: string
+        token:
+          $ref: '#/components/schemas/Token'
+          description: The `Token` in which the fees are taken
+        amount:
+          description: The amount of fees
+          type: string
+        amountUSD:
+          description: The amount of fees in USD
+          type: string
+        included:
+          description: Whether fee is included into transfer's `fromAmount`
+          type: boolean
+      example:
+        name: Gas Fee
+        description: Covers gas expense for sending funds to user on receiving chain.
+        percentage: '0'
+        token:
+          address: '0x63e62989d9eb2d37dfdb1f93a22f063635b07d51'
+          symbol: MIVA
+          decimals: 18
+          chainId: 100
+          name: Minerva Wallet SuperToken
+          coinKey: MIVA
+          priceUSD: '0.0455272371751059'
+          logoURI: ''
+        amount: '0'
+        amountUSD: '0.00'
+  responses:
+    StepResponse:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Step'
+          examples:
+            StepResponseExample:
+              value:
+                id: a8dc011a-f52d-4492-9e99-21de64b5453a
+                type: lifi
+                tool: 1inch
+                toolDetails:
+                  key: 1inch
+                  logoURI: https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/exchanges/oneinch.svg
+                  name: 1inch
+                action:
+                  fromChainId: 100
+                  toChainId: 100
+                  fromToken:
+                    address: '0x0000000000000000000000000000000000000000'
+                    symbol: xDai
+                    decimals: 18
+                    chainId: 100
+                    name: xDai
+                    coinKey: xDai
+                    priceUSD: '1'
+                    logoURI: https://static.debank.com/image/xdai_token/logo_url/xdai/1207e67652b691ef3bfe04f89f4b5362.png
+                  toToken:
+                    name: Minerva Wallet SuperToken
+                    symbol: MIVA
+                    coinKey: MIVA
+                    decimals: 18
+                    chainId: 100
+                    logoURI: https://minerva.digital/i/MIVA-Token_200x200.png
+                    address: '0x63e62989d9eb2d37dfdb1f93a22f063635b07d51'
+                  fromAmount: '1000000000000000000'
+                  slippage: 0.003
+                  fromAddress: '0x552008c0f6870c2f77e5cC1d2eb9bdff03e30Ea0'
+                  toAddress: '0x552008c0f6870c2f77e5cC1d2eb9bdff03e30Ea0'
+                estimate:
+                  fromAmount: '1000000000000000000'
+                  toAmount: '21922914496086353975'
+                  toAmountMin: '21265227061203763356'
+                  approvalAddress: '0x1111111254fb6c44bac0bed2854e76f90643097d'
+                  feeCosts: []
+                  gasCosts:
+                  - type: SEND
+                    price: '1'
+                    estimate: '252364'
+                    limit: '315455'
+                    amount: '252364'
+                    amountUSD: '0.00'
+                    token:
+                      address: '0x0000000000000000000000000000000000000000'
+                      symbol: xDai
+                      decimals: 18
+                      chainId: 100
+                      name: xDai
+                      coinKey: xDai
+                      priceUSD: '1'
+                      logoURI: https://static.debank.com/image/xdai_token/logo_url/xdai/1207e67652b691ef3bfe04f89f4b5362.png
+                  data:
+                    fromToken:
+                      name: xDAI
+                      address: '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
+                      symbol: xDAI
+                      decimals: 18
+                      logoURI: https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png
+                    toToken:
+                      name: Minerva Wallet SuperToken
+                      address: '0x63e62989d9eb2d37dfdb1f93a22f063635b07d51'
+                      symbol: MIVA
+                      decimals: 18
+                      logoURI: https://minerva.digital/i/MIVA-Token_200x200.png
+                    toTokenAmount: '21922914496086353975'
+                    fromTokenAmount: '1000000000000000000'
+                    protocols:
+                    - name: GNOSIS_HONEYSWAP
+                      part: 100
+                      fromTokenAddress: '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
+                      toTokenAddress: '0x63e62989d9eb2d37dfdb1f93a22f063635b07d51'
+                    estimatedGas: 252364
+                integrator: fee-demo
+                transactionRequest:
+                  from: '0x552008c0f6870c2f77e5cC1d2eb9bdff03e30Ea0'
+                  to: '0x1111111254fb6c44bac0bed2854e76f90643097d'
+                  chainId: 100
+                  data: 0x...
+                  value: '0x0de0b6b3a7640000'
+                  gasPrice: '0xb2d05e00'
+                  gasLimit: '0x0e9cb2'
+                includedSteps:
+                - id: a8dc011a-f52d-4492-9e99-21de64b5453a
+                  type: swap
+                  tool: 1inch
+                  toolDetails:
+                    key: 1inch
+                    logoURI: https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/exchanges/oneinch.svg
+                    name: 1inch
+                  action:
+                    fromChainId: 100
+                    toChainId: 100
+                    fromToken:
+                      address: '0x0000000000000000000000000000000000000000'
+                      symbol: xDai
+                      decimals: 18
+                      chainId: 100
+                      name: xDai
+                      coinKey: xDai
+                      priceUSD: '1'
+                      logoURI: https://static.debank.com/image/xdai_token/logo_url/xdai/1207e67652b691ef3bfe04f89f4b5362.png
+                    toToken:
+                      name: Minerva Wallet SuperToken
+                      symbol: MIVA
+                      coinKey: MIVA
+                      decimals: 18
+                      chainId: 100
+                      logoURI: https://minerva.digital/i/MIVA-Token_200x200.png
+                      address: '0x63e62989d9eb2d37dfdb1f93a22f063635b07d51'
+                    fromAmount: '1000000000000000000'
+                    slippage: 0.003
+                    fromAddress: '0x552008c0f6870c2f77e5cC1d2eb9bdff03e30Ea0'
+                    toAddress: '0x552008c0f6870c2f77e5cC1d2eb9bdff03e30Ea0'
+                  estimate:
+                    fromAmount: '1000000000000000000'
+                    toAmount: '21922914496086353975'
+                    toAmountMin: '21265227061203763356'
+                    approvalAddress: '0x1111111254fb6c44bac0bed2854e76f90643097d'
+                    feeCosts: []
+                    gasCosts:
+                    - type: SEND
+                      price: '1'
+                      estimate: '252364'
+                      limit: '315455'
+                      amount: '252364'
+                      amountUSD: '0.00'
+                      token:
+                        address: '0x0000000000000000000000000000000000000000'
+                        symbol: xDai
+                        decimals: 18
+                        chainId: 100
+                        name: xDai
+                        coinKey: xDai
+                        priceUSD: '1'
+                        logoURI: https://static.debank.com/image/xdai_token/logo_url/xdai/1207e67652b691ef3bfe04f89f4b5362.png
+                    data:
+                      fromToken:
+                        name: xDAI
+                        address: '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
+                        symbol: xDAI
+                        decimals: 18
+                        logoURI: https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png
+                      toToken:
+                        name: Minerva Wallet SuperToken
+                        address: '0x63e62989d9eb2d37dfdb1f93a22f063635b07d51'
+                        symbol: MIVA
+                        decimals: 18
+                        logoURI: https://minerva.digital/i/MIVA-Token_200x200.png
+                      toTokenAmount: '21922914496086353975'
+                      fromTokenAmount: '1000000000000000000'
+                      protocols:
+                      - name: GNOSIS_HONEYSWAP
+                        part: 100
+                        fromTokenAddress: '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
+                        toTokenAddress: '0x63e62989d9eb2d37dfdb1f93a22f063635b07d51'
+                      estimatedGas: 252364
+      description: The step populated with the transaction data
+    InvalidQuoteRequest:
+      description: Invalid quote request
+    ToolsResponse:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Tools'
+      description: Object listing all the currently enabled bridges and exchanges.
+    QuoteNotFound:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                description: The error message
+                type: string
+                example: Unable to find a quote for the requested transfer
+              errors:
+                type: object
+                items:
+                  $ref: '#/components/schemas/UnavailableRoutes'
+      description: Unable to find a quote for the requested transfer.
+  securitySchemes:
+    x-lifi-api-key:
+      type: apiKey
+      in: header
+      name: x-lifi-api-key
