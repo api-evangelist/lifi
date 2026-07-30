@@ -1,0 +1,71 @@
+generated: '2026-07-19'
+method: searched
+source: https://docs.li.fi/changelog/monthly-updates
+scheme: monthly-dated
+current_versions:
+  api: v1
+  sdk: 4.2.0
+  widget: 4.4.0
+  cli: 0.1.1
+feeds:
+- name: Monthly Updates
+  url: https://docs.li.fi/changelog/monthly-updates
+  description: Cross-product monthly changelog of chains, bridges, DEXs, features and fixes.
+- name: Backend / Core
+  url: https://docs.li.fi/changelog/backend
+- name: SDK
+  url: https://docs.li.fi/changelog/sdk
+- name: Widget
+  url: https://docs.li.fi/changelog/widget
+- name: Partner Portal
+  url: https://docs.li.fi/changelog/partner-portal
+window: recent
+window_note: Recent window only; the live changelog is the source of truth.
+entries:
+- date: '2026-06'
+  title: June 2026
+  breaking:
+  - >-
+    Legacy Composer stack decommissioned. The zap-pack endpoints POST /route and
+    GET /zap-packs were removed; integrators must migrate to the current compose
+    endpoints.
+  additions:
+  - New chains: Robinhood Chain, 0g, Cronos.
+  - Circle CCTP bridge enabled on Cronos from day one; Stargate enabled on 0g.
+  - New DEX liquidity: ListaDAO StableSwap, Elfomo, Kipseli, Nexroute, plus Uniswap V3 and Algebra forks.
+  - New POST /compose simulation endpoint returning balance deltas and gas estimates before execution.
+  - Compound V3 protocol support in Composer.
+  - Solana support expanded across the Intents stack, with Solana indexing and a new event ingestion pipeline.
+  - Earn API added Compound, infiniFi and Apyx vaults ingested from DeFiLlama.
+  - SDK v4.1.0 added an optional private flag to getRoutes, limit-order fields (toAmount, validUntil, partiallyFillable), the LiFiStepRequest type and a dual CJS/ESM build.
+  - Ondo tokenized stocks (RWA) made available across the partner network, with custom RWA fee configuration.
+  - Partner Portal gained a Fees analytics dashboard, role assignment/removal APIs, organization MFA enforcement and SSO settings.
+  - Token Service rebuilt on Coingecko for 2M+ assets across 40+ chains with real-time price streams.
+  - verificationStatus exposed in token information.
+  highlights:
+  - Token Service rebuild on Coingecko
+  - Legacy Composer decommissioning
+  - Solana across the Intents stack
+  fixes:
+  - Fixed getQuote dropping distributionFees on /quote and /quote/toAmount.
+  - Fixed /v1/status returning 422 for legacy Relay transactions served from cache.
+  - Fixed Solana status reporting an intermediate token on multi-hop Titan swaps.
+  - Fixed RWA opt-out still serving routes through other tools.
+  - Fixed Mayan non-EVM transfers failing on BSC.
+  - Fixed Composer requests hanging during cache outages and out-of-gas failures on a wallet's first Composer transaction.
+  - Re-enabled USDT on Tron through Near Intents.
+- date: '2026-04'
+  title: April 2026
+  breaking:
+  - Earn API base path changed from /v1/earn/... to /v1/...
+  additions:
+  - SDK v4 and Widget v4 released.
+  - TRON, Arbitrum Nova, Mayan v2 and Bitget added.
+  - FeeForwarder migration available in the Partner Portal.
+  highlights:
+  - SDK v4 and Widget v4
+- date: '2026-03'
+  title: March 2026
+  additions:
+  - Token-level fee withdrawal in the Partner Portal.
+  - Composer protocol and chain expansions.

@@ -1,0 +1,59 @@
+generated: '2026-07-19'
+method: searched
+source: https://docs.li.fi/api-reference/rate-limits
+docs: https://docs.li.fi/api-reference/rate-limits
+applies_to:
+- LI.FI REST API (https://li.quest)
+- Hosted MCP server (https://mcp.li.quest/mcp)
+- LI.FI CLI (@lifi/cli)
+scope: Calculated per API key (x-lifi-api-key) across all endpoints.
+exceeded_status: 429
+exceeded_error_code: 1005
+exceeded_error_name: RateLimitError
+guidance: >-
+  Back off exponentially on 429 and read the ratelimit-reset header for the
+  wait interval. Higher limits are available to enterprise clients.
+request_key_at: https://li.fi/plans/
+signalling:
+  headers_returned: true
+  headers:
+  - name: ratelimit-limit
+    meaning: Total limit for the two-hour period.
+  - name: ratelimit-remaining
+    meaning: Requests still available until reset.
+  - name: ratelimit-reset
+    meaning: Seconds until the rate limit resets (7200 for a two-hour window).
+  note: Every response includes current rate limit headers.
+window_model: >-
+  A requests-per-minute limit is not enforced minute by minute. The RPM figure
+  is multiplied by 120 and applied as a two-hour rolling window, so a 100 RPM
+  key may make up to 12,000 requests in any two-hour window.
+default_key_limit:
+  limit_count: 100
+  limit_interval: minute
+  note: API keys created via the LI.FI Partner Portal default to 100 requests per minute.
+rate_limits:
+- name: /quote
+  limit_count: 75
+  limit_interval: 2 hours
+  window: rolling
+- name: /advanced/routes
+  limit_count: 75
+  limit_interval: 2 hours
+  window: rolling
+- name: /advanced/stepTransaction
+  limit_count: 50
+  limit_interval: 2 hours
+  window: rolling
+- name: Other public endpoints
+  limit_count: 100
+  limit_interval: minute
+enforcement:
+  note: >-
+    LI.FI may temporarily block keys that consistently exceed limits or attempt
+    to bypass limits through multiple keys or IPs.
+discrepancy_note: >-
+  https://docs.li.fi/llms.txt summarises rate limits as 200 requests / 2 hours
+  without a key and 200 requests / minute with one. The dedicated rate-limits
+  reference page above is more specific and more recent, and is treated as
+  authoritative here. Both were captured on 2026-07-19.

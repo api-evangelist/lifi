@@ -1,0 +1,82 @@
+generated: '2026-07-19'
+method: searched
+source: https://docs.li.fi/sdk/testing-integration, openapi/lifi-openapi-original.yml, https://docs.li.fi/llms.txt
+summary: >-
+  LI.FI deliberately does NOT provide a conventional test-mode sandbox for its
+  core routing API. Because bridges and DEXs have limited testnet support and
+  almost no testnet liquidity, LI.FI retired testnet support and advises running
+  test transactions on mainnet with small amounts on low-gas L2s. There are no
+  test API-key prefixes, no magic test token addresses and no test clocks. A
+  staging host and an Intents testnet stack do exist and are recorded below.
+test_mode:
+  available: false
+  key_prefixes: null
+  note: >-
+    There is no test-vs-live key separation. The same x-lifi-api-key works
+    against production and staging.
+official_guidance:
+  policy: Run test transactions on mainnets.
+  rationale: >-
+    Bridges and exchanges have limited support for testnets and there is almost
+    no liquidity on those networks.
+  cost_advice: >-
+    Test on chains with low gas fees. Optimism and other L2 chains are
+    recommended as cost-effective choices.
+  docs: https://docs.li.fi/sdk/testing-integration
+environments:
+- name: Production
+  url: https://li.quest
+  source: openapi/lifi-openapi-original.yml servers[]
+- name: Staging
+  url: https://staging.li.quest
+  source: openapi/lifi-openapi-original.yml servers[]
+  note: Declared as a server in the OpenAPI; no separate staging credentials are documented.
+- name: Earn Production
+  url: https://earn.li.fi
+  source: openapi/lifi-earn-openapi-original.yml servers[]
+- name: Intents production order server
+  url: https://order.li.fi
+  source: https://docs.li.fi/llms.txt
+- name: Intents testnet order server
+  url: https://order-dev.li.fi
+  source: https://docs.li.fi/llms.txt
+  note: The Intents/solver stack does run a dedicated testnet environment.
+- name: Intents testnet solver UI
+  url: https://devintents.li.fi
+  source: https://docs.li.fi/llms.txt
+testnet_chains:
+  supported_for_routing: false
+  listed_in_docs:
+  - Sepolia
+  - Base Sepolia
+  - Arbitrum Sepolia
+  note: >-
+    https://docs.li.fi/llms.txt lists these testnets as available chains, while
+    https://docs.li.fi/sdk/testing-integration states testnets are no longer
+    supported for integration testing. Both statements captured verbatim; treat
+    mainnet testing as the current official guidance.
+test_values:
+  test_cards: null
+  test_accounts: null
+  test_clocks: null
+  fixtures: null
+  note: >-
+    No magic test values are published. The token addresses documented at
+    https://docs.li.fi/mcp-server/tools are real mainnet contract addresses for
+    convenience, not test fixtures.
+dry_run_surface:
+  description: >-
+    The read-only endpoints are the practical dry-run surface: a quote can be
+    requested and inspected without ever signing, since the API only returns an
+    unsigned transactionRequest.
+  operations:
+  - openapi/lifi-openapi-original.yml#GET /v1/quote
+  - openapi/lifi-openapi-original.yml#POST /v1/advanced/routes
+  - openapi/lifi-openapi-original.yml#GET /v1/connections
+tools:
+- name: Widget Playground
+  url: https://playground.li.fi
+  description: Interactive configuration and preview surface for the LI.FI Widget.
+- name: Transaction Explorer
+  url: https://explorer.li.fi
+  description: Inspect and trace LI.FI transfers.

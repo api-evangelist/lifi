@@ -1,0 +1,225 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/lifi-openapi-original.yml, openapi/lifi-earn-openapi-original.yml
+notes: >-
+  Derived from the $ref graph and id-reference fields across both specs (75
+  schemas in the LI.FI API, 3 in the Earn API). LI.FI has no server-side
+  persisted resources with opaque ids — there are no customers, orders or
+  invoices to fetch by id. The domain is a routing graph: a Route decomposes
+  into Steps, each Step carries an Action and an Estimate, and identity is
+  carried by on-chain values (chain ids, token contract addresses, transaction
+  hashes) rather than provider-issued object ids.
+identity_model:
+  provider_issued_ids: false
+  id_prefixes: []
+  natural_keys:
+  - key: chainId
+    description: Numeric EVM/non-EVM chain identifier (1 = Ethereum, 8453 = Base).
+  - key: token address
+    description: On-chain contract address; 0x0000...0000 denotes the native token.
+  - key: txHash
+    description: Source-chain transaction hash, the handle for status tracking.
+  - key: integratorId
+    description: Integrator string supplied by the caller for fee attribution.
+  - key: tool key
+    description: Stable string key identifying a bridge or exchange.
+entities:
+- name: Chain
+  schema: Chain
+  description: A supported blockchain network.
+  key: id
+  operations:
+  - openapi/lifi-openapi-original.yml#GET /v1/chains
+- name: Token
+  schema: Token
+  description: A token on a specific chain, with price, decimals and symbol.
+  key: address + chainId
+  operations:
+  - openapi/lifi-openapi-original.yml#GET /v1/tokens
+  - openapi/lifi-openapi-original.yml#GET /v1/token
+- name: Route
+  schema: Route
+  description: A complete path from source token/chain to destination token/chain.
+  operations:
+  - openapi/lifi-openapi-original.yml#POST /v1/advanced/routes
+- name: Step
+  schema: Step
+  description: One operation within a Route — a swap, a bridge, or a combination.
+  operations:
+  - openapi/lifi-openapi-original.yml#POST /v1/advanced/stepTransaction
+- name: Action
+  schema: Action
+  description: The requested operation on a Step (from/to chain, token, amount, slippage, addresses).
+- name: Estimate
+  schema: Estimate
+  description: Expected amounts, execution duration, fee costs and gas costs for a Step.
+- name: FeeCost
+  schema: FeeCost
+  description: A single fee levied within a Step.
+- name: GasCost
+  schema: GasCost
+  description: Gas cost projection for a Step.
+- name: Bridge
+  schema: Bridge
+  description: An aggregated bridge tool.
+  operations:
+  - openapi/lifi-openapi-original.yml#GET /v1/tools
+- name: Exchange
+  schema: Exchange
+  description: An aggregated DEX or DEX aggregator tool.
+  operations:
+  - openapi/lifi-openapi-original.yml#GET /v1/tools
+- name: Connection
+  schema: Connection
+  description: A viable from-token/to-token pairing between two chains.
+  operations:
+  - openapi/lifi-openapi-original.yml#GET /v1/connections
+- name: StatusResponse
+  schema: StatusResponse
+  description: Lifecycle state of a cross-chain transfer, keyed by source txHash.
+  operations:
+  - openapi/lifi-openapi-original.yml#GET /v1/status
+- name: ToolError
+  schema: ToolError
+  description: Per-tool explanation of why a route could not be produced.
+- name: TransactionInfo
+  schema: TransactionInfo
+  description: Chain-side transaction detail attached to a status result.
+- name: ContractCall
+  schema: ContractCall
+  description: A destination-chain contract call to execute after the swap (Composer/Zaps).
+  operations:
+  - openapi/lifi-openapi-original.yml#POST /v1/quote/contractCalls
+- name: FeeBalances
+  schema: FeeBalances
+  description: Fees collected by an integrator, per chain.
+  operations:
+  - openapi/lifi-openapi-original.yml#GET /v1/integrators/{integratorId}
+- name: RelayQuote
+  schema: RelayQuote
+  description: Quote for a relayed (gasless, Permit2-signed) transfer.
+  operations:
+  - openapi/lifi-openapi-original.yml#GET /v1/relayer/quote
+- name: Vault
+  schema: Vault
+  schema_alias_in_docs: NormalizedVault
+  spec: openapi/lifi-earn-openapi-original.yml
+  description: >-
+    A normalized DeFi yield vault, uniform across protocols. The Earn OpenAPI
+    names this schema Vault; the documentation refers to the same shape as
+    NormalizedVault.
+  key: chainId + address
+  operations:
+  - openapi/lifi-earn-openapi-original.yml#VaultsController_listVaults_v1
+  - openapi/lifi-earn-openapi-original.yml#VaultsController_getVault_v1
+- name: Protocol
+  spec: openapi/lifi-earn-openapi-original.yml
+  description: A DeFi protocol with at least one indexed vault.
+  operations:
+  - openapi/lifi-earn-openapi-original.yml#ProtocolsController_getProtocols_v1
+- name: Position
+  spec: openapi/lifi-earn-openapi-original.yml
+  description: A user's holding in a vault.
+  operations:
+  - openapi/lifi-earn-openapi-original.yml#PortfolioController_getPositions_v1
+relationships:
+- from: Route
+  to: Step
+  type: has_many
+  via: steps
+- from: Step
+  to: Action
+  type: has_one
+  via: action
+- from: Step
+  to: Estimate
+  type: has_one
+  via: estimate
+- from: Step
+  to: IncludedStep
+  type: has_many
+  via: includedSteps
+- from: Estimate
+  to: FeeCost
+  type: has_many
+  via: feeCosts
+- from: Estimate
+  to: GasCost
+  type: has_many
+  via: gasCosts
+- from: Action
+  to: Token
+  type: has_one
+  via: fromToken
+- from: Action
+  to: Token
+  type: has_one
+  via: toToken
+- from: Action
+  to: Chain
+  type: belongs_to
+  via: fromChainId
+- from: Action
+  to: Chain
+  type: belongs_to
+  via: toChainId
+- from: Token
+  to: Chain
+  type: belongs_to
+  via: chainId
+- from: Connection
+  to: Token
+  type: has_many
+  via: fromTokens
+- from: Connection
+  to: Token
+  type: has_many
+  via: toTokens
+- from: Tools
+  to: Bridge
+  type: has_many
+  via: bridges
+- from: Tools
+  to: Exchange
+  type: has_many
+  via: exchanges
+- from: StatusResponse
+  to: TransactionInfo
+  type: has_one
+  via: sending
+- from: StatusResponse
+  to: TransactionInfo
+  type: has_one
+  via: receiving
+- from: UnavailableRoutes
+  to: ToolError
+  type: has_many
+  via: filteredOut
+- from: ContractCallsRequest
+  to: ContractCall
+  type: has_many
+  via: contractCalls
+- from: Vault
+  to: Protocol
+  type: belongs_to
+  via: protocol
+- from: Vault
+  to: Chain
+  type: belongs_to
+  via: chainId
+- from: Vault
+  to: Token
+  type: has_many
+  via: underlyingTokens
+- from: Position
+  to: Vault
+  type: belongs_to
+  via: vault address + chainId
+cross_product_link:
+  description: >-
+    The Earn and routing domains join on the vault address: a Vault address is
+    passed as toToken to GET /v1/quote, which activates Composer and returns a
+    deposit transaction.
+  from: Vault.address
+  to: Action.toToken
+render: null

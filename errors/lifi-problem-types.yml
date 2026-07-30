@@ -1,0 +1,49 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/lifi-openapi-original.yml, openapi/lifi-earn-openapi-original.yml
+format: custom
+format_note: >-
+  Not RFC 9457. Neither spec declares application/problem+json; the LI.FI API
+  returns its own message + errors[] envelope and the Earn API returns a
+  ValidationError schema. See errors/lifi-error-codes.yml for the full
+  documented code registry.
+problems:
+- status: 400
+  title: Bad request
+  description: Request parameters failed validation.
+  source_operations:
+  - openapi/lifi-openapi-original.yml#GET /v1/token
+  - openapi/lifi-openapi-original.yml#GET /v1/quote
+  - openapi/lifi-openapi-original.yml#GET /v1/quote/toAmount
+  - openapi/lifi-openapi-original.yml#GET /v1/status
+  - openapi/lifi-openapi-original.yml#GET /v1/integrators/{integratorId}/withdraw/{chainId}
+  - openapi/lifi-openapi-original.yml#POST /v1/advanced/routes
+  - openapi/lifi-openapi-original.yml#POST /v1/advanced/stepTransaction
+  - openapi/lifi-openapi-original.yml#GET /v1/gas/prices/{chainId}
+  - openapi/lifi-openapi-original.yml#GET /v1/relayer/quote
+  api_error_codes: [1011, 1013]
+- status: 404
+  title: Not found
+  description: The requested token, route, integrator or transfer does not exist.
+  source_operations:
+  - openapi/lifi-openapi-original.yml#GET /v1/token
+  - openapi/lifi-openapi-original.yml#GET /v1/quote
+  - openapi/lifi-openapi-original.yml#GET /v1/quote/toAmount
+  - openapi/lifi-openapi-original.yml#GET /v1/integrators/{integratorId}
+  - openapi/lifi-openapi-original.yml#GET /v1/integrators/{integratorId}/withdraw/{chainId}
+  - openapi/lifi-openapi-original.yml#POST /v1/advanced/routes
+  - openapi/lifi-openapi-original.yml#GET /v1/relayer/quote
+  api_error_codes: [1002, 1003]
+- status: 400
+  title: Earn validation error
+  description: Earn API request parameters failed validation.
+  schema: ValidationError
+  source_operations:
+  - openapi/lifi-earn-openapi-original.yml#VaultsController_getVault_v1
+  - openapi/lifi-earn-openapi-original.yml#VaultsController_listVaults_v1
+  - openapi/lifi-earn-openapi-original.yml#PortfolioController_getPositions_v1
+- status: 404
+  title: Earn vault not found
+  description: No indexed vault exists at the given chain and address.
+  source_operations:
+  - openapi/lifi-earn-openapi-original.yml#VaultsController_getVault_v1

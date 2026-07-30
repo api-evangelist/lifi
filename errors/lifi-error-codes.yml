@@ -1,0 +1,94 @@
+generated: '2026-07-19'
+method: searched
+source: https://docs.li.fi/api-reference/error-codes
+docs: https://docs.li.fi/api-reference/error-codes
+format: custom
+notes: >-
+  LI.FI does not use RFC 9457 application/problem+json. It returns a JSON
+  envelope with a human message plus an errors[] array of ToolError objects
+  describing why each individual bridge or DEX could not serve the request.
+  Two distinct layers exist: numeric API error codes (1000-1013) and
+  string tool-level error codes.
+envelope:
+  message: Human-readable summary of the failure.
+  errors: Array of ToolError objects, one per tool that declined the request.
+tool_error_shape:
+  errorType: ToolErrorType, currently the single value NO_QUOTE
+  code: Tool error code string (see tool_errors below)
+  action: The Action object that was attempted (chains, tokens, amount, slippage, addresses)
+  tool: Key of the bridge or exchange that produced the error
+  message: Human-readable explanation
+api_error_codes:
+- code: 1000
+  name: DefaultError
+- code: 1001
+  name: FailedToBuildTransactionError
+- code: 1002
+  name: NoQuoteError
+- code: 1003
+  name: NotFoundError
+- code: 1004
+  name: NotProcessableError
+- code: 1005
+  name: RateLimitError
+- code: 1006
+  name: ServerError
+- code: 1007
+  name: SlippageError
+- code: 1008
+  name: ThirdPartyError
+- code: 1009
+  name: TimeoutError
+- code: 1010
+  name: UnauthorizedError
+- code: 1011
+  name: ValidationError
+- code: 1012
+  name: RpcFailure
+- code: 1013
+  name: MalformedSchema
+tool_errors:
+- code: NO_POSSIBLE_ROUTE
+  meaning: No route was found for this action.
+  action: Try a different token pair, a different chain pair, or a different amount.
+- code: INSUFFICIENT_LIQUIDITY
+  meaning: The tool's liquidity is insufficient.
+  action: Retry with a smaller amount or allow additional bridges/exchanges.
+- code: TOOL_TIMEOUT
+  meaning: The third-party tool timed out.
+  action: Retry; the aggregator will normally route around a slow tool.
+- code: UNKNOWN_ERROR
+  meaning: An unknown error occurred.
+  action: Retry, then contact support if persistent.
+- code: RPC_ERROR
+  meaning: There was a problem getting on-chain data.
+  action: Retry later.
+- code: AMOUNT_TOO_LOW
+  meaning: The initial amount is too low to transfer using this tool.
+  action: Increase the amount.
+- code: AMOUNT_TOO_HIGH
+  meaning: The initial amount is too high to transfer using this tool.
+  action: Decrease the amount or split into multiple transfers.
+- code: FEES_HIGHER_THAN_AMOUNT
+  meaning: Fees exceed the initial amount, which would yield a negative result.
+  action: Increase the amount so it clears the fee floor.
+- code: DIFFERENT_RECIPIENT_NOT_SUPPORTED
+  meaning: This tool does not support a recipient different from the sender.
+  action: Set toAddress equal to fromAddress, or allow a different tool.
+- code: TOOL_SPECIFIC_ERROR
+  meaning: The third-party tool returned an error.
+  action: Inspect the message field; try another tool.
+- code: CANNOT_GUARANTEE_MIN_AMOUNT
+  meaning: The tool cannot guarantee the minimum amount will be met.
+  action: Increase the slippage tolerance.
+http_status_codes:
+- status: 400
+  meaning: Validation failure on request parameters.
+- status: 404
+  meaning: Requested resource (token, route, transfer) not found.
+- status: 429
+  meaning: Rate limit exceeded; back off exponentially and retry.
+- status: 500
+  meaning: Server error.
+- status: 502
+  meaning: Upstream gateway error.

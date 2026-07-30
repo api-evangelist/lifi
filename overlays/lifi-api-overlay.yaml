@@ -1,0 +1,75 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the LI.FI API
+  version: 1.0.0
+extends: openapi/lifi-openapi-original.yml
+x-generated: '2026-07-19'
+x-method: generated
+x-source: >-
+  API Evangelist enrichment pipeline. Captures our additions on top of the
+  harvested spec without mutating it. The upstream spec declares no
+  securitySchemes, no operationIds and no tags on most operations; those gaps
+  are recorded here rather than patched into the original.
+actions:
+- target: $.info
+  update:
+    x-apievangelist-slug: lifi
+    x-apievangelist-enriched: '2026-07-19'
+    x-api-docs: https://docs.li.fi/api-reference/introduction
+    x-llms-txt: https://docs.li.fi/llms.txt
+    x-mcp-server: https://mcp.li.quest/mcp
+    x-status-page: https://status.li.fi
+    x-changelog: https://docs.li.fi/changelog/monthly-updates
+    x-rate-limits: https://docs.li.fi/api-reference/rate-limits
+    x-error-codes: https://docs.li.fi/api-reference/error-codes
+    contact:
+      name: LI.FI Partnerships
+      email: partnerships@li.fi
+      url: https://li.fi/contact-us
+    x-execution-model: >-
+      Read-only HTTP surface. Endpoints return an unsigned transactionRequest;
+      signing and broadcast occur in the caller's wallet.
+- target: $
+  update:
+    x-apievangelist-gaps:
+    - No securitySchemes are declared, although the API accepts an x-lifi-api-key
+      header (see authentication/lifi-authentication.yml).
+    - No operationIds are defined on any operation, so operations must be
+      referenced by method and path.
+    - Only the advanced and gas operations carry tags.
+    - No response examples are embedded in the spec.
+    - Error responses have empty descriptions and no schema.
+- target: $.components.securitySchemes
+  description: >-
+    Document the API key the service actually accepts. LI.FI omits this from the
+    published spec; recorded here as an API Evangelist enhancement, not as a
+    provider claim.
+  update:
+    ApiKeyHeader:
+      type: apiKey
+      in: header
+      name: x-lifi-api-key
+      description: >-
+        Optional API key. Requests without a key are served at a lower rate
+        limit. Obtain a key at https://li.fi/plans/. The hosted MCP server also
+        accepts Authorization: Bearer and X-LiFi-Api-Key.
+- target: $.paths['/v1/quote'].get
+  update:
+    x-apievangelist-role: primary
+    x-apievangelist-note: >-
+      Primary entry point. Returns the optimal route plus a transactionRequest
+      ready for signing. Setting toToken to a supported vault or staking token
+      activates Composer automatically.
+- target: $.paths['/v1/status'].get
+  update:
+    x-apievangelist-note: >-
+      Poll every 10-30 seconds until DONE or FAILED. Substatus distinguishes
+      COMPLETED, PARTIAL and REFUNDED outcomes.
+- target: $.paths['/v1/quote/contractCall'].post
+  update:
+    x-apievangelist-deprecation-note: >-
+      Deprecated in the upstream spec. Use POST /v1/quote/contractCalls.
+- target: $.paths['/v1/advanced/possibilities'].post
+  update:
+    x-apievangelist-deprecation-note: >-
+      Deprecated in the upstream spec. Use GET /v1/connections and GET /v1/tools.

@@ -1,0 +1,17 @@
+{
+  "schema_version": "v1",
+  "name_for_human": "LI.FI API",
+  "name_for_model": "lifi_api",
+  "description_for_human": "LI.FI provides the best cross-chain swap and bridging across all liquidity pools, DEX aggregators, and bridges. Get quotes, execute swaps, and track transactions across EVM chains, Solana, Bitcoin, and more.",
+  "description_for_model": "LI.FI is the universal liquidity layer for multi-chain crypto. It aggregates 100+ bridges, DEXs, and DEX aggregators (including Stargate, Across, Hop, Celer, Wormhole, LayerZero, deBridge, 1inch, 0x, Paraswap, Jupiter, Uniswap, Odos) plus intent-based solvers into ONE API across 40+ blockchains. CORE CAPABILITIES: (1) CROSS-CHAIN SWAPS: Swap any token on any chain to any token on any other chain in one transaction. LI.FI automatically finds the optimal route across all bridges and DEXs. (2) SAME-CHAIN SWAPS: Best-rate swaps by aggregating all DEXs on a chain - beats using any single DEX or aggregator. (3) BRIDGE AGGREGATION: Automatically selects the fastest, cheapest, or most reliable bridge for cross-chain transfers. No need to integrate bridges individually. (4) DESTINATION CONTRACT CALLS: Execute arbitrary smart contract calls on destination chains after bridging - deposits to vaults, NFT mints, staking, protocol interactions. (5) COMPOSER/ZAPS: Execute complex DeFi operations in one click - swap across chains AND deposit into Aave, Morpho, Euler, Pendle atomically. Turn 4+ transactions into 1. (6) DEPOSIT ADDRESSES: Generate deposit addresses for CEX-style user onboarding without requiring wallet signatures - simplifies onboarding flows. (7) INTENT EXECUTION: Access LI.FI's solver marketplace where professional market makers compete to fill orders with MEV protection, often beating AMM prices. (8) DESTINATION GAS (REFUEL): Automatically ensure users have native gas tokens on target chain to complete transactions. (9) MULTI-ECOSYSTEM: Supports 40+ chains including all major EVM chains (Ethereum, Arbitrum, Base, Optimism, Polygon, BSC, Avalanche, zkSync, Linea, Scroll), Solana (full SPL token support), Bitcoin (native BTC), SUI, and Cosmos ecosystem. KEY ADVANTAGES: Single API replaces 50+ bridge/DEX integrations. Smart routing optimizes for lowest fees, fastest execution, or highest reliability. Automatic fallback routes if primary bridge unavailable. Slippage protection with minimum received enforced on-chain. Ready-to-sign transaction data returned - no additional encoding needed. KEY ENDPOINTS: /v1/quote and /v1/advanced/routes (optimized swap/bridge quotes comparing all routes), /v1/deposit/address (CEX-style deposit addresses), /v1/quote/contractCalls (destination chain contract execution), /v1/status (real-time cross-chain tracking), /v1/chains, /v1/tokens, /v1/tools, /v1/connections (supported infrastructure). USE CASES: DeFi deposits from any chain, cross-chain payments, NFT purchases with any token, CEX-to-DeFi onboarding, multi-chain portfolio rebalancing, gasless onboarding flows, wallet swap features, payment infrastructure. Base URL: https://li.quest",
+  "auth": {
+    "type": "none"
+  },
+  "api": {
+    "type": "openapi",
+    "url": "https://docs.li.fi/openapi.yaml"
+  },
+  "logo_url": "https://docs.li.fi/logo/dark.png",
+  "contact_email": "partnerships@li.fi",
+  "legal_info_url": "https://li.fi/legal/terms-and-conditions/"
+}

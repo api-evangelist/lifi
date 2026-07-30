@@ -1,0 +1,70 @@
+generated: '2026-07-19'
+method: searched
+source: live probes of /.well-known/* across all LI.FI hosts (2026-07-19)
+notes: >-
+  Only the AI plugin descriptor on the docs host is published. No RFC 9116
+  security.txt is served on any host (LI.FI runs its disclosure program through
+  Cantina instead — see security/lifi-vulnerability-disclosure.yml). No OIDC or
+  OAuth discovery documents exist because the API uses a simple API-key header.
+hosts:
+- host: https://docs.li.fi
+  documents:
+  - path: /.well-known/ai-plugin.json
+    status: 200
+    file: lifi-ai-plugin.json
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+- host: https://li.fi
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+- host: https://li.quest
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+- host: https://earn.li.fi
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+- host: https://order.li.fi
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404

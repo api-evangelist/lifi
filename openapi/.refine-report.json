@@ -1,0 +1,48 @@
+{
+  "provider": "lifi",
+  "sources": [
+    "lifi-advanced-api-openapi.yml",
+    "lifi-analytics-api-openapi.yml",
+    "lifi-calldata-api-openapi.yml",
+    "lifi-chains-api-openapi.yml",
+    "lifi-connections-api-openapi.yml",
+    "lifi-earn-chains-api-openapi.yml",
+    "lifi-earn-portfolio-api-openapi.yml",
+    "lifi-earn-protocols-api-openapi.yml",
+    "lifi-earn-vaults-api-openapi.yml",
+    "lifi-gas-api-openapi.yml",
+    "lifi-integrators-api-openapi.yml",
+    "lifi-quote-api-openapi.yml",
+    "lifi-relayer-api-openapi.yml",
+    "lifi-status-api-openapi.yml",
+    "lifi-token-api-openapi.yml",
+    "lifi-tokens-api-openapi.yml",
+    "lifi-tools-api-openapi.yml"
+  ],
+  "outputs": [
+    "lifi-advanced-api-openapi.yml",
+    "lifi-analytics-api-openapi.yml",
+    "lifi-calldata-api-openapi.yml",
+    "lifi-chains-api-openapi.yml",
+    "lifi-connections-api-openapi.yml",
+    "lifi-earn-chains-api-openapi.yml",
+    "lifi-earn-portfolio-api-openapi.yml",
+    "lifi-earn-protocols-api-openapi.yml",
+    "lifi-earn-vaults-api-openapi.yml",
+    "lifi-gas-api-openapi.yml",
+    "lifi-integrators-api-openapi.yml",
+    "lifi-quote-api-openapi.yml",
+    "lifi-relayer-api-openapi.yml",
+    "lifi-status-api-openapi.yml",
+    "lifi-token-api-openapi.yml",
+    "lifi-tokens-api-openapi.yml",
+    "lifi-tools-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [
+    "lifi-analytics-api-openapi.yml: dangling $ref: #/components/responses/WalletAnalyticsResponse"
+  ],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

@@ -1,0 +1,78 @@
+generated: '2026-07-19'
+method: searched
+source: https://docs.li.fi/widget/overview, https://docs.li.fi/llms.txt, npm registry
+summary: >-
+  LI.FI ships a first-party embeddable UI layer — the LI.FI Widget — that drops a
+  full cross-chain swap and bridge experience into a host application, plus a
+  companion wallet-management library. These are client-side UI surfaces,
+  distinct from the server-side routing SDK catalogued in packages/.
+families:
+- family: LI.FI Widget
+  package: '@lifi/widget'
+  version: 4.4.0
+  loader: npm install @lifi/widget
+  docs: https://docs.li.fi/widget/overview
+  repository: https://github.com/lifinance/widget
+  license: Apache-2.0
+  playground: https://playground.li.fi
+  description: >-
+    Embeddable UI component for cross-chain swapping and bridging. Composer
+    activates automatically when the destination is a vault or staking token.
+  variants:
+  - compact
+  - wide
+  - drawer
+  capabilities:
+  - Pre-configured themes with dark mode
+  - Configurable allow/deny lists for chains, tokens, bridges and exchanges
+  - Transaction progress and history views
+  - Curated wallet lists and bookmarks
+  - Full UI translations / internationalisation
+  - Widget event hooks
+  - Integrator fee monetisation
+  frameworks:
+  - React
+  - Next.js
+  - Vue
+  - Nuxt.js
+  - Svelte
+  - Remix
+  - Gatsby
+  - Vite
+  - Create React App
+  - RainbowKit
+  reference:
+    api: https://docs.li.fi/widget/widget-api-reference
+    install: https://docs.li.fi/widget/install-widget
+    configure: https://docs.li.fi/widget/configure-widget
+    customize: https://docs.li.fi/widget/customize-widget
+    layouts: https://docs.li.fi/widget/select-widget-layout
+    events: https://docs.li.fi/widget/widget-events
+    wallets: https://docs.li.fi/widget/wallet-management
+    i18n: https://docs.li.fi/widget/internationalization
+    compatibility: https://docs.li.fi/widget/compatibility
+    polyfills: https://docs.li.fi/widget/polyfill-requirements
+- family: LI.FI Wallet Management
+  package: '@lifi/wallet-management'
+  version: 4.1.2
+  loader: npm install @lifi/wallet-management
+  repository: https://github.com/lifinance/widget
+  license: Apache-2.0
+  description: >-
+    Wallet connection and management layer used by the Widget and available
+    standalone for custom UIs.
+hosted_surfaces:
+- name: Widget Playground
+  url: https://playground.li.fi
+  description: Hosted configurator that previews and exports a Widget configuration.
+- name: LI.FI Transaction Explorer
+  url: https://explorer.li.fi
+  description: Hosted explorer for inspecting LI.FI transfers.
+- name: LI.FI Partner Portal
+  url: https://portal.li.fi
+  description: >-
+    Hosted dashboard for API keys, fee configuration, analytics, role assignment,
+    organization MFA and SSO settings.
+- name: Intents Solver UI
+  url: https://intents.li.fi
+  description: Hosted interface for solvers in the Intents marketplace (testnet at https://devintents.li.fi).

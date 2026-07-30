@@ -1,0 +1,122 @@
+generated: '2026-07-19'
+method: searched
+source: https://docs.li.fi/mcp-server/tools
+status: published
+server:
+  name: lifi
+  transport: http
+  url: https://mcp.li.quest/mcp
+  docs: https://docs.li.fi/mcp-server/overview
+  probe_status: 200
+  read_only: true
+  read_only_note: >-
+    The server returns unsigned transactionRequest objects only. Signing and
+    broadcast happen in the user's wallet, outside the MCP server.
+authentication:
+  required: false
+  note: >-
+    Works anonymously at the unauthenticated rate limit. Supply an API key via
+    the Authorization: Bearer or X-LiFi-Api-Key header for the higher limit.
+  headers:
+  - Authorization
+  - X-LiFi-Api-Key
+client_config:
+  mcpServers:
+    lifi:
+      type: http
+      url: https://mcp.li.quest/mcp
+typical_workflow:
+- get-chains
+- get-token
+- get-quote
+- get-allowance
+- sign and broadcast externally
+- get-status
+tools:
+- name: get-tokens
+  category: Token Information
+  description: Retrieve all tokens supported by LI.FI.
+  source_operation: openapi/lifi-openapi-original.yml#GET /v1/tokens
+- name: get-token
+  category: Token Information
+  description: Get details about a specific token including price, decimals, and contract address.
+  source_operation: openapi/lifi-openapi-original.yml#GET /v1/token
+- name: get-chains
+  category: Chain Information
+  description: List all supported blockchain networks.
+  source_operation: openapi/lifi-openapi-original.yml#GET /v1/chains
+- name: get-chain-by-id
+  category: Chain Information
+  description: Look up a chain by its numeric ID.
+  source_operation: openapi/lifi-openapi-original.yml#GET /v1/chains
+- name: get-chain-by-name
+  category: Chain Information
+  description: Look up a chain by name (case-insensitive).
+  source_operation: openapi/lifi-openapi-original.yml#GET /v1/chains
+- name: get-quote
+  category: Quote & Swap
+  description: >-
+    Get the best route for a swap. Primary tool. Returns the optimal route, fees,
+    estimated time, and a transactionRequest ready for signing.
+  source_operation: openapi/lifi-openapi-original.yml#GET /v1/quote
+- name: get-routes
+  category: Quote & Swap
+  description: Get multiple route options for comparison.
+  source_operation: openapi/lifi-openapi-original.yml#POST /v1/advanced/routes
+- name: get-step-transaction
+  category: Quote & Swap
+  description: Convert a route step into an executable transaction.
+  source_operation: openapi/lifi-openapi-original.yml#POST /v1/advanced/stepTransaction
+- name: get-status
+  category: Quote & Swap
+  description: Track the progress of a cross-chain transfer.
+  source_operation: openapi/lifi-openapi-original.yml#GET /v1/status
+- name: get-quote-with-calls
+  category: Quote & Swap
+  description: Get a quote with custom contract calls (Zaps) for bridge-plus-deposit flows.
+  source_operation: openapi/lifi-openapi-original.yml#POST /v1/quote/contractCalls
+- name: get-connections
+  category: Discovery & Routing
+  description: Check available swap routes between chains.
+  source_operation: openapi/lifi-openapi-original.yml#GET /v1/connections
+- name: get-tools
+  category: Discovery & Routing
+  description: List available bridges and DEXes with their key and name values.
+  source_operation: openapi/lifi-openapi-original.yml#GET /v1/tools
+- name: get-gas-prices
+  category: Gas Information
+  description: Get current gas prices for all supported chains.
+  source_operation: openapi/lifi-openapi-original.yml#GET /v1/gas/prices
+- name: get-gas-suggestion
+  category: Gas Information
+  description: Get detailed gas parameters for a specific chain.
+  source_operation: openapi/lifi-openapi-original.yml#GET /v1/gas/suggestion/{chain}
+- name: get-native-token-balance
+  category: Balance & Allowance
+  description: Check the native token balance for a wallet address.
+  source_operation: null
+  note: Served by direct RPC reads, not a LI.FI REST endpoint.
+- name: get-token-balance
+  category: Balance & Allowance
+  description: Check an ERC20 token balance for a wallet address.
+  source_operation: null
+  note: Served by direct RPC reads, not a LI.FI REST endpoint.
+- name: get-allowance
+  category: Balance & Allowance
+  description: Check token spending approval before a swap.
+  source_operation: null
+  note: Served by direct RPC reads, not a LI.FI REST endpoint.
+- name: test-api-key
+  category: API Key & Health
+  description: Verify that an API key is valid; returns key status and rate limit information.
+  source_operation: null
+- name: health-check
+  category: API Key & Health
+  description: Check server health and version.
+  source_operation: null
+related_servers:
+- name: LI.FI Intents MCP Server
+  docs: https://docs.li.fi/lifi-intents/mcp-server/overview
+  description: >-
+    Separate hosted MCP server exposing Intents-specific tools (quote requests,
+    order submission, order status) for the solver marketplace.

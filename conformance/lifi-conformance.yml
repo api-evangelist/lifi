@@ -1,0 +1,70 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/lifi-openapi-original.yml, openapi/lifi-earn-openapi-original.yml, https://docs.li.fi/llms.txt
+notes: >-
+  LI.FI publishes no formal certification program (no SOC 2, ISO 27001, PCI DSS,
+  HIPAA or FedRAMP claims were found), so no Compliance pointer is emitted. Its
+  published assurance posture is independent smart contract audits, annual Web2
+  penetration testing and a $1M bug bounty — captured in
+  security/lifi-vulnerability-disclosure.yml.
+standards:
+- id: openapi-3.0
+  conforms: true
+  evidence: LI.FI API spec is OpenAPI 3.0.2; Earn API spec is OpenAPI 3.0.0
+- id: oauth2
+  conforms: false
+  evidence: no oauth2 securityScheme in either spec; auth is a static API key header
+- id: oidc
+  conforms: false
+  evidence: no /.well-known/openid-configuration on any host (all 404)
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: no application/problem+json responses; custom message + errors[] envelope
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: /.well-known/security.txt returns 404 on all probed hosts
+- id: rfc8594-sunset-header
+  conforms: false
+  evidence: no Sunset or Deprecation header support documented
+- id: idempotency
+  conforms: false
+  evidence: no idempotency key header or parameter documented or present in either spec
+- id: pagination
+  conforms: true
+  evidence: PaginatedResult schema and GET /v2/analytics/transfers paginated endpoint
+- id: json-api
+  conforms: false
+  evidence: responses are plain application/json, not JSON:API media type
+- id: mcp
+  conforms: true
+  evidence: hosted Model Context Protocol server at https://mcp.li.quest/mcp
+- id: llms-txt
+  conforms: true
+  evidence: https://docs.li.fi/llms.txt published and maintained
+- id: ai-plugin-manifest
+  conforms: true
+  evidence: https://docs.li.fi/.well-known/ai-plugin.json returns 200
+- id: eip-2535-diamond
+  conforms: true
+  evidence: LI.FI Diamond contract uses the EIP-2535 diamond pattern
+- id: eip-7702
+  conforms: true
+  evidence: supported by @lifi/sdk per https://docs.li.fi/llms.txt
+- id: eip-5792
+  conforms: true
+  evidence: supported by @lifi/sdk per https://docs.li.fi/llms.txt
+- id: erc-2612-permit
+  conforms: true
+  evidence: supported by @lifi/sdk per https://docs.li.fi/llms.txt
+- id: eip-712
+  conforms: true
+  evidence: supported by @lifi/sdk per https://docs.li.fi/llms.txt
+- id: permit2
+  conforms: true
+  evidence: Permit2 approval flow documented; RelayPermit* schemas in the OpenAPI
+- id: eip-7930-interoperable-addresses
+  conforms: true
+  evidence: Intents API uses EIP-7930 addresses for user, asset and receiver fields
+- id: open-intents-framework
+  conforms: true
+  evidence: LI.FI Intents is an official foundation of the OIF led by the Ethereum Foundation

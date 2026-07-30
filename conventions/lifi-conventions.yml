@@ -1,0 +1,119 @@
+generated: '2026-07-19'
+method: searched
+source: https://docs.li.fi/llms.txt, https://docs.li.fi/api-reference/rate-limits, https://docs.li.fi/api-reference/error-codes, openapi/lifi-openapi-original.yml
+authentication:
+  style: api-key-header
+  required: false
+  note: >-
+    The LI.FI API is usable anonymously at a reduced rate limit. An API key
+    raises the limit substantially. The Earn API declares the key as required
+    in its spec.
+  headers:
+  - x-lifi-api-key
+  - X-LiFi-Api-Key
+  - 'Authorization: Bearer <key>'
+  env_var: LIFI_API_KEY
+  request_key_at: https://li.fi/plans/
+  partner_portal: https://portal.li.fi
+  detail: authentication/lifi-authentication.yml
+idempotency:
+  supported: false
+  note: >-
+    LI.FI documents no idempotency key header or parameter, and neither OpenAPI
+    declares one. Safety comes from the on-chain model instead: quotes are read
+    operations, and the resulting transaction is idempotent at the chain level
+    because a signed transaction can only be included once (nonce-bound). The
+    enforced minimum-received amount causes an on-chain revert rather than a
+    partial fill.
+pagination:
+  supported: true
+  style: offset-and-limit
+  applies_to:
+  - GET /v2/analytics/transfers
+  - GET /v1/vaults (Earn)
+  response_schema: PaginatedResult
+  note: >-
+    Pagination is limited to the analytics and Earn listing endpoints. Core
+    routing endpoints (quote, chains, tokens, tools, connections) return complete
+    result sets.
+filtering_and_sorting:
+  earn_filters: [chainId, asset, protocol, isTransactional, isRedeemable, isComposerSupported]
+  earn_sorting: [apy, tvl]
+  routing_filters: [allowBridges, preferBridges, denyBridges, allowExchanges, preferExchanges, denyExchanges]
+  route_preference:
+    param: order
+    values: [RECOMMENDED, FASTEST, CHEAPEST, SAFEST]
+versioning:
+  style: uri-path
+  current: v1
+  detail: lifecycle/lifi-lifecycle.yml
+error_envelope:
+  format: custom
+  shape:
+    message: Human-readable summary
+    errors: Array of ToolError objects with errorType, code, action, tool, message
+  numeric_codes: 1000-1013
+  detail: errors/lifi-error-codes.yml
+rate_limiting:
+  documented: true
+  scope: Per API key across all endpoints.
+  per_endpoint:
+  - endpoint: /quote
+    limit: 75 requests per two hours
+  - endpoint: /advanced/routes
+    limit: 75 requests per two hours
+  - endpoint: /advanced/stepTransaction
+    limit: 50 requests per two hours
+  - endpoint: Other public endpoints
+    limit: 100 requests per minute
+  window_model: >-
+    RPM is multiplied by 120 and enforced as a two-hour rolling window rather
+    than minute by minute.
+  signalling_headers: [ratelimit-limit, ratelimit-remaining, ratelimit-reset]
+  applies_to: [REST API, hosted MCP server, CLI]
+  exceeded_status: 429
+  exceeded_error_code: 1005
+  guidance: Exponential backoff and retry on 429; read ratelimit-reset for the wait.
+  detail: rate-limits/lifi-rate-limits.yml
+integrator_attribution:
+  param: integrator
+  note: >-
+    Every SDK config and API request should carry an integrator identifier. It
+    drives fee attribution and the Partner Portal analytics.
+  fee_model: Integrator fees are taken from the source token.
+  docs: https://docs.li.fi/introduction/integrating-lifi/monetizing-integration
+slippage:
+  param: slippage
+  default: 0.005
+  behavior: >-
+    Auto mode picks a buffer based on asset liquidity. The minimum received
+    amount is enforced on-chain; the transaction reverts if it is not met.
+status_semantics:
+  states: [NOT_FOUND, PENDING, DONE, FAILED]
+  substates: [COMPLETED, PARTIAL, REFUNDED]
+  polling_interval: 10-30 seconds
+  guidance:
+    PENDING: Keep polling.
+    DONE + COMPLETED: Success, exact tokens received.
+    DONE + PARTIAL: Success, different token received at full value.
+    DONE + REFUNDED: Failed, funds returned to the user.
+    FAILED: Inspect the error; may require user action.
+transaction_semantics:
+  same_chain: Atomic — the swap reverts entirely on failure.
+  cross_chain: >-
+    Non-atomic across the hop. The bridge leg can succeed while the destination
+    swap fails, in which case the user is refunded in the bridged asset on the
+    destination chain.
+  execution_model: >-
+    The API is read-only. It returns an unsigned transactionRequest with to,
+    data, value, gasLimit and chainId. Signing and broadcast happen in the
+    caller's wallet.
+request_tracing:
+  request_id_header: null
+  note: No request-id or correlation header is documented.
+metadata:
+  supported: false
+  note: No arbitrary key/value metadata field is exposed on API objects.
+field_expansion:
+  supported: false
+  note: No expand or sparse-fieldset parameter is documented.

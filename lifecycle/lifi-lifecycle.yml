@@ -1,0 +1,51 @@
+generated: '2026-07-19'
+method: searched
+source: https://docs.li.fi/llms.txt, https://docs.li.fi/changelog/monthly-updates, https://status.li.fi
+versioning:
+  scheme: uri-path
+  current: v1
+  note: >-
+    The LI.FI API is versioned in the URI path. Most endpoints are on /v1;
+    /v2/analytics/transfers is the one v2 endpoint (paginated transfers).
+    The Earn Data API is separately on /v1 at earn.li.fi.
+  package_versioning:
+    scheme: semver
+    note: SDK and Widget are both on major v4 (April 2026).
+status_page:
+  url: https://status.li.fi
+  probe_status: 200
+  provider: Atlassian Statuspage
+  alternate_url: https://lifi.statuspage.io
+deprecation:
+  policy_url: null
+  sunset_header: false
+  policy_note: >-
+    LI.FI publishes no formal written deprecation/sunset policy and does not
+    advertise RFC 8594 Sunset or Deprecation headers. Deprecations are announced
+    through the dated changelog and marked deprecated:true in the OpenAPI, and
+    breaking removals are called out explicitly (e.g. the June 2026
+    decommissioning of the legacy Composer zap-pack endpoints).
+  announcement_channel: https://docs.li.fi/changelog/monthly-updates
+sla:
+  url: null
+  uptime_target: null
+  note: No public SLA or uptime commitment is published.
+deprecated_operations:
+- openapi/lifi-openapi-original.yml#POST /v1/quote/contractCall
+- openapi/lifi-openapi-original.yml#POST /v1/advanced/possibilities
+- openapi/lifi-openapi-original.yml#GET /v1/gas/refetch
+- openapi/lifi-openapi-original.yml#GET /v1/analytics/wallets/{wallet_address}
+removed_operations:
+- path: POST /route
+  product: Composer (legacy zap-pack stack)
+  removed: '2026-06'
+  source: https://docs.li.fi/changelog/monthly-updates
+- path: GET /zap-packs
+  product: Composer (legacy zap-pack stack)
+  removed: '2026-06'
+  source: https://docs.li.fi/changelog/monthly-updates
+breaking_change_history:
+- date: '2026-06'
+  change: Legacy Composer stack decommissioned; POST /route and GET /zap-packs removed.
+- date: '2026-04'
+  change: Earn API base path changed from /v1/earn/... to /v1/...

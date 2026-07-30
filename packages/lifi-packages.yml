@@ -1,0 +1,78 @@
+generated: '2026-07-19'
+method: searched
+source: https://registry.npmjs.org/ (verified live) + https://docs.li.fi/llms.txt
+notes: >-
+  All packages verified against the npm registry on 2026-07-19. LI.FI publishes
+  exclusively to npm under the @lifi scope; no first-party PyPI, Maven Central,
+  NuGet, pkg.go.dev, RubyGems, Packagist or crates.io libraries were found.
+packages:
+- language: javascript
+  registry: npm
+  name: '@lifi/sdk'
+  version: 4.2.0
+  url: https://www.npmjs.com/package/@lifi/sdk
+  install: npm install @lifi/sdk
+  repository: https://github.com/lifinance/sdk
+  license: Apache-2.0
+  description: LI.FI SDK for Any-to-Any Cross-Chain-Swap
+  docs: https://docs.li.fi/sdk/overview
+  official: true
+- language: javascript
+  registry: npm
+  name: '@lifi/widget'
+  version: 4.4.0
+  url: https://www.npmjs.com/package/@lifi/widget
+  install: npm install @lifi/widget
+  repository: https://github.com/lifinance/widget
+  license: Apache-2.0
+  description: LI.FI Widget for cross-chain bridging and swapping
+  docs: https://docs.li.fi/widget/overview
+  official: true
+- language: javascript
+  registry: npm
+  name: '@lifi/types'
+  version: 17.86.0
+  url: https://www.npmjs.com/package/@lifi/types
+  install: npm install @lifi/types
+  repository: https://github.com/lifinance/types
+  license: Apache-2.0
+  description: Types for the LI.FI stack
+  official: true
+- language: javascript
+  registry: npm
+  name: '@lifi/cli'
+  version: 0.1.1
+  url: https://www.npmjs.com/package/@lifi/cli
+  install: npm install -g @lifi/cli
+  repository: https://github.com/lifinance/lifi-cli
+  license: MIT
+  description: CLI for the LI.FI cross-chain bridge & DEX aggregation API
+  docs: https://docs.li.fi/cli/overview
+  official: true
+- language: javascript
+  registry: npm
+  name: '@lifi/wallet-management'
+  version: 4.1.2
+  url: https://www.npmjs.com/package/@lifi/wallet-management
+  install: npm install @lifi/wallet-management
+  repository: https://github.com/lifinance/widget
+  license: Apache-2.0
+  description: LI.FI Wallet Management solution
+  official: true
+registries_probed:
+- registry: npm
+  found: 5
+- registry: pypi
+  found: 0
+- registry: maven-central
+  found: 0
+- registry: nuget
+  found: 0
+- registry: pkg.go.dev
+  found: 0
+- registry: rubygems
+  found: 0
+- registry: packagist
+  found: 0
+- registry: crates.io
+  found: 0

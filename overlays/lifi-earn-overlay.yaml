@@ -1,0 +1,44 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the LI.FI Earn API
+  version: 1.0.0
+extends: openapi/lifi-earn-openapi-original.yml
+x-generated: '2026-07-19'
+x-method: generated
+x-source: >-
+  API Evangelist enrichment pipeline. Captures our additions on top of the
+  harvested Earn spec without mutating it.
+actions:
+- target: $.info
+  update:
+    x-apievangelist-slug: lifi
+    x-apievangelist-enriched: '2026-07-19'
+    x-api-docs: https://docs.li.fi/earn/overview
+    x-quickstart: https://docs.li.fi/earn/quickstart
+    x-supported-protocols: https://docs.li.fi/earn/guides/supported-protocols
+    contact:
+      name: LI.FI Partnerships
+      email: partnerships@li.fi
+      url: https://li.fi/contact-us
+    x-execution-model: >-
+      Read-only discovery API. Execution happens by passing a vault address as
+      toToken to the LI.FI routing API, which activates Composer.
+- target: $
+  update:
+    x-apievangelist-gaps:
+    - The Vault schema is documented as NormalizedVault in the docs; spec and
+      docs names diverge.
+    - No response examples are embedded in the spec.
+    - info.description is a single line with no integration guidance.
+- target: $.paths['/v1/vaults'].get
+  update:
+    x-apievangelist-role: primary
+    x-apievangelist-note: >-
+      Primary discovery endpoint. Filter with chainId, asset, protocol,
+      isTransactional, isRedeemable and isComposerSupported; sort by apy or tvl.
+      Use the returned vault address as toToken on GET /v1/quote to deposit.
+- target: $.paths['/v1/portfolio/{userAddress}/positions'].get
+  update:
+    x-apievangelist-note: >-
+      Returns a wallet's vault positions across all indexed protocols; the basis
+      for portfolio and rebalancing flows.

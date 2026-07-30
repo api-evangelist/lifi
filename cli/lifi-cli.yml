@@ -1,0 +1,103 @@
+generated: '2026-07-19'
+method: searched
+source: https://docs.li.fi/cli/commands, https://docs.li.fi/cli/installation
+name: LI.FI CLI
+binary: lifi
+package: '@lifi/cli'
+version: 0.1.1
+repository: https://github.com/lifinance/lifi-cli
+license: MIT
+docs: https://docs.li.fi/cli/overview
+description: >-
+  Scriptable command-line interface wrapping the LI.FI REST API. Outputs
+  human-readable tables in a TTY and JSON when piped or given --json. Positioned
+  as a token-efficient alternative to MCP for AI agents that prefer compact
+  output over raw API JSON.
+read_only: true
+read_only_note: >-
+  Returns unsigned transactionRequest objects only. Signing and broadcast happen
+  externally in the user's wallet.
+install:
+- method: npm-global
+  command: npm install -g @lifi/cli
+- method: npx
+  command: npx @lifi/cli chains
+authentication:
+  env_var: LIFI_API_KEY
+  docs: https://docs.li.fi/cli/installation
+output:
+  default: Human-readable tables in a TTY
+  piped: JSON
+  flag: --json
+commands:
+- group: Token Information
+  commands:
+  - name: tokens
+    description: Retrieve tokens supported by LI.FI on a specific chain.
+    flags: ['--chain (required)', '--min-price']
+    example: lifi tokens --chain 1 --min-price 100
+  - name: token
+    description: Get details about a specific token including price, decimals and address.
+    arguments: ['chain (required)', 'token (required)']
+    example: lifi token 1 USDC
+- group: Chain Information
+  commands:
+  - name: chains
+    description: List all supported blockchain networks.
+    flags: ['--type']
+    example: lifi chains --type EVM
+  - name: chain
+    description: Get details for a specific chain by ID or name.
+    arguments: ['chain (required)']
+    example: lifi chain arbitrum
+- group: Quote & Swap
+  commands:
+  - name: quote
+    description: >-
+      Get the best route for a swap. Returns route, fees, estimated time and a
+      transactionRequest ready for signing. Runs interactively with no flags.
+    flags: ['--from', '--to', '--from-token', '--to-token', '--amount', '--from-address', '--order']
+    example: lifi quote --from ethereum --to arbitrum --from-token USDC --to-token USDC --amount 1000000000 --from-address 0x...
+  - name: routes
+    description: Get multiple route options for comparison.
+    flags: ['--from', '--to', '--from-token', '--to-token', '--amount', '--order']
+    example: lifi routes --from 1 --to 42161 --from-token USDC --to-token USDC --amount 1000000000 --order CHEAPEST
+- group: Transaction Status
+  commands:
+  - name: status
+    description: Track the progress of a cross-chain transfer.
+    arguments: ['txHash (required)']
+    flags: ['--watch', '--bridge']
+    example: lifi status 0xabc123... --watch
+- group: Connections
+  commands:
+  - name: connections
+    description: Check available swap routes between chains.
+    flags: ['--from-chain', '--to-chain']
+    example: lifi connections --from-chain 1 --to-chain 42161
+- group: Tools
+  commands:
+  - name: tools
+    description: List available bridges and DEXes.
+    flags: ['--chain']
+    example: lifi tools --chain 1
+- group: Gas
+  commands:
+  - name: gas
+    description: Get current gas prices, or a detailed suggestion for one chain.
+    arguments: ['chainId (optional)']
+    example: lifi gas 1
+- group: API Key Management
+  commands:
+  - name: auth show
+    description: Display the currently configured API key, masked.
+    example: lifi auth show
+  - name: auth test
+    description: Validate the configured API key against the API.
+    example: lifi auth test
+- group: Health
+  commands:
+  - name: health
+    description: Check API connectivity and latency.
+    example: lifi health
+route_order_values: [RECOMMENDED, FASTEST, CHEAPEST, SAFEST]
