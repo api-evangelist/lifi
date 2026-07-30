@@ -1,27 +1,383 @@
 aid: lifi
 name: LI.FI
-description: 'LI.FI is a company surfaced as a portfolio company of multicoin-capital and added to the
-  API Evangelist network as a stub for enrichment. Sector: crypto-web3. This profile is a lead awaiting
-  the enrichment pipeline.'
+description: >-
+  LI.FI is the routing and execution layer for cross-chain liquidity, payments,
+  swaps and yield. A single integration gives an application access to more than
+  100 aggregated bridges, DEXs, DEX aggregators and intent-based solvers across
+  58+ chains spanning EVM, Solana, Bitcoin, SUI and TRON. The LI.FI API returns
+  an optimal route plus a ready-to-sign, unsigned transaction; the product set
+  extends to Composer for one-click DeFi deposits across 20+ protocols, Earn for
+  yield discovery and portfolio tracking, an intent/solver marketplace built on
+  the Open Intents Framework, an embeddable Widget, a TypeScript SDK, a CLI and
+  a hosted MCP server for AI agents.
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://docs.li.fi/logo/dark.png
 url: https://raw.githubusercontent.com/api-evangelist/lifi/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - multicoin-capital
-x-tier: stub
-x-tier-reason: portfolio-lead
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-19'
 tags:
 - Company
 - Crypto Web3
-apis: []
+- Blockchain
+- Cross-Chain
+- Bridges
+- DEX Aggregation
+- DeFi
+- Payments
+- Liquidity
+- Yield
+- Intents
+- Agents
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+apis:
+- name: LI.FI Intents Order Server API
+  description: >-
+    Intent-based execution API for the LI.FI solver marketplace. Integrators request quotes and submit
+    orders; solvers publish standing quote inventory and fill intents. Built on the Open Intents Framework
+    and using EIP-7930 interoperable addresses. The integrator surface is open; the solver surface requires
+    an api-key header.
+  humanURL: https://docs.li.fi/lifi-intents/intents-api/api-overview
+  baseURL: https://order.li.fi
+  tags:
+  - Intents
+  - Solvers
+  - Settlement
+  properties:
+  - type: Documentation
+    url: https://docs.li.fi/lifi-intents/introduction
+  - type: InteractiveDocumentation
+    url: https://order.li.fi/docs
+- aid: lifi:lifi-advanced-api
+  name: LI.FI advanced API
+  description: The advanced API from LI.FI — 3 operation(s) for advanced.
+  humanURL: https://docs.li.fi/api-reference/introduction
+  baseURL: https://li.quest
+  tags:
+  - advanced
+  properties:
+  - type: OpenAPI
+    url: openapi/lifi-advanced-api-openapi.yml
+  - type: Documentation
+    url: https://docs.li.fi/api-reference/introduction
+  - type: Documentation
+    url: https://docs.li.fi/earn/overview
+- aid: lifi:lifi-analytics-api
+  name: LI.FI Analytics API
+  description: The Analytics API from LI.FI — 4 operation(s) for analytics.
+  humanURL: https://docs.li.fi/api-reference/introduction
+  baseURL: https://li.quest
+  tags:
+  - Analytics
+  properties:
+  - type: OpenAPI
+    url: openapi/lifi-analytics-api-openapi.yml
+  - type: Documentation
+    url: https://docs.li.fi/api-reference/introduction
+  - type: Documentation
+    url: https://docs.li.fi/earn/overview
+- aid: lifi:lifi-calldata-api
+  name: LI.FI Calldata API
+  description: The Calldata API from LI.FI — 1 operation(s) for calldata.
+  humanURL: https://docs.li.fi/api-reference/introduction
+  baseURL: https://li.quest
+  tags:
+  - Calldata
+  properties:
+  - type: OpenAPI
+    url: openapi/lifi-calldata-api-openapi.yml
+  - type: Documentation
+    url: https://docs.li.fi/api-reference/introduction
+  - type: Documentation
+    url: https://docs.li.fi/earn/overview
+- aid: lifi:lifi-chains-api
+  name: LI.FI Chains API
+  description: The Chains API from LI.FI — 1 operation(s) for chains.
+  humanURL: https://docs.li.fi/api-reference/introduction
+  baseURL: https://li.quest
+  tags:
+  - Chains
+  properties:
+  - type: OpenAPI
+    url: openapi/lifi-chains-api-openapi.yml
+  - type: Documentation
+    url: https://docs.li.fi/api-reference/introduction
+  - type: Documentation
+    url: https://docs.li.fi/earn/overview
+- aid: lifi:lifi-connections-api
+  name: LI.FI Connections API
+  description: The Connections API from LI.FI — 1 operation(s) for connections.
+  humanURL: https://docs.li.fi/api-reference/introduction
+  baseURL: https://li.quest
+  tags:
+  - Connections
+  properties:
+  - type: OpenAPI
+    url: openapi/lifi-connections-api-openapi.yml
+  - type: Documentation
+    url: https://docs.li.fi/api-reference/introduction
+  - type: Documentation
+    url: https://docs.li.fi/earn/overview
+- aid: lifi:lifi-earn-chains-api
+  name: LI.FI Earn Chains API
+  description: The Earn Chains API from LI.FI — 1 operation(s) for earn chains.
+  humanURL: https://docs.li.fi/api-reference/introduction
+  baseURL: https://li.quest
+  tags:
+  - Earn Chains
+  properties:
+  - type: OpenAPI
+    url: openapi/lifi-earn-chains-api-openapi.yml
+  - type: Documentation
+    url: https://docs.li.fi/api-reference/introduction
+  - type: Documentation
+    url: https://docs.li.fi/earn/overview
+- aid: lifi:lifi-earn-portfolio-api
+  name: LI.FI Earn Portfolio API
+  description: The Earn Portfolio API from LI.FI — 1 operation(s) for earn portfolio.
+  humanURL: https://docs.li.fi/api-reference/introduction
+  baseURL: https://li.quest
+  tags:
+  - Earn Portfolio
+  properties:
+  - type: OpenAPI
+    url: openapi/lifi-earn-portfolio-api-openapi.yml
+  - type: Documentation
+    url: https://docs.li.fi/api-reference/introduction
+  - type: Documentation
+    url: https://docs.li.fi/earn/overview
+- aid: lifi:lifi-earn-protocols-api
+  name: LI.FI Earn Protocols API
+  description: The Earn Protocols API from LI.FI — 1 operation(s) for earn protocols.
+  humanURL: https://docs.li.fi/api-reference/introduction
+  baseURL: https://li.quest
+  tags:
+  - Earn Protocols
+  properties:
+  - type: OpenAPI
+    url: openapi/lifi-earn-protocols-api-openapi.yml
+  - type: Documentation
+    url: https://docs.li.fi/api-reference/introduction
+  - type: Documentation
+    url: https://docs.li.fi/earn/overview
+- aid: lifi:lifi-earn-vaults-api
+  name: LI.FI Earn Vaults API
+  description: The Earn Vaults API from LI.FI — 2 operation(s) for earn vaults.
+  humanURL: https://docs.li.fi/api-reference/introduction
+  baseURL: https://li.quest
+  tags:
+  - Earn Vaults
+  properties:
+  - type: OpenAPI
+    url: openapi/lifi-earn-vaults-api-openapi.yml
+  - type: Documentation
+    url: https://docs.li.fi/api-reference/introduction
+  - type: Documentation
+    url: https://docs.li.fi/earn/overview
+- aid: lifi:lifi-gas-api
+  name: LI.FI Gas API
+  description: The Gas API from LI.FI — 5 operation(s) for gas.
+  humanURL: https://docs.li.fi/api-reference/introduction
+  baseURL: https://li.quest
+  tags:
+  - Gas
+  properties:
+  - type: OpenAPI
+    url: openapi/lifi-gas-api-openapi.yml
+  - type: Documentation
+    url: https://docs.li.fi/api-reference/introduction
+  - type: Documentation
+    url: https://docs.li.fi/earn/overview
+- aid: lifi:lifi-integrators-api
+  name: LI.FI Integrators API
+  description: The Integrators API from LI.FI — 2 operation(s) for integrators.
+  humanURL: https://docs.li.fi/api-reference/introduction
+  baseURL: https://li.quest
+  tags:
+  - Integrators
+  properties:
+  - type: OpenAPI
+    url: openapi/lifi-integrators-api-openapi.yml
+  - type: Documentation
+    url: https://docs.li.fi/api-reference/introduction
+  - type: Documentation
+    url: https://docs.li.fi/earn/overview
+- aid: lifi:lifi-quote-api
+  name: LI.FI Quote API
+  description: The Quote API from LI.FI — 4 operation(s) for quote.
+  humanURL: https://docs.li.fi/api-reference/introduction
+  baseURL: https://li.quest
+  tags:
+  - Quote
+  properties:
+  - type: OpenAPI
+    url: openapi/lifi-quote-api-openapi.yml
+  - type: Documentation
+    url: https://docs.li.fi/api-reference/introduction
+  - type: Documentation
+    url: https://docs.li.fi/earn/overview
+- aid: lifi:lifi-relayer-api
+  name: LI.FI Relayer API
+  description: The Relayer API from LI.FI — 3 operation(s) for relayer.
+  humanURL: https://docs.li.fi/api-reference/introduction
+  baseURL: https://li.quest
+  tags:
+  - Relayer
+  properties:
+  - type: OpenAPI
+    url: openapi/lifi-relayer-api-openapi.yml
+  - type: Documentation
+    url: https://docs.li.fi/api-reference/introduction
+  - type: Documentation
+    url: https://docs.li.fi/earn/overview
+- aid: lifi:lifi-status-api
+  name: LI.FI Status API
+  description: The Status API from LI.FI — 1 operation(s) for status.
+  humanURL: https://docs.li.fi/api-reference/introduction
+  baseURL: https://li.quest
+  tags:
+  - Status
+  properties:
+  - type: OpenAPI
+    url: openapi/lifi-status-api-openapi.yml
+  - type: Documentation
+    url: https://docs.li.fi/api-reference/introduction
+  - type: Documentation
+    url: https://docs.li.fi/earn/overview
+- aid: lifi:lifi-token-api
+  name: LI.FI Token API
+  description: The Token API from LI.FI — 1 operation(s) for token.
+  humanURL: https://docs.li.fi/api-reference/introduction
+  baseURL: https://li.quest
+  tags:
+  - Token
+  properties:
+  - type: OpenAPI
+    url: openapi/lifi-token-api-openapi.yml
+  - type: Documentation
+    url: https://docs.li.fi/api-reference/introduction
+  - type: Documentation
+    url: https://docs.li.fi/earn/overview
+- aid: lifi:lifi-tokens-api
+  name: LI.FI Tokens API
+  description: The Tokens API from LI.FI — 1 operation(s) for tokens.
+  humanURL: https://docs.li.fi/api-reference/introduction
+  baseURL: https://li.quest
+  tags:
+  - Tokens
+  properties:
+  - type: OpenAPI
+    url: openapi/lifi-tokens-api-openapi.yml
+  - type: Documentation
+    url: https://docs.li.fi/api-reference/introduction
+  - type: Documentation
+    url: https://docs.li.fi/earn/overview
+- aid: lifi:lifi-tools-api
+  name: LI.FI Tools API
+  description: The Tools API from LI.FI — 1 operation(s) for tools.
+  humanURL: https://docs.li.fi/api-reference/introduction
+  baseURL: https://li.quest
+  tags:
+  - Tools
+  properties:
+  - type: OpenAPI
+    url: openapi/lifi-tools-api-openapi.yml
+  - type: Documentation
+    url: https://docs.li.fi/api-reference/introduction
+  - type: Documentation
+    url: https://docs.li.fi/earn/overview
 common:
 - type: Website
   url: https://li.fi
+- type: DeveloperPortal
+  url: https://docs.li.fi
+- type: Documentation
+  url: https://docs.li.fi
+- type: APIReference
+  url: https://docs.li.fi/api-reference/introduction
+- type: GettingStarted
+  url: https://docs.li.fi/introduction/introduction
+- type: Support
+  url: https://li.fi/contact-us
+- type: Blog
+  url: https://blog.li.fi
+- type: GitHubOrganization
+  url: https://github.com/lifinance
+- type: Pricing
+  url: https://li.fi/plans/
+- type: SignUp
+  url: https://portal.li.fi
+- type: TermsOfService
+  url: https://li.fi/legal/terms-and-conditions/
+- type: PrivacyPolicy
+  url: https://li.fi/legal/privacy-policy/
+- type: ChangeLog
+  url: changelog/lifi-changelog.yml
+- type: StatusPage
+  url: https://status.li.fi
+- type: Lifecycle
+  url: lifecycle/lifi-lifecycle.yml
+- type: Security
+  url: https://docs.li.fi/introduction/learn-more/security-and-audits
+- type: VulnerabilityDisclosure
+  url: security/lifi-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/lifi-domain-security.yml
+- type: Authentication
+  url: authentication/lifi-authentication.yml
+- type: Packages
+  url: packages/lifi-packages.yml
+- type: SDKs
+  url: packages/lifi-packages.yml
+- type: CLI
+  url: cli/lifi-cli.yml
+- type: Components
+  url: components/lifi-components.yml
+- type: Sandbox
+  url: sandbox/lifi-sandbox.yml
+- type: MCPServer
+  url: mcp/lifi-mcp.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: AgenticAccess
+  url: agentic-access/lifi-agentic-access.yml
+- type: LLMsTxt
+  url: llms/lifi-llms.txt
+- type: WellKnown
+  url: well-known/lifi-well-known.yml
+- type: RateLimits
+  url: rate-limits/lifi-rate-limits.yml
+- type: ErrorCatalog
+  url: errors/lifi-error-codes.yml
+- type: Conventions
+  url: conventions/lifi-conventions.yml
+- type: Conformance
+  url: conformance/lifi-conformance.yml
+- type: DataModel
+  url: data-model/lifi-data-model.yml
+- type: Overlay
+  url: overlays/lifi-api-overlay.yaml
+x-enrichment:
+  date: '2026-07-19'
+  status: backfilled
+  pass: local-v1
+  note: backfilled from .gitignore signal + verified work evidence
