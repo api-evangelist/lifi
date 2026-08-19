@@ -1,0 +1,1837 @@
+{
+  "item": [
+    {
+      "id": "c3e3925d-5c3b-417f-8d58-19ae57fc4725",
+      "name": "Quote",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e8e3c30c-7fdd-460b-8a40-3e60233d38ef",
+          "name": "Get a quote for a token transfer",
+          "request": {
+            "name": "Get a quote for a token transfer",
+            "description": {
+              "content": "This endpoint can be used to request a quote for a transfer of one token to another, cross chain or not.\nThe endpoint returns a `Step` object which contains information about the estimated result as well as a `transactionRequest` which can directly be sent to your wallet.\nThe estimated result can be found inside the `estimate`, containing the estimated `toAmount` of the requested `Token` and the `toAmountMin`, which is the guaranteed minimum value that the transfer will yield including slippage.\nIf you want to learn more about how to use this endpoint please have a look at our [guide](/introduction/user-flows-and-examples/requesting-route-fetching-quote).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "quote"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fromChain",
+                  "value": "<string>",
+                  "description": "(Required) The sending chain. Can be the chain id or chain key"
+                },
+                {
+                  "disabled": false,
+                  "key": "toChain",
+                  "value": "<string>",
+                  "description": "(Required) The receiving chain. Can be the chain id or chain key"
+                },
+                {
+                  "disabled": false,
+                  "key": "fromToken",
+                  "value": "<string>",
+                  "description": "(Required) The token that should be transferred. Can be the address or the symbol"
+                },
+                {
+                  "disabled": false,
+                  "key": "toToken",
+                  "value": "<string>",
+                  "description": "(Required) The token that should be transferred to. Can be the address or the symbol"
+                },
+                {
+                  "disabled": false,
+                  "key": "fromAddress",
+                  "value": "<string>",
+                  "description": "(Required) The sending wallet address"
+                },
+                {
+                  "disabled": false,
+                  "key": "toAddress",
+                  "value": "<string>",
+                  "description": "The receiving wallet address. If none is provided, the fromAddress will be used"
+                },
+                {
+                  "disabled": false,
+                  "key": "fromAmount",
+                  "value": "<string>",
+                  "description": "(Required) The amount that should be sent including all decimals (e.g. 1000000 for 1 USDC (6 decimals))"
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "<string>",
+                  "description": "Which kind of route should be preferred **FASTEST**: This sorting criterion prioritizes routes with the shortest estimated execution time. Users who value speed and want their transactions to be completed as quickly as possible should choose the fastest routes. **CHEAPEST**: This criterion focuses on minimizing the cost of the transaction, whether in token amount or USD amount (USD amount minus gas cost). Users looking for the most economical option should choose the cheapest routes."
+                },
+                {
+                  "disabled": false,
+                  "key": "slippage",
+                  "value": "<number>",
+                  "description": "The maximum allowed slippage for the transaction as a decimal value. 0.005 represents 0.5%."
+                },
+                {
+                  "disabled": false,
+                  "key": "integrator",
+                  "value": "<string>",
+                  "description": "A string containing tracking information about the integrator of the API"
+                },
+                {
+                  "disabled": false,
+                  "key": "fee",
+                  "value": "<number>",
+                  "description": "The percent of the integrator's fee that is taken from every transaction. 0.02 represents 2%. The maximum fee amount should be less than 100%."
+                },
+                {
+                  "disabled": false,
+                  "key": "referrer",
+                  "value": "<string>",
+                  "description": "A string containing tracking information about the referrer of the integrator"
+                },
+                {
+                  "disabled": false,
+                  "key": "allowBridges",
+                  "value": "<string>",
+                  "description": "List of bridges that are allowed for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint. Also values `all`, `none`, `default` and `[]` are acceptable and mean all tools of the current type (`all`), no tools (for `none` and `[]` cases) and default tool's settings on the current stage."
+                },
+                {
+                  "disabled": false,
+                  "key": "allowBridges",
+                  "value": "<string>",
+                  "description": "List of bridges that are allowed for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint. Also values `all`, `none`, `default` and `[]` are acceptable and mean all tools of the current type (`all`), no tools (for `none` and `[]` cases) and default tool's settings on the current stage."
+                },
+                {
+                  "disabled": false,
+                  "key": "allowExchanges",
+                  "value": "<string>",
+                  "description": "List of exchanges that are allowed for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint. Also values `all`, `none`, `default` and `[]` are acceptable and mean all tools of the current type (`all`), no tools (for `none` and `[]` cases) and default tool's settings on the current stage."
+                },
+                {
+                  "disabled": false,
+                  "key": "allowExchanges",
+                  "value": "<string>",
+                  "description": "List of exchanges that are allowed for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint. Also values `all`, `none`, `default` and `[]` are acceptable and mean all tools of the current type (`all`), no tools (for `none` and `[]` cases) and default tool's settings on the current stage."
+                },
+                {
+                  "disabled": false,
+                  "key": "denyBridges",
+                  "value": "<string>",
+                  "description": "List of bridges that are not allowed for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint. Also values `all`, `none`, `default` and `[]` are acceptable and mean all tools of the current type (`all`), no tools (for `none` and `[]` cases) and default tool's settings on the current stage."
+                },
+                {
+                  "disabled": false,
+                  "key": "denyBridges",
+                  "value": "<string>",
+                  "description": "List of bridges that are not allowed for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint. Also values `all`, `none`, `default` and `[]` are acceptable and mean all tools of the current type (`all`), no tools (for `none` and `[]` cases) and default tool's settings on the current stage."
+                },
+                {
+                  "disabled": false,
+                  "key": "denyExchanges",
+                  "value": "<string>",
+                  "description": "List of exchanges that are not allowed for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint. Also values `all`, `none`, `default` and `[]` are acceptable and mean all tools of the current type (`all`), no tools (for `none` and `[]` cases) and default tool's settings on the current stage."
+                },
+                {
+                  "disabled": false,
+                  "key": "denyExchanges",
+                  "value": "<string>",
+                  "description": "List of exchanges that are not allowed for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint. Also values `all`, `none`, `default` and `[]` are acceptable and mean all tools of the current type (`all`), no tools (for `none` and `[]` cases) and default tool's settings on the current stage."
+                },
+                {
+                  "disabled": false,
+                  "key": "preferBridges",
+                  "value": "<string>",
+                  "description": "List of bridges that should be preferred for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint. Also values `all`, `none`, `default` and `[]` are acceptable and mean all tools of the current type (`all`), no tools (for `none` and `[]` cases) and default tool's settings on the current stage."
+                },
+                {
+                  "disabled": false,
+                  "key": "preferBridges",
+                  "value": "<string>",
+                  "description": "List of bridges that should be preferred for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint. Also values `all`, `none`, `default` and `[]` are acceptable and mean all tools of the current type (`all`), no tools (for `none` and `[]` cases) and default tool's settings on the current stage."
+                },
+                {
+                  "disabled": false,
+                  "key": "preferExchanges",
+                  "value": "<string>",
+                  "description": "List of exchanges that should be preferred for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint. Also values `all`, `none`, `default` and `[]` are acceptable and mean all tools of the current type (`all`), no tools (for `none` and `[]` cases) and default tool's settings on the current stage."
+                },
+                {
+                  "disabled": false,
+                  "key": "preferExchanges",
+                  "value": "<string>",
+                  "description": "List of exchanges that should be preferred for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint. Also values `all`, `none`, `default` and `[]` are acceptable and mean all tools of the current type (`all`), no tools (for `none` and `[]` cases) and default tool's settings on the current stage."
+                },
+                {
+                  "disabled": false,
+                  "key": "allowDestinationCall",
+                  "value": "<boolean>",
+                  "description": "Whether swaps or other contract calls should be allowed as part of the destination transaction of a bridge transfer. Separate swap transactions on the destination chain are not affected by this flag. By default, parameter is `true`."
+                },
+                {
+                  "disabled": false,
+                  "key": "fromAmountForGas",
+                  "value": "<string>",
+                  "description": "The amount of the token to convert to gas on the destination side."
+                },
+                {
+                  "disabled": false,
+                  "key": "maxPriceImpact",
+                  "value": "<number>",
+                  "description": "The price impact threshold above which routes are hidden. As an example, one should specify 0.15 (15%) to hide routes with more than 15% price impact. The default is 10%."
+                },
+                {
+                  "disabled": false,
+                  "key": "swapStepTimingStrategies",
+                  "value": "<string>",
+                  "description": "Timing setting to wait for a certain amount of swap rates. In the format `minWaitTime-${minWaitTimeMs}-${startingExpectedResults}-${reduceEveryMs}`. Please check [docs.li.fi](https://docs.li.fi) for more details."
+                },
+                {
+                  "disabled": false,
+                  "key": "swapStepTimingStrategies",
+                  "value": "<string>",
+                  "description": "Timing setting to wait for a certain amount of swap rates. In the format `minWaitTime-${minWaitTimeMs}-${startingExpectedResults}-${reduceEveryMs}`. Please check [docs.li.fi](https://docs.li.fi) for more details."
+                },
+                {
+                  "disabled": false,
+                  "key": "routeTimingStrategies",
+                  "value": "<string>",
+                  "description": "Timing setting to wait for a certain amount of routes to be generated before chosing the best one. In the format `minWaitTime-${minWaitTimeMs}-${startingExpectedResults}-${reduceEveryMs}`. Please check [docs.li.fi](https://docs.li.fi) for more details."
+                },
+                {
+                  "disabled": false,
+                  "key": "routeTimingStrategies",
+                  "value": "<string>",
+                  "description": "Timing setting to wait for a certain amount of routes to be generated before chosing the best one. In the format `minWaitTime-${minWaitTimeMs}-${startingExpectedResults}-${reduceEveryMs}`. Please check [docs.li.fi](https://docs.li.fi) for more details."
+                },
+                {
+                  "disabled": false,
+                  "key": "skipSimulation",
+                  "value": "<boolean>",
+                  "description": "Parameter to skip transaction simulation. The quote will be returned faster but the transaction gas limit won't be accurate."
+                },
+                {
+                  "disabled": false,
+                  "key": "preset",
+                  "value": "<string>",
+                  "description": "Pre-configured routing optimization preset. The preset value `stablecoin` is supported for requesting swap and/or bridging operations involving stablecoin tokens. Each preset provides optimized default settings for slippage, price impact, and tool preferences that can be overridden by custom configuration parameters set in the request."
+                },
+                {
+                  "disabled": false,
+                  "key": "svmPriorityFeeLevel",
+                  "value": "<string>",
+                  "description": "Priority fee level for Solana Virtual Machine (SVM) transactions."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
+                "key": "x-lifi-api-key",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "00929948-3716-4021-a3cd-e279b0899640",
+              "name": "The step populated with the transaction data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "quote"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fromChain",
+                      "value": "DAI"
+                    },
+                    {
+                      "key": "toChain",
+                      "value": "POL"
+                    },
+                    {
+                      "key": "fromToken",
+                      "value": "0x4ecaba5870353805a9f068101a40e0f32ed605c6"
+                    },
+                    {
+                      "key": "toToken",
+                      "value": "0x2791bca1f2de4661ed88a30c99a7a9449aa84174"
+                    },
+                    {
+                      "key": "fromAddress",
+                      "value": "0x552008c0f6870c2f77e5cC1d2eb9bdff03e30Ea0"
+                    },
+                    {
+                      "key": "toAddress",
+                      "value": "0x552008c0f6870c2f77e5cC1d2eb9bdff03e30Ea0"
+                    },
+                    {
+                      "key": "fromAmount",
+                      "value": "1000000"
+                    },
+                    {
+                      "key": "order",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "slippage",
+                      "value": "0.005"
+                    },
+                    {
+                      "key": "integrator",
+                      "value": "fee-demo"
+                    },
+                    {
+                      "key": "fee",
+                      "value": "0.02"
+                    },
+                    {
+                      "key": "referrer",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "allowBridges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "allowBridges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "allowExchanges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "allowExchanges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "denyBridges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "denyBridges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "denyExchanges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "denyExchanges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "preferBridges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "preferBridges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "preferExchanges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "preferExchanges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "allowDestinationCall",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "fromAmountForGas",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "maxPriceImpact",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "swapStepTimingStrategies",
+                      "value": "minWaitTime-600-4-300"
+                    },
+                    {
+                      "key": "swapStepTimingStrategies",
+                      "value": "minWaitTime-600-4-300"
+                    },
+                    {
+                      "key": "routeTimingStrategies",
+                      "value": "minWaitTime-600-4-300"
+                    },
+                    {
+                      "key": "routeTimingStrategies",
+                      "value": "minWaitTime-600-4-300"
+                    },
+                    {
+                      "key": "skipSimulation",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "preset",
+                      "value": "stablecoin"
+                    },
+                    {
+                      "key": "svmPriorityFeeLevel",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-lifi-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
+                    "key": "x-lifi-api-key",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"a8dc011a-f52d-4492-9e99-21de64b5453a\",\n  \"type\": \"lifi\",\n  \"tool\": \"1inch\",\n  \"toolDetails\": {\n    \"key\": \"1inch\",\n    \"logoURI\": \"https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/exchanges/oneinch.svg\",\n    \"name\": \"1inch\"\n  },\n  \"action\": {\n    \"fromChainId\": 100,\n    \"toChainId\": 100,\n    \"fromToken\": {\n      \"address\": \"0x0000000000000000000000000000000000000000\",\n      \"symbol\": \"xDai\",\n      \"decimals\": 18,\n      \"chainId\": 100,\n      \"name\": \"xDai\",\n      \"coinKey\": \"xDai\",\n      \"priceUSD\": \"1\",\n      \"logoURI\": \"https://static.debank.com/image/xdai_token/logo_url/xdai/1207e67652b691ef3bfe04f89f4b5362.png\"\n    },\n    \"toToken\": {\n      \"name\": \"Minerva Wallet SuperToken\",\n      \"symbol\": \"MIVA\",\n      \"coinKey\": \"MIVA\",\n      \"decimals\": 18,\n      \"chainId\": 100,\n      \"logoURI\": \"https://minerva.digital/i/MIVA-Token_200x200.png\",\n      \"address\": \"0x63e62989d9eb2d37dfdb1f93a22f063635b07d51\"\n    },\n    \"fromAmount\": \"1000000000000000000\",\n    \"slippage\": 0.003,\n    \"fromAddress\": \"0x552008c0f6870c2f77e5cC1d2eb9bdff03e30Ea0\",\n    \"toAddress\": \"0x552008c0f6870c2f77e5cC1d2eb9bdff03e30Ea0\"\n  },\n  \"estimate\": {\n    \"fromAmount\": \"1000000000000000000\",\n    \"toAmount\": \"21922914496086353975\",\n    \"toAmountMin\": \"21265227061203763356\",\n    \"approvalAddress\": \"0x1111111254fb6c44bac0bed2854e76f90643097d\",\n    \"feeCosts\": [],\n    \"gasCosts\": [\n      {\n        \"type\": \"SEND\",\n        \"price\": \"1\",\n        \"estimate\": \"252364\",\n        \"limit\": \"315455\",\n        \"amount\": \"252364\",\n        \"amountUSD\": \"0.00\",\n        \"token\": {\n          \"address\": \"0x0000000000000000000000000000000000000000\",\n          \"symbol\": \"xDai\",\n          \"decimals\": 18,\n          \"chainId\": 100,\n          \"name\": \"xDai\",\n          \"coinKey\": \"xDai\",\n          \"priceUSD\": \"1\",\n          \"logoURI\": \"https://static.debank.com/image/xdai_token/logo_url/xdai/1207e67652b691ef3bfe04f89f4b5362.png\"\n        }\n      }\n    ],\n    \"data\": {\n      \"fromToken\": {\n        \"name\": \"xDAI\",\n        \"address\": \"0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\",\n        \"symbol\": \"xDAI\",\n        \"decimals\": 18,\n        \"logoURI\": \"https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png\"\n      },\n      \"toToken\": {\n        \"name\": \"Minerva Wallet SuperToken\",\n        \"address\": \"0x63e62989d9eb2d37dfdb1f93a22f063635b07d51\",\n        \"symbol\": \"MIVA\",\n        \"decimals\": 18,\n        \"logoURI\": \"https://minerva.digital/i/MIVA-Token_200x200.png\"\n      },\n      \"toTokenAmount\": \"21922914496086353975\",\n      \"fromTokenAmount\": \"1000000000000000000\",\n      \"protocols\": [\n        {\n          \"name\": \"GNOSIS_HONEYSWAP\",\n          \"part\": 100,\n          \"fromTokenAddress\": \"0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\",\n          \"toTokenAddress\": \"0x63e62989d9eb2d37dfdb1f93a22f063635b07d51\"\n        }\n      ],\n      \"estimatedGas\": 252364\n    }\n  },\n  \"integrator\": \"fee-demo\",\n  \"transactionRequest\": {\n    \"from\": \"0x552008c0f6870c2f77e5cC1d2eb9bdff03e30Ea0\",\n    \"to\": \"0x1111111254fb6c44bac0bed2854e76f90643097d\",\n    \"chainId\": 100,\n    \"data\": \"0x...\",\n    \"value\": \"0x0de0b6b3a7640000\",\n    \"gasPrice\": \"0xb2d05e00\",\n    \"gasLimit\": \"0x0e9cb2\"\n  },\n  \"includedSteps\": [\n    {\n      \"id\": \"a8dc011a-f52d-4492-9e99-21de64b5453a\",\n      \"type\": \"swap\",\n      \"tool\": \"1inch\",\n      \"toolDetails\": {\n        \"key\": \"1inch\",\n        \"logoURI\": \"https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/exchanges/oneinch.svg\",\n        \"name\": \"1inch\"\n      },\n      \"action\": {\n        \"fromChainId\": 100,\n        \"toChainId\": 100,\n        \"fromToken\": {\n          \"address\": \"0x0000000000000000000000000000000000000000\",\n          \"symbol\": \"xDai\",\n          \"decimals\": 18,\n          \"chainId\": 100,\n          \"name\": \"xDai\",\n          \"coinKey\": \"xDai\",\n          \"priceUSD\": \"1\",\n          \"logoURI\": \"https://static.debank.com/image/xdai_token/logo_url/xdai/1207e67652b691ef3bfe04f89f4b5362.png\"\n        },\n        \"toToken\": {\n          \"name\": \"Minerva Wallet SuperToken\",\n          \"symbol\": \"MIVA\",\n          \"coinKey\": \"MIVA\",\n          \"decimals\": 18,\n          \"chainId\": 100,\n          \"logoURI\": \"https://minerva.digital/i/MIVA-Token_200x200.png\",\n          \"address\": \"0x63e62989d9eb2d37dfdb1f93a22f063635b07d51\"\n        },\n        \"fromAmount\": \"1000000000000000000\",\n        \"slippage\": 0.003,\n        \"fromAddress\": \"0x552008c0f6870c2f77e5cC1d2eb9bdff03e30Ea0\",\n        \"toAddress\": \"0x552008c0f6870c2f77e5cC1d2eb9bdff03e30Ea0\"\n      },\n      \"estimate\": {\n        \"fromAmount\": \"1000000000000000000\",\n        \"toAmount\": \"21922914496086353975\",\n        \"toAmountMin\": \"21265227061203763356\",\n        \"approvalAddress\": \"0x1111111254fb6c44bac0bed2854e76f90643097d\",\n        \"feeCosts\": [],\n        \"gasCosts\": [\n          {\n            \"type\": \"SEND\",\n            \"price\": \"1\",\n            \"estimate\": \"252364\",\n            \"limit\": \"315455\",\n            \"amount\": \"252364\",\n            \"amountUSD\": \"0.00\",\n            \"token\": {\n              \"address\": \"0x0000000000000000000000000000000000000000\",\n              \"symbol\": \"xDai\",\n              \"decimals\": 18,\n              \"chainId\": 100,\n              \"name\": \"xDai\",\n              \"coinKey\": \"xDai\",\n              \"priceUSD\": \"1\",\n              \"logoURI\": \"https://static.debank.com/image/xdai_token/logo_url/xdai/1207e67652b691ef3bfe04f89f4b5362.png\"\n            }\n          }\n        ],\n        \"data\": {\n          \"fromToken\": {\n            \"name\": \"xDAI\",\n            \"address\": \"0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\",\n            \"symbol\": \"xDAI\",\n            \"decimals\": 18,\n            \"logoURI\": \"https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png\"\n          },\n          \"toToken\": {\n            \"name\": \"Minerva Wallet SuperToken\",\n            \"address\": \"0x63e62989d9eb2d37dfdb1f93a22f063635b07d51\",\n            \"symbol\": \"MIVA\",\n            \"decimals\": 18,\n            \"logoURI\": \"https://minerva.digital/i/MIVA-Token_200x200.png\"\n          },\n          \"toTokenAmount\": \"21922914496086353975\",\n          \"fromTokenAmount\": \"1000000000000000000\",\n          \"protocols\": [\n            {\n              \"name\": \"GNOSIS_HONEYSWAP\",\n              \"part\": 100,\n              \"fromTokenAddress\": \"0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\",\n              \"toTokenAddress\": \"0x63e62989d9eb2d37dfdb1f93a22f063635b07d51\"\n            }\n          ],\n          \"estimatedGas\": 252364\n        }\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f89f20b7-e6cb-4c1f-b66d-7f7471d07636",
+              "name": "Invalid quote request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "quote"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fromChain",
+                      "value": "DAI"
+                    },
+                    {
+                      "key": "toChain",
+                      "value": "POL"
+                    },
+                    {
+                      "key": "fromToken",
+                      "value": "0x4ecaba5870353805a9f068101a40e0f32ed605c6"
+                    },
+                    {
+                      "key": "toToken",
+                      "value": "0x2791bca1f2de4661ed88a30c99a7a9449aa84174"
+                    },
+                    {
+                      "key": "fromAddress",
+                      "value": "0x552008c0f6870c2f77e5cC1d2eb9bdff03e30Ea0"
+                    },
+                    {
+                      "key": "toAddress",
+                      "value": "0x552008c0f6870c2f77e5cC1d2eb9bdff03e30Ea0"
+                    },
+                    {
+                      "key": "fromAmount",
+                      "value": "1000000"
+                    },
+                    {
+                      "key": "order",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "slippage",
+                      "value": "0.005"
+                    },
+                    {
+                      "key": "integrator",
+                      "value": "fee-demo"
+                    },
+                    {
+                      "key": "fee",
+                      "value": "0.02"
+                    },
+                    {
+                      "key": "referrer",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "allowBridges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "allowBridges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "allowExchanges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "allowExchanges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "denyBridges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "denyBridges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "denyExchanges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "denyExchanges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "preferBridges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "preferBridges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "preferExchanges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "preferExchanges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "allowDestinationCall",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "fromAmountForGas",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "maxPriceImpact",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "swapStepTimingStrategies",
+                      "value": "minWaitTime-600-4-300"
+                    },
+                    {
+                      "key": "swapStepTimingStrategies",
+                      "value": "minWaitTime-600-4-300"
+                    },
+                    {
+                      "key": "routeTimingStrategies",
+                      "value": "minWaitTime-600-4-300"
+                    },
+                    {
+                      "key": "routeTimingStrategies",
+                      "value": "minWaitTime-600-4-300"
+                    },
+                    {
+                      "key": "skipSimulation",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "preset",
+                      "value": "stablecoin"
+                    },
+                    {
+                      "key": "svmPriorityFeeLevel",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-lifi-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
+                    "key": "x-lifi-api-key",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "dae34cf1-7e4d-4aa9-b226-15dade36f5c1",
+              "name": "Unable to find a quote for the requested transfer.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "quote"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fromChain",
+                      "value": "DAI"
+                    },
+                    {
+                      "key": "toChain",
+                      "value": "POL"
+                    },
+                    {
+                      "key": "fromToken",
+                      "value": "0x4ecaba5870353805a9f068101a40e0f32ed605c6"
+                    },
+                    {
+                      "key": "toToken",
+                      "value": "0x2791bca1f2de4661ed88a30c99a7a9449aa84174"
+                    },
+                    {
+                      "key": "fromAddress",
+                      "value": "0x552008c0f6870c2f77e5cC1d2eb9bdff03e30Ea0"
+                    },
+                    {
+                      "key": "toAddress",
+                      "value": "0x552008c0f6870c2f77e5cC1d2eb9bdff03e30Ea0"
+                    },
+                    {
+                      "key": "fromAmount",
+                      "value": "1000000"
+                    },
+                    {
+                      "key": "order",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "slippage",
+                      "value": "0.005"
+                    },
+                    {
+                      "key": "integrator",
+                      "value": "fee-demo"
+                    },
+                    {
+                      "key": "fee",
+                      "value": "0.02"
+                    },
+                    {
+                      "key": "referrer",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "allowBridges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "allowBridges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "allowExchanges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "allowExchanges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "denyBridges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "denyBridges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "denyExchanges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "denyExchanges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "preferBridges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "preferBridges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "preferExchanges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "preferExchanges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "allowDestinationCall",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "fromAmountForGas",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "maxPriceImpact",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "swapStepTimingStrategies",
+                      "value": "minWaitTime-600-4-300"
+                    },
+                    {
+                      "key": "swapStepTimingStrategies",
+                      "value": "minWaitTime-600-4-300"
+                    },
+                    {
+                      "key": "routeTimingStrategies",
+                      "value": "minWaitTime-600-4-300"
+                    },
+                    {
+                      "key": "routeTimingStrategies",
+                      "value": "minWaitTime-600-4-300"
+                    },
+                    {
+                      "key": "skipSimulation",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "preset",
+                      "value": "stablecoin"
+                    },
+                    {
+                      "key": "svmPriorityFeeLevel",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-lifi-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
+                    "key": "x-lifi-api-key",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Unable to find a quote for the requested transfer\",\n  \"errors\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d5847da1-eea8-4230-affe-d07f3605dbc5",
+          "name": "Get a quote for a token transfer",
+          "request": {
+            "name": "Get a quote for a token transfer",
+            "description": {
+              "content": "This endpoint is an alternative to the `v1/quote` endpoint, taking a `toAmount` value rather than `fromAmount`. This endpoint will calculate an appropriate `fromAmount` based on the specified `toAmount`, and use this value to generate the quote data.\nThis endpoint can be used to request a quote for a transfer of one token to another, cross chain or not.\nThe endpoint returns a `Step` object which contains information about the estimated result as well as a `transactionRequest` which can directly be sent to your wallet.\nThe estimated result can be found inside the `estimate`, containing the estimated required `fromAmount` of the sending `Token` to meet the `toAmountMin` of the receiving token, which is the guaranteed minimum value that the transfer will yield including slippage.\nIf you want to learn more about how to use this endpoint please have a look at our [guide](/introduction/user-flows-and-examples/requesting-route-fetching-quote).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "quote",
+                "toAmount"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fromChain",
+                  "value": "<string>",
+                  "description": "(Required) The sending chain. Can be the chain id or chain key"
+                },
+                {
+                  "disabled": false,
+                  "key": "toChain",
+                  "value": "<string>",
+                  "description": "(Required) The receiving chain. Can be the chain id or chain key"
+                },
+                {
+                  "disabled": false,
+                  "key": "fromToken",
+                  "value": "<string>",
+                  "description": "(Required) The token that should be transferred. Can be the address or the symbol"
+                },
+                {
+                  "disabled": false,
+                  "key": "toToken",
+                  "value": "<string>",
+                  "description": "(Required) The token that should be transferred to. Can be the address or the symbol"
+                },
+                {
+                  "disabled": false,
+                  "key": "fromAddress",
+                  "value": "<string>",
+                  "description": "(Required) The sending wallet address"
+                },
+                {
+                  "disabled": false,
+                  "key": "toAddress",
+                  "value": "<string>",
+                  "description": "The receiving wallet address. If none is provided, the fromAddress will be used"
+                },
+                {
+                  "disabled": false,
+                  "key": "toAmount",
+                  "value": "<string>",
+                  "description": "(Required) The amount that will be received including all decimals (e.g. 1000000 for 1 USDC (6 decimals))"
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "<string>",
+                  "description": "Which kind of route should be preferred **FASTEST**: This sorting criterion prioritizes routes with the shortest estimated execution time. Users who value speed and want their transactions to be completed as quickly as possible should choose the fastest routes. **CHEAPEST**: This criterion focuses on minimizing the cost of the transaction, whether in token amount or USD amount (USD amount minus gas cost). Users looking for the most economical option should choose the cheapest routes."
+                },
+                {
+                  "disabled": false,
+                  "key": "slippage",
+                  "value": "<number>",
+                  "description": "The maximum allowed slippage for the transaction as a decimal value. 0.005 represents 0.5%."
+                },
+                {
+                  "disabled": false,
+                  "key": "integrator",
+                  "value": "<string>",
+                  "description": "A string containing tracking information about the integrator of the API"
+                },
+                {
+                  "disabled": false,
+                  "key": "fee",
+                  "value": "<number>",
+                  "description": "The percent of the integrator's fee that is taken from every transaction. 0.02 represents 2%. The maximum fee amount should be less than 100%."
+                },
+                {
+                  "disabled": false,
+                  "key": "referrer",
+                  "value": "<string>",
+                  "description": "A string containing tracking information about the referrer of the integrator"
+                },
+                {
+                  "disabled": false,
+                  "key": "allowBridges",
+                  "value": "<string>",
+                  "description": "List of bridges that are allowed for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint. Also values `all`, `none`, `default` and `[]` are acceptable and mean all tools of the current type (`all`), no tools (for `none` and `[]` cases) and default tool's settings on the current stage."
+                },
+                {
+                  "disabled": false,
+                  "key": "allowBridges",
+                  "value": "<string>",
+                  "description": "List of bridges that are allowed for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint. Also values `all`, `none`, `default` and `[]` are acceptable and mean all tools of the current type (`all`), no tools (for `none` and `[]` cases) and default tool's settings on the current stage."
+                },
+                {
+                  "disabled": false,
+                  "key": "allowExchanges",
+                  "value": "<string>",
+                  "description": "List of exchanges that are allowed for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint. Also values `all`, `none`, `default` and `[]` are acceptable and mean all tools of the current type (`all`), no tools (for `none` and `[]` cases) and default tool's settings on the current stage."
+                },
+                {
+                  "disabled": false,
+                  "key": "allowExchanges",
+                  "value": "<string>",
+                  "description": "List of exchanges that are allowed for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint. Also values `all`, `none`, `default` and `[]` are acceptable and mean all tools of the current type (`all`), no tools (for `none` and `[]` cases) and default tool's settings on the current stage."
+                },
+                {
+                  "disabled": false,
+                  "key": "denyBridges",
+                  "value": "<string>",
+                  "description": "List of bridges that are not allowed for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint. Also values `all`, `none`, `default` and `[]` are acceptable and mean all tools of the current type (`all`), no tools (for `none` and `[]` cases) and default tool's settings on the current stage."
+                },
+                {
+                  "disabled": false,
+                  "key": "denyBridges",
+                  "value": "<string>",
+                  "description": "List of bridges that are not allowed for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint. Also values `all`, `none`, `default` and `[]` are acceptable and mean all tools of the current type (`all`), no tools (for `none` and `[]` cases) and default tool's settings on the current stage."
+                },
+                {
+                  "disabled": false,
+                  "key": "denyExchanges",
+                  "value": "<string>",
+                  "description": "List of exchanges that are not allowed for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint. Also values `all`, `none`, `default` and `[]` are acceptable and mean all tools of the current type (`all`), no tools (for `none` and `[]` cases) and default tool's settings on the current stage."
+                },
+                {
+                  "disabled": false,
+                  "key": "denyExchanges",
+                  "value": "<string>",
+                  "description": "List of exchanges that are not allowed for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint. Also values `all`, `none`, `default` and `[]` are acceptable and mean all tools of the current type (`all`), no tools (for `none` and `[]` cases) and default tool's settings on the current stage."
+                },
+                {
+                  "disabled": false,
+                  "key": "preferBridges",
+                  "value": "<string>",
+                  "description": "List of bridges that should be preferred for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint. Also values `all`, `none`, `default` and `[]` are acceptable and mean all tools of the current type (`all`), no tools (for `none` and `[]` cases) and default tool's settings on the current stage."
+                },
+                {
+                  "disabled": false,
+                  "key": "preferBridges",
+                  "value": "<string>",
+                  "description": "List of bridges that should be preferred for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint. Also values `all`, `none`, `default` and `[]` are acceptable and mean all tools of the current type (`all`), no tools (for `none` and `[]` cases) and default tool's settings on the current stage."
+                },
+                {
+                  "disabled": false,
+                  "key": "preferExchanges",
+                  "value": "<string>",
+                  "description": "List of exchanges that should be preferred for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint. Also values `all`, `none`, `default` and `[]` are acceptable and mean all tools of the current type (`all`), no tools (for `none` and `[]` cases) and default tool's settings on the current stage."
+                },
+                {
+                  "disabled": false,
+                  "key": "preferExchanges",
+                  "value": "<string>",
+                  "description": "List of exchanges that should be preferred for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint. Also values `all`, `none`, `default` and `[]` are acceptable and mean all tools of the current type (`all`), no tools (for `none` and `[]` cases) and default tool's settings on the current stage."
+                },
+                {
+                  "disabled": false,
+                  "key": "allowDestinationCall",
+                  "value": "<boolean>",
+                  "description": "Whether swaps or other contract calls should be allowed as part of the destination transaction of a bridge transfer. Separate swap transactions on the destination chain are not affected by this flag. By default, parameter is `true`."
+                },
+                {
+                  "disabled": false,
+                  "key": "maxPriceImpact",
+                  "value": "<number>",
+                  "description": "The price impact threshold above which routes are hidden. As an example, one should specify 0.15 (15%) to hide routes with more than 15% price impact. The default is 10%."
+                },
+                {
+                  "disabled": false,
+                  "key": "swapStepTimingStrategies",
+                  "value": "<string>",
+                  "description": "Timing setting to wait for a certain amount of swap rates. In the format `minWaitTime-${minWaitTimeMs}-${startingExpectedResults}-${reduceEveryMs}`. Please check [docs.li.fi](https://docs.li.fi) for more details."
+                },
+                {
+                  "disabled": false,
+                  "key": "swapStepTimingStrategies",
+                  "value": "<string>",
+                  "description": "Timing setting to wait for a certain amount of swap rates. In the format `minWaitTime-${minWaitTimeMs}-${startingExpectedResults}-${reduceEveryMs}`. Please check [docs.li.fi](https://docs.li.fi) for more details."
+                },
+                {
+                  "disabled": false,
+                  "key": "routeTimingStrategies",
+                  "value": "<string>",
+                  "description": "Timing setting to wait for a certain amount of routes to be generated before chosing the best one. In the format `minWaitTime-${minWaitTimeMs}-${startingExpectedResults}-${reduceEveryMs}`. Please check [docs.li.fi](https://docs.li.fi) for more details."
+                },
+                {
+                  "disabled": false,
+                  "key": "routeTimingStrategies",
+                  "value": "<string>",
+                  "description": "Timing setting to wait for a certain amount of routes to be generated before chosing the best one. In the format `minWaitTime-${minWaitTimeMs}-${startingExpectedResults}-${reduceEveryMs}`. Please check [docs.li.fi](https://docs.li.fi) for more details."
+                },
+                {
+                  "disabled": false,
+                  "key": "svmPriorityFeeLevel",
+                  "value": "<string>",
+                  "description": "Priority fee level for Solana Virtual Machine (SVM) transactions."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
+                "key": "x-lifi-api-key",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fa20530c-9848-4b92-9712-8c1862df1d8c",
+              "name": "The step populated with the transaction data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "quote",
+                    "toAmount"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fromChain",
+                      "value": "DAI"
+                    },
+                    {
+                      "key": "toChain",
+                      "value": "POL"
+                    },
+                    {
+                      "key": "fromToken",
+                      "value": "0x4ecaba5870353805a9f068101a40e0f32ed605c6"
+                    },
+                    {
+                      "key": "toToken",
+                      "value": "0x2791bca1f2de4661ed88a30c99a7a9449aa84174"
+                    },
+                    {
+                      "key": "fromAddress",
+                      "value": "0x552008c0f6870c2f77e5cC1d2eb9bdff03e30Ea0"
+                    },
+                    {
+                      "key": "toAddress",
+                      "value": "0x552008c0f6870c2f77e5cC1d2eb9bdff03e30Ea0"
+                    },
+                    {
+                      "key": "toAmount",
+                      "value": "1000000"
+                    },
+                    {
+                      "key": "order",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "slippage",
+                      "value": "0.005"
+                    },
+                    {
+                      "key": "integrator",
+                      "value": "fee-demo"
+                    },
+                    {
+                      "key": "fee",
+                      "value": "0.02"
+                    },
+                    {
+                      "key": "referrer",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "allowBridges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "allowBridges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "allowExchanges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "allowExchanges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "denyBridges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "denyBridges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "denyExchanges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "denyExchanges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "preferBridges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "preferBridges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "preferExchanges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "preferExchanges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "allowDestinationCall",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "maxPriceImpact",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "swapStepTimingStrategies",
+                      "value": "minWaitTime-600-4-300"
+                    },
+                    {
+                      "key": "swapStepTimingStrategies",
+                      "value": "minWaitTime-600-4-300"
+                    },
+                    {
+                      "key": "routeTimingStrategies",
+                      "value": "minWaitTime-600-4-300"
+                    },
+                    {
+                      "key": "routeTimingStrategies",
+                      "value": "minWaitTime-600-4-300"
+                    },
+                    {
+                      "key": "svmPriorityFeeLevel",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-lifi-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
+                    "key": "x-lifi-api-key",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"a8dc011a-f52d-4492-9e99-21de64b5453a\",\n  \"type\": \"lifi\",\n  \"tool\": \"1inch\",\n  \"toolDetails\": {\n    \"key\": \"1inch\",\n    \"logoURI\": \"https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/exchanges/oneinch.svg\",\n    \"name\": \"1inch\"\n  },\n  \"action\": {\n    \"fromChainId\": 100,\n    \"toChainId\": 100,\n    \"fromToken\": {\n      \"address\": \"0x0000000000000000000000000000000000000000\",\n      \"symbol\": \"xDai\",\n      \"decimals\": 18,\n      \"chainId\": 100,\n      \"name\": \"xDai\",\n      \"coinKey\": \"xDai\",\n      \"priceUSD\": \"1\",\n      \"logoURI\": \"https://static.debank.com/image/xdai_token/logo_url/xdai/1207e67652b691ef3bfe04f89f4b5362.png\"\n    },\n    \"toToken\": {\n      \"name\": \"Minerva Wallet SuperToken\",\n      \"symbol\": \"MIVA\",\n      \"coinKey\": \"MIVA\",\n      \"decimals\": 18,\n      \"chainId\": 100,\n      \"logoURI\": \"https://minerva.digital/i/MIVA-Token_200x200.png\",\n      \"address\": \"0x63e62989d9eb2d37dfdb1f93a22f063635b07d51\"\n    },\n    \"fromAmount\": \"1000000000000000000\",\n    \"slippage\": 0.003,\n    \"fromAddress\": \"0x552008c0f6870c2f77e5cC1d2eb9bdff03e30Ea0\",\n    \"toAddress\": \"0x552008c0f6870c2f77e5cC1d2eb9bdff03e30Ea0\"\n  },\n  \"estimate\": {\n    \"fromAmount\": \"1000000000000000000\",\n    \"toAmount\": \"21922914496086353975\",\n    \"toAmountMin\": \"21265227061203763356\",\n    \"approvalAddress\": \"0x1111111254fb6c44bac0bed2854e76f90643097d\",\n    \"feeCosts\": [],\n    \"gasCosts\": [\n      {\n        \"type\": \"SEND\",\n        \"price\": \"1\",\n        \"estimate\": \"252364\",\n        \"limit\": \"315455\",\n        \"amount\": \"252364\",\n        \"amountUSD\": \"0.00\",\n        \"token\": {\n          \"address\": \"0x0000000000000000000000000000000000000000\",\n          \"symbol\": \"xDai\",\n          \"decimals\": 18,\n          \"chainId\": 100,\n          \"name\": \"xDai\",\n          \"coinKey\": \"xDai\",\n          \"priceUSD\": \"1\",\n          \"logoURI\": \"https://static.debank.com/image/xdai_token/logo_url/xdai/1207e67652b691ef3bfe04f89f4b5362.png\"\n        }\n      }\n    ],\n    \"data\": {\n      \"fromToken\": {\n        \"name\": \"xDAI\",\n        \"address\": \"0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\",\n        \"symbol\": \"xDAI\",\n        \"decimals\": 18,\n        \"logoURI\": \"https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png\"\n      },\n      \"toToken\": {\n        \"name\": \"Minerva Wallet SuperToken\",\n        \"address\": \"0x63e62989d9eb2d37dfdb1f93a22f063635b07d51\",\n        \"symbol\": \"MIVA\",\n        \"decimals\": 18,\n        \"logoURI\": \"https://minerva.digital/i/MIVA-Token_200x200.png\"\n      },\n      \"toTokenAmount\": \"21922914496086353975\",\n      \"fromTokenAmount\": \"1000000000000000000\",\n      \"protocols\": [\n        {\n          \"name\": \"GNOSIS_HONEYSWAP\",\n          \"part\": 100,\n          \"fromTokenAddress\": \"0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\",\n          \"toTokenAddress\": \"0x63e62989d9eb2d37dfdb1f93a22f063635b07d51\"\n        }\n      ],\n      \"estimatedGas\": 252364\n    }\n  },\n  \"integrator\": \"fee-demo\",\n  \"transactionRequest\": {\n    \"from\": \"0x552008c0f6870c2f77e5cC1d2eb9bdff03e30Ea0\",\n    \"to\": \"0x1111111254fb6c44bac0bed2854e76f90643097d\",\n    \"chainId\": 100,\n    \"data\": \"0x...\",\n    \"value\": \"0x0de0b6b3a7640000\",\n    \"gasPrice\": \"0xb2d05e00\",\n    \"gasLimit\": \"0x0e9cb2\"\n  },\n  \"includedSteps\": [\n    {\n      \"id\": \"a8dc011a-f52d-4492-9e99-21de64b5453a\",\n      \"type\": \"swap\",\n      \"tool\": \"1inch\",\n      \"toolDetails\": {\n        \"key\": \"1inch\",\n        \"logoURI\": \"https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/exchanges/oneinch.svg\",\n        \"name\": \"1inch\"\n      },\n      \"action\": {\n        \"fromChainId\": 100,\n        \"toChainId\": 100,\n        \"fromToken\": {\n          \"address\": \"0x0000000000000000000000000000000000000000\",\n          \"symbol\": \"xDai\",\n          \"decimals\": 18,\n          \"chainId\": 100,\n          \"name\": \"xDai\",\n          \"coinKey\": \"xDai\",\n          \"priceUSD\": \"1\",\n          \"logoURI\": \"https://static.debank.com/image/xdai_token/logo_url/xdai/1207e67652b691ef3bfe04f89f4b5362.png\"\n        },\n        \"toToken\": {\n          \"name\": \"Minerva Wallet SuperToken\",\n          \"symbol\": \"MIVA\",\n          \"coinKey\": \"MIVA\",\n          \"decimals\": 18,\n          \"chainId\": 100,\n          \"logoURI\": \"https://minerva.digital/i/MIVA-Token_200x200.png\",\n          \"address\": \"0x63e62989d9eb2d37dfdb1f93a22f063635b07d51\"\n        },\n        \"fromAmount\": \"1000000000000000000\",\n        \"slippage\": 0.003,\n        \"fromAddress\": \"0x552008c0f6870c2f77e5cC1d2eb9bdff03e30Ea0\",\n        \"toAddress\": \"0x552008c0f6870c2f77e5cC1d2eb9bdff03e30Ea0\"\n      },\n      \"estimate\": {\n        \"fromAmount\": \"1000000000000000000\",\n        \"toAmount\": \"21922914496086353975\",\n        \"toAmountMin\": \"21265227061203763356\",\n        \"approvalAddress\": \"0x1111111254fb6c44bac0bed2854e76f90643097d\",\n        \"feeCosts\": [],\n        \"gasCosts\": [\n          {\n            \"type\": \"SEND\",\n            \"price\": \"1\",\n            \"estimate\": \"252364\",\n            \"limit\": \"315455\",\n            \"amount\": \"252364\",\n            \"amountUSD\": \"0.00\",\n            \"token\": {\n              \"address\": \"0x0000000000000000000000000000000000000000\",\n              \"symbol\": \"xDai\",\n              \"decimals\": 18,\n              \"chainId\": 100,\n              \"name\": \"xDai\",\n              \"coinKey\": \"xDai\",\n              \"priceUSD\": \"1\",\n              \"logoURI\": \"https://static.debank.com/image/xdai_token/logo_url/xdai/1207e67652b691ef3bfe04f89f4b5362.png\"\n            }\n          }\n        ],\n        \"data\": {\n          \"fromToken\": {\n            \"name\": \"xDAI\",\n            \"address\": \"0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\",\n            \"symbol\": \"xDAI\",\n            \"decimals\": 18,\n            \"logoURI\": \"https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png\"\n          },\n          \"toToken\": {\n            \"name\": \"Minerva Wallet SuperToken\",\n            \"address\": \"0x63e62989d9eb2d37dfdb1f93a22f063635b07d51\",\n            \"symbol\": \"MIVA\",\n            \"decimals\": 18,\n            \"logoURI\": \"https://minerva.digital/i/MIVA-Token_200x200.png\"\n          },\n          \"toTokenAmount\": \"21922914496086353975\",\n          \"fromTokenAmount\": \"1000000000000000000\",\n          \"protocols\": [\n            {\n              \"name\": \"GNOSIS_HONEYSWAP\",\n              \"part\": 100,\n              \"fromTokenAddress\": \"0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\",\n              \"toTokenAddress\": \"0x63e62989d9eb2d37dfdb1f93a22f063635b07d51\"\n            }\n          ],\n          \"estimatedGas\": 252364\n        }\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c63f7f7c-367c-45e0-bb68-cf16a74d9600",
+              "name": "Invalid quote request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "quote",
+                    "toAmount"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fromChain",
+                      "value": "DAI"
+                    },
+                    {
+                      "key": "toChain",
+                      "value": "POL"
+                    },
+                    {
+                      "key": "fromToken",
+                      "value": "0x4ecaba5870353805a9f068101a40e0f32ed605c6"
+                    },
+                    {
+                      "key": "toToken",
+                      "value": "0x2791bca1f2de4661ed88a30c99a7a9449aa84174"
+                    },
+                    {
+                      "key": "fromAddress",
+                      "value": "0x552008c0f6870c2f77e5cC1d2eb9bdff03e30Ea0"
+                    },
+                    {
+                      "key": "toAddress",
+                      "value": "0x552008c0f6870c2f77e5cC1d2eb9bdff03e30Ea0"
+                    },
+                    {
+                      "key": "toAmount",
+                      "value": "1000000"
+                    },
+                    {
+                      "key": "order",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "slippage",
+                      "value": "0.005"
+                    },
+                    {
+                      "key": "integrator",
+                      "value": "fee-demo"
+                    },
+                    {
+                      "key": "fee",
+                      "value": "0.02"
+                    },
+                    {
+                      "key": "referrer",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "allowBridges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "allowBridges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "allowExchanges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "allowExchanges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "denyBridges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "denyBridges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "denyExchanges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "denyExchanges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "preferBridges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "preferBridges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "preferExchanges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "preferExchanges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "allowDestinationCall",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "maxPriceImpact",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "swapStepTimingStrategies",
+                      "value": "minWaitTime-600-4-300"
+                    },
+                    {
+                      "key": "swapStepTimingStrategies",
+                      "value": "minWaitTime-600-4-300"
+                    },
+                    {
+                      "key": "routeTimingStrategies",
+                      "value": "minWaitTime-600-4-300"
+                    },
+                    {
+                      "key": "routeTimingStrategies",
+                      "value": "minWaitTime-600-4-300"
+                    },
+                    {
+                      "key": "svmPriorityFeeLevel",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-lifi-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
+                    "key": "x-lifi-api-key",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b8fda22a-f930-4c55-a19e-f945291b5257",
+              "name": "Unable to find a quote for the requested transfer.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "quote",
+                    "toAmount"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fromChain",
+                      "value": "DAI"
+                    },
+                    {
+                      "key": "toChain",
+                      "value": "POL"
+                    },
+                    {
+                      "key": "fromToken",
+                      "value": "0x4ecaba5870353805a9f068101a40e0f32ed605c6"
+                    },
+                    {
+                      "key": "toToken",
+                      "value": "0x2791bca1f2de4661ed88a30c99a7a9449aa84174"
+                    },
+                    {
+                      "key": "fromAddress",
+                      "value": "0x552008c0f6870c2f77e5cC1d2eb9bdff03e30Ea0"
+                    },
+                    {
+                      "key": "toAddress",
+                      "value": "0x552008c0f6870c2f77e5cC1d2eb9bdff03e30Ea0"
+                    },
+                    {
+                      "key": "toAmount",
+                      "value": "1000000"
+                    },
+                    {
+                      "key": "order",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "slippage",
+                      "value": "0.005"
+                    },
+                    {
+                      "key": "integrator",
+                      "value": "fee-demo"
+                    },
+                    {
+                      "key": "fee",
+                      "value": "0.02"
+                    },
+                    {
+                      "key": "referrer",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "allowBridges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "allowBridges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "allowExchanges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "allowExchanges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "denyBridges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "denyBridges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "denyExchanges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "denyExchanges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "preferBridges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "preferBridges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "preferExchanges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "preferExchanges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "allowDestinationCall",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "maxPriceImpact",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "swapStepTimingStrategies",
+                      "value": "minWaitTime-600-4-300"
+                    },
+                    {
+                      "key": "swapStepTimingStrategies",
+                      "value": "minWaitTime-600-4-300"
+                    },
+                    {
+                      "key": "routeTimingStrategies",
+                      "value": "minWaitTime-600-4-300"
+                    },
+                    {
+                      "key": "routeTimingStrategies",
+                      "value": "minWaitTime-600-4-300"
+                    },
+                    {
+                      "key": "svmPriorityFeeLevel",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-lifi-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
+                    "key": "x-lifi-api-key",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Unable to find a quote for the requested transfer\",\n  \"errors\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "671eadbe-be2c-470d-9be9-a426d3314818",
+          "name": "Perform a contract call across blockchains (BETA)",
+          "request": {
+            "name": "Perform a contract call across blockchains (BETA)",
+            "description": {
+              "content": "This endpoint has been deprecated in favour of /quote/contractCalls.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "quote",
+                "contractCall"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
+                "key": "x-lifi-api-key",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fromChain\": \"<number>\",\n  \"fromToken\": \"<string>\",\n  \"fromAddress\": \"<string>\",\n  \"toChain\": \"<number>\",\n  \"toToken\": \"<string>\",\n  \"toAmount\": \"<string>\",\n  \"toContractAddress\": \"<string>\",\n  \"toContractCallData\": \"<string>\",\n  \"toContractGasLimit\": \"<string>\",\n  \"contractOutputsToken\": \"<string>\",\n  \"toApprovalAddress\": \"<string>\",\n  \"toFallbackAddress\": \"<string>\",\n  \"slippage\": \"<double>\",\n  \"integrator\": \"<string>\",\n  \"referrer\": \"<string>\",\n  \"allowBridges\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"denyBridges\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"preferBridges\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"allowExchanges\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"denyExchanges\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"preferExchanges\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"fee\": \"<double>\",\n  \"allowDestinationCall\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "53db7a4d-7517-4ce0-b071-2dac9950be31",
+              "name": "Object listing all the currently enabled bridges and exchanges.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "quote",
+                    "contractCall"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-lifi-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
+                    "key": "x-lifi-api-key",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fromChain\": \"BSC\",\n  \"fromToken\": \"0x1af3f329e8be154074d8769d1ffa4ee058b1dbc3\",\n  \"fromAddress\": \"0x552008c0f6870c2f77e5cC1d2eb9bdff03e30Ea0\",\n  \"toChain\": \"POL\",\n  \"toToken\": \"0x4e78011ce80ee02d2c3e649fb657e45898257815\",\n  \"toAmount\": \"300000000\",\n  \"toContractAddress\": \"0xEde3bd57a04960E6469B70B4863cE1c9d9363Cb8\",\n  \"contractOutputsToken\": \"0xb0c22d8d350c67420f06f48936654f567c73e8c8\",\n  \"toContractCallData\": \"0x...\",\n  \"toContractGasLimit\": \"900000\",\n  \"allowBridges\": [\n    \"relay\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"exchanges\": [\n    {\n      \"key\": \"string\",\n      \"name\": \"0x\",\n      \"logoURI\": \"https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/exchanges/zerox.svg\",\n      \"supportedChains\": \"string\"\n    },\n    {\n      \"key\": \"string\",\n      \"name\": \"0x\",\n      \"logoURI\": \"https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/exchanges/zerox.svg\",\n      \"supportedChains\": \"string\"\n    }\n  ],\n  \"bridges\": [\n    {\n      \"key\": \"string\",\n      \"name\": \"Connext\",\n      \"logoURI\": \"https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/bridges/relay.svg\",\n      \"supportedChains\": [\n        {\n          \"fromChainId\": \"string\",\n          \"toChainId\": \"string\"\n        },\n        {\n          \"fromChainId\": \"string\",\n          \"toChainId\": \"string\"\n        }\n      ]\n    },\n    {\n      \"key\": \"string\",\n      \"name\": \"Connext\",\n      \"logoURI\": \"https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/bridges/relay.svg\",\n      \"supportedChains\": [\n        {\n          \"fromChainId\": \"string\",\n          \"toChainId\": \"string\"\n        },\n        {\n          \"fromChainId\": \"string\",\n          \"toChainId\": \"string\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "77e171c3-a951-4ac1-8f67-7392bff499dd",
+          "name": "Perform multiple contract calls across blockchains (BETA)",
+          "request": {
+            "name": "Perform multiple contract calls across blockchains (BETA)",
+            "description": {
+              "content": "This endpoint can be used to bridge tokens, swap them and perform a number or arbitrary contract calls on the destination chain. You can find an example of it [here](https://github.com/lifinance/sdk/tree/main/examples).\nThis functionality is currently in beta. While we've worked hard to ensure its stability and functionality, there might still be some rough edges.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "quote",
+                "contractCalls"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "The apiKey allows you to authenticate on the API.",
+                "key": "x-lifi-api-key",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fromChain\": \"<number>\",\n  \"fromToken\": \"<string>\",\n  \"fromAddress\": \"<string>\",\n  \"toChain\": \"<number>\",\n  \"toToken\": \"<string>\",\n  \"toAmount\": \"<string>\",\n  \"contractCalls\": [\n    {\n      \"fromAmount\": \"<string>\",\n      \"fromTokenAddress\": \"<string>\",\n      \"toContractAddress\": \"<string>\",\n      \"toContractCallData\": \"<string>\",\n      \"toContractGasLimit\": \"<string>\",\n      \"toApprovalAddress\": \"<string>\",\n      \"toTokenAddress\": \"<string>\"\n    },\n    {\n      \"fromAmount\": \"<string>\",\n      \"fromTokenAddress\": \"<string>\",\n      \"toContractAddress\": \"<string>\",\n      \"toContractCallData\": \"<string>\",\n      \"toContractGasLimit\": \"<string>\",\n      \"toApprovalAddress\": \"<string>\",\n      \"toTokenAddress\": \"<string>\"\n    }\n  ],\n  \"toFallbackAddress\": \"<string>\",\n  \"contractOutputsToken\": \"<string>\",\n  \"slippage\": \"<double>\",\n  \"integrator\": \"<string>\",\n  \"referrer\": \"<string>\",\n  \"allowBridges\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"denyBridges\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"preferBridges\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"allowExchanges\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"denyExchanges\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"preferExchanges\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"allowDestinationCall\": \"<boolean>\",\n  \"fee\": \"<double>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6c754406-c8f6-42a4-8d06-d6ff4719bd53",
+              "name": "Object listing all the currently enabled bridges and exchanges.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "quote",
+                    "contractCalls"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-lifi-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The apiKey allows you to authenticate on the API.",
+                    "key": "x-lifi-api-key",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fromChain\": 10,\n  \"fromToken\": \"0x4200000000000000000000000000000000000042\",\n  \"fromAddress\": \"0x552008c0f6870c2f77e5cC1d2eb9bdff03e30Ea0\",\n  \"toChain\": 1,\n  \"toToken\": \"ETH\",\n  \"toAmount\": \"100000000000001\",\n  \"contractCalls\": [\n    {\n      \"fromAmount\": \"100000000000001\",\n      \"fromTokenAddress\": \"0x0000000000000000000000000000000000000000\",\n      \"toTokenAddress\": \"0xae7ab96520de3a18e5e111b5eaab095312d7fe84\",\n      \"toContractAddress\": \"0xae7ab96520de3a18e5e111b5eaab095312d7fe84\",\n      \"toContractCallData\": \"0x\",\n      \"toContractGasLimit\": \"110000\"\n    },\n    {\n      \"fromAmount\": \"100000000000000\",\n      \"fromTokenAddress\": \"0xae7ab96520de3a18e5e111b5eaab095312d7fe84\",\n      \"toTokenAddress\": \"0x7f39c581f595b53c5cb19bd0b3f8da6c935e2ca0\",\n      \"toContractAddress\": \"0x7f39c581f595b53c5cb19bd0b3f8da6c935e2ca0\",\n      \"toFallbackAddress\": \"0x552008c0f6870c2f77e5cC1d2eb9bdff03e30Ea0\",\n      \"toContractCallData\": \"0xea598cb000000000000000000000000000000000000000000000000000005af3107a4000\",\n      \"toContractGasLimit\": \"100000\"\n    }\n  ],\n  \"integrator\": \"muc-hackaton-postman\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"exchanges\": [\n    {\n      \"key\": \"string\",\n      \"name\": \"0x\",\n      \"logoURI\": \"https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/exchanges/zerox.svg\",\n      \"supportedChains\": \"string\"\n    },\n    {\n      \"key\": \"string\",\n      \"name\": \"0x\",\n      \"logoURI\": \"https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/exchanges/zerox.svg\",\n      \"supportedChains\": \"string\"\n    }\n  ],\n  \"bridges\": [\n    {\n      \"key\": \"string\",\n      \"name\": \"Connext\",\n      \"logoURI\": \"https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/bridges/relay.svg\",\n      \"supportedChains\": [\n        {\n          \"fromChainId\": \"string\",\n          \"toChainId\": \"string\"\n        },\n        {\n          \"fromChainId\": \"string\",\n          \"toChainId\": \"string\"\n        }\n      ]\n    },\n    {\n      \"key\": \"string\",\n      \"name\": \"Connext\",\n      \"logoURI\": \"https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/bridges/relay.svg\",\n      \"supportedChains\": [\n        {\n          \"fromChainId\": \"string\",\n          \"toChainId\": \"string\"\n        },\n        {\n          \"fromChainId\": \"string\",\n          \"toChainId\": \"string\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://earn.li.fi",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-lifi-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "d15fd4d3-f0d3-43a1-a57e-c66f0a0a1ba2",
+    "name": "LI.FI Earn advanced Quote API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Enterprise DeFi yield discovery and tracking API",
+      "type": "text/plain"
+    }
+  }
+}

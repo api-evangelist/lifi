@@ -1,0 +1,246 @@
+{
+  "item": [
+    {
+      "id": "b644a858-dcff-4024-a7e4-670970f23598",
+      "name": "Status",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "956a568e-c3e5-4445-b7b4-7f6d614f0847",
+          "name": "Check the status of a cross chain transfer",
+          "request": {
+            "name": "Check the status of a cross chain transfer",
+            "description": {
+              "content": "Cross chain transfers might take a while to complete. Waiting on the transaction on the sending chain doesn't help here. For this reason we build a simple endpoint that let's you check the status of your transfer.\nImportant: The endpoint returns a `200` successful response even if the transaction can not be found. This behavior accounts for the case that the transaction hash is valid but the transaction has not been mined yet.\nWhile none of the parameters `fromChain`, `toChain` and `bridge` are required, passing the `fromChain` parameter will speed up the request and is therefore encouraged.\nIf you want to learn more about how to use this endpoint please have a look at our [guide](/introduction/user-flows-and-examples/status-tracking).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "status"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "txHash",
+                  "value": "<string>",
+                  "description": "(Required) The transaction hash on the sending chain, destination chain or lifi step id"
+                },
+                {
+                  "disabled": false,
+                  "key": "bridge",
+                  "value": "<string>",
+                  "description": "The bridging tool used for the transfer"
+                },
+                {
+                  "disabled": false,
+                  "key": "fromChain",
+                  "value": "<string>",
+                  "description": "The sending chain. Can be the chain id or chain key"
+                },
+                {
+                  "disabled": false,
+                  "key": "toChain",
+                  "value": "<string>",
+                  "description": "The receiving chain. Can be the chain id or chain key"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
+                "key": "x-lifi-api-key",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0437b627-3982-4ae6-945d-92667e809695",
+              "name": "Response of the Status request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "txHash",
+                      "value": "0xe1ffdcf09d5aa92a2d89b1b39db3f8cadf09428a296cce0d5e387595ac83d08f"
+                    },
+                    {
+                      "key": "bridge",
+                      "value": "stargateV2"
+                    },
+                    {
+                      "key": "fromChain",
+                      "value": "OPT"
+                    },
+                    {
+                      "key": "toChain",
+                      "value": "ARB"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-lifi-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
+                    "key": "x-lifi-api-key",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"transactionId\": \"0x5e9bd1e1232bcfb28e660ce116fe910aa058345604334e5f560034f51ef5327c\",\n  \"sending\": {\n    \"txHash\": \"0xe1ffdcf09d5aa92a2d89b1b39db3f8cadf09428a296cce0d5e387595ac83d08f\",\n    \"txLink\": \"https://arbiscan.io/tx/0xe1ffdcf09d5aa92a2d89b1b39db3f8cadf09428a296cce0d5e387595ac83d08f\",\n    \"amount\": \"129486280\",\n    \"token\": {\n      \"address\": \"0xFd086bC7CD5C481DCC9C85ebE478A1C0b69FCbb9\",\n      \"chainId\": 42161,\n      \"symbol\": \"USDT\",\n      \"decimals\": 6,\n      \"name\": \"USDT\",\n      \"coinKey\": \"USDT\",\n      \"logoURI\": \"https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xdAC17F958D2ee523a2206206994597C13D831ec7/logo.png\",\n      \"priceUSD\": \"1.00074\"\n    },\n    \"chainId\": 42161,\n    \"gasPrice\": \"10000000\",\n    \"gasUsed\": \"477174\",\n    \"gasToken\": {\n      \"address\": \"0x0000000000000000000000000000000000000000\",\n      \"chainId\": 42161,\n      \"symbol\": \"ETH\",\n      \"decimals\": 18,\n      \"name\": \"ETH\",\n      \"coinKey\": \"ETH\",\n      \"logoURI\": \"https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2/logo.png\",\n      \"priceUSD\": \"3166.21\"\n    },\n    \"gasAmount\": \"4771740000000\",\n    \"gasAmountUSD\": \"0.0151\",\n    \"amountUSD\": \"129.5821\",\n    \"value\": \"11551536072923\",\n    \"includedSteps\": [\n      {\n        \"tool\": \"gasZip\",\n        \"toolDetails\": {\n          \"key\": \"gasZip\",\n          \"name\": \"LI.Fuel\",\n          \"logoURI\": \"https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/bridges/lifi.svg\"\n        },\n        \"fromAmount\": \"129486280\",\n        \"fromToken\": {\n          \"address\": \"0xFd086bC7CD5C481DCC9C85ebE478A1C0b69FCbb9\",\n          \"chainId\": 42161,\n          \"symbol\": \"USDT\",\n          \"decimals\": 6,\n          \"name\": \"USDT\",\n          \"coinKey\": \"USDT\",\n          \"logoURI\": \"https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xdAC17F958D2ee523a2206206994597C13D831ec7/logo.png\",\n          \"priceUSD\": \"1.00074\"\n        },\n        \"toToken\": {\n          \"address\": \"0xFd086bC7CD5C481DCC9C85ebE478A1C0b69FCbb9\",\n          \"chainId\": 42161,\n          \"symbol\": \"USDT\",\n          \"decimals\": 6,\n          \"name\": \"USDT\",\n          \"coinKey\": \"USDT\",\n          \"logoURI\": \"https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xdAC17F958D2ee523a2206206994597C13D831ec7/logo.png\",\n          \"priceUSD\": \"1.00074\"\n        },\n        \"toAmount\": \"128671479\",\n        \"bridgedAmount\": \"128671479\"\n      }\n    ],\n    \"timestamp\": 1729163645\n  },\n  \"receiving\": {\n    \"txHash\": \"0xd3142ffb0abaefd030e9c108d6fedcd9b5bab9099346531b54f370762301bb4e\",\n    \"txLink\": \"https://taikoscan.io/tx/0xd3142ffb0abaefd030e9c108d6fedcd9b5bab9099346531b54f370762301bb4e\",\n    \"amount\": \"128671479\",\n    \"token\": {\n      \"address\": \"0x9c2dc7377717603eB92b2655c5f2E7997a4945BD\",\n      \"chainId\": 167000,\n      \"symbol\": \"USDT(Stargate)\",\n      \"decimals\": 6,\n      \"name\": \"Tether USD\",\n      \"coinKey\": \"USDT\",\n      \"logoURI\": \"https://static.debank.com/image/coin/logo_url/usdt/23af7472292cb41dc39b3f1146ead0fe.png\",\n      \"priceUSD\": \"1.00074\"\n    },\n    \"chainId\": 167000,\n    \"gasPrice\": \"60000001\",\n    \"gasUsed\": \"109839\",\n    \"gasToken\": {\n      \"address\": \"0x0000000000000000000000000000000000000000\",\n      \"chainId\": 167000,\n      \"symbol\": \"ETH\",\n      \"decimals\": 18,\n      \"name\": \"ETH\",\n      \"coinKey\": \"ETH\",\n      \"logoURI\": \"https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2/logo.png\",\n      \"priceUSD\": \"3166.21\"\n    },\n    \"gasAmount\": \"6590340109839\",\n    \"gasAmountUSD\": \"0.0209\",\n    \"amountUSD\": \"128.7667\",\n    \"value\": \"0\",\n    \"includedSteps\": [],\n    \"timestamp\": 1729164251\n  },\n  \"feeCosts\": [\n    {\n      \"name\": \"Relay fee\",\n      \"description\": \"The fee required to pay for the relay on the receiving chain\",\n      \"percentage\": \"0.6802\",\n      \"token\": {\n        \"chainId\": 42161,\n        \"address\": \"0x0000000000000000000000000000000000000000\",\n        \"symbol\": \"ETH\",\n        \"decimals\": 18,\n        \"name\": \"ETH\",\n        \"coinKey\": \"ETH\",\n        \"logoURI\": \"https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2/logo.png\",\n        \"priceUSD\": \"2616.99\"\n      },\n      \"amount\": \"2100002100000\",\n      \"amountUSD\": \"0.0055\",\n      \"included\": true\n    },\n    {\n      \"name\": \"LayerZero native fee\",\n      \"description\": \"protocol native fee\",\n      \"percentage\": \"0.0002\",\n      \"token\": {\n        \"chainId\": 42161,\n        \"address\": \"0x0000000000000000000000000000000000000000\",\n        \"symbol\": \"ETH\",\n        \"decimals\": 18,\n        \"name\": \"ETH\",\n        \"coinKey\": \"ETH\",\n        \"logoURI\": \"https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2/logo.png\",\n        \"priceUSD\": \"2616.99\"\n      },\n      \"amount\": \"11551536072923\",\n      \"amountUSD\": \"0.0302\",\n      \"included\": false\n    }\n  ],\n  \"lifiExplorerLink\": \"https://scan.li.fi/tx/0xe1ffdcf09d5aa92a2d89b1b39db3f8cadf09428a296cce0d5e387595ac83d08f\",\n  \"fromAddress\": \"0x204dedcf79dbbb02359205f4f64ce2cbdd483906\",\n  \"toAddress\": \"0x204dedcf79dbbb02359205f4f64ce2cbdd483906\",\n  \"tool\": \"stargateV2Bus\",\n  \"status\": \"DONE\",\n  \"substatus\": \"COMPLETED\",\n  \"substatusMessage\": \"The transfer is complete.\",\n  \"metadata\": {\n    \"integrator\": \"dev.jumper.exchange\"\n  },\n  \"bridgeExplorerLink\": \"https://layerzeroscan.com/tx/0xe1ffdcf09d5aa92a2d89b1b39db3f8cadf09428a296cce0d5e387595ac83d08f\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f95bfdf7-1631-4ae1-8704-9d35a143ae25",
+              "name": "The passed parameters are invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "txHash",
+                      "value": "0xe1ffdcf09d5aa92a2d89b1b39db3f8cadf09428a296cce0d5e387595ac83d08f"
+                    },
+                    {
+                      "key": "bridge",
+                      "value": "stargateV2"
+                    },
+                    {
+                      "key": "fromChain",
+                      "value": "OPT"
+                    },
+                    {
+                      "key": "toChain",
+                      "value": "ARB"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-lifi-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
+                    "key": "x-lifi-api-key",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://earn.li.fi",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-lifi-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "1eb69025-ca5e-4611-a131-e0227e4df635",
+    "name": "LI.FI Earn advanced Status API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Enterprise DeFi yield discovery and tracking API",
+      "type": "text/plain"
+    }
+  }
+}

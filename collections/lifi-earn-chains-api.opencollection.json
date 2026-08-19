@@ -1,0 +1,37 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LI.FI Earn advanced Earn Chains API",
+    "version": "0.1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-lifi-api-key",
+      "value": "{{x-lifi-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Earn Chains",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List chains supported by LI.FI Earn",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://earn.li.fi/v1/chains"
+          },
+          "docs": "Returns the list of chains that have at least one Earn vault available. Derived from current vault data.\n\n**This endpoint is scoped to LI.FI Earn (vaults).** Only chains where Earn currently has indexed vaults are returned — it is not a general list of all chains the LI.FI platform supports, and it should not be used to determine SDK / Swaps / Bridges chain coverage.\n\nIf you are integrating Swaps or Bridges (via the LI.FI SDK or the main API), call [`GET https://li.quest/v1/chains`](/api-referen"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

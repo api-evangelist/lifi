@@ -1,0 +1,51 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LI.FI Earn advanced Chains API",
+    "version": "0.1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-lifi-api-key",
+      "value": "{{x-lifi-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Chains",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get information about all currently supported chains",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://earn.li.fi/v1/chains",
+            "headers": [
+              {
+                "name": "x-lifi-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "chainTypes",
+                "value": "EVM,SVM,UTXO,MVM,TVM",
+                "type": "query",
+                "description": "Restrict the resulting chains to the given chainTypes. Available values: EVM, SVM, UTXO, MVM, TVM. Pass all values to get every supported chain. If this parameter is omitted, the API returns only EVM chains."
+              }
+            ]
+          },
+          "docs": "If you want to learn more about how to use this endpoint please have a look at our [guide](/sdk/chains-tools)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,161 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LI.FI Earn advanced Gas API",
+    "version": "0.1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-lifi-api-key",
+      "value": "{{x-lifi-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Gas",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get status information about a lifuel transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://earn.li.fi/v1/gas/status",
+            "headers": [
+              {
+                "name": "x-lifi-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "txHash",
+                "value": "0x74546ce8aac58d33c212474293dcfeeadecef115847da75131a2ff6692e03b96",
+                "type": "query",
+                "description": "The transaction hash that started the gas refilling process"
+              }
+            ]
+          },
+          "docs": "Get status information about a lifuel transaction"
+        },
+        {
+          "info": {
+            "name": "In case a transaction was missed by a relayer, this endpoint can be used to force a tx to be re-fetched.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://earn.li.fi/v1/gas/refetch",
+            "headers": [
+              {
+                "name": "x-lifi-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "txHash",
+                "value": "0x74546ce8aac58d33c212474293dcfeeadecef115847da75131a2ff6692e03b96",
+                "type": "query",
+                "description": "The transaction hash that started the gas refilling process"
+              },
+              {
+                "name": "chainId",
+                "value": "POL",
+                "type": "query",
+                "description": "The chain where the deposit was originally made"
+              }
+            ]
+          },
+          "docs": "In case a transaction was missed by a relayer, this endpoint can be used to force a tx to be re-fetched."
+        },
+        {
+          "info": {
+            "name": "Get a gas suggestion for the specified chain",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://earn.li.fi/v1/gas/suggestion/:chain",
+            "headers": [
+              {
+                "name": "x-lifi-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "chain",
+                "value": "137",
+                "type": "path",
+                "description": "Chain from which gas prices should be shown (can be a chain id or a chain key)"
+              },
+              {
+                "name": "fromChain",
+                "value": "100",
+                "type": "query",
+                "description": "If `fromChain` and `fromToken` are specified, the result will contain information about how much `fromToken` amount the user has to send to receive the suggested gas amount on the requested chain."
+              },
+              {
+                "name": "fromToken",
+                "value": "xDai",
+                "type": "query",
+                "description": "If `fromChain` and `fromToken` are specified, the result will contain information about how much `fromToken` amount the user has to send to receive the suggested gas amount on the requested chain."
+              }
+            ]
+          },
+          "docs": "Endpoint to retrieve a suggestion on how much gas is needed on the requested chain. The suggestion is based on the average price of 10 approvals and 10 uniswap based swaps via LI.FI on the specified chain.\nIf `fromChain` and `fromToken` are specified, the result will contain information about how much `fromToken` amount the user has to send to receive the suggested gas amount on the requested chain."
+        },
+        {
+          "info": {
+            "name": "Get gas prices for enabled chains",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://earn.li.fi/v1/gas/prices",
+            "headers": [
+              {
+                "name": "x-lifi-api-key",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "This endpoint can be used to get the most recent gas prices for the enabled chains in the server."
+        },
+        {
+          "info": {
+            "name": "Get gas price for the specified chainId",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://earn.li.fi/v1/gas/prices/:chainId",
+            "headers": [
+              {
+                "name": "x-lifi-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "chainId",
+                "value": "137",
+                "type": "path",
+                "description": "ChaindId from which gas prices should be shown"
+              }
+            ]
+          },
+          "docs": "This endpoint can be used to get the most recent gas prices for the supplied chainId."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,69 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LI.FI Earn advanced Status API",
+    "version": "0.1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-lifi-api-key",
+      "value": "{{x-lifi-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Status",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Check the status of a cross chain transfer",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://earn.li.fi/v1/status",
+            "headers": [
+              {
+                "name": "x-lifi-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "txHash",
+                "value": "0xe1ffdcf09d5aa92a2d89b1b39db3f8cadf09428a296cce0d5e387595ac83d08f",
+                "type": "query",
+                "description": "The transaction hash on the sending chain, destination chain or lifi step id"
+              },
+              {
+                "name": "bridge",
+                "value": "stargateV2",
+                "type": "query",
+                "description": "The bridging tool used for the transfer"
+              },
+              {
+                "name": "fromChain",
+                "value": "OPT",
+                "type": "query",
+                "description": "The sending chain. Can be the chain id or chain key"
+              },
+              {
+                "name": "toChain",
+                "value": "ARB",
+                "type": "query",
+                "description": "The receiving chain. Can be the chain id or chain key"
+              }
+            ]
+          },
+          "docs": "Cross chain transfers might take a while to complete. Waiting on the transaction on the sending chain doesn't help here. For this reason we build a simple endpoint that let's you check the status of your transfer.\nImportant: The endpoint returns a `200` successful response even if the transaction can not be found. This behavior accounts for the case that the transaction hash is valid but the transaction has not been mined yet.\nWhile none of the parameters `fromChain`, `toChain` and `bridge` are "
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

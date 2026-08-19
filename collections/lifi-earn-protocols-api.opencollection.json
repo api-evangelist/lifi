@@ -1,0 +1,37 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LI.FI Earn advanced Earn Protocols API",
+    "version": "0.1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-lifi-api-key",
+      "value": "{{x-lifi-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Earn Protocols",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List supported protocols",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://earn.li.fi/v1/protocols"
+          },
+          "docs": "Returns the list of protocols that have at least one vault available. Derived from current vault data."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

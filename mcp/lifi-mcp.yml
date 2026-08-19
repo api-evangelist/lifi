@@ -9,14 +9,12 @@ server:
   docs: https://docs.li.fi/mcp-server/overview
   probe_status: 200
   read_only: true
-  read_only_note: >-
-    The server returns unsigned transactionRequest objects only. Signing and
-    broadcast happen in the user's wallet, outside the MCP server.
+  read_only_note: The server returns unsigned transactionRequest objects only. Signing and broadcast happen
+    in the user's wallet, outside the MCP server.
 authentication:
   required: false
-  note: >-
-    Works anonymously at the unauthenticated rate limit. Supply an API key via
-    the Authorization: Bearer or X-LiFi-Api-Key header for the higher limit.
+  note: 'Works anonymously at the unauthenticated rate limit. Supply an API key via the Authorization:
+    Bearer or X-LiFi-Api-Key header for the higher limit.'
   headers:
   - Authorization
   - X-LiFi-Api-Key
@@ -55,9 +53,8 @@ tools:
   source_operation: openapi/lifi-openapi-original.yml#GET /v1/chains
 - name: get-quote
   category: Quote & Swap
-  description: >-
-    Get the best route for a swap. Primary tool. Returns the optimal route, fees,
-    estimated time, and a transactionRequest ready for signing.
+  description: Get the best route for a swap. Primary tool. Returns the optimal route, fees, estimated
+    time, and a transactionRequest ready for signing.
   source_operation: openapi/lifi-openapi-original.yml#GET /v1/quote
 - name: get-routes
   category: Quote & Swap
@@ -117,6 +114,13 @@ tools:
 related_servers:
 - name: LI.FI Intents MCP Server
   docs: https://docs.li.fi/lifi-intents/mcp-server/overview
-  description: >-
-    Separate hosted MCP server exposing Intents-specific tools (quote requests,
-    order submission, order status) for the solver marketplace.
+  description: Separate hosted MCP server exposing Intents-specific tools (quote requests, order submission,
+    order status) for the solver marketplace.
+deployment:
+  mode: remote
+  endpoint: https://mcp.li.quest/mcp
+  verified: probed
+  probe: live
+  tools: 25
+  checked: '2026-08-12'
+  source: catalog MCP census

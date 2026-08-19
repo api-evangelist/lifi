@@ -1,0 +1,88 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LI.FI Earn advanced Integrators API",
+    "version": "0.1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-lifi-api-key",
+      "value": "{{x-lifi-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Integrators",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get integrator's collected fees data for all supported chains",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://earn.li.fi/v1/integrators/:integratorId",
+            "headers": [
+              {
+                "name": "x-lifi-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "integratorId",
+                "value": "fee-demo",
+                "type": "path",
+                "description": "Id of the integrator that requests fee balances"
+              }
+            ]
+          },
+          "docs": "This endpoint can be used to request all integrator's collected fees data by tokens for all supported chains.\nThe endpoint returns an `Integrator` object which contains the integrator id and an array of fee balances for all supported chains."
+        },
+        {
+          "info": {
+            "name": "Get transaction request for withdrawing collected integrator's fees by chain",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://earn.li.fi/v1/integrators/:integratorId/withdraw/:chainId",
+            "headers": [
+              {
+                "name": "x-lifi-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "integratorId",
+                "value": "fee-demo",
+                "type": "path",
+                "description": "Id of the integrator that requests fee withdrawal"
+              },
+              {
+                "name": "chainId",
+                "value": "137",
+                "type": "path",
+                "description": "Specify chainId from which funds should be withdrawn"
+              },
+              {
+                "name": "tokenAddresses",
+                "value": "0x0000000000000000000000000000000000000000",
+                "type": "query",
+                "description": "Specify tokens from which funds should be withdraw"
+              }
+            ]
+          },
+          "docs": "This endpoint can be used to get transaction request for withdrawing integrator's collected fees the specified chain. If a list of token addresses is provided, the generated transaction will only withdraw the specified funds.\nIf there is no collected fees for the provided token's addresses, the `400` error will be thrown.\nThe endpoint returns a `IntegratorWithdrawalTransactionResponse` object which contains the transaction request."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

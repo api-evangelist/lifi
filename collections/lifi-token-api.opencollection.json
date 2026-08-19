@@ -1,0 +1,57 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LI.FI Earn advanced Token API",
+    "version": "0.1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-lifi-api-key",
+      "value": "{{x-lifi-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Token",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Fetch information about a Token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://earn.li.fi/v1/token",
+            "headers": [
+              {
+                "name": "x-lifi-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "chain",
+                "value": "POL",
+                "type": "query",
+                "description": "Id or key of the chain that contains the token"
+              },
+              {
+                "name": "token",
+                "value": "DAI",
+                "type": "query",
+                "description": "Address or symbol of the token on the requested chain"
+              }
+            ]
+          },
+          "docs": "This endpoint can be used to get more information about a token by its address or symbol and its chain.\nIf you want to learn more about how to use this endpoint please have a look at our [guide](/api-reference/fetch-information-about-a-token)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

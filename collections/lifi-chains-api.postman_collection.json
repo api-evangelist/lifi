@@ -1,0 +1,152 @@
+{
+  "item": [
+    {
+      "id": "b43d2ca3-3e71-43fe-838b-cd9fff0b5eba",
+      "name": "Chains",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2a9e9c03-04e8-4326-8970-b238ff38338d",
+          "name": "Get information about all currently supported chains",
+          "request": {
+            "name": "Get information about all currently supported chains",
+            "description": {
+              "content": "If you want to learn more about how to use this endpoint please have a look at our [guide](/sdk/chains-tools).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "chains"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "chainTypes",
+                  "value": "EVM,SVM,UTXO,MVM,TVM",
+                  "description": "Restrict the resulting chains to the given chainTypes. Available values: EVM, SVM, UTXO, MVM, TVM. Pass all values to get every supported chain. If this parameter is omitted, the API returns only EVM chains."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "The apiKey allows you to authenticate on the API.",
+                "key": "x-lifi-api-key",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cb585765-108a-408b-b45e-5ded2305c1c2",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "chains"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chainTypes",
+                      "value": "EVM,SVM,UTXO,MVM,TVM"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-lifi-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The apiKey allows you to authenticate on the API.",
+                    "key": "x-lifi-api-key",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"chains\": [\n    {\n      \"key\": \"eth\",\n      \"name\": \"Ethereum\",\n      \"chainType\": \"EVM\",\n      \"coin\": \"ETH\",\n      \"id\": 1,\n      \"mainnet\": true,\n      \"logoURI\": \"https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/ethereum.svg\",\n      \"tokenlistUrl\": \"https://gateway.ipfs.io/ipns/tokens.uniswap.org\",\n      \"multicallAddress\": \"0xcA11bde05977b3631167028862bE2a173976CA11\",\n      \"metamask\": {\n        \"chainId\": \"0x1\",\n        \"blockExplorerUrls\": [\n          \"https://etherscan.io/\"\n        ],\n        \"chainName\": \"Ethereum Mainnet\",\n        \"nativeCurrency\": {\n          \"name\": \"ETH\",\n          \"symbol\": \"ETH\",\n          \"decimals\": 18\n        },\n        \"rpcUrls\": [\n          \"https://mainnet.infura.io/v3/9aa3d95b340fa88ea12eaa4456161\"\n        ]\n      },\n      \"nativeToken\": {\n        \"address\": \"0x0000000000000000000000000000000000000000\",\n        \"decimals\": 18,\n        \"symbol\": \"ETH\",\n        \"chainId\": 1,\n        \"coinKey\": \"ETH\",\n        \"name\": \"ETH\",\n        \"logoURI\": \"https://static.debank.com/image/token/logo_url/eth/935ae4e4d1d12d59a99717a24f2540b5.png\",\n        \"priceUSD\": \"2582.35\"\n      }\n    },\n    {\n      \"key\": \"out\",\n      \"name\": \"Robinhood Chain\",\n      \"chainType\": \"EVM\",\n      \"coin\": \"ETH\",\n      \"id\": 4663,\n      \"mainnet\": true,\n      \"logoURI\": \"https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/robinhood.svg\",\n      \"multicallAddress\": \"0xcA11bde05977b3631167028862bE2a173976CA11\",\n      \"diamondAddress\": \"0xB477751B76CF82d00a686A1232f5fCD772414Af3\",\n      \"metamask\": {\n        \"chainId\": \"0x1237\",\n        \"blockExplorerUrls\": [\n          \"https://robinhoodchain.blockscout.com/\"\n        ],\n        \"chainName\": \"Robinhood Chain\",\n        \"nativeCurrency\": {\n          \"name\": \"ETH\",\n          \"symbol\": \"ETH\",\n          \"decimals\": 18\n        },\n        \"rpcUrls\": [\n          \"https://rpc.mainnet.chain.robinhood.com/\"\n        ]\n      },\n      \"nativeToken\": {\n        \"address\": \"0x0000000000000000000000000000000000000000\",\n        \"decimals\": 18,\n        \"symbol\": \"ETH\",\n        \"chainId\": 4663,\n        \"coinKey\": \"ETH\",\n        \"name\": \"ETH\",\n        \"logoURI\": \"https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2/logo.png\",\n        \"priceUSD\": \"1754.53\"\n      }\n    },\n    {\n      \"key\": \"pol\",\n      \"name\": \"Polygon\",\n      \"chainType\": \"EVM\",\n      \"coin\": \"MATIC\",\n      \"id\": 137,\n      \"mainnet\": true,\n      \"logoURI\": \"https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/polygon.svg\",\n      \"tokenlistUrl\": \"https://unpkg.com/quickswap-default-token-list@1.0.71/build/quickswap-default.tokenlist.json\",\n      \"faucetUrls\": [\n        \"https://stakely.io/faucet/polygon-matic\"\n      ],\n      \"multicallAddress\": \"0xcA11bde05977b3631167028862bE2a173976CA11\",\n      \"metamask\": {\n        \"chainId\": \"0x89\",\n        \"blockExplorerUrls\": [\n          \"https://polygonscan.com/\",\n          \"https://explorer-mainnet.maticvigil.com/\"\n        ],\n        \"chainName\": \"Matic(Polygon) Mainnet\",\n        \"nativeCurrency\": {\n          \"name\": \"MATIC\",\n          \"symbol\": \"MATIC\",\n          \"decimals\": 18\n        },\n        \"rpcUrls\": [\n          \"https://polygon-rpc.com/\",\n          \"https://polygon.llamarpc.com/\"\n        ]\n      },\n      \"nativeToken\": {\n        \"address\": \"0x0000000000000000000000000000000000000000\",\n        \"decimals\": 18,\n        \"symbol\": \"MATIC\",\n        \"chainId\": 137,\n        \"coinKey\": \"MATIC\",\n        \"name\": \"MATIC\",\n        \"logoURI\": \"https://static.debank.com/image/matic_token/logo_url/matic/6f5a6b6f0732a7a235131bd7804d357c.png\",\n        \"priceUSD\": \"0.881307\"\n      }\n    },\n    {\n      \"key\": \"bsc\",\n      \"name\": \"BSC\",\n      \"chainType\": \"EVM\",\n      \"coin\": \"BNB\",\n      \"id\": 56,\n      \"mainnet\": true,\n      \"logoURI\": \"https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/bsc.svg\",\n      \"tokenlistUrl\": \"https://tokens.pancakeswap.finance/pancakeswap-extended.json\",\n      \"faucetUrls\": [\n        \"https://stakely.io/faucet/bsc-chain-bnb\"\n      ],\n      \"multicallAddress\": \"0xcA11bde05977b3631167028862bE2a173976CA11\",\n      \"metamask\": {\n        \"chainId\": \"0x38\",\n        \"blockExplorerUrls\": [\n          \"https://bscscan.com/\"\n        ],\n        \"chainName\": \"Binance Smart Chain Mainnet\",\n        \"nativeCurrency\": {\n          \"name\": \"BNB\",\n          \"symbol\": \"BNB\",\n          \"decimals\": 18\n        },\n        \"rpcUrls\": [\n          \"https://bsc-dataseed.binance.org/\",\n          \"https://bsc-dataseed1.defibit.io/\",\n          \"https://bsc-dataseed1.ninicoin.io/\"\n        ]\n      },\n      \"nativeToken\": {\n        \"address\": \"0x0000000000000000000000000000000000000000\",\n        \"decimals\": 18,\n        \"symbol\": \"BNB\",\n        \"chainId\": 56,\n        \"coinKey\": \"BNB\",\n        \"name\": \"BNB\",\n        \"logoURI\": \"https://static.debank.com/image/bsc_token/logo_url/bsc/8bfdeaa46fe9be8f5cd43a53b8d1eea1.png\",\n        \"priceUSD\": \"266\"\n      }\n    },\n    {\n      \"key\": \"dai\",\n      \"name\": \"Gnosis\",\n      \"chainType\": \"EVM\",\n      \"coin\": \"DAI\",\n      \"id\": 100,\n      \"mainnet\": true,\n      \"logoURI\": \"https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/gnosis.svg\",\n      \"tokenlistUrl\": \"https://tokens.honeyswap.org/\",\n      \"faucetUrls\": [\n        \"https://stakely.io/faucet/xdai-chain\"\n      ],\n      \"multicallAddress\": \"0xcA11bde05977b3631167028862bE2a173976CA11\",\n      \"metamask\": {\n        \"chainId\": \"0x64\",\n        \"blockExplorerUrls\": [\n          \"https://blockscout.com/xdai/mainnet/\"\n        ],\n        \"chainName\": \"Gnosis Chain\",\n        \"nativeCurrency\": {\n          \"name\": \"xDai\",\n          \"symbol\": \"xDai\",\n          \"decimals\": 18\n        },\n        \"rpcUrls\": [\n          \"https://rpc.gnosischain.com/\",\n          \"https://rpc.xdaichain.com/\",\n          \"https://dai.poa.network/\"\n        ]\n      },\n      \"nativeToken\": {\n        \"address\": \"0x0000000000000000000000000000000000000000\",\n        \"decimals\": 18,\n        \"symbol\": \"xDai\",\n        \"chainId\": 100,\n        \"coinKey\": \"XDAI\",\n        \"name\": \"xDai\",\n        \"logoURI\": \"https://static.debank.com/image/xdai_token/logo_url/xdai/1207e67652b691ef3bfe04f89f4b5362.png\",\n        \"priceUSD\": \"1.0002\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://earn.li.fi",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-lifi-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "5958beda-1b36-427e-86d1-c7cc7f60c889",
+    "name": "LI.FI Earn advanced Chains API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Enterprise DeFi yield discovery and tracking API",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,604 @@
+{
+  "item": [
+    {
+      "id": "d720f67c-2617-4943-acfb-33964c3ff116",
+      "name": "advanced",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e1b89c37-baa1-4338-9154-3f5d487085ab",
+          "name": "Get information about available services, chains and tokens",
+          "request": {
+            "name": "Get information about available services, chains and tokens",
+            "description": {
+              "content": "Get a set of current possibilities based on a request that specifies which chains, exchanges and bridges are preferred or unwanted.\n**Attention**: This request is more complex and intended to be used via our [JavaScript SDK](https://docs.li.fi/integrate-li.fi-js-sdk/install-li.fi-sdk).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "advanced",
+                "possibilities"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
+                "key": "x-lifi-api-key",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"chains\": [\n    \"<number>\",\n    \"<number>\"\n  ],\n  \"bridges\": {\n    \"allow\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"deny\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"prefer\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"exchanges\": {\n    \"allow\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"deny\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"prefer\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"include\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "60bb6fe0-7acd-42f8-92f2-4a76d93c8615",
+              "name": "Object listing current possibilities for any-to-any cross-chain-swaps based on the provided preferences.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "advanced",
+                    "possibilities"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-lifi-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
+                    "key": "x-lifi-api-key",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"chains\": [\n    100,\n    137\n  ],\n  \"bridges\": {\n    \"allow\": [\n      \"relay\",\n      \"hop\"\n    ],\n    \"deny\": [\n      \"cbridge\"\n    ],\n    \"prefer\": [\n      \"relay\"\n    ]\n  },\n  \"exchanges\": {\n    \"allow\": [\n      \"1inch\",\n      \"paraswap\",\n      \"openocean\"\n    ],\n    \"deny\": [\n      \"0x\"\n    ],\n    \"prefer\": [\n      \"1inch\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"chains\": [\n    {\n      \"key\": \"pol\",\n      \"name\": \"Polygon\",\n      \"coin\": \"MATIC\",\n      \"id\": 137,\n      \"mainnet\": true,\n      \"logoURI\": \"https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/polygon.svg\",\n      \"tokenlistUrl\": \"https://unpkg.com/quickswap-default-token-list@1.0.71/build/quickswap-default.tokenlist.json\",\n      \"faucetUrls\": [\n        \"https://stakely.io/faucet/polygon-matic\"\n      ],\n      \"metamask\": {\n        \"chainId\": \"0x89\",\n        \"blockExplorerUrls\": [\n          \"https://polygonscan.com/\",\n          \"https://explorer-mainnet.maticvigil.com/\"\n        ],\n        \"chainName\": \"Matic(Polygon) Mainnet\",\n        \"nativeCurrency\": {\n          \"name\": \"MATIC\",\n          \"symbol\": \"MATIC\",\n          \"decimals\": 18\n        },\n        \"rpcUrls\": [\n          \"https://polygon-rpc.com/\",\n          \"https://polygon.llamarpc.com/\"\n        ]\n      }\n    }\n  ],\n  \"tokens\": [\n    {\n      \"address\": \"0x6a023ccd1ff6f2045c3309768ead9e68f978f6e1\",\n      \"decimals\": 18,\n      \"symbol\": \"ETH\",\n      \"chainId\": 100,\n      \"coinKey\": \"ETH\",\n      \"name\": \"ETH\",\n      \"logoURI\": \"https://static.debank.com/image/xdai_token/logo_url/0x6a023ccd1ff6f2045c3309768ead9e68f978f6e1/61844453e63cf81301f845d7864236f6.png\",\n      \"priceUSD\": \"2254.1\"\n    },\n    {\n      \"address\": \"0x7122d7661c4564b7c6cd4878b06766489a6028a2\",\n      \"decimals\": 18,\n      \"symbol\": \"MATIC\",\n      \"chainId\": 100,\n      \"coinKey\": \"MATIC\",\n      \"name\": \"MATIC\",\n      \"logoURI\": \"https://etherscan.io/token/images/matictoken_28.png\",\n      \"priceUSD\": \"0\"\n    },\n    {\n      \"address\": \"0xca8d20f3e0144a72c6b5d576e9bd3fd8557e2b04\",\n      \"decimals\": 18,\n      \"symbol\": \"BNB\",\n      \"chainId\": 100,\n      \"coinKey\": \"BNB\",\n      \"name\": \"BNB\",\n      \"logoURI\": \"https://assets.coingecko.com/coins/images/825/small/binance-coin-logo.png?1547034615\",\n      \"priceUSD\": \"0\"\n    }\n  ],\n  \"exchanges\": [\n    {\n      \"tool\": \"paraswap\",\n      \"chains\": [\n        1,\n        56,\n        137,\n        43114,\n        3,\n        4,\n        42\n      ]\n    },\n    {\n      \"tool\": \"1inch\",\n      \"chains\": [\n        1,\n        56,\n        137,\n        10,\n        43114,\n        100\n      ]\n    }\n  ],\n  \"bridges\": [\n    {\n      \"tool\": \"relay\",\n      \"fromChainId\": 100,\n      \"fromToken\": {\n        \"address\": \"0x6a023ccd1ff6f2045c3309768ead9e68f978f6e1\",\n        \"decimals\": 18,\n        \"symbol\": \"ETH\",\n        \"chainId\": 100,\n        \"coinKey\": \"ETH\",\n        \"name\": \"ETH\",\n        \"logoURI\": \"https://static.debank.com/image/xdai_token/logo_url/0x6a023ccd1ff6f2045c3309768ead9e68f978f6e1/61844453e63cf81301f845d7864236f6.png\",\n        \"priceUSD\": \"2254.1\"\n      },\n      \"toChainId\": 137,\n      \"toToken\": {\n        \"address\": \"0x7ceb23fd6bc0add59e62ac25578270cff1b9f619\",\n        \"decimals\": 18,\n        \"symbol\": \"ETH\",\n        \"chainId\": 137,\n        \"coinKey\": \"ETH\",\n        \"name\": \"ETH\",\n        \"logoURI\": \"https://static.debank.com/image/matic_token/logo_url/0x7ceb23fd6bc0add59e62ac25578270cff1b9f619/61844453e63cf81301f845d7864236f6.png\",\n        \"priceUSD\": \"2254.1\"\n      },\n      \"maximumTransfer\": \"Infinity\",\n      \"minimumTransfer\": \"1\",\n      \"swapFeeRate\": \"0.005\",\n      \"swapFeeMinimum\": \"0\",\n      \"swapFeeMaximum\": \"Infinity\"\n    },\n    {\n      \"tool\": \"relay\",\n      \"fromChainId\": 100,\n      \"fromToken\": {\n        \"address\": \"0xddafbb505ad214d7b80b1f830fccc89b60fb7a83\",\n        \"decimals\": 6,\n        \"symbol\": \"USDC\",\n        \"chainId\": 100,\n        \"coinKey\": \"USDC\",\n        \"name\": \"USDC\",\n        \"logoURI\": \"https://static.debank.com/image/xdai_token/logo_url/0xddafbb505ad214d7b80b1f830fccc89b60fb7a83/adee072b10b0db7c5bd7a28dd4fbe96f.png\",\n        \"priceUSD\": \"1\"\n      },\n      \"toChainId\": 137,\n      \"toToken\": {\n        \"address\": \"0x2791bca1f2de4661ed88a30c99a7a9449aa84174\",\n        \"decimals\": 6,\n        \"symbol\": \"USDC\",\n        \"chainId\": 137,\n        \"coinKey\": \"USDC\",\n        \"name\": \"USDC\",\n        \"logoURI\": \"https://static.debank.com/image/matic_token/logo_url/0x2791bca1f2de4661ed88a30c99a7a9449aa84174/adee072b10b0db7c5bd7a28dd4fbe96f.png\",\n        \"priceUSD\": \"1\"\n      },\n      \"maximumTransfer\": \"Infinity\",\n      \"minimumTransfer\": \"1\",\n      \"swapFeeRate\": \"0.005\",\n      \"swapFeeMinimum\": \"0\",\n      \"swapFeeMaximum\": \"Infinity\"\n    },\n    {\n      \"tool\": \"relay\",\n      \"fromChainId\": 100,\n      \"fromToken\": {\n        \"address\": \"0x4ecaba5870353805a9f068101a40e0f32ed605c6\",\n        \"decimals\": 6,\n        \"symbol\": \"USDT\",\n        \"chainId\": 100,\n        \"coinKey\": \"USDT\",\n        \"name\": \"USDT\",\n        \"logoURI\": \"https://static.debank.com/image/xdai_token/logo_url/0x4ecaba5870353805a9f068101a40e0f32ed605c6/66eadee7b7bb16b75e02b570ab8d5c01.png\",\n        \"priceUSD\": \"1\"\n      },\n      \"toChainId\": 137,\n      \"toToken\": {\n        \"address\": \"0xc2132d05d31c914a87c6611c10748aeb04b58e8f\",\n        \"decimals\": 6,\n        \"symbol\": \"USDT\",\n        \"chainId\": 137,\n        \"coinKey\": \"USDT\",\n        \"name\": \"USDT\",\n        \"logoURI\": \"https://static.debank.com/image/matic_token/logo_url/0xc2132d05d31c914a87c6611c10748aeb04b58e8f/66eadee7b7bb16b75e02b570ab8d5c01.png\",\n        \"priceUSD\": \"1\"\n      },\n      \"maximumTransfer\": \"Infinity\",\n      \"minimumTransfer\": \"1\",\n      \"swapFeeRate\": \"0.005\",\n      \"swapFeeMinimum\": \"0\",\n      \"swapFeeMaximum\": \"Infinity\"\n    },\n    {\n      \"tool\": \"hop\",\n      \"fromChainId\": 137,\n      \"fromToken\": {\n        \"address\": \"0xc2132d05d31c914a87c6611c10748aeb04b58e8f\",\n        \"decimals\": 6,\n        \"symbol\": \"USDT\",\n        \"chainId\": 137,\n        \"coinKey\": \"USDT\",\n        \"name\": \"USDT\",\n        \"logoURI\": \"https://static.debank.com/image/matic_token/logo_url/0xc2132d05d31c914a87c6611c10748aeb04b58e8f/66eadee7b7bb16b75e02b570ab8d5c01.png\",\n        \"priceUSD\": \"1\"\n      },\n      \"toChainId\": 100,\n      \"toToken\": {\n        \"address\": \"0x4ecaba5870353805a9f068101a40e0f32ed605c6\",\n        \"decimals\": 6,\n        \"symbol\": \"USDT\",\n        \"chainId\": 100,\n        \"coinKey\": \"USDT\",\n        \"name\": \"USDT\",\n        \"logoURI\": \"https://static.debank.com/image/xdai_token/logo_url/0x4ecaba5870353805a9f068101a40e0f32ed605c6/66eadee7b7bb16b75e02b570ab8d5c01.png\",\n        \"priceUSD\": \"1\"\n      },\n      \"maximumTransfer\": \"Infinity\",\n      \"minimumTransfer\": \"1\",\n      \"swapFeeRate\": \"0.005\",\n      \"swapFeeMinimum\": \"0\",\n      \"swapFeeMaximum\": \"Infinity\"\n    },\n    {\n      \"tool\": \"hop\",\n      \"fromChainId\": 137,\n      \"fromToken\": {\n        \"address\": \"0x2791bca1f2de4661ed88a30c99a7a9449aa84174\",\n        \"decimals\": 6,\n        \"symbol\": \"USDC\",\n        \"chainId\": 137,\n        \"coinKey\": \"USDC\",\n        \"name\": \"USDC\",\n        \"logoURI\": \"https://static.debank.com/image/matic_token/logo_url/0x2791bca1f2de4661ed88a30c99a7a9449aa84174/adee072b10b0db7c5bd7a28dd4fbe96f.png\",\n        \"priceUSD\": \"1\"\n      },\n      \"toChainId\": 100,\n      \"toToken\": {\n        \"address\": \"0xddafbb505ad214d7b80b1f830fccc89b60fb7a83\",\n        \"decimals\": 6,\n        \"symbol\": \"USDC\",\n        \"chainId\": 100,\n        \"coinKey\": \"USDC\",\n        \"name\": \"USDC\",\n        \"logoURI\": \"https://static.debank.com/image/xdai_token/logo_url/0xddafbb505ad214d7b80b1f830fccc89b60fb7a83/adee072b10b0db7c5bd7a28dd4fbe96f.png\",\n        \"priceUSD\": \"1\"\n      },\n      \"maximumTransfer\": \"Infinity\",\n      \"minimumTransfer\": \"1\",\n      \"swapFeeRate\": \"0.005\",\n      \"swapFeeMinimum\": \"0\",\n      \"swapFeeMaximum\": \"Infinity\"\n    },\n    {\n      \"tool\": \"hop\",\n      \"fromChainId\": 137,\n      \"fromToken\": {\n        \"address\": \"0x8f3cf7ad23cd3cadbd9735aff958023239c6a063\",\n        \"decimals\": 18,\n        \"symbol\": \"DAI\",\n        \"chainId\": 137,\n        \"coinKey\": \"DAI\",\n        \"name\": \"DAI\",\n        \"logoURI\": \"https://static.debank.com/image/matic_token/logo_url/0x8f3cf7ad23cd3cadbd9735aff958023239c6a063/549c4205dbb199f1b8b03af783f35e71.png\",\n        \"priceUSD\": \"1\"\n      },\n      \"toChainId\": 100,\n      \"toToken\": {\n        \"address\": \"0x0000000000000000000000000000000000000000\",\n        \"decimals\": 18,\n        \"symbol\": \"DAI\",\n        \"chainId\": 100,\n        \"coinKey\": \"DAI\",\n        \"name\": \"DAI\",\n        \"logoURI\": \"https://static.debank.com/image/xdai_token/logo_url/xdai/1207e67652b691ef3bfe04f89f4b5362.png\",\n        \"priceUSD\": \"1\"\n      },\n      \"maximumTransfer\": \"Infinity\",\n      \"minimumTransfer\": \"1\",\n      \"swapFeeRate\": \"0.005\",\n      \"swapFeeMinimum\": \"0\",\n      \"swapFeeMaximum\": \"Infinity\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dc30f8f7-4be6-4e52-b1c4-46afdb4e7e63",
+          "name": "Get a set of routes for a request that describes a transfer of tokens",
+          "request": {
+            "name": "Get a set of routes for a request that describes a transfer of tokens",
+            "description": {
+              "content": "In order to execute any transfer, you must first request possible `Routes`. From the result set a `Route` can be selected and executed by retrieving the transaction for every included `Step` using the `/steps/transaction` endpoint.\n**Attention**: This request is more complex and intended to be used via our [JavaScript SDK](https://docs.li.fi/integrate-li.fi-js-sdk/install-li.fi-sdk).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "advanced",
+                "routes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
+                "key": "x-lifi-api-key",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fromAmount\": \"<string>\",\n  \"fromChainId\": \"<number>\",\n  \"fromTokenAddress\": \"<string>\",\n  \"toChainId\": \"<number>\",\n  \"toTokenAddress\": \"<string>\",\n  \"options\": {\n    \"insurance\": \"<boolean>\",\n    \"integrator\": \"<string>\",\n    \"slippage\": \"<double>\",\n    \"bridges\": {\n      \"allow\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"deny\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"prefer\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"exchanges\": {\n      \"allow\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"deny\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"prefer\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"order\": \"<string>\",\n    \"allowSwitchChain\": false,\n    \"allowDestinationCall\": true,\n    \"referrer\": \"<string>\",\n    \"fee\": \"<double>\",\n    \"maxPriceImpact\": \"<double>\",\n    \"timing\": {\n      \"swapStepTimingStrategies\": [\n        {\n          \"strategy\": \"<string>\",\n          \"minWaitTimeMs\": \"<number>\",\n          \"startingExpectedResults\": \"<number>\",\n          \"reduceEveryMs\": \"<number>\"\n        },\n        {\n          \"strategy\": \"<string>\",\n          \"minWaitTimeMs\": \"<number>\",\n          \"startingExpectedResults\": \"<number>\",\n          \"reduceEveryMs\": \"<number>\"\n        }\n      ],\n      \"routeTimingStrategies\": [\n        {\n          \"strategy\": \"<string>\",\n          \"minWaitTimeMs\": \"<number>\",\n          \"startingExpectedResults\": \"<number>\",\n          \"reduceEveryMs\": \"<number>\"\n        },\n        {\n          \"strategy\": \"<string>\",\n          \"minWaitTimeMs\": \"<number>\",\n          \"startingExpectedResults\": \"<number>\",\n          \"reduceEveryMs\": \"<number>\"\n        }\n      ]\n    },\n    \"preset\": \"<string>\",\n    \"svmPriorityFeeLevel\": \"<string>\"\n  },\n  \"fromAddress\": \"<string>\",\n  \"toAddress\": \"<string>\",\n  \"fromAmountForGas\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "92a5c11d-7d87-451d-bde2-364779d6b2da",
+              "name": "The resulting routes that can be used to realize the described transfer of tokens",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "advanced",
+                    "routes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-lifi-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
+                    "key": "x-lifi-api-key",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fromChainId\": 100,\n  \"fromAmount\": \"1000000000000000000\",\n  \"fromTokenAddress\": \"0x0000000000000000000000000000000000000000\",\n  \"toChainId\": 137,\n  \"toTokenAddress\": \"0x0000000000000000000000000000000000000000\",\n  \"options\": {\n    \"integrator\": \"fee-demo\",\n    \"referrer\": \"0x552008c0f6870c2f77e5cC1d2eb9bdff03e30Ea0\",\n    \"slippage\": 0.003,\n    \"fee\": 0.02,\n    \"bridges\": {\n      \"allow\": [\n        \"relay\"\n      ]\n    },\n    \"exchanges\": {\n      \"allow\": [\n        \"1inch\",\n        \"openocean\"\n      ]\n    },\n    \"allowSwitchChain\": true,\n    \"order\": \"CHEAPEST\",\n    \"maxPriceImpact\": 0.1\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"routes\": [\n    {\n      \"id\": \"0x1e21fad9c26fff48b67ae2925f878e43bf81211da8b1cd9b7faa8bfd8d7ea9d9\",\n      \"fromChainId\": 100,\n      \"fromAmountUSD\": \"0.05\",\n      \"fromAmount\": \"1000000000000000000\",\n      \"fromToken\": {\n        \"address\": \"0x63e62989d9eb2d37dfdb1f93a22f063635b07d51\",\n        \"symbol\": \"MIVA\",\n        \"decimals\": 18,\n        \"chainId\": 100,\n        \"name\": \"Minerva Wallet SuperToken\",\n        \"coinKey\": \"MIVA\",\n        \"priceUSD\": \"0.04547537276751318\",\n        \"logoURI\": \"\"\n      },\n      \"toChainId\": 137,\n      \"toAmountUSD\": \"0.00\",\n      \"toAmount\": \"999500000000000000\",\n      \"toAmountMin\": \"999500000000000000\",\n      \"toToken\": {\n        \"address\": \"0xc0b2983a17573660053beeed6fdb1053107cf387\",\n        \"symbol\": \"MIVA\",\n        \"decimals\": 18,\n        \"chainId\": 137,\n        \"name\": \"Minerva Wallet SuperToken\",\n        \"coinKey\": \"MIVA\",\n        \"priceUSD\": \"0\",\n        \"logoURI\": \"\"\n      },\n      \"gasCostUSD\": \"0.00\",\n      \"steps\": [\n        {\n          \"id\": \"0x48f0a2f93b0d0a9dab992d07c46bca38516c945101e8f8e08ca42af05b9e6aa9\",\n          \"type\": \"cross\",\n          \"tool\": \"relay\",\n          \"action\": {\n            \"fromChainId\": 100,\n            \"toChainId\": 137,\n            \"fromToken\": {\n              \"address\": \"0x63e62989d9eb2d37dfdb1f93a22f063635b07d51\",\n              \"symbol\": \"MIVA\",\n              \"decimals\": 18,\n              \"chainId\": 100,\n              \"name\": \"Minerva Wallet SuperToken\",\n              \"coinKey\": \"MIVA\",\n              \"priceUSD\": \"0.04547537276751318\",\n              \"logoURI\": \"\"\n            },\n            \"toToken\": {\n              \"address\": \"0xc0b2983a17573660053beeed6fdb1053107cf387\",\n              \"symbol\": \"MIVA\",\n              \"decimals\": 18,\n              \"chainId\": 137,\n              \"name\": \"Minerva Wallet SuperToken\",\n              \"coinKey\": \"MIVA\",\n              \"priceUSD\": \"0\",\n              \"logoURI\": \"\"\n            },\n            \"fromAmount\": \"1000000000000000000\",\n            \"slippage\": 0.003\n          },\n          \"estimate\": {\n            \"fromAmount\": \"1000000000000000000\",\n            \"toAmount\": \"999500000000000000\",\n            \"toAmountMin\": \"999500000000000000\",\n            \"approvalAddress\": \"0x115909BDcbaB21954bEb4ab65FC2aBEE9866fa93\",\n            \"feeCosts\": [\n              {\n                \"name\": \"Gas Fee\",\n                \"description\": \"Covers gas expense for sending funds to user on receiving chain.\",\n                \"percentage\": \"0\",\n                \"token\": {\n                  \"address\": \"0x63e62989d9eb2d37dfdb1f93a22f063635b07d51\",\n                  \"symbol\": \"MIVA\",\n                  \"decimals\": 18,\n                  \"chainId\": 100,\n                  \"name\": \"Minerva Wallet SuperToken\",\n                  \"coinKey\": \"MIVA\",\n                  \"priceUSD\": \"0.04547537276751318\",\n                  \"logoURI\": \"\"\n                },\n                \"amount\": \"0\",\n                \"amountUSD\": \"0.00\",\n                \"included\": true\n              },\n              {\n                \"name\": \"Relay Fee\",\n                \"description\": \"Covers gas expense for claiming user funds on receiving chain.\",\n                \"percentage\": \"0\",\n                \"token\": {\n                  \"address\": \"0x63e62989d9eb2d37dfdb1f93a22f063635b07d51\",\n                  \"symbol\": \"MIVA\",\n                  \"decimals\": 18,\n                  \"chainId\": 100,\n                  \"name\": \"Minerva Wallet SuperToken\",\n                  \"coinKey\": \"MIVA\",\n                  \"priceUSD\": \"0.04547537276751318\",\n                  \"logoURI\": \"\"\n                },\n                \"amount\": \"0\",\n                \"amountUSD\": \"0.00\",\n                \"included\": true\n              },\n              {\n                \"name\": \"Router Fee\",\n                \"description\": \"Router service fee.\",\n                \"percentage\": \"0.0005\",\n                \"token\": {\n                  \"address\": \"0x63e62989d9eb2d37dfdb1f93a22f063635b07d51\",\n                  \"symbol\": \"MIVA\",\n                  \"decimals\": 18,\n                  \"chainId\": 100,\n                  \"name\": \"Minerva Wallet SuperToken\",\n                  \"coinKey\": \"MIVA\",\n                  \"priceUSD\": \"0.04547537276751318\",\n                  \"logoURI\": \"\"\n                },\n                \"amount\": \"500000000000000\",\n                \"amountUSD\": \"22737686383756.59\",\n                \"included\": true\n              }\n            ],\n            \"gasCosts\": [\n              {\n                \"type\": \"SEND\",\n                \"price\": \"1.26\",\n                \"estimate\": \"140000\",\n                \"limit\": \"175000\",\n                \"amount\": \"176400\",\n                \"amountUSD\": \"0.00\",\n                \"token\": {\n                  \"address\": \"0x0000000000000000000000000000000000000000\",\n                  \"symbol\": \"xDai\",\n                  \"decimals\": 18,\n                  \"chainId\": 100,\n                  \"name\": \"xDai\",\n                  \"coinKey\": \"xDai\",\n                  \"priceUSD\": \"1\",\n                  \"logoURI\": \"https://static.debank.com/image/xdai_token/logo_url/xdai/1207e67652b691ef3bfe04f89f4b5362.png\"\n                }\n              }\n            ],\n            \"data\": {\n              \"bid\": {\n                \"user\": \"0x53F68B2186E4a4aB4dD976eD32de68db45BA360b\",\n                \"router\": \"0xeE2Ef40F688607CB23618d9312d62392786d13EB\",\n                \"initiator\": \"0x53F68B2186E4a4aB4dD976eD32de68db45BA360b\",\n                \"sendingChainId\": 100,\n                \"sendingAssetId\": \"0x63e62989d9eb2d37dfdb1f93a22f063635b07d51\",\n                \"amount\": \"1000000000000000000\",\n                \"receivingChainId\": 137,\n                \"receivingAssetId\": \"0xc0b2983a17573660053beeed6fdb1053107cf387\",\n                \"amountReceived\": \"999500000000000000\",\n                \"receivingAddress\": \"0x10fBFF9b9450D3A2d9d1612d6dE3726fACD8809E\",\n                \"transactionId\": \"0x48f0a2f93b0d0a9dab992d07c46bca38516c945101e8f8e08ca42af05b9e6aa9\",\n                \"expiry\": 1643364189,\n                \"callDataHash\": \"0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470\",\n                \"callTo\": \"0x0000000000000000000000000000000000000000\",\n                \"encryptedCallData\": \"0x\",\n                \"sendingChainTxManagerAddress\": \"0x115909BDcbaB21954bEb4ab65FC2aBEE9866fa93\",\n                \"receivingChainTxManagerAddress\": \"0x6090De2EC76eb1Dc3B5d632734415c93c44Fd113\",\n                \"bidExpiry\": 1643105290\n              },\n              \"gasFeeInReceivingToken\": \"0\",\n              \"totalFee\": \"500000000000000\",\n              \"metaTxRelayerFee\": \"0\",\n              \"routerFee\": \"500000000000000\"\n            }\n          },\n          \"integrator\": \"fee-demo\"\n        }\n      ]\n    },\n    {\n      \"id\": \"0xb785f52e68f8a6fb147d5e392e06f122c1a418be84bdc28de0f311b91fa5e57e\",\n      \"fromChainId\": 100,\n      \"fromAmountUSD\": \"0.05\",\n      \"fromAmount\": \"1000000000000000000\",\n      \"fromToken\": {\n        \"address\": \"0x63e62989d9eb2d37dfdb1f93a22f063635b07d51\",\n        \"symbol\": \"MIVA\",\n        \"decimals\": 18,\n        \"chainId\": 100,\n        \"name\": \"Minerva Wallet SuperToken\",\n        \"coinKey\": \"MIVA\",\n        \"priceUSD\": \"0.04547537276751318\",\n        \"logoURI\": \"\"\n      },\n      \"toChainId\": 137,\n      \"toAmountUSD\": \"0.00\",\n      \"toAmount\": \"941511949935063841\",\n      \"toAmountMin\": \"913266591437011926\",\n      \"toToken\": {\n        \"address\": \"0xc0b2983a17573660053beeed6fdb1053107cf387\",\n        \"symbol\": \"MIVA\",\n        \"decimals\": 18,\n        \"chainId\": 137,\n        \"name\": \"Minerva Wallet SuperToken\",\n        \"coinKey\": \"MIVA\",\n        \"priceUSD\": \"0\",\n        \"logoURI\": \"\"\n      },\n      \"gasCostUSD\": \"0.10\",\n      \"steps\": [\n        {\n          \"id\": \"ea5abad4-2e2a-476f-981d-797816e5cc77\",\n          \"type\": \"swap\",\n          \"tool\": \"1inch\",\n          \"action\": {\n            \"fromChainId\": 100,\n            \"toChainId\": 100,\n            \"fromToken\": {\n              \"address\": \"0x63e62989d9eb2d37dfdb1f93a22f063635b07d51\",\n              \"symbol\": \"MIVA\",\n              \"decimals\": 18,\n              \"chainId\": 100,\n              \"name\": \"Minerva Wallet SuperToken\",\n              \"coinKey\": \"MIVA\",\n              \"priceUSD\": \"0.04547537276751318\",\n              \"logoURI\": \"\"\n            },\n            \"toToken\": {\n              \"name\": \"Own a fraction\",\n              \"symbol\": \"FRACTION\",\n              \"coinKey\": \"FRACTION\",\n              \"decimals\": 18,\n              \"chainId\": 100,\n              \"logoURI\": \"https://assets.coingecko.com/coins/images/15099/large/fraction.png?1619691519\",\n              \"address\": \"0x2bf2ba13735160624a0feae98f6ac8f70885ea61\"\n            },\n            \"fromAmount\": \"1000000000000000000\",\n            \"slippage\": 0.003\n          },\n          \"estimate\": {\n            \"fromAmount\": \"1000000000000000000\",\n            \"toAmount\": \"809146346742\",\n            \"toAmountMin\": \"784871956340\",\n            \"approvalAddress\": \"0x1111111254fb6c44bac0bed2854e76f90643097d\",\n            \"feeCosts\": [],\n            \"gasCosts\": [\n              {\n                \"type\": \"SEND\",\n                \"price\": \"1.26\",\n                \"estimate\": \"252364\",\n                \"limit\": \"315455\",\n                \"amount\": \"317979\",\n                \"amountUSD\": \"0.00\",\n                \"token\": {\n                  \"address\": \"0x0000000000000000000000000000000000000000\",\n                  \"symbol\": \"xDai\",\n                  \"decimals\": 18,\n                  \"chainId\": 100,\n                  \"name\": \"xDai\",\n                  \"coinKey\": \"xDai\",\n                  \"priceUSD\": \"1\",\n                  \"logoURI\": \"https://static.debank.com/image/xdai_token/logo_url/xdai/1207e67652b691ef3bfe04f89f4b5362.png\"\n                }\n              }\n            ],\n            \"data\": {\n              \"fromToken\": {\n                \"name\": \"Minerva Wallet SuperToken\",\n                \"address\": \"0x63e62989d9eb2d37dfdb1f93a22f063635b07d51\",\n                \"symbol\": \"MIVA\",\n                \"decimals\": 18,\n                \"logoURI\": \"https://minerva.digital/i/MIVA-Token_200x200.png\"\n              },\n              \"toToken\": {\n                \"address\": \"0x2bf2ba13735160624a0feae98f6ac8f70885ea61\",\n                \"decimals\": 18,\n                \"symbol\": \"FRACTION\",\n                \"name\": \"Own a fraction\",\n                \"logoURI\": \"https://etherscan.io/images/main/empty-token.png\",\n                \"isCustom\": true\n              },\n              \"toTokenAmount\": \"809146346742\",\n              \"fromTokenAmount\": \"1000000000000000000\",\n              \"protocols\": [\n                [\n                  [\n                    {\n                      \"name\": \"GNOSIS_HONEYSWAP\",\n                      \"part\": 100,\n                      \"fromTokenAddress\": \"0x63e62989d9eb2d37dfdb1f93a22f063635b07d51\",\n                      \"toTokenAddress\": \"0x2bf2ba13735160624a0feae98f6ac8f70885ea61\"\n                    }\n                  ]\n                ]\n              ],\n              \"estimatedGas\": 252364\n            }\n          },\n          \"integrator\": \"fee-demo\"\n        },\n        {\n          \"id\": \"0x85e93238e8f2f83dd5840eb748c7b9099d69e1ea227a13e7a2e949cf6a32ab7d\",\n          \"type\": \"cross\",\n          \"tool\": \"relay\",\n          \"action\": {\n            \"fromChainId\": 100,\n            \"toChainId\": 137,\n            \"fromToken\": {\n              \"name\": \"Own a fraction\",\n              \"symbol\": \"FRACTION\",\n              \"coinKey\": \"FRACTION\",\n              \"decimals\": 18,\n              \"chainId\": 100,\n              \"logoURI\": \"https://assets.coingecko.com/coins/images/15099/large/fraction.png?1619691519\",\n              \"address\": \"0x2bf2ba13735160624a0feae98f6ac8f70885ea61\"\n            },\n            \"toToken\": {\n              \"name\": \"Own a fraction\",\n              \"symbol\": \"FRACTION\",\n              \"coinKey\": \"FRACTION\",\n              \"decimals\": 18,\n              \"chainId\": 137,\n              \"logoURI\": \"https://assets.coingecko.com/coins/images/15099/large/fraction.png?1619691519\",\n              \"address\": \"0xbd80cfa9d93a87d1bb895f810ea348e496611cd4\"\n            },\n            \"fromAmount\": \"784871956340\",\n            \"slippage\": 0.003\n          },\n          \"estimate\": {\n            \"fromAmount\": \"784871956340\",\n            \"toAmount\": \"784479520361\",\n            \"toAmountMin\": \"784479520361\",\n            \"approvalAddress\": \"0x115909BDcbaB21954bEb4ab65FC2aBEE9866fa93\",\n            \"feeCosts\": [\n              {\n                \"name\": \"Gas Fee\",\n                \"description\": \"Covers gas expense for sending funds to user on receiving chain.\",\n                \"percentage\": \"0\",\n                \"token\": {\n                  \"name\": \"Own a fraction\",\n                  \"symbol\": \"FRACTION\",\n                  \"coinKey\": \"FRACTION\",\n                  \"decimals\": 18,\n                  \"chainId\": 100,\n                  \"logoURI\": \"https://assets.coingecko.com/coins/images/15099/large/fraction.png?1619691519\",\n                  \"address\": \"0x2bf2ba13735160624a0feae98f6ac8f70885ea61\"\n                },\n                \"amount\": \"0\",\n                \"amountUSD\": \"0.00\",\n                \"included\": true\n              },\n              {\n                \"name\": \"Relay Fee\",\n                \"description\": \"Covers gas expense for claiming user funds on receiving chain.\",\n                \"percentage\": \"0\",\n                \"token\": {\n                  \"name\": \"Own a fraction\",\n                  \"symbol\": \"FRACTION\",\n                  \"coinKey\": \"FRACTION\",\n                  \"decimals\": 18,\n                  \"chainId\": 100,\n                  \"logoURI\": \"https://assets.coingecko.com/coins/images/15099/large/fraction.png?1619691519\",\n                  \"address\": \"0x2bf2ba13735160624a0feae98f6ac8f70885ea61\"\n                },\n                \"amount\": \"0\",\n                \"amountUSD\": \"0.00\",\n                \"included\": true\n              },\n              {\n                \"name\": \"Router Fee\",\n                \"description\": \"Router service fee.\",\n                \"percentage\": \"0.00050000000105749733\",\n                \"token\": {\n                  \"name\": \"Own a fraction\",\n                  \"symbol\": \"FRACTION\",\n                  \"coinKey\": \"FRACTION\",\n                  \"decimals\": 18,\n                  \"chainId\": 100,\n                  \"logoURI\": \"https://assets.coingecko.com/coins/images/15099/large/fraction.png?1619691519\",\n                  \"address\": \"0x2bf2ba13735160624a0feae98f6ac8f70885ea61\"\n                },\n                \"amount\": \"392435979\",\n                \"amountUSD\": \"0.00\",\n                \"included\": true\n              }\n            ],\n            \"gasCosts\": [\n              {\n                \"type\": \"SEND\",\n                \"price\": \"1.26\",\n                \"estimate\": \"140000\",\n                \"limit\": \"175000\",\n                \"amount\": \"176400\",\n                \"amountUSD\": \"0.00\",\n                \"token\": {\n                  \"address\": \"0x0000000000000000000000000000000000000000\",\n                  \"symbol\": \"xDai\",\n                  \"decimals\": 18,\n                  \"chainId\": 100,\n                  \"name\": \"xDai\",\n                  \"coinKey\": \"xDai\",\n                  \"priceUSD\": \"1\",\n                  \"logoURI\": \"https://static.debank.com/image/xdai_token/logo_url/xdai/1207e67652b691ef3bfe04f89f4b5362.png\"\n                }\n              }\n            ],\n            \"data\": {\n              \"bid\": {\n                \"user\": \"0x53F68B2186E4a4aB4dD976eD32de68db45BA360b\",\n                \"router\": \"0xeE2Ef40F688607CB23618d9312d62392786d13EB\",\n                \"initiator\": \"0x53F68B2186E4a4aB4dD976eD32de68db45BA360b\",\n                \"sendingChainId\": 100,\n                \"sendingAssetId\": \"0x2bf2ba13735160624a0feae98f6ac8f70885ea61\",\n                \"amount\": \"784871956340\",\n                \"receivingChainId\": 137,\n                \"receivingAssetId\": \"0xbd80cfa9d93a87d1bb895f810ea348e496611cd4\",\n                \"amountReceived\": \"784479520361\",\n                \"receivingAddress\": \"0x10fBFF9b9450D3A2d9d1612d6dE3726fACD8809E\",\n                \"transactionId\": \"0x85e93238e8f2f83dd5840eb748c7b9099d69e1ea227a13e7a2e949cf6a32ab7d\",\n                \"expiry\": 1643364189,\n                \"callDataHash\": \"0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470\",\n                \"callTo\": \"0x0000000000000000000000000000000000000000\",\n                \"encryptedCallData\": \"0x\",\n                \"sendingChainTxManagerAddress\": \"0x115909BDcbaB21954bEb4ab65FC2aBEE9866fa93\",\n                \"receivingChainTxManagerAddress\": \"0x6090De2EC76eb1Dc3B5d632734415c93c44Fd113\",\n                \"bidExpiry\": 1643105290\n              },\n              \"gasFeeInReceivingToken\": \"0\",\n              \"totalFee\": \"392435979\",\n              \"metaTxRelayerFee\": \"0\",\n              \"routerFee\": \"392435979\"\n            }\n          },\n          \"integrator\": \"fee-demo\"\n        },\n        {\n          \"id\": \"d8686af1-c131-4566-bf4a-ef8226f9879b\",\n          \"type\": \"swap\",\n          \"tool\": \"1inch\",\n          \"action\": {\n            \"fromChainId\": 137,\n            \"toChainId\": 137,\n            \"fromToken\": {\n              \"name\": \"Own a fraction\",\n              \"symbol\": \"FRACTION\",\n              \"coinKey\": \"FRACTION\",\n              \"decimals\": 18,\n              \"chainId\": 137,\n              \"logoURI\": \"https://assets.coingecko.com/coins/images/15099/large/fraction.png?1619691519\",\n              \"address\": \"0xbd80cfa9d93a87d1bb895f810ea348e496611cd4\"\n            },\n            \"toToken\": {\n              \"address\": \"0xc0b2983a17573660053beeed6fdb1053107cf387\",\n              \"symbol\": \"MIVA\",\n              \"decimals\": 18,\n              \"chainId\": 137,\n              \"name\": \"Minerva Wallet SuperToken\",\n              \"coinKey\": \"MIVA\",\n              \"priceUSD\": \"0\",\n              \"logoURI\": \"\"\n            },\n            \"fromAmount\": \"784479520361\",\n            \"slippage\": 0.003\n          },\n          \"estimate\": {\n            \"fromAmount\": \"784479520361\",\n            \"toAmount\": \"941511949935063841\",\n            \"toAmountMin\": \"913266591437011926\",\n            \"approvalAddress\": \"0x1111111254fb6c44bac0bed2854e76f90643097d\",\n            \"feeCosts\": [],\n            \"gasCosts\": [\n              {\n                \"type\": \"SEND\",\n                \"price\": \"129\",\n                \"estimate\": \"549386\",\n                \"limit\": \"686733\",\n                \"amount\": \"70870794\",\n                \"amountUSD\": \"0.10\",\n                \"token\": {\n                  \"address\": \"0x0000000000000000000000000000000000000000\",\n                  \"symbol\": \"MATIC\",\n                  \"decimals\": 18,\n                  \"chainId\": 137,\n                  \"name\": \"MATIC\",\n                  \"coinKey\": \"MATIC\",\n                  \"priceUSD\": \"1.469213\",\n                  \"logoURI\": \"https://static.debank.com/image/matic_token/logo_url/matic/e5a8a2860ba5cf740a474dcab796dc63.png\"\n                }\n              }\n            ],\n            \"data\": {\n              \"fromToken\": {\n                \"address\": \"0xbd80cfa9d93a87d1bb895f810ea348e496611cd4\",\n                \"decimals\": 18,\n                \"symbol\": \"FRACTION\",\n                \"name\": \"Own a fraction\",\n                \"logoURI\": \"https://etherscan.io/images/main/empty-token.png\",\n                \"isCustom\": true\n              },\n              \"toToken\": {\n                \"address\": \"0xc0b2983a17573660053beeed6fdb1053107cf387\",\n                \"decimals\": 18,\n                \"symbol\": \"MIVA\",\n                \"name\": \"Minerva Wallet SuperToken\",\n                \"logoURI\": \"https://etherscan.io/images/main/empty-token.png\",\n                \"isCustom\": true\n              },\n              \"toTokenAmount\": \"941511949935063841\",\n              \"fromTokenAmount\": \"784479520361\",\n              \"protocols\": [\n                [\n                  [\n                    {\n                      \"name\": \"POLYGON_QUICKSWAP\",\n                      \"part\": 100,\n                      \"fromTokenAddress\": \"0xbd80cfa9d93a87d1bb895f810ea348e496611cd4\",\n                      \"toTokenAddress\": \"0x7ceb23fd6bc0add59e62ac25578270cff1b9f619\"\n                    }\n                  ],\n                  [\n                    {\n                      \"name\": \"POLYDEX_FINANCE\",\n                      \"part\": 100,\n                      \"fromTokenAddress\": \"0x7ceb23fd6bc0add59e62ac25578270cff1b9f619\",\n                      \"toTokenAddress\": \"0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\"\n                    }\n                  ],\n                  [\n                    {\n                      \"name\": \"POLYGON_QUICKSWAP\",\n                      \"part\": 100,\n                      \"fromTokenAddress\": \"0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\",\n                      \"toTokenAddress\": \"0xc0b2983a17573660053beeed6fdb1053107cf387\"\n                    }\n                  ]\n                ]\n              ],\n              \"estimatedGas\": 549386\n            }\n          },\n          \"integrator\": \"fee-demo\"\n        }\n      ]\n    }\n  ],\n  \"errors\": [\n    {\n      \"errorType\": \"NO_QUOTE\",\n      \"code\": \"NO_POSSIBLE_ROUTE\",\n      \"action\": {\n        \"fromChainId\": 42161,\n        \"toChainId\": 42161,\n        \"fromToken\": {\n          \"address\": \"0xff970a61a04b1ca14834a43f5de4533ebddb5cc8\",\n          \"decimals\": 6,\n          \"symbol\": \"USDC\",\n          \"coinKey\": \"USDC\",\n          \"chainId\": 42161,\n          \"name\": \"USDC\",\n          \"logoURI\": \"http://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/logo.png\\\",\",\n          \"priceUSD\": \"1.001\"\n        },\n        \"toToken\": {\n          \"address\": \"0xfd086bc7cd5c481dcc9c85ebe478a1c0b69fcbb9\",\n          \"decimals\": 6,\n          \"symbol\": \"USDT\",\n          \"coinKey\": \"USDT\",\n          \"chainId\": 42161,\n          \"name\": \"Tether USD\",\n          \"logoURI\": \"http://get.celer.app/cbridge-icons/USDT.png\\\"\"\n        },\n        \"fromAmount\": \"100000\",\n        \"slippage\": 0.003\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e2233024-eb81-4337-b8f9-feccc081739a",
+              "name": "Invalid Routes Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "advanced",
+                    "routes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-lifi-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
+                    "key": "x-lifi-api-key",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fromChainId\": 100,\n  \"fromAmount\": \"1000000000000000000\",\n  \"fromTokenAddress\": \"0x0000000000000000000000000000000000000000\",\n  \"toChainId\": 137,\n  \"toTokenAddress\": \"0x0000000000000000000000000000000000000000\",\n  \"options\": {\n    \"integrator\": \"fee-demo\",\n    \"referrer\": \"0x552008c0f6870c2f77e5cC1d2eb9bdff03e30Ea0\",\n    \"slippage\": 0.003,\n    \"fee\": 0.02,\n    \"bridges\": {\n      \"allow\": [\n        \"relay\"\n      ]\n    },\n    \"exchanges\": {\n      \"allow\": [\n        \"1inch\",\n        \"openocean\"\n      ]\n    },\n    \"allowSwitchChain\": true,\n    \"order\": \"CHEAPEST\",\n    \"maxPriceImpact\": 0.1\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "443c1a61-b2da-44e7-a236-027c10427171",
+              "name": "Requested `to` or `from` token was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "advanced",
+                    "routes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-lifi-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
+                    "key": "x-lifi-api-key",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fromChainId\": 100,\n  \"fromAmount\": \"1000000000000000000\",\n  \"fromTokenAddress\": \"0x0000000000000000000000000000000000000000\",\n  \"toChainId\": 137,\n  \"toTokenAddress\": \"0x0000000000000000000000000000000000000000\",\n  \"options\": {\n    \"integrator\": \"fee-demo\",\n    \"referrer\": \"0x552008c0f6870c2f77e5cC1d2eb9bdff03e30Ea0\",\n    \"slippage\": 0.003,\n    \"fee\": 0.02,\n    \"bridges\": {\n      \"allow\": [\n        \"relay\"\n      ]\n    },\n    \"exchanges\": {\n      \"allow\": [\n        \"1inch\",\n        \"openocean\"\n      ]\n    },\n    \"allowSwitchChain\": true,\n    \"order\": \"CHEAPEST\",\n    \"maxPriceImpact\": 0.1\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "57b91eaa-a5ae-4715-b598-7795bf855a11",
+          "name": "Populate a step with transaction data",
+          "request": {
+            "name": "Populate a step with transaction data",
+            "description": {
+              "content": "This endpoint expects a full `Step` object which usually is retrieved by calling the `/advanced/routes` endpoint and selecting the most suitable `Route`. Afterwards the transaction for every required `Step` can be retrieved using this endpoint.\n**Attention**: This request is more complex and intended to be used via our [JavaScript SDK](https://docs.li.fi/integrate-li.fi-js-sdk/install-li.fi-sdk).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "advanced",
+                "stepTransaction"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "skipSimulation",
+                  "value": "<boolean>",
+                  "description": "Parameter to skip transaction simulation. The quote will be returned faster but the transaction gas limit won't be accurate."
+                },
+                {
+                  "disabled": false,
+                  "key": "mayanNonEvmPermitSignature",
+                  "value": "<boolean>",
+                  "description": "Mayan specific option to bridge from non-EVM chain to Hyperliquid"
+                },
+                {
+                  "disabled": false,
+                  "key": "svmPriorityFeeLevel",
+                  "value": "<string>",
+                  "description": "Priority fee level for Solana Virtual Machine (SVM) transactions."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
+                "key": "x-lifi-api-key",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"<string>\",\n  \"action\": {\n    \"fromToken\": {\n      \"address\": \"<string>\",\n      \"chainId\": \"<number>\",\n      \"decimals\": \"<number>\",\n      \"name\": \"<string>\",\n      \"symbol\": \"<string>\",\n      \"coinKey\": \"<string>\",\n      \"logoURI\": \"<string>\",\n      \"priceUSD\": \"<string>\"\n    },\n    \"fromAmount\": \"<string>\",\n    \"fromChainId\": \"<number>\",\n    \"toChainId\": \"<number>\",\n    \"toToken\": {\n      \"address\": \"<string>\",\n      \"chainId\": \"<number>\",\n      \"decimals\": \"<number>\",\n      \"name\": \"<string>\",\n      \"symbol\": \"<string>\",\n      \"coinKey\": \"<string>\",\n      \"logoURI\": \"<string>\",\n      \"priceUSD\": \"<string>\"\n    },\n    \"slippage\": \"<double>\",\n    \"fromAddress\": \"<string>\",\n    \"toAddress\": \"<string>\"\n  },\n  \"tool\": \"<string>\",\n  \"type\": \"<string>\",\n  \"toolDetails\": {\n    \"key\": \"<string>\",\n    \"name\": \"<string>\",\n    \"logoURI\": \"<string>\"\n  },\n  \"estimate\": {\n    \"fromAmount\": \"<string>\",\n    \"approvalAddress\": \"<string>\",\n    \"toAmount\": \"<string>\",\n    \"toAmountMin\": \"<string>\",\n    \"tool\": \"<string>\",\n    \"executionDuration\": \"<number>\",\n    \"fromAmountUSD\": \"<string>\",\n    \"toAmountUSD\": \"<string>\",\n    \"feeCosts\": [\n      {\n        \"token\": {\n          \"address\": \"<string>\",\n          \"chainId\": \"<number>\",\n          \"decimals\": \"<number>\",\n          \"name\": \"<string>\",\n          \"symbol\": \"<string>\",\n          \"coinKey\": \"<string>\",\n          \"logoURI\": \"<string>\",\n          \"priceUSD\": \"<string>\"\n        },\n        \"percentage\": \"<string>\",\n        \"name\": \"<string>\",\n        \"amountUSD\": \"<string>\",\n        \"included\": \"<boolean>\",\n        \"description\": \"<string>\",\n        \"amount\": \"<string>\"\n      },\n      {\n        \"token\": {\n          \"address\": \"<string>\",\n          \"chainId\": \"<number>\",\n          \"decimals\": \"<number>\",\n          \"name\": \"<string>\",\n          \"symbol\": \"<string>\",\n          \"coinKey\": \"<string>\",\n          \"logoURI\": \"<string>\",\n          \"priceUSD\": \"<string>\"\n        },\n        \"percentage\": \"<string>\",\n        \"name\": \"<string>\",\n        \"amountUSD\": \"<string>\",\n        \"included\": \"<boolean>\",\n        \"description\": \"<string>\",\n        \"amount\": \"<string>\"\n      }\n    ],\n    \"gasCosts\": [\n      {\n        \"token\": {\n          \"address\": \"<string>\",\n          \"chainId\": \"<number>\",\n          \"decimals\": \"<number>\",\n          \"name\": \"<string>\",\n          \"symbol\": \"<string>\",\n          \"coinKey\": \"<string>\",\n          \"logoURI\": \"<string>\",\n          \"priceUSD\": \"<string>\"\n        },\n        \"type\": \"<string>\",\n        \"amount\": \"<string>\",\n        \"price\": \"<string>\",\n        \"estimate\": \"<string>\",\n        \"limit\": \"<string>\",\n        \"amountUSD\": \"<string>\"\n      },\n      {\n        \"token\": {\n          \"address\": \"<string>\",\n          \"chainId\": \"<number>\",\n          \"decimals\": \"<number>\",\n          \"name\": \"<string>\",\n          \"symbol\": \"<string>\",\n          \"coinKey\": \"<string>\",\n          \"logoURI\": \"<string>\",\n          \"priceUSD\": \"<string>\"\n        },\n        \"type\": \"<string>\",\n        \"amount\": \"<string>\",\n        \"price\": \"<string>\",\n        \"estimate\": \"<string>\",\n        \"limit\": \"<string>\",\n        \"amountUSD\": \"<string>\"\n      }\n    ],\n    \"data\": {\n      \"bid\": {\n        \"user\": \"<string>\",\n        \"router\": \"<string>\",\n        \"initiator\": \"<string>\",\n        \"sendingChainId\": \"<number>\",\n        \"sendingAssetId\": \"<string>\",\n        \"amount\": \"<string>\",\n        \"receivingChainId\": \"<number>\",\n        \"receivingAssetId\": \"<string>\",\n        \"amountReceived\": \"<string>\",\n        \"receivingAddress\": \"<string>\",\n        \"transactionId\": \"<string>\",\n        \"expiry\": \"<number>\",\n        \"callDataHash\": \"<string>\",\n        \"callTo\": \"<string>\",\n        \"encryptedCallData\": \"<string>\",\n        \"sendingChainTxManagerAddress\": \"<string>\",\n        \"receivingChainTxManagerAddress\": \"<string>\",\n        \"bidExpiry\": \"<number>\"\n      },\n      \"bidSignature\": \"<string>\",\n      \"gasFeeInReceivingToken\": \"<string>\",\n      \"totalFee\": \"<string>\",\n      \"metaTxRelayerFee\": \"<string>\",\n      \"routerFee\": \"<string>\"\n    }\n  },\n  \"integrator\": \"<string>\",\n  \"includedSteps\": [\n    {\n      \"id\": \"<string>\",\n      \"action\": {\n        \"fromToken\": {\n          \"address\": \"<string>\",\n          \"chainId\": \"<number>\",\n          \"decimals\": \"<number>\",\n          \"name\": \"<string>\",\n          \"symbol\": \"<string>\",\n          \"coinKey\": \"<string>\",\n          \"logoURI\": \"<string>\",\n          \"priceUSD\": \"<string>\"\n        },\n        \"fromAmount\": \"<string>\",\n        \"fromChainId\": \"<number>\",\n        \"toChainId\": \"<number>\",\n        \"toToken\": {\n          \"address\": \"<string>\",\n          \"chainId\": \"<number>\",\n          \"decimals\": \"<number>\",\n          \"name\": \"<string>\",\n          \"symbol\": \"<string>\",\n          \"coinKey\": \"<string>\",\n          \"logoURI\": \"<string>\",\n          \"priceUSD\": \"<string>\"\n        },\n        \"slippage\": \"<double>\",\n        \"fromAddress\": \"<string>\",\n        \"toAddress\": \"<string>\"\n      },\n      \"estimate\": {\n        \"fromAmount\": \"<string>\",\n        \"approvalAddress\": \"<string>\",\n        \"toAmount\": \"<string>\",\n        \"toAmountMin\": \"<string>\",\n        \"tool\": \"<string>\",\n        \"executionDuration\": \"<number>\",\n        \"fromAmountUSD\": \"<string>\",\n        \"toAmountUSD\": \"<string>\",\n        \"feeCosts\": [\n          {\n            \"token\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"percentage\": \"<string>\",\n            \"name\": \"<string>\",\n            \"amountUSD\": \"<string>\",\n            \"included\": \"<boolean>\",\n            \"description\": \"<string>\",\n            \"amount\": \"<string>\"\n          },\n          {\n            \"token\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"percentage\": \"<string>\",\n            \"name\": \"<string>\",\n            \"amountUSD\": \"<string>\",\n            \"included\": \"<boolean>\",\n            \"description\": \"<string>\",\n            \"amount\": \"<string>\"\n          }\n        ],\n        \"gasCosts\": [\n          {\n            \"token\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": \"<string>\",\n            \"amount\": \"<string>\",\n            \"price\": \"<string>\",\n            \"estimate\": \"<string>\",\n            \"limit\": \"<string>\",\n            \"amountUSD\": \"<string>\"\n          },\n          {\n            \"token\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": \"<string>\",\n            \"amount\": \"<string>\",\n            \"price\": \"<string>\",\n            \"estimate\": \"<string>\",\n            \"limit\": \"<string>\",\n            \"amountUSD\": \"<string>\"\n          }\n        ],\n        \"data\": {\n          \"bid\": {\n            \"user\": \"<string>\",\n            \"router\": \"<string>\",\n            \"initiator\": \"<string>\",\n            \"sendingChainId\": \"<number>\",\n            \"sendingAssetId\": \"<string>\",\n            \"amount\": \"<string>\",\n            \"receivingChainId\": \"<number>\",\n            \"receivingAssetId\": \"<string>\",\n            \"amountReceived\": \"<string>\",\n            \"receivingAddress\": \"<string>\",\n            \"transactionId\": \"<string>\",\n            \"expiry\": \"<number>\",\n            \"callDataHash\": \"<string>\",\n            \"callTo\": \"<string>\",\n            \"encryptedCallData\": \"<string>\",\n            \"sendingChainTxManagerAddress\": \"<string>\",\n            \"receivingChainTxManagerAddress\": \"<string>\",\n            \"bidExpiry\": \"<number>\"\n          },\n          \"bidSignature\": \"<string>\",\n          \"gasFeeInReceivingToken\": \"<string>\",\n          \"totalFee\": \"<string>\",\n          \"metaTxRelayerFee\": \"<string>\",\n          \"routerFee\": \"<string>\"\n        }\n      },\n      \"tool\": \"<string>\",\n      \"type\": \"<string>\",\n      \"toolDetails\": {\n        \"key\": \"<string>\",\n        \"name\": \"<string>\",\n        \"logoURI\": \"<string>\"\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"action\": {\n        \"fromToken\": {\n          \"address\": \"<string>\",\n          \"chainId\": \"<number>\",\n          \"decimals\": \"<number>\",\n          \"name\": \"<string>\",\n          \"symbol\": \"<string>\",\n          \"coinKey\": \"<string>\",\n          \"logoURI\": \"<string>\",\n          \"priceUSD\": \"<string>\"\n        },\n        \"fromAmount\": \"<string>\",\n        \"fromChainId\": \"<number>\",\n        \"toChainId\": \"<number>\",\n        \"toToken\": {\n          \"address\": \"<string>\",\n          \"chainId\": \"<number>\",\n          \"decimals\": \"<number>\",\n          \"name\": \"<string>\",\n          \"symbol\": \"<string>\",\n          \"coinKey\": \"<string>\",\n          \"logoURI\": \"<string>\",\n          \"priceUSD\": \"<string>\"\n        },\n        \"slippage\": \"<double>\",\n        \"fromAddress\": \"<string>\",\n        \"toAddress\": \"<string>\"\n      },\n      \"estimate\": {\n        \"fromAmount\": \"<string>\",\n        \"approvalAddress\": \"<string>\",\n        \"toAmount\": \"<string>\",\n        \"toAmountMin\": \"<string>\",\n        \"tool\": \"<string>\",\n        \"executionDuration\": \"<number>\",\n        \"fromAmountUSD\": \"<string>\",\n        \"toAmountUSD\": \"<string>\",\n        \"feeCosts\": [\n          {\n            \"token\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"percentage\": \"<string>\",\n            \"name\": \"<string>\",\n            \"amountUSD\": \"<string>\",\n            \"included\": \"<boolean>\",\n            \"description\": \"<string>\",\n            \"amount\": \"<string>\"\n          },\n          {\n            \"token\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"percentage\": \"<string>\",\n            \"name\": \"<string>\",\n            \"amountUSD\": \"<string>\",\n            \"included\": \"<boolean>\",\n            \"description\": \"<string>\",\n            \"amount\": \"<string>\"\n          }\n        ],\n        \"gasCosts\": [\n          {\n            \"token\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": \"<string>\",\n            \"amount\": \"<string>\",\n            \"price\": \"<string>\",\n            \"estimate\": \"<string>\",\n            \"limit\": \"<string>\",\n            \"amountUSD\": \"<string>\"\n          },\n          {\n            \"token\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": \"<string>\",\n            \"amount\": \"<string>\",\n            \"price\": \"<string>\",\n            \"estimate\": \"<string>\",\n            \"limit\": \"<string>\",\n            \"amountUSD\": \"<string>\"\n          }\n        ],\n        \"data\": {\n          \"bid\": {\n            \"user\": \"<string>\",\n            \"router\": \"<string>\",\n            \"initiator\": \"<string>\",\n            \"sendingChainId\": \"<number>\",\n            \"sendingAssetId\": \"<string>\",\n            \"amount\": \"<string>\",\n            \"receivingChainId\": \"<number>\",\n            \"receivingAssetId\": \"<string>\",\n            \"amountReceived\": \"<string>\",\n            \"receivingAddress\": \"<string>\",\n            \"transactionId\": \"<string>\",\n            \"expiry\": \"<number>\",\n            \"callDataHash\": \"<string>\",\n            \"callTo\": \"<string>\",\n            \"encryptedCallData\": \"<string>\",\n            \"sendingChainTxManagerAddress\": \"<string>\",\n            \"receivingChainTxManagerAddress\": \"<string>\",\n            \"bidExpiry\": \"<number>\"\n          },\n          \"bidSignature\": \"<string>\",\n          \"gasFeeInReceivingToken\": \"<string>\",\n          \"totalFee\": \"<string>\",\n          \"metaTxRelayerFee\": \"<string>\",\n          \"routerFee\": \"<string>\"\n        }\n      },\n      \"tool\": \"<string>\",\n      \"type\": \"<string>\",\n      \"toolDetails\": {\n        \"key\": \"<string>\",\n        \"name\": \"<string>\",\n        \"logoURI\": \"<string>\"\n      }\n    }\n  ],\n  \"referrer\": \"<string>\",\n  \"execution\": {},\n  \"transactionRequest\": {}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a0054fd7-3193-4090-9715-e250fb8a1958",
+              "name": "The step populated with the transaction data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "advanced",
+                    "stepTransaction"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipSimulation",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "mayanNonEvmPermitSignature",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "svmPriorityFeeLevel",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-lifi-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
+                    "key": "x-lifi-api-key",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"a8dc011a-f52d-4492-9e99-21de64b5453a\",\n  \"type\": \"lifi\",\n  \"tool\": \"1inch\",\n  \"toolDetails\": {\n    \"key\": \"1inch\",\n    \"logoURI\": \"https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/exchanges/oneinch.svg\",\n    \"name\": \"1inch\"\n  },\n  \"action\": {\n    \"fromChainId\": 100,\n    \"toChainId\": 100,\n    \"fromToken\": {\n      \"address\": \"0x0000000000000000000000000000000000000000\",\n      \"symbol\": \"xDai\",\n      \"decimals\": 18,\n      \"chainId\": 100,\n      \"name\": \"xDai\",\n      \"coinKey\": \"xDai\",\n      \"priceUSD\": \"1\",\n      \"logoURI\": \"https://static.debank.com/image/xdai_token/logo_url/xdai/1207e67652b691ef3bfe04f89f4b5362.png\"\n    },\n    \"toToken\": {\n      \"name\": \"Minerva Wallet SuperToken\",\n      \"symbol\": \"MIVA\",\n      \"coinKey\": \"MIVA\",\n      \"decimals\": 18,\n      \"chainId\": 100,\n      \"priceUSD\": \"1\",\n      \"logoURI\": \"https://minerva.digital/i/MIVA-Token_200x200.png\",\n      \"address\": \"0x63e62989d9eb2d37dfdb1f93a22f063635b07d51\"\n    },\n    \"fromAmount\": \"1000000000000000000\",\n    \"slippage\": 0.003,\n    \"fromAddress\": \"0x552008c0f6870c2f77e5cC1d2eb9bdff03e30Ea0\",\n    \"toAddress\": \"0x552008c0f6870c2f77e5cC1d2eb9bdff03e30Ea0\"\n  },\n  \"estimate\": {\n    \"fromAmount\": \"1000000000000000000\",\n    \"toAmount\": \"21922914496086353975\",\n    \"toAmountMin\": \"21265227061203763356\",\n    \"tool\": \"1inch\",\n    \"executionDuration\": 30,\n    \"approvalAddress\": \"0x1111111254fb6c44bac0bed2854e76f90643097d\",\n    \"feeCosts\": [],\n    \"gasCosts\": [\n      {\n        \"type\": \"SEND\",\n        \"price\": \"1\",\n        \"estimate\": \"252364\",\n        \"limit\": \"315455\",\n        \"amount\": \"252364\",\n        \"amountUSD\": \"0.00\",\n        \"token\": {\n          \"address\": \"0x0000000000000000000000000000000000000000\",\n          \"symbol\": \"xDai\",\n          \"decimals\": 18,\n          \"chainId\": 100,\n          \"name\": \"xDai\",\n          \"coinKey\": \"xDai\",\n          \"priceUSD\": \"1\",\n          \"logoURI\": \"https://static.debank.com/image/xdai_token/logo_url/xdai/1207e67652b691ef3bfe04f89f4b5362.png\"\n        }\n      }\n    ]\n  },\n  \"integrator\": \"fee-demo\",\n  \"includedSteps\": [\n    {\n      \"id\": \"a8dc011a-f52d-4492-9e99-21de64b5453a\",\n      \"type\": \"swap\",\n      \"tool\": \"1inch\",\n      \"toolDetails\": {\n        \"key\": \"1inch\",\n        \"logoURI\": \"https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/exchanges/oneinch.svg\",\n        \"name\": \"1inch\"\n      },\n      \"action\": {\n        \"fromChainId\": 100,\n        \"toChainId\": 100,\n        \"fromToken\": {\n          \"address\": \"0x0000000000000000000000000000000000000000\",\n          \"symbol\": \"xDai\",\n          \"decimals\": 18,\n          \"chainId\": 100,\n          \"name\": \"xDai\",\n          \"coinKey\": \"xDai\",\n          \"priceUSD\": \"1\",\n          \"logoURI\": \"https://static.debank.com/image/xdai_token/logo_url/xdai/1207e67652b691ef3bfe04f89f4b5362.png\"\n        },\n        \"toToken\": {\n          \"name\": \"Minerva Wallet SuperToken\",\n          \"symbol\": \"MIVA\",\n          \"coinKey\": \"MIVA\",\n          \"decimals\": 18,\n          \"chainId\": 100,\n          \"priceUSD\": \"1\",\n          \"logoURI\": \"https://minerva.digital/i/MIVA-Token_200x200.png\",\n          \"address\": \"0x63e62989d9eb2d37dfdb1f93a22f063635b07d51\"\n        },\n        \"fromAmount\": \"1000000000000000000\",\n        \"slippage\": 0.003,\n        \"fromAddress\": \"0x552008c0f6870c2f77e5cC1d2eb9bdff03e30Ea0\",\n        \"toAddress\": \"0x552008c0f6870c2f77e5cC1d2eb9bdff03e30Ea0\"\n      },\n      \"estimate\": {\n        \"fromAmount\": \"1000000000000000000\",\n        \"toAmount\": \"21922914496086353975\",\n        \"toAmountMin\": \"21265227061203763356\",\n        \"tool\": \"1inch\",\n        \"executionDuration\": 30,\n        \"approvalAddress\": \"0x1111111254fb6c44bac0bed2854e76f90643097d\",\n        \"feeCosts\": [],\n        \"gasCosts\": [\n          {\n            \"type\": \"SEND\",\n            \"price\": \"1\",\n            \"estimate\": \"252364\",\n            \"limit\": \"315455\",\n            \"amount\": \"252364\",\n            \"amountUSD\": \"0.00\",\n            \"token\": {\n              \"address\": \"0x0000000000000000000000000000000000000000\",\n              \"symbol\": \"xDai\",\n              \"decimals\": 18,\n              \"chainId\": 100,\n              \"name\": \"xDai\",\n              \"coinKey\": \"xDai\",\n              \"priceUSD\": \"1\",\n              \"logoURI\": \"https://static.debank.com/image/xdai_token/logo_url/xdai/1207e67652b691ef3bfe04f89f4b5362.png\"\n            }\n          }\n        ]\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"a8dc011a-f52d-4492-9e99-21de64b5453a\",\n  \"type\": \"lifi\",\n  \"tool\": \"1inch\",\n  \"toolDetails\": {\n    \"key\": \"1inch\",\n    \"logoURI\": \"https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/exchanges/oneinch.svg\",\n    \"name\": \"1inch\"\n  },\n  \"action\": {\n    \"fromChainId\": 100,\n    \"toChainId\": 100,\n    \"fromToken\": {\n      \"address\": \"0x0000000000000000000000000000000000000000\",\n      \"symbol\": \"xDai\",\n      \"decimals\": 18,\n      \"chainId\": 100,\n      \"name\": \"xDai\",\n      \"coinKey\": \"xDai\",\n      \"priceUSD\": \"1\",\n      \"logoURI\": \"https://static.debank.com/image/xdai_token/logo_url/xdai/1207e67652b691ef3bfe04f89f4b5362.png\"\n    },\n    \"toToken\": {\n      \"name\": \"Minerva Wallet SuperToken\",\n      \"symbol\": \"MIVA\",\n      \"coinKey\": \"MIVA\",\n      \"decimals\": 18,\n      \"chainId\": 100,\n      \"logoURI\": \"https://minerva.digital/i/MIVA-Token_200x200.png\",\n      \"address\": \"0x63e62989d9eb2d37dfdb1f93a22f063635b07d51\"\n    },\n    \"fromAmount\": \"1000000000000000000\",\n    \"slippage\": 0.003,\n    \"fromAddress\": \"0x552008c0f6870c2f77e5cC1d2eb9bdff03e30Ea0\",\n    \"toAddress\": \"0x552008c0f6870c2f77e5cC1d2eb9bdff03e30Ea0\"\n  },\n  \"estimate\": {\n    \"fromAmount\": \"1000000000000000000\",\n    \"toAmount\": \"21922914496086353975\",\n    \"toAmountMin\": \"21265227061203763356\",\n    \"approvalAddress\": \"0x1111111254fb6c44bac0bed2854e76f90643097d\",\n    \"feeCosts\": [],\n    \"gasCosts\": [\n      {\n        \"type\": \"SEND\",\n        \"price\": \"1\",\n        \"estimate\": \"252364\",\n        \"limit\": \"315455\",\n        \"amount\": \"252364\",\n        \"amountUSD\": \"0.00\",\n        \"token\": {\n          \"address\": \"0x0000000000000000000000000000000000000000\",\n          \"symbol\": \"xDai\",\n          \"decimals\": 18,\n          \"chainId\": 100,\n          \"name\": \"xDai\",\n          \"coinKey\": \"xDai\",\n          \"priceUSD\": \"1\",\n          \"logoURI\": \"https://static.debank.com/image/xdai_token/logo_url/xdai/1207e67652b691ef3bfe04f89f4b5362.png\"\n        }\n      }\n    ],\n    \"data\": {\n      \"fromToken\": {\n        \"name\": \"xDAI\",\n        \"address\": \"0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\",\n        \"symbol\": \"xDAI\",\n        \"decimals\": 18,\n        \"logoURI\": \"https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png\"\n      },\n      \"toToken\": {\n        \"name\": \"Minerva Wallet SuperToken\",\n        \"address\": \"0x63e62989d9eb2d37dfdb1f93a22f063635b07d51\",\n        \"symbol\": \"MIVA\",\n        \"decimals\": 18,\n        \"logoURI\": \"https://minerva.digital/i/MIVA-Token_200x200.png\"\n      },\n      \"toTokenAmount\": \"21922914496086353975\",\n      \"fromTokenAmount\": \"1000000000000000000\",\n      \"protocols\": [\n        {\n          \"name\": \"GNOSIS_HONEYSWAP\",\n          \"part\": 100,\n          \"fromTokenAddress\": \"0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\",\n          \"toTokenAddress\": \"0x63e62989d9eb2d37dfdb1f93a22f063635b07d51\"\n        }\n      ],\n      \"estimatedGas\": 252364\n    }\n  },\n  \"integrator\": \"fee-demo\",\n  \"transactionRequest\": {\n    \"from\": \"0x552008c0f6870c2f77e5cC1d2eb9bdff03e30Ea0\",\n    \"to\": \"0x1111111254fb6c44bac0bed2854e76f90643097d\",\n    \"chainId\": 100,\n    \"data\": \"0x...\",\n    \"value\": \"0x0de0b6b3a7640000\",\n    \"gasPrice\": \"0xb2d05e00\",\n    \"gasLimit\": \"0x0e9cb2\"\n  },\n  \"includedSteps\": [\n    {\n      \"id\": \"a8dc011a-f52d-4492-9e99-21de64b5453a\",\n      \"type\": \"swap\",\n      \"tool\": \"1inch\",\n      \"toolDetails\": {\n        \"key\": \"1inch\",\n        \"logoURI\": \"https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/exchanges/oneinch.svg\",\n        \"name\": \"1inch\"\n      },\n      \"action\": {\n        \"fromChainId\": 100,\n        \"toChainId\": 100,\n        \"fromToken\": {\n          \"address\": \"0x0000000000000000000000000000000000000000\",\n          \"symbol\": \"xDai\",\n          \"decimals\": 18,\n          \"chainId\": 100,\n          \"name\": \"xDai\",\n          \"coinKey\": \"xDai\",\n          \"priceUSD\": \"1\",\n          \"logoURI\": \"https://static.debank.com/image/xdai_token/logo_url/xdai/1207e67652b691ef3bfe04f89f4b5362.png\"\n        },\n        \"toToken\": {\n          \"name\": \"Minerva Wallet SuperToken\",\n          \"symbol\": \"MIVA\",\n          \"coinKey\": \"MIVA\",\n          \"decimals\": 18,\n          \"chainId\": 100,\n          \"logoURI\": \"https://minerva.digital/i/MIVA-Token_200x200.png\",\n          \"address\": \"0x63e62989d9eb2d37dfdb1f93a22f063635b07d51\"\n        },\n        \"fromAmount\": \"1000000000000000000\",\n        \"slippage\": 0.003,\n        \"fromAddress\": \"0x552008c0f6870c2f77e5cC1d2eb9bdff03e30Ea0\",\n        \"toAddress\": \"0x552008c0f6870c2f77e5cC1d2eb9bdff03e30Ea0\"\n      },\n      \"estimate\": {\n        \"fromAmount\": \"1000000000000000000\",\n        \"toAmount\": \"21922914496086353975\",\n        \"toAmountMin\": \"21265227061203763356\",\n        \"approvalAddress\": \"0x1111111254fb6c44bac0bed2854e76f90643097d\",\n        \"feeCosts\": [],\n        \"gasCosts\": [\n          {\n            \"type\": \"SEND\",\n            \"price\": \"1\",\n            \"estimate\": \"252364\",\n            \"limit\": \"315455\",\n            \"amount\": \"252364\",\n            \"amountUSD\": \"0.00\",\n            \"token\": {\n              \"address\": \"0x0000000000000000000000000000000000000000\",\n              \"symbol\": \"xDai\",\n              \"decimals\": 18,\n              \"chainId\": 100,\n              \"name\": \"xDai\",\n              \"coinKey\": \"xDai\",\n              \"priceUSD\": \"1\",\n              \"logoURI\": \"https://static.debank.com/image/xdai_token/logo_url/xdai/1207e67652b691ef3bfe04f89f4b5362.png\"\n            }\n          }\n        ],\n        \"data\": {\n          \"fromToken\": {\n            \"name\": \"xDAI\",\n            \"address\": \"0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\",\n            \"symbol\": \"xDAI\",\n            \"decimals\": 18,\n            \"logoURI\": \"https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png\"\n          },\n          \"toToken\": {\n            \"name\": \"Minerva Wallet SuperToken\",\n            \"address\": \"0x63e62989d9eb2d37dfdb1f93a22f063635b07d51\",\n            \"symbol\": \"MIVA\",\n            \"decimals\": 18,\n            \"logoURI\": \"https://minerva.digital/i/MIVA-Token_200x200.png\"\n          },\n          \"toTokenAmount\": \"21922914496086353975\",\n          \"fromTokenAmount\": \"1000000000000000000\",\n          \"protocols\": [\n            {\n              \"name\": \"GNOSIS_HONEYSWAP\",\n              \"part\": 100,\n              \"fromTokenAddress\": \"0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\",\n              \"toTokenAddress\": \"0x63e62989d9eb2d37dfdb1f93a22f063635b07d51\"\n            }\n          ],\n          \"estimatedGas\": 252364\n        }\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e29391fb-0af3-4d01-af47-7f3d906d9775",
+              "name": "Invalid Step Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "advanced",
+                    "stepTransaction"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skipSimulation",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "mayanNonEvmPermitSignature",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "svmPriorityFeeLevel",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-lifi-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
+                    "key": "x-lifi-api-key",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"a8dc011a-f52d-4492-9e99-21de64b5453a\",\n  \"type\": \"lifi\",\n  \"tool\": \"1inch\",\n  \"toolDetails\": {\n    \"key\": \"1inch\",\n    \"logoURI\": \"https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/exchanges/oneinch.svg\",\n    \"name\": \"1inch\"\n  },\n  \"action\": {\n    \"fromChainId\": 100,\n    \"toChainId\": 100,\n    \"fromToken\": {\n      \"address\": \"0x0000000000000000000000000000000000000000\",\n      \"symbol\": \"xDai\",\n      \"decimals\": 18,\n      \"chainId\": 100,\n      \"name\": \"xDai\",\n      \"coinKey\": \"xDai\",\n      \"priceUSD\": \"1\",\n      \"logoURI\": \"https://static.debank.com/image/xdai_token/logo_url/xdai/1207e67652b691ef3bfe04f89f4b5362.png\"\n    },\n    \"toToken\": {\n      \"name\": \"Minerva Wallet SuperToken\",\n      \"symbol\": \"MIVA\",\n      \"coinKey\": \"MIVA\",\n      \"decimals\": 18,\n      \"chainId\": 100,\n      \"priceUSD\": \"1\",\n      \"logoURI\": \"https://minerva.digital/i/MIVA-Token_200x200.png\",\n      \"address\": \"0x63e62989d9eb2d37dfdb1f93a22f063635b07d51\"\n    },\n    \"fromAmount\": \"1000000000000000000\",\n    \"slippage\": 0.003,\n    \"fromAddress\": \"0x552008c0f6870c2f77e5cC1d2eb9bdff03e30Ea0\",\n    \"toAddress\": \"0x552008c0f6870c2f77e5cC1d2eb9bdff03e30Ea0\"\n  },\n  \"estimate\": {\n    \"fromAmount\": \"1000000000000000000\",\n    \"toAmount\": \"21922914496086353975\",\n    \"toAmountMin\": \"21265227061203763356\",\n    \"tool\": \"1inch\",\n    \"executionDuration\": 30,\n    \"approvalAddress\": \"0x1111111254fb6c44bac0bed2854e76f90643097d\",\n    \"feeCosts\": [],\n    \"gasCosts\": [\n      {\n        \"type\": \"SEND\",\n        \"price\": \"1\",\n        \"estimate\": \"252364\",\n        \"limit\": \"315455\",\n        \"amount\": \"252364\",\n        \"amountUSD\": \"0.00\",\n        \"token\": {\n          \"address\": \"0x0000000000000000000000000000000000000000\",\n          \"symbol\": \"xDai\",\n          \"decimals\": 18,\n          \"chainId\": 100,\n          \"name\": \"xDai\",\n          \"coinKey\": \"xDai\",\n          \"priceUSD\": \"1\",\n          \"logoURI\": \"https://static.debank.com/image/xdai_token/logo_url/xdai/1207e67652b691ef3bfe04f89f4b5362.png\"\n        }\n      }\n    ]\n  },\n  \"integrator\": \"fee-demo\",\n  \"includedSteps\": [\n    {\n      \"id\": \"a8dc011a-f52d-4492-9e99-21de64b5453a\",\n      \"type\": \"swap\",\n      \"tool\": \"1inch\",\n      \"toolDetails\": {\n        \"key\": \"1inch\",\n        \"logoURI\": \"https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/exchanges/oneinch.svg\",\n        \"name\": \"1inch\"\n      },\n      \"action\": {\n        \"fromChainId\": 100,\n        \"toChainId\": 100,\n        \"fromToken\": {\n          \"address\": \"0x0000000000000000000000000000000000000000\",\n          \"symbol\": \"xDai\",\n          \"decimals\": 18,\n          \"chainId\": 100,\n          \"name\": \"xDai\",\n          \"coinKey\": \"xDai\",\n          \"priceUSD\": \"1\",\n          \"logoURI\": \"https://static.debank.com/image/xdai_token/logo_url/xdai/1207e67652b691ef3bfe04f89f4b5362.png\"\n        },\n        \"toToken\": {\n          \"name\": \"Minerva Wallet SuperToken\",\n          \"symbol\": \"MIVA\",\n          \"coinKey\": \"MIVA\",\n          \"decimals\": 18,\n          \"chainId\": 100,\n          \"priceUSD\": \"1\",\n          \"logoURI\": \"https://minerva.digital/i/MIVA-Token_200x200.png\",\n          \"address\": \"0x63e62989d9eb2d37dfdb1f93a22f063635b07d51\"\n        },\n        \"fromAmount\": \"1000000000000000000\",\n        \"slippage\": 0.003,\n        \"fromAddress\": \"0x552008c0f6870c2f77e5cC1d2eb9bdff03e30Ea0\",\n        \"toAddress\": \"0x552008c0f6870c2f77e5cC1d2eb9bdff03e30Ea0\"\n      },\n      \"estimate\": {\n        \"fromAmount\": \"1000000000000000000\",\n        \"toAmount\": \"21922914496086353975\",\n        \"toAmountMin\": \"21265227061203763356\",\n        \"tool\": \"1inch\",\n        \"executionDuration\": 30,\n        \"approvalAddress\": \"0x1111111254fb6c44bac0bed2854e76f90643097d\",\n        \"feeCosts\": [],\n        \"gasCosts\": [\n          {\n            \"type\": \"SEND\",\n            \"price\": \"1\",\n            \"estimate\": \"252364\",\n            \"limit\": \"315455\",\n            \"amount\": \"252364\",\n            \"amountUSD\": \"0.00\",\n            \"token\": {\n              \"address\": \"0x0000000000000000000000000000000000000000\",\n              \"symbol\": \"xDai\",\n              \"decimals\": 18,\n              \"chainId\": 100,\n              \"name\": \"xDai\",\n              \"coinKey\": \"xDai\",\n              \"priceUSD\": \"1\",\n              \"logoURI\": \"https://static.debank.com/image/xdai_token/logo_url/xdai/1207e67652b691ef3bfe04f89f4b5362.png\"\n            }\n          }\n        ]\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://earn.li.fi",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-lifi-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "b92014d1-df1d-4cd6-b7ff-35707a82093f",
+    "name": "LI.FI Earn advanced API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Enterprise DeFi yield discovery and tracking API",
+      "type": "text/plain"
+    }
+  }
+}

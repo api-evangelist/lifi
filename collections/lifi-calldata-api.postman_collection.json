@@ -1,0 +1,157 @@
+{
+  "item": [
+    {
+      "id": "14f62382-a7ef-412c-b626-18141088f1d7",
+      "name": "Calldata",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "de4492ea-d75c-4ffb-815d-34c70103ef25",
+          "name": "Parse transaction call data (BETA)",
+          "request": {
+            "name": "Parse transaction call data (BETA)",
+            "description": {
+              "content": "This endpoint allows to pass transaction call data. It will then parse the call data based on known and on-chain ABIs to provide a JSON overview of the internal transaction information.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "calldata",
+                "parse"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "chainId",
+                  "value": "<string>",
+                  "description": "The chainId that the transaction is built for (or has been sent on)"
+                },
+                {
+                  "disabled": false,
+                  "key": "callData",
+                  "value": "<string>",
+                  "description": "(Required) The call data to parse"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
+                "key": "x-lifi-api-key",
+                "value": "<string>"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "07627cf5-54d2-4c5c-a0d8-6be085d89165",
+              "name": "[\n    {\n        \"functionName\": \"swapTokensGeneric\",\n        \"functionParameters\": {\n            \"_transactionId\": \"0x40b0592501720ece27ef8614385fbef4bdbb5b2050ebaaa3563e72fee959e249\",\n            \"_integrator\": \"jumper.exchange\",\n            \"_referrer\": \"0x0000000000000000000000000000000000000000\",\n            \"_receiver\": \"0x552008c0f6870c2f77e5cC1d2eb9bdff03e30Ea0\",\n            \"_minAmount\": \"4640629752435722515\",\n            \"_swapData\": [\n                {\n                    \"callTo\": \"0xDef1C0ded9bec7F1a1670819833240f027b25EfF\",\n                    \"approveTo\": \"0xDef1C0ded9bec7F1a1670819833240f027b25EfF\",\n                    \"sendingAssetId\": \"0x0000000000000000000000000000000000000000\",\n                    \"receivingAssetId\": \"0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063\",\n                    \"fromAmount\": \"5000000000000000000\",\n                    \"callData\": \"0x415565b0000000000000000000000000eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee0000000000000000000000008f3cf7ad23cd3cadbd9735aff958023239c6a0630000000000000000000000000000000000000000000000004563918244f400000000000000000000000000000000000000000000000000004066d42c380a491300000000000000000000000000000000000000000000000000000000000000a000000000000000000000000000000000000000000000000000000000000000030000000000000000000000000000000000000000000000000000000000000060000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000004a0000000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000000040000000000000000000000000eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee0000000000000000000000000000000000000000000000004563918244f40000000000000000000000000000000000000000000000000000000000000000001400000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000000340000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000d500b1d8e8ef31e21c99d1db9a6444d3adf12700000000000000000000000008f3cf7ad23cd3cadbd9735aff958023239c6a06300000000000000000000000000000000000000000000000000000000000001400000000000000000000000000000000000000000000000000000000000000300000000000000000000000000000000000000000000000000000000000000030000000000000000000000000000000000000000000000000000000000000002c00000000000000000000000000000000000000000000000004563918244f40000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000003000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000012556e69737761705633000000000000000000000000000000000000000000000000000000000000004563918244f400000000000000000000000000000000000000000000000000004066d42c380a4913000000000000000000000000000000000000000000000000000000000000008000000000000000000000000000000000000000000000000000000000000000a0000000000000000000000000e592427a0aece92de3edee1f18e0157c058615640000000000000000000000000000000000000000000000000000000000000040000000000000000000000000000000000000000000000000000000000000002b0d500b1d8e8ef31e21c99d1db9a6444d3adf12700001f48f3cf7ad23cd3cadbd9735aff958023239c6a063000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000000e00000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000000a000000000000000000000000000000000000000000000000000000000000000020000000000000000000000000d500b1d8e8ef31e21c99d1db9a6444d3adf1270000000000000000000000000eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee0000000000000000000000000000000000000000000000000000000000000000869584cd00000000000000000000000026c16b6926637cf5eb62c42991b4166add66ff9e0000000000000000000000000000000000000000000000d3adebcfec6458a4f9\",\n                    \"requiresDeposit\": true\n                },\n                {\n                    \"callTo\": \"0x464eF665Ea203d142F5aa25e12312290fA8917ec\",\n                    \"approveTo\": \"0x464eF665Ea203d142F5aa25e12312290fA8917ec\",\n                    \"sendingAssetId\": \"0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063\",\n                    \"receivingAssetId\": \"0x1305F6B6Df9Dc47159D12Eb7aC2804d4A33173c2\",\n                    \"fromAmount\": \"4640629752435722515\",\n                    \"callData\": [\n                        {\n                            \"functionName\": \"upgrade\",\n                            \"functionParameters\": {\n                                \"superToken\": \"0x1305F6B6Df9Dc47159D12Eb7aC2804d4A33173c2\",\n                                \"account\": \"0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE\",\n                                \"amount\": \"4640629752435722515\"\n                            }\n                        }\n                    ],\n                    \"requiresDeposit\": false\n                }\n            ]\n        }\n    }\n]",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "calldata",
+                    "parse"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chainId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "callData",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-lifi-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
+                    "key": "x-lifi-api-key",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://earn.li.fi",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-lifi-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "5965e9c0-09b3-4ec6-a357-eaee3fd89ebc",
+    "name": "LI.FI Earn advanced Calldata API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Enterprise DeFi yield discovery and tracking API",
+      "type": "text/plain"
+    }
+  }
+}

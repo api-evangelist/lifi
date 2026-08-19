@@ -1,0 +1,552 @@
+{
+  "item": [
+    {
+      "id": "76b33123-8ef5-4f38-ac28-35764fcfe6e2",
+      "name": "Earn Vaults",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "909f7927-566c-4ef2-87af-e5e37d7ba043",
+          "name": "Get vault by chain and address",
+          "request": {
+            "name": "Get vault by chain and address",
+            "description": {
+              "content": "Returns the full details for a single vault.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "vaults",
+                ":chainId",
+                ":address"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "address",
+                  "description": "(Required) Vault contract address (0x-prefixed, 40 hex characters)."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "chainId",
+                  "description": "(Required) EVM chain ID of the network the vault is deployed on."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3cefcbf8-90d9-43fb-93ce-e500d05e7b82",
+              "name": "Vault found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vaults",
+                    ":chainId",
+                    ":address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) Vault contract address (0x-prefixed, 40 hex characters)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "chainId",
+                      "description": "(Required) EVM chain ID of the network the vault is deployed on."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-lifi-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"address\": \"0x7BfA7C4f149E7415b73bdeDfe609237e29CBF34A\",\n  \"network\": \"base\",\n  \"chainId\": 8453,\n  \"slug\": \"morpho-base-usdc-0x7bfa\",\n  \"name\": \"Morpho USDC Vault\",\n  \"description\": \"Optimized USDC lending vault on Morpho\",\n  \"protocol\": {\n    \"name\": \"Morpho\",\n    \"logoUri\": \"https://example.com/morpho-logo.png\",\n    \"url\": \"https://morpho.org\"\n  },\n  \"underlyingTokens\": [\n    {\n      \"address\": \"0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913\",\n      \"symbol\": \"USDC\",\n      \"decimals\": 6,\n      \"weight\": 1\n    }\n  ],\n  \"lpTokens\": [\n    {\n      \"address\": \"0x7BfA7C4f149E7415b73bdeDfe609237e29CBF34A\",\n      \"symbol\": \"mUSDC\",\n      \"decimals\": 18,\n      \"priceUsd\": \"1.02\"\n    }\n  ],\n  \"rewardTokens\": [],\n  \"tags\": [\n    \"stablecoin\",\n    \"lending\"\n  ],\n  \"analytics\": {\n    \"apy\": {\n      \"base\": 0.0534,\n      \"reward\": null,\n      \"total\": 0.0534\n    },\n    \"apy1d\": 0.0521,\n    \"apy7d\": 0.0538,\n    \"apy30d\": 0.0545,\n    \"tvl\": {\n      \"usd\": \"12500000.00\",\n      \"native\": \"12500000000000\"\n    },\n    \"updatedAt\": \"2026-03-31T14:30:00.000Z\"\n  },\n  \"caps\": {\n    \"totalCap\": \"50000000000000\",\n    \"maxCap\": \"100000000000000\"\n  },\n  \"timeLock\": 0,\n  \"kyc\": false,\n  \"syncedAt\": \"2026-03-31T14:30:00.000Z\",\n  \"isTransactional\": true,\n  \"isRedeemable\": true,\n  \"depositPacks\": [\n    {\n      \"name\": \"morpho-deposit\",\n      \"stepsType\": \"instant\"\n    }\n  ],\n  \"redeemPacks\": [\n    {\n      \"name\": \"morpho-redeem\",\n      \"stepsType\": \"instant\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "54944ff9-3fdb-486c-ace8-1e2875d6592a",
+              "name": "Invalid chain ID or address format",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vaults",
+                    ":chainId",
+                    ":address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) Vault contract address (0x-prefixed, 40 hex characters)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "chainId",
+                      "description": "(Required) EVM chain ID of the network the vault is deployed on."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-lifi-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"message\": \"Validation failed\",\n  \"errors\": [\n    {\n      \"code\": \"invalid_type\",\n      \"message\": \"Expected integer, received string\",\n      \"path\": [\n        \"chainId\"\n      ]\n    },\n    {\n      \"code\": \"invalid_type\",\n      \"message\": \"Expected integer, received string\",\n      \"path\": [\n        \"chainId\"\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "509e3112-c959-45ac-bcd4-1f1758d1b5c7",
+              "name": "Vault not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vaults",
+                    ":chainId",
+                    ":address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) Vault contract address (0x-prefixed, 40 hex characters)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "chainId",
+                      "description": "(Required) EVM chain ID of the network the vault is deployed on."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-lifi-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 404,\n  \"message\": \"Vault not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1cfddf3d-d738-4258-bdd5-47a2728605ef",
+          "name": "List vaults with optional filtering",
+          "request": {
+            "name": "List vaults with optional filtering",
+            "description": {
+              "content": "Returns a paginated list of vaults with optional filtering and sorting.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "vaults"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "chainId",
+                  "value": "<integer>",
+                  "description": "Filter by EVM chain ID (e.g., `8453` for Base, `1` for Ethereum)."
+                },
+                {
+                  "disabled": false,
+                  "key": "asset",
+                  "value": "<string>",
+                  "description": "Filter by underlying token symbol or address (e.g., `USDC`)."
+                },
+                {
+                  "disabled": false,
+                  "key": "protocol",
+                  "value": "<string>",
+                  "description": "Filter by protocol name (e.g., `morpho-v1`, `aave-v3`)."
+                },
+                {
+                  "disabled": false,
+                  "key": "minTvlUsd",
+                  "value": "<number>",
+                  "description": "Minimum TVL in USD. Use this to filter out low-liquidity vaults (e.g., `1000000` for $1M+)."
+                },
+                {
+                  "disabled": false,
+                  "key": "isTransactional",
+                  "value": "<string>",
+                  "description": "Filter by whether the vault supports programmatic deposits and withdrawals via the Composer API. Pass `true` to return only transactional vaults."
+                },
+                {
+                  "disabled": false,
+                  "key": "isRedeemable",
+                  "value": "<string>",
+                  "description": "Filter by whether the vault currently supports redemptions (withdrawals). Pass `true` to return only vaults that can be redeemed."
+                },
+                {
+                  "disabled": false,
+                  "key": "isComposerSupported",
+                  "value": "<string>",
+                  "description": "Filter by whether the vault is fully supported by the LI.FI Composer. Pass `true` to return only vaults ready for end-to-end cross-chain deposit flows."
+                },
+                {
+                  "disabled": false,
+                  "key": "sortBy",
+                  "value": "<string>",
+                  "description": "Sort order for results. `apy` sorts by highest total APY first. `tvl` sorts by highest TVL first."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Pagination cursor from a previous response's `nextCursor` field. Omit to start from the beginning."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Number of results per page. Defaults to `50`."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ab275abf-9363-4940-8316-42e9688e5c7c",
+              "name": "Paginated vault list",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vaults"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chainId",
+                      "value": "8453"
+                    },
+                    {
+                      "key": "asset",
+                      "value": "USDC"
+                    },
+                    {
+                      "key": "protocol",
+                      "value": "morpho-v1"
+                    },
+                    {
+                      "key": "minTvlUsd",
+                      "value": "100000"
+                    },
+                    {
+                      "key": "isTransactional",
+                      "value": "true"
+                    },
+                    {
+                      "key": "isRedeemable",
+                      "value": "true"
+                    },
+                    {
+                      "key": "isComposerSupported",
+                      "value": "true"
+                    },
+                    {
+                      "key": "sortBy",
+                      "value": "apy"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "eyJpZCI6MTAwfQ"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-lifi-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"address\": \"0x7BfA7C4f149E7415b73bdeDfe609237e29CBF34A\",\n      \"network\": \"base\",\n      \"chainId\": 8453,\n      \"slug\": \"morpho-base-usdc-0x7bfa\",\n      \"name\": \"Morpho USDC Vault\",\n      \"description\": \"Optimized USDC lending vault on Morpho\",\n      \"protocol\": {\n        \"name\": \"Morpho\",\n        \"logoUri\": \"https://example.com/morpho-logo.png\",\n        \"url\": \"https://morpho.org\"\n      },\n      \"underlyingTokens\": [\n        {\n          \"address\": \"0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913\",\n          \"symbol\": \"USDC\",\n          \"decimals\": 6,\n          \"weight\": 1\n        }\n      ],\n      \"lpTokens\": [\n        {\n          \"address\": \"0x7BfA7C4f149E7415b73bdeDfe609237e29CBF34A\",\n          \"symbol\": \"mUSDC\",\n          \"decimals\": 18,\n          \"priceUsd\": \"1.02\"\n        }\n      ],\n      \"rewardTokens\": [],\n      \"tags\": [\n        \"stablecoin\",\n        \"lending\"\n      ],\n      \"analytics\": {\n        \"apy\": {\n          \"base\": 0.0534,\n          \"reward\": null,\n          \"total\": 0.0534\n        },\n        \"apy1d\": 0.0521,\n        \"apy7d\": 0.0538,\n        \"apy30d\": 0.0545,\n        \"tvl\": {\n          \"usd\": \"12500000.00\",\n          \"native\": \"12500000000000\"\n        },\n        \"updatedAt\": \"2026-03-31T14:30:00.000Z\"\n      },\n      \"caps\": {\n        \"totalCap\": \"50000000000000\",\n        \"maxCap\": \"100000000000000\"\n      },\n      \"timeLock\": 0,\n      \"kyc\": false,\n      \"syncedAt\": \"2026-03-31T14:30:00.000Z\",\n      \"isTransactional\": true,\n      \"isRedeemable\": true,\n      \"depositPacks\": [\n        {\n          \"name\": \"morpho-deposit\",\n          \"stepsType\": \"instant\"\n        }\n      ],\n      \"redeemPacks\": [\n        {\n          \"name\": \"morpho-redeem\",\n          \"stepsType\": \"instant\"\n        }\n      ]\n    }\n  ],\n  \"nextCursor\": \"eyJpZCI6MTAwfQ\",\n  \"total\": 47\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "58497bd5-dcdd-4466-9329-c4e77fde6402",
+              "name": "Validation failed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vaults"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chainId",
+                      "value": "8453"
+                    },
+                    {
+                      "key": "asset",
+                      "value": "USDC"
+                    },
+                    {
+                      "key": "protocol",
+                      "value": "morpho-v1"
+                    },
+                    {
+                      "key": "minTvlUsd",
+                      "value": "100000"
+                    },
+                    {
+                      "key": "isTransactional",
+                      "value": "true"
+                    },
+                    {
+                      "key": "isRedeemable",
+                      "value": "true"
+                    },
+                    {
+                      "key": "isComposerSupported",
+                      "value": "true"
+                    },
+                    {
+                      "key": "sortBy",
+                      "value": "apy"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "eyJpZCI6MTAwfQ"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-lifi-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"message\": \"Validation failed\",\n  \"errors\": [\n    {\n      \"code\": \"invalid_type\",\n      \"message\": \"Expected integer, received string\",\n      \"path\": [\n        \"chainId\"\n      ]\n    },\n    {\n      \"code\": \"invalid_type\",\n      \"message\": \"Expected integer, received string\",\n      \"path\": [\n        \"chainId\"\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://earn.li.fi",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-lifi-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "797eb964-95fd-4438-9f62-9e2881f0ca2d",
+    "name": "LI.FI Earn advanced Earn Vaults API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Enterprise DeFi yield discovery and tracking API",
+      "type": "text/plain"
+    }
+  }
+}

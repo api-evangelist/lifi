@@ -1,0 +1,738 @@
+{
+  "item": [
+    {
+      "id": "9889673b-8bd9-4686-93a5-77634dc990b3",
+      "name": "Analytics",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "dea9706b-2643-465e-9027-31103be412ad",
+          "name": "Get all transactions for a wallet",
+          "request": {
+            "name": "Get all transactions for a wallet",
+            "description": {
+              "content": "This endpoint can be used to get all transactions for a wallet.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "analytics",
+                "wallets",
+                ":wallet_address"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "integrator",
+                  "value": "<string>",
+                  "description": "(Required) Filter the transactions by integrator"
+                },
+                {
+                  "disabled": false,
+                  "key": "fromTimestamp",
+                  "value": "<integer>",
+                  "description": "A unix timestamp in seconds. No transaction older than this timestamp will be returned. If no value is passed, then the default value will be 30 days prior the current date."
+                },
+                {
+                  "disabled": false,
+                  "key": "toTimestamp",
+                  "value": "<integer>",
+                  "description": "A unix timestamp in seconds. No transaction newer than this timestamp will be returned."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "wallet_address",
+                  "description": "(Required) The address of the wallet"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
+                "key": "x-lifi-api-key",
+                "value": "<string>"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e8b7a77e-a423-418a-bf06-1b38d33b9b31",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "analytics",
+                    "wallets",
+                    ":wallet_address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "integrator",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fromTimestamp",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "toTimestamp",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "wallet_address",
+                      "description": "(Required) The address of the wallet"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-lifi-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
+                    "key": "x-lifi-api-key",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d5564541-ec48-4371-98ab-d18e832dac5d",
+          "name": "Get a list of filtered transfers",
+          "request": {
+            "name": "Get a list of filtered transfers",
+            "description": {
+              "content": "This endpoint can be used to retrieve a list of transfers filtered by certain properties. Returns a maximum of 1000 transfers.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "analytics",
+                "transfers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "integrator",
+                  "value": "<string>",
+                  "description": "The integrator string to filter by"
+                },
+                {
+                  "disabled": false,
+                  "key": "wallet",
+                  "value": "<string>",
+                  "description": "The sending OR receiving wallet address "
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "The status of the transfers. Possible values are `ALL`, `DONE`, `PENDING`, and `FAILED`. The default is `DONE`"
+                },
+                {
+                  "disabled": false,
+                  "key": "fromTimestamp",
+                  "value": "<number>",
+                  "description": "The oldest timestamp that should be taken into consideration. Defaults to 30 days ago"
+                },
+                {
+                  "disabled": false,
+                  "key": "toTimestamp",
+                  "value": "<number>",
+                  "description": "The newest timestamp that should be taken into consideration. Defaults to now"
+                },
+                {
+                  "disabled": false,
+                  "key": "fromChain",
+                  "value": "<string>",
+                  "description": "The chain where the transfer originates from."
+                },
+                {
+                  "disabled": false,
+                  "key": "toChain",
+                  "value": "<string>",
+                  "description": "The chain where the transfer ends."
+                },
+                {
+                  "disabled": false,
+                  "key": "fromToken",
+                  "value": "<string>",
+                  "description": "The token transferred from the originating chain. To use this parameter `fromChain` must be set."
+                },
+                {
+                  "disabled": false,
+                  "key": "toToken",
+                  "value": "<string>",
+                  "description": "The token received on the destination chain. To use this parameter `toChain` must be set."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3aa1d3c4-7048-464a-9186-0b43c6a468ea",
+              "name": "Response for `GET /analytics/transfers` endpoint",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "analytics",
+                    "transfers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "integrator",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "wallet",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fromTimestamp",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "toTimestamp",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "fromChain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "toChain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fromToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "toToken",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-lifi-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"transfers\": [\n    {\n      \"transactionId\": \"0x8c58bf99537331b38f15f5ca9718b6fcf86bdb678a2935cf0ca2106066f07550\",\n      \"sending\": {\n        \"txHash\": \"0x37b56ab04df432aa84f14d94f3af2ef65c10141df37ffe60f216c0505fc43178\",\n        \"txLink\": \"https://explorer.zksync.io/tx/0x37b56ab04df432aa84f14d94f3af2ef65c10141df37ffe60f216c0505fc43178\",\n        \"amount\": \"1000000\",\n        \"token\": {\n          \"address\": \"0x3355df6D4c9C3035724Fd0e3914dE96A5a83aaf4\",\n          \"chainId\": 324,\n          \"symbol\": \"USDC\",\n          \"decimals\": 6,\n          \"name\": \"USD Coin\",\n          \"coinKey\": \"USDC\",\n          \"logoURI\": \"https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/logo.png\",\n          \"priceUSD\": \"1.00\"\n        },\n        \"chainId\": 324,\n        \"gasPrice\": \"250000000\",\n        \"gasUsed\": \"1428505\",\n        \"gasToken\": {\n          \"address\": \"0x0000000000000000000000000000000000000000\",\n          \"chainId\": 324,\n          \"symbol\": \"ETH\",\n          \"decimals\": 18,\n          \"name\": \"ETH\",\n          \"coinKey\": \"ETH\",\n          \"logoURI\": \"https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2/logo.png\",\n          \"priceUSD\": \"1676.49\"\n        },\n        \"gasAmount\": \"357126250000000\",\n        \"gasAmountUSD\": \"0.60\",\n        \"amountUSD\": \"1.0000\",\n        \"timestamp\": 1698076232,\n        \"value\": \"0\"\n      },\n      \"receiving\": {\n        \"txHash\": \"0x37b56ab04df432aa84f14d94f3af2ef65c10141df37ffe60f216c0505fc43178\",\n        \"txLink\": \"https://explorer.zksync.io/tx/0x37b56ab04df432aa84f14d94f3af2ef65c10141df37ffe60f216c0505fc43178\",\n        \"amount\": \"999255\",\n        \"token\": {\n          \"address\": \"0x493257fD37EDB34451f62EDf8D2a0C418852bA4C\",\n          \"chainId\": 324,\n          \"symbol\": \"USDT\",\n          \"decimals\": 6,\n          \"name\": \"Tether USD\",\n          \"coinKey\": \"USDT\",\n          \"logoURI\": \"https://static.debank.com/image/brise_token/logo_url/0xc7e6d7e08a89209f02af47965337714153c529f0/3c1a718331e468abe1fc2ebe319f6c77.png\",\n          \"priceUSD\": \"1.0000\"\n        },\n        \"chainId\": 324,\n        \"gasPrice\": \"250000000\",\n        \"gasUsed\": \"1428505\",\n        \"gasToken\": {\n          \"address\": \"0x0000000000000000000000000000000000000000\",\n          \"chainId\": 324,\n          \"symbol\": \"ETH\",\n          \"decimals\": 18,\n          \"name\": \"ETH\",\n          \"coinKey\": \"ETH\",\n          \"logoURI\": \"https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2/logo.png\",\n          \"priceUSD\": \"1676.49\"\n        },\n        \"gasAmount\": \"357126250000000\",\n        \"gasAmountUSD\": \"0.60\",\n        \"amountUSD\": \"1.0000\",\n        \"timestamp\": 1698076232,\n        \"value\": \"0\"\n      },\n      \"lifiExplorerLink\": \"https://explorer.li.fi/tx/0x37b56ab04df432aa84f14d94f3af2ef65c10141df37ffe60f216c0505fc43178\",\n      \"fromAddress\": \"0x552008c0f6870c2f77e5cc1d2eb9bdff03e30ea0\",\n      \"toAddress\": \"0x552008c0f6870c2f77e5cc1d2eb9bdff03e30ea0\",\n      \"tool\": \"solver3\",\n      \"status\": \"DONE\",\n      \"substatus\": \"COMPLETED\",\n      \"substatusMessage\": \"The transfer is complete.\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b1528343-4976-4986-b0b8-fa8da0f73e56",
+          "name": "Get a paginated list of filtered transfers",
+          "request": {
+            "name": "Get a paginated list of filtered transfers",
+            "description": {
+              "content": "A paginated version of the `GET /v1/analytics/transfers endpoint`. This endpoint can be used to retrieve a list of transfers filtered by certain properties.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "analytics",
+                "transfers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "10",
+                  "description": "Pagination limit. Defines the maximum number of returned results."
+                },
+                {
+                  "disabled": false,
+                  "key": "next",
+                  "value": "<string>",
+                  "description": "The next page cursor. Must come from the `next` field of the response of the previous request."
+                },
+                {
+                  "disabled": false,
+                  "key": "previous",
+                  "value": "<string>",
+                  "description": "The previous page cursor. Must come from the `previous` field of the response of the previous request."
+                },
+                {
+                  "disabled": false,
+                  "key": "integrator",
+                  "value": "<string>",
+                  "description": "Either a single integrator string, or an array of unique integrator strings to filter transfers by."
+                },
+                {
+                  "disabled": false,
+                  "key": "wallet",
+                  "value": "<string>",
+                  "description": "The sending OR receiving wallet address "
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "The status of the transfers. Possible values are `ALL`, `DONE`, `PENDING`, and `FAILED`. The default is `DONE`"
+                },
+                {
+                  "disabled": false,
+                  "key": "fromTimestamp",
+                  "value": "<number>",
+                  "description": "The oldest timestamp that should be taken into consideration. Defaults to 30 days ago"
+                },
+                {
+                  "disabled": false,
+                  "key": "toTimestamp",
+                  "value": "<number>",
+                  "description": "The newest timestamp that should be taken into consideration. Defaults to now"
+                },
+                {
+                  "disabled": false,
+                  "key": "fromChain",
+                  "value": "<string>",
+                  "description": "The chain where the transfer originates from."
+                },
+                {
+                  "disabled": false,
+                  "key": "toChain",
+                  "value": "<string>",
+                  "description": "The chain where the transfer ends."
+                },
+                {
+                  "disabled": false,
+                  "key": "fromToken",
+                  "value": "<string>",
+                  "description": "The token transferred from the originating chain. To use this parameter `fromChain` must be set."
+                },
+                {
+                  "disabled": false,
+                  "key": "toToken",
+                  "value": "<string>",
+                  "description": "The token received on the destination chain. To use this parameter `toChain` must be set."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "aba2543c-482b-499b-9eb6-f717f7d805ef",
+              "name": "Response for `GET /analytics/transfers/summary` endpoint",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "analytics",
+                    "transfers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "next",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "previous",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "integrator",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "wallet",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fromTimestamp",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "toTimestamp",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "fromChain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "toChain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fromToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "toToken",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-lifi-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"value\": \"<Error: Could not resolve allOf schema\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0855bc73-66c0-4580-87cf-851a45c2dfb7",
+          "name": "Get the total amount of a token received on a specific chain, for cross-chain transfers.",
+          "request": {
+            "name": "Get the total amount of a token received on a specific chain, for cross-chain transfers.",
+            "description": {
+              "content": "Calculates and returns the total received token amount per wallet address, per sending chain, within a specified time range, for a given receiving chain and receiving token. Only aggregates cross-chain transfers, meaning transfers with distinct sending and receiving chains.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "analytics",
+                "transfers",
+                "summary"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "10",
+                  "description": "Pagination limit. Defines the maximum number of returned results."
+                },
+                {
+                  "disabled": false,
+                  "key": "next",
+                  "value": "<string>",
+                  "description": "The next page cursor. Must come from the `next` field of the response of the previous request."
+                },
+                {
+                  "disabled": false,
+                  "key": "previous",
+                  "value": "<string>",
+                  "description": "The previous page cursor. Must come from the `previous` field of the response of the previous request."
+                },
+                {
+                  "disabled": false,
+                  "key": "fromTimestamp",
+                  "value": "<string>",
+                  "description": "(Required) A Unix timestamp in seconds marking the start of the query period, inclusive. Transactions older than this timestamp will not be included in the summary.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "toTimestamp",
+                  "value": "<string>",
+                  "description": "(Required) A Unix timestamp in seconds marking the end of the query period, inclusive. Transactions after this timestamp will not be included in the summary. **The maximum range supported by the endpoint is 30 days.**\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "toChain",
+                  "value": "<string>",
+                  "description": "(Required) The ID, or key of the chain on the receiving side of the transfer. This parameter filters the summary to include only transfers received on the specified chain.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "toToken",
+                  "value": "<number>",
+                  "description": "(Required) The address, or symbol of the token received in the transfers. This parameter filters the summary to include only transfers involving the specified token on the receiving chain.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "fromChain",
+                  "value": "<number>",
+                  "description": "The ID, or key of the chain on the sending side of the transfers. This parameter filters the summary to include only transfers sent from the specified chain.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "integrator",
+                  "value": "<string>",
+                  "description": "The integrator string to filter transfers by. This parameter filters the summary to include only transfers for the given integrator.\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "79a6c941-0614-41f2-9478-3e5fba324b95",
+              "name": "Response for `GET /analytics/transfers/summary` endpoint",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "analytics",
+                    "transfers",
+                    "summary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "next",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "previous",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fromTimestamp",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "toTimestamp",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "toChain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "toToken",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "fromChain",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "integrator",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-lifi-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"value\": \"<Error: Could not resolve allOf schema\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://earn.li.fi",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-lifi-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "44a2f7e4-8d0b-4fad-97a3-99ebfa43c013",
+    "name": "LI.FI Earn advanced Analytics API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Enterprise DeFi yield discovery and tracking API",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,288 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LI.FI Earn advanced Analytics API",
+    "version": "0.1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-lifi-api-key",
+      "value": "{{x-lifi-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Analytics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all transactions for a wallet",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://earn.li.fi/v1/analytics/wallets/:wallet_address",
+            "headers": [
+              {
+                "name": "x-lifi-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "wallet_address",
+                "value": "",
+                "type": "path",
+                "description": "The address of the wallet"
+              },
+              {
+                "name": "integrator",
+                "value": "",
+                "type": "query",
+                "description": "Filter the transactions by integrator"
+              },
+              {
+                "name": "fromTimestamp",
+                "value": "",
+                "type": "query",
+                "description": "A unix timestamp in seconds. No transaction older than this timestamp will be returned. If no value is passed, then the default value will be 30 days prior the current date."
+              },
+              {
+                "name": "toTimestamp",
+                "value": "",
+                "type": "query",
+                "description": "A unix timestamp in seconds. No transaction newer than this timestamp will be returned."
+              }
+            ]
+          },
+          "docs": "This endpoint can be used to get all transactions for a wallet."
+        },
+        {
+          "info": {
+            "name": "Get a list of filtered transfers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://earn.li.fi/v1/analytics/transfers",
+            "params": [
+              {
+                "name": "integrator",
+                "value": "",
+                "type": "query",
+                "description": "The integrator string to filter by"
+              },
+              {
+                "name": "wallet",
+                "value": "",
+                "type": "query",
+                "description": "The sending OR receiving wallet address "
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "The status of the transfers. Possible values are `ALL`, `DONE`, `PENDING`, and `FAILED`. The default is `DONE`"
+              },
+              {
+                "name": "fromTimestamp",
+                "value": "",
+                "type": "query",
+                "description": "The oldest timestamp that should be taken into consideration. Defaults to 30 days ago"
+              },
+              {
+                "name": "toTimestamp",
+                "value": "",
+                "type": "query",
+                "description": "The newest timestamp that should be taken into consideration. Defaults to now"
+              },
+              {
+                "name": "fromChain",
+                "value": "",
+                "type": "query",
+                "description": "The chain where the transfer originates from."
+              },
+              {
+                "name": "toChain",
+                "value": "",
+                "type": "query",
+                "description": "The chain where the transfer ends."
+              },
+              {
+                "name": "fromToken",
+                "value": "",
+                "type": "query",
+                "description": "The token transferred from the originating chain. To use this parameter `fromChain` must be set."
+              },
+              {
+                "name": "toToken",
+                "value": "",
+                "type": "query",
+                "description": "The token received on the destination chain. To use this parameter `toChain` must be set."
+              }
+            ]
+          },
+          "docs": "This endpoint can be used to retrieve a list of transfers filtered by certain properties. Returns a maximum of 1000 transfers."
+        },
+        {
+          "info": {
+            "name": "Get a paginated list of filtered transfers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://earn.li.fi/v2/analytics/transfers",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Pagination limit. Defines the maximum number of returned results."
+              },
+              {
+                "name": "next",
+                "value": "",
+                "type": "query",
+                "description": "The next page cursor. Must come from the `next` field of the response of the previous request."
+              },
+              {
+                "name": "previous",
+                "value": "",
+                "type": "query",
+                "description": "The previous page cursor. Must come from the `previous` field of the response of the previous request."
+              },
+              {
+                "name": "integrator",
+                "value": "",
+                "type": "query",
+                "description": "Either a single integrator string, or an array of unique integrator strings to filter transfers by."
+              },
+              {
+                "name": "wallet",
+                "value": "",
+                "type": "query",
+                "description": "The sending OR receiving wallet address "
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "The status of the transfers. Possible values are `ALL`, `DONE`, `PENDING`, and `FAILED`. The default is `DONE`"
+              },
+              {
+                "name": "fromTimestamp",
+                "value": "",
+                "type": "query",
+                "description": "The oldest timestamp that should be taken into consideration. Defaults to 30 days ago"
+              },
+              {
+                "name": "toTimestamp",
+                "value": "",
+                "type": "query",
+                "description": "The newest timestamp that should be taken into consideration. Defaults to now"
+              },
+              {
+                "name": "fromChain",
+                "value": "",
+                "type": "query",
+                "description": "The chain where the transfer originates from."
+              },
+              {
+                "name": "toChain",
+                "value": "",
+                "type": "query",
+                "description": "The chain where the transfer ends."
+              },
+              {
+                "name": "fromToken",
+                "value": "",
+                "type": "query",
+                "description": "The token transferred from the originating chain. To use this parameter `fromChain` must be set."
+              },
+              {
+                "name": "toToken",
+                "value": "",
+                "type": "query",
+                "description": "The token received on the destination chain. To use this parameter `toChain` must be set."
+              }
+            ]
+          },
+          "docs": "A paginated version of the `GET /v1/analytics/transfers endpoint`. This endpoint can be used to retrieve a list of transfers filtered by certain properties."
+        },
+        {
+          "info": {
+            "name": "Get the total amount of a token received on a specific chain, for cross-chain transfers.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://earn.li.fi/v1/analytics/transfers/summary",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Pagination limit. Defines the maximum number of returned results."
+              },
+              {
+                "name": "next",
+                "value": "",
+                "type": "query",
+                "description": "The next page cursor. Must come from the `next` field of the response of the previous request."
+              },
+              {
+                "name": "previous",
+                "value": "",
+                "type": "query",
+                "description": "The previous page cursor. Must come from the `previous` field of the response of the previous request."
+              },
+              {
+                "name": "fromTimestamp",
+                "value": "",
+                "type": "query",
+                "description": "A Unix timestamp in seconds marking the start of the query period, inclusive. Transactions older than this timestamp will not be included in the summary.\n"
+              },
+              {
+                "name": "toTimestamp",
+                "value": "",
+                "type": "query",
+                "description": "A Unix timestamp in seconds marking the end of the query period, inclusive. Transactions after this timestamp will not be included in the summary. **The maximum range supported by the endpoint is 30 days.**\n"
+              },
+              {
+                "name": "toChain",
+                "value": "",
+                "type": "query",
+                "description": "The ID, or key of the chain on the receiving side of the transfer. This parameter filters the summary to include only transfers received on the specified chain.\n"
+              },
+              {
+                "name": "toToken",
+                "value": "",
+                "type": "query",
+                "description": "The address, or symbol of the token received in the transfers. This parameter filters the summary to include only transfers involving the specified token on the receiving chain.\n"
+              },
+              {
+                "name": "fromChain",
+                "value": "",
+                "type": "query",
+                "description": "The ID, or key of the chain on the sending side of the transfers. This parameter filters the summary to include only transfers sent from the specified chain.\n"
+              },
+              {
+                "name": "integrator",
+                "value": "",
+                "type": "query",
+                "description": "The integrator string to filter transfers by. This parameter filters the summary to include only transfers for the given integrator.\n"
+              }
+            ]
+          },
+          "docs": "Calculates and returns the total received token amount per wallet address, per sending chain, within a specified time range, for a given receiving chain and receiving token. Only aggregates cross-chain transfers, meaning transfers with distinct sending and receiving chains."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,45 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LI.FI Earn advanced Earn Portfolio API",
+    "version": "0.1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-lifi-api-key",
+      "value": "{{x-lifi-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Earn Portfolio",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get portfolio positions for a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://earn.li.fi/v1/portfolio/:userAddress/positions",
+            "params": [
+              {
+                "name": "userAddress",
+                "value": "0x1234567890abcdef1234567890abcdef12345678",
+                "type": "path",
+                "description": "User's wallet address (0x-prefixed, 40 hex characters)."
+              }
+            ]
+          },
+          "docs": "Returns a user's DeFi positions across all supported protocols and chains."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

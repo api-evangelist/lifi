@@ -1,0 +1,123 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LI.FI Earn advanced Connections API",
+    "version": "0.1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-lifi-api-key",
+      "value": "{{x-lifi-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Connections",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Returns all possible connections between two chains.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://earn.li.fi/v1/connections",
+            "headers": [
+              {
+                "name": "x-lifi-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "fromChain",
+                "value": "POL",
+                "type": "query",
+                "description": "The chain that should be the start of the possible connections."
+              },
+              {
+                "name": "toChain",
+                "value": "",
+                "type": "query",
+                "description": "The chain that should be the end of the possible connections."
+              },
+              {
+                "name": "fromToken",
+                "value": "DAI",
+                "type": "query",
+                "description": "Only return connections starting with this token."
+              },
+              {
+                "name": "toToken",
+                "value": "",
+                "type": "query",
+                "description": "Only return connections ending with this token."
+              },
+              {
+                "name": "chainTypes",
+                "value": "EVM,SVM,UTXO,MVM,TVM",
+                "type": "query",
+                "description": "Restrict the resulting connections to the given chainTypes. Available values: EVM, SVM, UTXO, MVM, TVM."
+              },
+              {
+                "name": "allowBridges",
+                "value": "",
+                "type": "query",
+                "description": "List of bridges that are allowed for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint."
+              },
+              {
+                "name": "denyBridges",
+                "value": "",
+                "type": "query",
+                "description": "List of bridges that are not allowed for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint."
+              },
+              {
+                "name": "preferBridges",
+                "value": "",
+                "type": "query",
+                "description": "List of bridges that should be preferred for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint."
+              },
+              {
+                "name": "allowExchanges",
+                "value": "",
+                "type": "query",
+                "description": "List of exchanges that are allowed for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint."
+              },
+              {
+                "name": "denyExchanges",
+                "value": "",
+                "type": "query",
+                "description": "List of exchanges that are not allowed for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint."
+              },
+              {
+                "name": "preferExchanges",
+                "value": "",
+                "type": "query",
+                "description": "List of exchanges that should be preferred for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint."
+              },
+              {
+                "name": "allowSwitchChain",
+                "value": "",
+                "type": "query",
+                "description": "Whether connections that require chain switch should be included in the response."
+              },
+              {
+                "name": "allowDestinationCall",
+                "value": "",
+                "type": "query",
+                "description": "Whether connections that includes destination call should be included in the response."
+              }
+            ]
+          },
+          "docs": "This endpoint gives information about all possible transfers between chains.\n`fromChain` and `toChain` are required. Additional filters such as token, bridge, and exchange can be used to narrow the result further.\nInformation about which chains and tokens are supported can be taken from the response of the /v1/chains endpoint.\nInformation about which bridges and exchanges are supported can be taken from the response of the `/v1/tools` endpoint."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,1005 @@
+{
+  "item": [
+    {
+      "id": "1625a7bf-170a-452e-9c29-c2473ea6b420",
+      "name": "Relayer",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "af1562a6-aa9c-4c0f-853a-1071fbb27b0d",
+          "name": "Cross chain relay transfers might take a while to complete. Waiting on the transaction on the sending chain doesn't help here. For this reason we build a simple endpoint that let's you check the status of your transfer.\nImportant: The endpoint returns a `200` successful response even if the transaction can not be found. This behavior accounts for the case that the transaction hash is valid but the transaction has not been mined yet.\nWhile non of the parameters `fromChain`, `toChain` and `bridge` are required, passing the `fromChain` parameter will speed up the request and is therefore encouraged.\nIf you want to learn more about how to use this endpoint please have a look at our [guide](/introduction/user-flows-and-examples/status-tracking).",
+          "request": {
+            "name": "Cross chain relay transfers might take a while to complete. Waiting on the transaction on the sending chain doesn't help here. For this reason we build a simple endpoint that let's you check the status of your transfer.\nImportant: The endpoint returns a `200` successful response even if the transaction can not be found. This behavior accounts for the case that the transaction hash is valid but the transaction has not been mined yet.\nWhile non of the parameters `fromChain`, `toChain` and `bridge` are required, passing the `fromChain` parameter will speed up the request and is therefore encouraged.\nIf you want to learn more about how to use this endpoint please have a look at our [guide](/introduction/user-flows-and-examples/status-tracking).",
+            "description": {
+              "content": "Cross chain relay transfers might take a while to complete. Waiting on the transaction on the sending chain doesn't help here. For this reason we build a simple endpoint that let's you check the status of your transfer.\nImportant: The endpoint returns a `200` successful response even if the transaction can not be found. This behavior accounts for the case that the transaction hash is valid but the transaction has not been mined yet.\nWhile non of the parameters `fromChain`, `toChain` and `bridge` are required, passing the `fromChain` parameter will speed up the request and is therefore encouraged.\nIf you want to learn more about how to use this endpoint please have a look at our [guide](/introduction/user-flows-and-examples/status-tracking).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "relayer",
+                "status",
+                ":taskId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7125d407-f7a7-4089-85e3-67beaa6e58c7",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "relayer",
+                    "status",
+                    ":taskId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-lifi-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"status\": \"string\",\n    \"message\": \"string\",\n    \"metadata\": {\n      \"chainId\": 137,\n      \"txHash\": \"0x1425098ed5ecc5192070ac32a69dd924268b9df5e7a69764142473e9d022321a\"\n    },\n    \"transactionStatus\": {\n      \"sending\": {\n        \"txHash\": \"0xd3ad8fb8798d8440f3a1ec7fd51e102a88e4690f9365fad4eff1a17020376b4a\",\n        \"txLink\": \"https://polygonscan.com/tx/0xd3ad8fb8798d8440f3a1ec7fd51e102a88e4690f9365fad4eff1a17020376b4a\",\n        \"amount\": \"13000000\",\n        \"token\": {\n          \"address\": \"0xd69b31c3225728cc57ddaf9be532a4ee1620be51\",\n          \"symbol\": \"anyUSDC\",\n          \"decimals\": 6,\n          \"chainId\": 137,\n          \"name\": \"USDC\",\n          \"coinKey\": \"anyUSDC\",\n          \"priceUSD\": \"0\",\n          \"logoURI\": \"\"\n        },\n        \"chainId\": 137,\n        \"gasToken\": {\n          \"address\": \"0x0000000000000000000000000000000000001010\",\n          \"symbol\": \"MATIC\",\n          \"decimals\": 18,\n          \"chainId\": 137,\n          \"name\": \"MATIC\",\n          \"coinKey\": \"MATIC\",\n          \"priceUSD\": \"0\",\n          \"logoURI\": \"\"\n        },\n        \"gasAmount\": \"10000\",\n        \"gasAmountUSD\": \"0.0\",\n        \"gasPrice\": \"1000\",\n        \"gasUsed\": \"1000\",\n        \"timestamp\": 1720545119,\n        \"value\": \"0\"\n      },\n      \"receiving\": {\n        \"txHash\": \"0xba2793065e20835ef60993144d92e6bc1a86529a70e16c357f66ad13774868ad\",\n        \"txLink\": \"https://bscscan.com/tx/0xba2793065e20835ef60993144d92e6bc1a86529a70e16c357f66ad13774868ad\",\n        \"amount\": \"12100000000000000000\",\n        \"token\": {\n          \"address\": \"0x8965349fb649a33a30cbfda057d8ec2c48abe2a2\",\n          \"symbol\": \"anyUSDC\",\n          \"decimals\": 18,\n          \"chainId\": 56,\n          \"name\": \"USDC\",\n          \"coinKey\": \"anyUSDC\",\n          \"priceUSD\": \"0\",\n          \"logoURI\": \"\"\n        },\n        \"chainId\": 56,\n        \"gasToken\": {\n          \"address\": \"0x0000000000000000000000000000000000001010\",\n          \"symbol\": \"BNB\",\n          \"decimals\": 18,\n          \"chainId\": 56,\n          \"name\": \"BNB\",\n          \"coinKey\": \"BNB\",\n          \"priceUSD\": \"0\",\n          \"logoURI\": \"\"\n        },\n        \"gasAmount\": \"10000\",\n        \"gasAmountUSD\": \"0.0\",\n        \"gasPrice\": \"1000\",\n        \"gasUsed\": \"1000\",\n        \"timestamp\": 1720560232,\n        \"value\": \"0\"\n      },\n      \"tool\": \"anyswap\",\n      \"status\": \"DONE\",\n      \"substatus\": \"COMPLETED\",\n      \"substatusMessage\": \"The transfer is complete.\",\n      \"transactionId\": \"0x0000000000000000000000000000000000001010\",\n      \"fromAddress\": \"0x0000000000000000000000000000000000001010\",\n      \"toAddress\": \"0x0000000000000000000000000000000000001010\",\n      \"lifiExplorerLink\": \"https://scan.li.fi/tx/0xd3ad8fb8798d8440f3a1ec7fd51e102a88e4690f9365fad4eff1a17020376b4a\",\n      \"metadata\": {\n        \"integrator\": \"jumper.exchange\"\n      }\n    }\n  },\n  \"status\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0691f116-699d-42dc-9940-0ac0013a0795",
+          "name": "Get a quote for a relayed token transfer",
+          "request": {
+            "name": "Get a quote for a relayed token transfer",
+            "description": {
+              "content": "This endpoint can be used to request a quote for a transfer of one token to another, cross chain or not.\nThe endpoint returns a `Step` object which contains information about the estimated result as well as a `transactionRequest` which can directly be sent to your wallet.\nThe estimated result can be found inside the `estimate`, containing the estimated `toAmount` of the requested `Token` and the `toAmountMin`, which is the guaranteed minimum value that the transfer will yield including slippage.\nIf you want to learn more about how to use this endpoint please have a look at our [guide](/introduction/user-flows-and-examples/requesting-route-fetching-quote).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "relayer",
+                "quote"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fromChain",
+                  "value": "<string>",
+                  "description": "(Required) The sending chain. Can be the chain id or chain key"
+                },
+                {
+                  "disabled": false,
+                  "key": "toChain",
+                  "value": "<string>",
+                  "description": "(Required) The receiving chain. Can be the chain id or chain key"
+                },
+                {
+                  "disabled": false,
+                  "key": "fromToken",
+                  "value": "<string>",
+                  "description": "(Required) The token that should be transferred. Can be the address or the symbol"
+                },
+                {
+                  "disabled": false,
+                  "key": "toToken",
+                  "value": "<string>",
+                  "description": "(Required) The token that should be transferred to. Can be the address or the symbol"
+                },
+                {
+                  "disabled": false,
+                  "key": "fromAddress",
+                  "value": "<string>",
+                  "description": "(Required) The sending wallet address"
+                },
+                {
+                  "disabled": false,
+                  "key": "toAddress",
+                  "value": "<string>",
+                  "description": "The receiving wallet address. If none is provided, the fromAddress will be used"
+                },
+                {
+                  "disabled": false,
+                  "key": "fromAmount",
+                  "value": "<string>",
+                  "description": "(Required) The amount that should be sent including all decimals (e.g. 1000000 for 1 USDC (6 decimals))"
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "<string>",
+                  "description": "Which kind of route should be preferred **FASTEST**: This sorting criterion prioritizes routes with the shortest estimated execution time. Users who value speed and want their transactions to be completed as quickly as possible should choose the fastest routes. **CHEAPEST**: This criterion focuses on minimizing the cost of the transaction, whether in token amount or USD amount (USD amount minus gas cost). Users looking for the most economical option should choose the cheapest routes."
+                },
+                {
+                  "disabled": false,
+                  "key": "slippage",
+                  "value": "<number>",
+                  "description": "The maximum allowed slippage for the transaction as a decimal value. 0.005 represents 0.5%."
+                },
+                {
+                  "disabled": false,
+                  "key": "integrator",
+                  "value": "<string>",
+                  "description": "A string containing tracking information about the integrator of the API"
+                },
+                {
+                  "disabled": false,
+                  "key": "fee",
+                  "value": "<number>",
+                  "description": "The percent of the integrator's fee that is taken from every transaction. 0.02 represents 2%. The maximum fee amount should be less than 100%."
+                },
+                {
+                  "disabled": false,
+                  "key": "referrer",
+                  "value": "<string>",
+                  "description": "A string containing tracking information about the referrer of the integrator"
+                },
+                {
+                  "disabled": false,
+                  "key": "allowBridges",
+                  "value": "<string>",
+                  "description": "List of bridges that are allowed for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint. Also values `all`, `none`, `default` and `[]` are acceptable and mean all tools of the current type (`all`), no tools (for `none` and `[]` cases) and default tool's settings on the current stage."
+                },
+                {
+                  "disabled": false,
+                  "key": "allowBridges",
+                  "value": "<string>",
+                  "description": "List of bridges that are allowed for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint. Also values `all`, `none`, `default` and `[]` are acceptable and mean all tools of the current type (`all`), no tools (for `none` and `[]` cases) and default tool's settings on the current stage."
+                },
+                {
+                  "disabled": false,
+                  "key": "allowExchanges",
+                  "value": "<string>",
+                  "description": "List of exchanges that are allowed for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint. Also values `all`, `none`, `default` and `[]` are acceptable and mean all tools of the current type (`all`), no tools (for `none` and `[]` cases) and default tool's settings on the current stage."
+                },
+                {
+                  "disabled": false,
+                  "key": "allowExchanges",
+                  "value": "<string>",
+                  "description": "List of exchanges that are allowed for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint. Also values `all`, `none`, `default` and `[]` are acceptable and mean all tools of the current type (`all`), no tools (for `none` and `[]` cases) and default tool's settings on the current stage."
+                },
+                {
+                  "disabled": false,
+                  "key": "denyBridges",
+                  "value": "<string>",
+                  "description": "List of bridges that are not allowed for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint. Also values `all`, `none`, `default` and `[]` are acceptable and mean all tools of the current type (`all`), no tools (for `none` and `[]` cases) and default tool's settings on the current stage."
+                },
+                {
+                  "disabled": false,
+                  "key": "denyBridges",
+                  "value": "<string>",
+                  "description": "List of bridges that are not allowed for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint. Also values `all`, `none`, `default` and `[]` are acceptable and mean all tools of the current type (`all`), no tools (for `none` and `[]` cases) and default tool's settings on the current stage."
+                },
+                {
+                  "disabled": false,
+                  "key": "denyExchanges",
+                  "value": "<string>",
+                  "description": "List of exchanges that are not allowed for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint. Also values `all`, `none`, `default` and `[]` are acceptable and mean all tools of the current type (`all`), no tools (for `none` and `[]` cases) and default tool's settings on the current stage."
+                },
+                {
+                  "disabled": false,
+                  "key": "denyExchanges",
+                  "value": "<string>",
+                  "description": "List of exchanges that are not allowed for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint. Also values `all`, `none`, `default` and `[]` are acceptable and mean all tools of the current type (`all`), no tools (for `none` and `[]` cases) and default tool's settings on the current stage."
+                },
+                {
+                  "disabled": false,
+                  "key": "preferBridges",
+                  "value": "<string>",
+                  "description": "List of bridges that should be preferred for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint. Also values `all`, `none`, `default` and `[]` are acceptable and mean all tools of the current type (`all`), no tools (for `none` and `[]` cases) and default tool's settings on the current stage."
+                },
+                {
+                  "disabled": false,
+                  "key": "preferBridges",
+                  "value": "<string>",
+                  "description": "List of bridges that should be preferred for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint. Also values `all`, `none`, `default` and `[]` are acceptable and mean all tools of the current type (`all`), no tools (for `none` and `[]` cases) and default tool's settings on the current stage."
+                },
+                {
+                  "disabled": false,
+                  "key": "preferExchanges",
+                  "value": "<string>",
+                  "description": "List of exchanges that should be preferred for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint. Also values `all`, `none`, `default` and `[]` are acceptable and mean all tools of the current type (`all`), no tools (for `none` and `[]` cases) and default tool's settings on the current stage."
+                },
+                {
+                  "disabled": false,
+                  "key": "preferExchanges",
+                  "value": "<string>",
+                  "description": "List of exchanges that should be preferred for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint. Also values `all`, `none`, `default` and `[]` are acceptable and mean all tools of the current type (`all`), no tools (for `none` and `[]` cases) and default tool's settings on the current stage."
+                },
+                {
+                  "disabled": false,
+                  "key": "allowDestinationCall",
+                  "value": "<boolean>",
+                  "description": "Whether swaps or other contract calls should be allowed as part of the destination transaction of a bridge transfer. Separate swap transactions on the destination chain are not affected by this flag. By default, parameter is `true`."
+                },
+                {
+                  "disabled": false,
+                  "key": "fromAmountForGas",
+                  "value": "<string>",
+                  "description": "The amount of the token to convert to gas on the destination side."
+                },
+                {
+                  "disabled": false,
+                  "key": "maxPriceImpact",
+                  "value": "<number>",
+                  "description": "The price impact threshold above which routes are hidden. As an example, one should specify 0.15 (15%) to hide routes with more than 15% price impact. The default is 10%."
+                },
+                {
+                  "disabled": false,
+                  "key": "swapStepTimingStrategies",
+                  "value": "<string>",
+                  "description": "Timing setting to wait for a certain amount of swap rates. In the format `minWaitTime-${minWaitTimeMs}-${startingExpectedResults}-${reduceEveryMs}`. Please check [docs.li.fi](https://docs.li.fi) for more details."
+                },
+                {
+                  "disabled": false,
+                  "key": "swapStepTimingStrategies",
+                  "value": "<string>",
+                  "description": "Timing setting to wait for a certain amount of swap rates. In the format `minWaitTime-${minWaitTimeMs}-${startingExpectedResults}-${reduceEveryMs}`. Please check [docs.li.fi](https://docs.li.fi) for more details."
+                },
+                {
+                  "disabled": false,
+                  "key": "routeTimingStrategies",
+                  "value": "<string>",
+                  "description": "Timing setting to wait for a certain amount of routes to be generated before chosing the best one. In the format `minWaitTime-${minWaitTimeMs}-${startingExpectedResults}-${reduceEveryMs}`. Please check [docs.li.fi](https://docs.li.fi) for more details."
+                },
+                {
+                  "disabled": false,
+                  "key": "routeTimingStrategies",
+                  "value": "<string>",
+                  "description": "Timing setting to wait for a certain amount of routes to be generated before chosing the best one. In the format `minWaitTime-${minWaitTimeMs}-${startingExpectedResults}-${reduceEveryMs}`. Please check [docs.li.fi](https://docs.li.fi) for more details."
+                },
+                {
+                  "disabled": false,
+                  "key": "skipSimulation",
+                  "value": "<boolean>",
+                  "description": "Parameter to skip transaction simulation. The quote will be returned faster but the transaction gas limit won't be accurate."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
+                "key": "x-lifi-api-key",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "37e6f637-400a-45a6-afa6-af00da005d60",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "relayer",
+                    "quote"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fromChain",
+                      "value": "DAI"
+                    },
+                    {
+                      "key": "toChain",
+                      "value": "POL"
+                    },
+                    {
+                      "key": "fromToken",
+                      "value": "0x4ecaba5870353805a9f068101a40e0f32ed605c6"
+                    },
+                    {
+                      "key": "toToken",
+                      "value": "0x2791bca1f2de4661ed88a30c99a7a9449aa84174"
+                    },
+                    {
+                      "key": "fromAddress",
+                      "value": "0x552008c0f6870c2f77e5cC1d2eb9bdff03e30Ea0"
+                    },
+                    {
+                      "key": "toAddress",
+                      "value": "0x552008c0f6870c2f77e5cC1d2eb9bdff03e30Ea0"
+                    },
+                    {
+                      "key": "fromAmount",
+                      "value": "1000000"
+                    },
+                    {
+                      "key": "order",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "slippage",
+                      "value": "0.005"
+                    },
+                    {
+                      "key": "integrator",
+                      "value": "fee-demo"
+                    },
+                    {
+                      "key": "fee",
+                      "value": "0.02"
+                    },
+                    {
+                      "key": "referrer",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "allowBridges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "allowBridges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "allowExchanges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "allowExchanges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "denyBridges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "denyBridges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "denyExchanges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "denyExchanges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "preferBridges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "preferBridges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "preferExchanges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "preferExchanges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "allowDestinationCall",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "fromAmountForGas",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "maxPriceImpact",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "swapStepTimingStrategies",
+                      "value": "minWaitTime-600-4-300"
+                    },
+                    {
+                      "key": "swapStepTimingStrategies",
+                      "value": "minWaitTime-600-4-300"
+                    },
+                    {
+                      "key": "routeTimingStrategies",
+                      "value": "minWaitTime-600-4-300"
+                    },
+                    {
+                      "key": "routeTimingStrategies",
+                      "value": "minWaitTime-600-4-300"
+                    },
+                    {
+                      "key": "skipSimulation",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-lifi-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
+                    "key": "x-lifi-api-key",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"string\",\n  \"data\": {\n    \"quote\": {\n      \"tokenOwner\": \"string\",\n      \"chainId\": 9571,\n      \"permit\": {\n        \"permitted\": {\n          \"token\": \"0xc2132D05D31c914a87C6611C10748AEb04B58e8F\",\n          \"amount\": \"1000000\"\n        },\n        \"spender\": \"0x6307119078556Fc8aD77781DFC67df20d75FB4f9\",\n        \"nonce\": \"19\",\n        \"deadline\": 1738149521625\n      },\n      \"witness\": {\n        \"witnessType\": {\n          \"LiFiCall\": [\n            {\n              \"type\": \"address\",\n              \"name\": \"diamondAddress\"\n            },\n            {\n              \"type\": \"bytes32\",\n              \"name\": \"diamondCalldataHash\"\n            }\n          ]\n        },\n        \"witnessTypeName\": \"LiFiCall\",\n        \"witness\": {\n          \"diamondAddress\": \"0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE\",\n          \"diamondCalldataHash\": \"0x78c758554f4213645a8ebcaa5c5c3eb7e6db4b90cf37df4adb54fb92a7fb2a78\"\n        }\n      },\n      \"permitData\": {\n        \"permitted\": {\n          \"token\": \"0xc2132D05D31c914a87C6611C10748AEb04B58e8F\",\n          \"amount\": \"1000000\"\n        },\n        \"spender\": \"0x6307119078556Fc8aD77781DFC67df20d75FB4f9\",\n        \"nonce\": \"19\",\n        \"deadline\": 1738149521625,\n        \"witness\": {\n          \"diamondAddress\": \"0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE\",\n          \"diamondCalldataHash\": \"0x78c758554f4213645a8ebcaa5c5c3eb7e6db4b90cf37df4adb54fb92a7fb2a78\"\n        }\n      },\n      \"step\": {\n        \"id\": \"string\",\n        \"action\": {\n          \"fromChainId\": 100,\n          \"fromAmount\": \"1000000000000000000\",\n          \"fromToken\": {\n            \"address\": \"0x63e62989d9eb2d37dfdb1f93a22f063635b07d51\",\n            \"symbol\": \"MIVA\",\n            \"decimals\": 18,\n            \"chainId\": 100,\n            \"name\": \"Minerva Wallet SuperToken\",\n            \"coinKey\": \"MIVA\",\n            \"priceUSD\": \"0.0455272371751059\",\n            \"logoURI\": \"\"\n          },\n          \"toChainId\": 137,\n          \"toToken\": {\n            \"address\": \"0xc0b2983a17573660053beeed6fdb1053107cf387\",\n            \"symbol\": \"MIVA\",\n            \"decimals\": 18,\n            \"chainId\": 137,\n            \"name\": \"Minerva Wallet SuperToken\",\n            \"coinKey\": \"MIVA\",\n            \"priceUSD\": \"0\",\n            \"logoURI\": \"\"\n          },\n          \"slippage\": 0.003\n        },\n        \"tool\": \"string\",\n        \"type\": \"lifi\",\n        \"toolDetails\": {\n          \"key\": \"string\",\n          \"name\": \"string\",\n          \"logoURI\": \"string\"\n        },\n        \"estimate\": {\n          \"fromAmount\": \"string\",\n          \"approvalAddress\": \"string\",\n          \"toAmount\": \"string\",\n          \"toAmountMin\": \"string\",\n          \"tool\": \"string\",\n          \"executionDuration\": 9193.937993500876,\n          \"fromAmountUSD\": \"string\",\n          \"toAmountUSD\": \"string\",\n          \"feeCosts\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"gasCosts\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"data\": {\n            \"bid\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"bidSignature\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"gasFeeInReceivingToken\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"totalFee\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"metaTxRelayerFee\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"routerFee\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"integrator\": \"string\",\n        \"includedSteps\": [\n          {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"action\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"estimate\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"tool\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"toolDetails\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"action\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"estimate\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"tool\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"toolDetails\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"referrer\": \"string\",\n        \"execution\": {},\n        \"transactionRequest\": {}\n      }\n    },\n    \"approvalTxs\": [\n      {\n        \"to\": \"string\",\n        \"from\": \"string\",\n        \"nonce\": 5039.2994561333635,\n        \"gasLimit\": \"string\",\n        \"gasPrice\": \"string\",\n        \"data\": \"string\",\n        \"value\": \"string\",\n        \"chainId\": \"string\",\n        \"type\": 7242.786745055112,\n        \"accessList\": [\n          {\n            \"address\": \"string\",\n            \"storageKeys\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"address\": \"string\",\n            \"storageKeys\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ],\n        \"maxPriorityFeePerGas\": \"string\",\n        \"maxFeePerGas\": \"string\",\n        \"customData\": {},\n        \"enableCcipRead\": true,\n        \"blockTag\": \"string\"\n      },\n      {\n        \"to\": \"string\",\n        \"from\": \"string\",\n        \"nonce\": 1061.8804336960907,\n        \"gasLimit\": \"string\",\n        \"gasPrice\": \"string\",\n        \"data\": \"string\",\n        \"value\": \"string\",\n        \"chainId\": \"string\",\n        \"type\": 7177.422161379013,\n        \"accessList\": [\n          {\n            \"address\": \"string\",\n            \"storageKeys\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"address\": \"string\",\n            \"storageKeys\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ],\n        \"maxPriorityFeePerGas\": \"string\",\n        \"maxFeePerGas\": \"string\",\n        \"customData\": {},\n        \"enableCcipRead\": true,\n        \"blockTag\": \"string\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0690eda9-4f5d-4706-8055-4c508a504e4c",
+              "name": "Invalid quote request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "relayer",
+                    "quote"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fromChain",
+                      "value": "DAI"
+                    },
+                    {
+                      "key": "toChain",
+                      "value": "POL"
+                    },
+                    {
+                      "key": "fromToken",
+                      "value": "0x4ecaba5870353805a9f068101a40e0f32ed605c6"
+                    },
+                    {
+                      "key": "toToken",
+                      "value": "0x2791bca1f2de4661ed88a30c99a7a9449aa84174"
+                    },
+                    {
+                      "key": "fromAddress",
+                      "value": "0x552008c0f6870c2f77e5cC1d2eb9bdff03e30Ea0"
+                    },
+                    {
+                      "key": "toAddress",
+                      "value": "0x552008c0f6870c2f77e5cC1d2eb9bdff03e30Ea0"
+                    },
+                    {
+                      "key": "fromAmount",
+                      "value": "1000000"
+                    },
+                    {
+                      "key": "order",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "slippage",
+                      "value": "0.005"
+                    },
+                    {
+                      "key": "integrator",
+                      "value": "fee-demo"
+                    },
+                    {
+                      "key": "fee",
+                      "value": "0.02"
+                    },
+                    {
+                      "key": "referrer",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "allowBridges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "allowBridges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "allowExchanges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "allowExchanges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "denyBridges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "denyBridges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "denyExchanges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "denyExchanges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "preferBridges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "preferBridges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "preferExchanges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "preferExchanges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "allowDestinationCall",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "fromAmountForGas",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "maxPriceImpact",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "swapStepTimingStrategies",
+                      "value": "minWaitTime-600-4-300"
+                    },
+                    {
+                      "key": "swapStepTimingStrategies",
+                      "value": "minWaitTime-600-4-300"
+                    },
+                    {
+                      "key": "routeTimingStrategies",
+                      "value": "minWaitTime-600-4-300"
+                    },
+                    {
+                      "key": "routeTimingStrategies",
+                      "value": "minWaitTime-600-4-300"
+                    },
+                    {
+                      "key": "skipSimulation",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-lifi-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
+                    "key": "x-lifi-api-key",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "25548071-50e5-45f8-a278-743d1919a45c",
+              "name": "Unable to find a quote for the requested transfer.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "relayer",
+                    "quote"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fromChain",
+                      "value": "DAI"
+                    },
+                    {
+                      "key": "toChain",
+                      "value": "POL"
+                    },
+                    {
+                      "key": "fromToken",
+                      "value": "0x4ecaba5870353805a9f068101a40e0f32ed605c6"
+                    },
+                    {
+                      "key": "toToken",
+                      "value": "0x2791bca1f2de4661ed88a30c99a7a9449aa84174"
+                    },
+                    {
+                      "key": "fromAddress",
+                      "value": "0x552008c0f6870c2f77e5cC1d2eb9bdff03e30Ea0"
+                    },
+                    {
+                      "key": "toAddress",
+                      "value": "0x552008c0f6870c2f77e5cC1d2eb9bdff03e30Ea0"
+                    },
+                    {
+                      "key": "fromAmount",
+                      "value": "1000000"
+                    },
+                    {
+                      "key": "order",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "slippage",
+                      "value": "0.005"
+                    },
+                    {
+                      "key": "integrator",
+                      "value": "fee-demo"
+                    },
+                    {
+                      "key": "fee",
+                      "value": "0.02"
+                    },
+                    {
+                      "key": "referrer",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "allowBridges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "allowBridges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "allowExchanges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "allowExchanges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "denyBridges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "denyBridges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "denyExchanges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "denyExchanges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "preferBridges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "preferBridges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "preferExchanges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "preferExchanges",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "allowDestinationCall",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "fromAmountForGas",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "maxPriceImpact",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "swapStepTimingStrategies",
+                      "value": "minWaitTime-600-4-300"
+                    },
+                    {
+                      "key": "swapStepTimingStrategies",
+                      "value": "minWaitTime-600-4-300"
+                    },
+                    {
+                      "key": "routeTimingStrategies",
+                      "value": "minWaitTime-600-4-300"
+                    },
+                    {
+                      "key": "routeTimingStrategies",
+                      "value": "minWaitTime-600-4-300"
+                    },
+                    {
+                      "key": "skipSimulation",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-lifi-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
+                    "key": "x-lifi-api-key",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Unable to find a quote for the requested transfer\",\n  \"errors\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1c07b8cc-1c93-4b40-b2ca-2a6e3fb96f43",
+          "name": "Send a signed permit2 transaction to be dispatched by a transaction relayer",
+          "request": {
+            "name": "Send a signed permit2 transaction to be dispatched by a transaction relayer",
+            "description": {
+              "content": "Submits a gasless transaction to the relayer for execution on-chain.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "relayer",
+                "relay"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tokenOwner\": \"<string>\",\n  \"chainId\": \"<number>\",\n  \"callData\": \"<string>\",\n  \"permit\": {\n    \"permitted\": {\n      \"token\": \"<string>\",\n      \"amount\": \"<string>\"\n    },\n    \"nonce\": \"<string>\",\n    \"deadline\": \"<integer>\",\n    \"spender\": \"<string>\"\n  },\n  \"signedPermitData\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d40b5abe-3343-4384-b502-bcce541214a9",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "relayer",
+                    "relay"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-lifi-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tokenOwner\": \"<string>\",\n  \"chainId\": \"<number>\",\n  \"callData\": \"<string>\",\n  \"permit\": {\n    \"permitted\": {\n      \"token\": \"0xc2132D05D31c914a87C6611C10748AEb04B58e8F\",\n      \"amount\": \"1000000\"\n    },\n    \"nonce\": \"<string>\",\n    \"deadline\": \"<integer>\",\n    \"spender\": \"<string>\"\n  },\n  \"signedPermitData\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"ok\",\n  \"data\": {\n    \"taskId\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://earn.li.fi",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-lifi-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "d5750aa2-884e-47ac-9221-8386a73ff886",
+    "name": "LI.FI Earn advanced Relayer API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Enterprise DeFi yield discovery and tracking API",
+      "type": "text/plain"
+    }
+  }
+}

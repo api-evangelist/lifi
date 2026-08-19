@@ -1,0 +1,215 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LI.FI Earn advanced Relayer API",
+    "version": "0.1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-lifi-api-key",
+      "value": "{{x-lifi-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Relayer",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "GET /v1/relayer/status/{taskId}",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://earn.li.fi/v1/relayer/status/:taskId"
+          },
+          "docs": "Cross chain relay transfers might take a while to complete. Waiting on the transaction on the sending chain doesn't help here. For this reason we build a simple endpoint that let's you check the status of your transfer.\nImportant: The endpoint returns a `200` successful response even if the transaction can not be found. This behavior accounts for the case that the transaction hash is valid but the transaction has not been mined yet.\nWhile non of the parameters `fromChain`, `toChain` and `bridge`"
+        },
+        {
+          "info": {
+            "name": "Get a quote for a relayed token transfer",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://earn.li.fi/v1/relayer/quote",
+            "headers": [
+              {
+                "name": "x-lifi-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "fromChain",
+                "value": "DAI",
+                "type": "query",
+                "description": "The sending chain. Can be the chain id or chain key"
+              },
+              {
+                "name": "toChain",
+                "value": "POL",
+                "type": "query",
+                "description": "The receiving chain. Can be the chain id or chain key"
+              },
+              {
+                "name": "fromToken",
+                "value": "0x4ecaba5870353805a9f068101a40e0f32ed605c6",
+                "type": "query",
+                "description": "The token that should be transferred. Can be the address or the symbol"
+              },
+              {
+                "name": "toToken",
+                "value": "0x2791bca1f2de4661ed88a30c99a7a9449aa84174",
+                "type": "query",
+                "description": "The token that should be transferred to. Can be the address or the symbol"
+              },
+              {
+                "name": "fromAddress",
+                "value": "0x552008c0f6870c2f77e5cC1d2eb9bdff03e30Ea0",
+                "type": "query",
+                "description": "The sending wallet address"
+              },
+              {
+                "name": "toAddress",
+                "value": "0x552008c0f6870c2f77e5cC1d2eb9bdff03e30Ea0",
+                "type": "query",
+                "description": "The receiving wallet address. If none is provided, the fromAddress will be used"
+              },
+              {
+                "name": "fromAmount",
+                "value": "1000000",
+                "type": "query",
+                "description": "The amount that should be sent including all decimals (e.g. 1000000 for 1 USDC (6 decimals))"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Which kind of route should be preferred **FASTEST**: This sorting criterion prioritizes routes with the shortest estimated execution time. Users who value speed and want their transactions to be completed as quickly as possible should choose the fastest routes. **CHEAPEST**: This criterion focuses on minimizing the cost of the transaction, whether in token amount or USD amount (USD amount minus gas cost). Users looking for the most economical option should choose the cheapest routes."
+              },
+              {
+                "name": "slippage",
+                "value": "0.005",
+                "type": "query",
+                "description": "The maximum allowed slippage for the transaction as a decimal value. 0.005 represents 0.5%."
+              },
+              {
+                "name": "integrator",
+                "value": "fee-demo",
+                "type": "query",
+                "description": "A string containing tracking information about the integrator of the API"
+              },
+              {
+                "name": "fee",
+                "value": "0.02",
+                "type": "query",
+                "description": "The percent of the integrator's fee that is taken from every transaction. 0.02 represents 2%. The maximum fee amount should be less than 100%."
+              },
+              {
+                "name": "referrer",
+                "value": "",
+                "type": "query",
+                "description": "A string containing tracking information about the referrer of the integrator"
+              },
+              {
+                "name": "allowBridges",
+                "value": "hop,cbridge",
+                "type": "query",
+                "description": "List of bridges that are allowed for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint. Also values `all`, `none`, `default` and `[]` are acceptable and mean all tools of the current type (`all`), no tools (for `none` and `[]` cases) and default tool's settings on the current stage."
+              },
+              {
+                "name": "allowExchanges",
+                "value": "",
+                "type": "query",
+                "description": "List of exchanges that are allowed for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint. Also values `all`, `none`, `default` and `[]` are acceptable and mean all tools of the current type (`all`), no tools (for `none` and `[]` cases) and default tool's settings on the current stage."
+              },
+              {
+                "name": "denyBridges",
+                "value": "relay",
+                "type": "query",
+                "description": "List of bridges that are not allowed for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint. Also values `all`, `none`, `default` and `[]` are acceptable and mean all tools of the current type (`all`), no tools (for `none` and `[]` cases) and default tool's settings on the current stage."
+              },
+              {
+                "name": "denyExchanges",
+                "value": "",
+                "type": "query",
+                "description": "List of exchanges that are not allowed for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint. Also values `all`, `none`, `default` and `[]` are acceptable and mean all tools of the current type (`all`), no tools (for `none` and `[]` cases) and default tool's settings on the current stage."
+              },
+              {
+                "name": "preferBridges",
+                "value": "",
+                "type": "query",
+                "description": "List of bridges that should be preferred for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint. Also values `all`, `none`, `default` and `[]` are acceptable and mean all tools of the current type (`all`), no tools (for `none` and `[]` cases) and default tool's settings on the current stage."
+              },
+              {
+                "name": "preferExchanges",
+                "value": "",
+                "type": "query",
+                "description": "List of exchanges that should be preferred for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint. Also values `all`, `none`, `default` and `[]` are acceptable and mean all tools of the current type (`all`), no tools (for `none` and `[]` cases) and default tool's settings on the current stage."
+              },
+              {
+                "name": "allowDestinationCall",
+                "value": "",
+                "type": "query",
+                "description": "Whether swaps or other contract calls should be allowed as part of the destination transaction of a bridge transfer. Separate swap transactions on the destination chain are not affected by this flag. By default, parameter is `true`."
+              },
+              {
+                "name": "fromAmountForGas",
+                "value": "",
+                "type": "query",
+                "description": "The amount of the token to convert to gas on the destination side."
+              },
+              {
+                "name": "maxPriceImpact",
+                "value": "",
+                "type": "query",
+                "description": "The price impact threshold above which routes are hidden. As an example, one should specify 0.15 (15%) to hide routes with more than 15% price impact. The default is 10%."
+              },
+              {
+                "name": "swapStepTimingStrategies",
+                "value": "",
+                "type": "query",
+                "description": "Timing setting to wait for a certain amount of swap rates. In the format `minWaitTime-${minWaitTimeMs}-${startingExpectedResults}-${reduceEveryMs}`. Please check [docs.li.fi](https://docs.li.fi) for more details."
+              },
+              {
+                "name": "routeTimingStrategies",
+                "value": "",
+                "type": "query",
+                "description": "Timing setting to wait for a certain amount of routes to be generated before chosing the best one. In the format `minWaitTime-${minWaitTimeMs}-${startingExpectedResults}-${reduceEveryMs}`. Please check [docs.li.fi](https://docs.li.fi) for more details."
+              },
+              {
+                "name": "skipSimulation",
+                "value": "",
+                "type": "query",
+                "description": "Parameter to skip transaction simulation. The quote will be returned faster but the transaction gas limit won't be accurate."
+              }
+            ]
+          },
+          "docs": "This endpoint can be used to request a quote for a transfer of one token to another, cross chain or not.\nThe endpoint returns a `Step` object which contains information about the estimated result as well as a `transactionRequest` which can directly be sent to your wallet.\nThe estimated result can be found inside the `estimate`, containing the estimated `toAmount` of the requested `Token` and the `toAmountMin`, which is the guaranteed minimum value that the transfer will yield including slippage."
+        },
+        {
+          "info": {
+            "name": "Send a signed permit2 transaction to be dispatched by a transaction relayer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://earn.li.fi/v1/relayer/relay",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submits a gasless transaction to the relayer for execution on-chain."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,57 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LI.FI Earn advanced Calldata API",
+    "version": "0.1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-lifi-api-key",
+      "value": "{{x-lifi-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Calldata",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Parse transaction call data (BETA)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://earn.li.fi/v1/calldata/parse",
+            "headers": [
+              {
+                "name": "x-lifi-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "chainId",
+                "value": "",
+                "type": "query",
+                "description": "The chainId that the transaction is built for (or has been sent on)"
+              },
+              {
+                "name": "callData",
+                "value": "",
+                "type": "query",
+                "description": "The call data to parse"
+              }
+            ]
+          },
+          "docs": "This endpoint allows to pass transaction call data. It will then parse the call data based on known and on-chain ABIs to provide a JSON overview of the internal transaction information."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

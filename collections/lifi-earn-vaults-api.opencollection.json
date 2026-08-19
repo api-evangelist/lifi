@@ -1,0 +1,124 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LI.FI Earn advanced Earn Vaults API",
+    "version": "0.1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-lifi-api-key",
+      "value": "{{x-lifi-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Earn Vaults",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get vault by chain and address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://earn.li.fi/v1/vaults/:chainId/:address",
+            "params": [
+              {
+                "name": "address",
+                "value": "0x7BfA7C4f149E7415b73bdeDfe609237e29CBF34A",
+                "type": "path",
+                "description": "Vault contract address (0x-prefixed, 40 hex characters)."
+              },
+              {
+                "name": "chainId",
+                "value": "8453",
+                "type": "path",
+                "description": "EVM chain ID of the network the vault is deployed on."
+              }
+            ]
+          },
+          "docs": "Returns the full details for a single vault."
+        },
+        {
+          "info": {
+            "name": "List vaults with optional filtering",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://earn.li.fi/v1/vaults",
+            "params": [
+              {
+                "name": "chainId",
+                "value": "8453",
+                "type": "query",
+                "description": "Filter by EVM chain ID (e.g., `8453` for Base, `1` for Ethereum)."
+              },
+              {
+                "name": "asset",
+                "value": "USDC",
+                "type": "query",
+                "description": "Filter by underlying token symbol or address (e.g., `USDC`)."
+              },
+              {
+                "name": "protocol",
+                "value": "morpho-v1",
+                "type": "query",
+                "description": "Filter by protocol name (e.g., `morpho-v1`, `aave-v3`)."
+              },
+              {
+                "name": "minTvlUsd",
+                "value": "100000",
+                "type": "query",
+                "description": "Minimum TVL in USD. Use this to filter out low-liquidity vaults (e.g., `1000000` for $1M+)."
+              },
+              {
+                "name": "isTransactional",
+                "value": "true",
+                "type": "query",
+                "description": "Filter by whether the vault supports programmatic deposits and withdrawals via the Composer API. Pass `true` to return only transactional vaults."
+              },
+              {
+                "name": "isRedeemable",
+                "value": "true",
+                "type": "query",
+                "description": "Filter by whether the vault currently supports redemptions (withdrawals). Pass `true` to return only vaults that can be redeemed."
+              },
+              {
+                "name": "isComposerSupported",
+                "value": "true",
+                "type": "query",
+                "description": "Filter by whether the vault is fully supported by the LI.FI Composer. Pass `true` to return only vaults ready for end-to-end cross-chain deposit flows."
+              },
+              {
+                "name": "sortBy",
+                "value": "apy",
+                "type": "query",
+                "description": "Sort order for results. `apy` sorts by highest total APY first. `tvl` sorts by highest TVL first."
+              },
+              {
+                "name": "cursor",
+                "value": "eyJpZCI6MTAwfQ",
+                "type": "query",
+                "description": "Pagination cursor from a previous response's `nextCursor` field. Omit to start from the beginning."
+              },
+              {
+                "name": "limit",
+                "value": "10",
+                "type": "query",
+                "description": "Number of results per page. Defaults to `50`."
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of vaults with optional filtering and sorting."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,109 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LI.FI Earn advanced API",
+    "version": "0.1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-lifi-api-key",
+      "value": "{{x-lifi-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "advanced",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get information about available services, chains and tokens",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://earn.li.fi/v1/advanced/possibilities",
+            "headers": [
+              {
+                "name": "x-lifi-api-key",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get a set of current possibilities based on a request that specifies which chains, exchanges and bridges are preferred or unwanted.\n**Attention**: This request is more complex and intended to be used via our [JavaScript SDK](https://docs.li.fi/integrate-li.fi-js-sdk/install-li.fi-sdk)."
+        },
+        {
+          "info": {
+            "name": "Get a set of routes for a request that describes a transfer of tokens",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://earn.li.fi/v1/advanced/routes",
+            "headers": [
+              {
+                "name": "x-lifi-api-key",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "In order to execute any transfer, you must first request possible `Routes`. From the result set a `Route` can be selected and executed by retrieving the transaction for every included `Step` using the `/steps/transaction` endpoint.\n**Attention**: This request is more complex and intended to be used via our [JavaScript SDK](https://docs.li.fi/integrate-li.fi-js-sdk/install-li.fi-sdk)."
+        },
+        {
+          "info": {
+            "name": "Populate a step with transaction data",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://earn.li.fi/v1/advanced/stepTransaction",
+            "headers": [
+              {
+                "name": "x-lifi-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "skipSimulation",
+                "value": "",
+                "type": "query",
+                "description": "Parameter to skip transaction simulation. The quote will be returned faster but the transaction gas limit won't be accurate."
+              },
+              {
+                "name": "mayanNonEvmPermitSignature",
+                "value": "",
+                "type": "query",
+                "description": "Mayan specific option to bridge from non-EVM chain to Hyperliquid"
+              },
+              {
+                "name": "svmPriorityFeeLevel",
+                "value": "",
+                "type": "query",
+                "description": "Priority fee level for Solana Virtual Machine (SVM) transactions."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint expects a full `Step` object which usually is retrieved by calling the `/advanced/routes` endpoint and selecting the most suitable `Route`. Afterwards the transaction for every required `Step` can be retrieved using this endpoint.\n**Attention**: This request is more complex and intended to be used via our [JavaScript SDK](https://docs.li.fi/integrate-li.fi-js-sdk/install-li.fi-sdk)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
