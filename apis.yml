@@ -73,6 +73,8 @@ apis:
   humanURL: https://docs.li.fi/api-reference/introduction
   baseURL: https://li.quest
   tags:
+  - Advanced
+  tags_raw:
   - advanced
   properties:
   - type: OpenAPI
@@ -101,6 +103,8 @@ apis:
   humanURL: https://docs.li.fi/api-reference/introduction
   baseURL: https://li.quest
   tags:
+  - Call Data
+  tags_raw:
   - Calldata
   properties:
   - type: OpenAPI
@@ -227,6 +231,8 @@ apis:
   humanURL: https://docs.li.fi/api-reference/introduction
   baseURL: https://li.quest
   tags:
+  - Quotes
+  tags_raw:
   - Quote
   properties:
   - type: OpenAPI
