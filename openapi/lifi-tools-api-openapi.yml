@@ -1,14 +1,13 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: LI.FI Earn advanced Tools API
-  description: Enterprise DeFi yield discovery and tracking API
-  version: 0.1.0
-  contact: {}
+  title: LI.FI Tools API
+  version: 1.0.0
+  description: LI.FI provides the best cross-chain swap across all liquidity pools and bridges.
 servers:
-- url: https://earn.li.fi
-  description: Production
-security:
-- x-lifi-api-key: []
+- url: https://li.quest
+  description: LI.FI Production Environment
+- url: https://staging.li.quest
+  description: LI.FI Staging Environment
 tags:
 - name: Tools
 paths:
@@ -44,12 +43,17 @@ paths:
       - Tools
 components:
   schemas:
-    BridgesEnum:
-      type: string
-      description: Identifier for a bridge tool. Retrieve the latest bridge keys from the `/v1/tools` endpoint. Keywords such as `all`, `none`, `default`, and `[]` are also supported where applicable.
-    ExchangesEnum:
-      type: string
-      description: Identifier for an exchange tool. Retrieve the latest exchange keys from the `/v1/tools` endpoint. Keywords such as `all`, `none`, `default`, and `[]` are also supported where applicable.
+    Tools:
+      type: object
+      properties:
+        exchanges:
+          type: array
+          items:
+            $ref: '#/components/schemas/Exchange'
+        bridges:
+          type: array
+          items:
+            $ref: '#/components/schemas/Bridge'
     Bridge:
       type: object
       properties:
@@ -67,17 +71,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/SupportedChains'
-    Tools:
-      type: object
-      properties:
-        exchanges:
-          type: array
-          items:
-            $ref: '#/components/schemas/Exchange'
-        bridges:
-          type: array
-          items:
-            $ref: '#/components/schemas/Bridge'
     Exchange:
       type: object
       properties:
@@ -98,6 +91,12 @@ components:
           - '1'
           - '137'
           - '56'
+    BridgesEnum:
+      type: string
+      description: Identifier for a bridge tool. Retrieve the latest bridge keys from the `/v1/tools` endpoint. Keywords such as `all`, `none`, `default`, and `[]` are also supported where applicable.
+    ExchangesEnum:
+      type: string
+      description: Identifier for an exchange tool. Retrieve the latest exchange keys from the `/v1/tools` endpoint. Keywords such as `all`, `none`, `default`, and `[]` are also supported where applicable.
     SupportedChains:
       type: object
       properties:
@@ -116,8 +115,3 @@ components:
           schema:
             $ref: '#/components/schemas/Tools'
       description: Object listing all the currently enabled bridges and exchanges.
-  securitySchemes:
-    x-lifi-api-key:
-      type: apiKey
-      in: header
-      name: x-lifi-api-key

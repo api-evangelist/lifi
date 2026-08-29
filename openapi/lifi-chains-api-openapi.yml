@@ -1,14 +1,13 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: LI.FI Earn advanced Chains API
-  description: Enterprise DeFi yield discovery and tracking API
-  version: 0.1.0
-  contact: {}
+  title: LI.FI Chains API
+  version: 1.0.0
+  description: LI.FI provides the best cross-chain swap across all liquidity pools and bridges.
 servers:
-- url: https://earn.li.fi
-  description: Production
-security:
-- x-lifi-api-key: []
+- url: https://li.quest
+  description: LI.FI Production Environment
+- url: https://staging.li.quest
+  description: LI.FI Staging Environment
 tags:
 - name: Chains
 paths:
@@ -47,52 +46,102 @@ paths:
       - Chains
 components:
   schemas:
-    Token:
-      title: Root Type for Token
-      description: Representation of a Token
+    Chain:
+      title: Root Type for Chain
+      description: Representation of a chain
       required:
-      - address
-      - chainId
-      - decimals
+      - coin
+      - id
+      - key
+      - mainnet
       - name
-      - symbol
       type: object
       properties:
-        address:
-          description: Address of the token
+        key:
+          description: Short string represenation of the chain
           type: string
-        decimals:
-          format: number
-          description: Number of decimals the token uses
-          type: number
-        symbol:
-          description: Symbol of the token
-          type: string
-        chainId:
-          format: number
-          description: Id of the token's chain
-          type: number
-        coinKey:
-          description: Identifier for the token
+        chainType:
+          description: Type of the chain
           type: string
         name:
-          description: Name of the token
+          description: Name of the chain
           type: string
+        coin:
+          description: The native coin of the chain
+          type: string
+        id:
+          format: number
+          description: Unique id of the chain
+          type: number
+        mainnet:
+          description: Whether the chain is mainnet or not
+          type: boolean
         logoURI:
-          description: Logo of the token
+          description: Logo of the chain
           type: string
-        priceUSD:
-          description: Token price in USD
+        tokenlistUrl:
+          description: Url to the list of available tokens
           type: string
+        faucetUrls:
+          description: List of available faucets
+          type: array
+          items:
+            type: string
+        multicallAddress:
+          description: The multicall contract address
+          type: string
+        metamask:
+          description: Information about the chain from metamask. Contains data about RPCs and block explorers
+          type: object
+          properties:
+            chainId:
+              type: string
+            blockExplorerUrls:
+              type: array
+              items:
+                type: string
+            chainName:
+              type: string
+            nativeCurrency:
+              type: object
+              properties:
+                name:
+                  type: string
+                symbol:
+                  type: string
+                decimals:
+                  format: number
+                  type: number
+            rpcUrls:
+              type: array
+              items:
+                type: string
+        nativeToken:
+          $ref: '#/components/schemas/Token'
+          description: The native token info for the chain
       example:
-        address: '0x8f3cf7ad23cd3cadbd9735aff958023239c6a063'
-        symbol: DAI
-        decimals: 18
-        chainId: 137
-        name: (PoS) Dai Stablecoin
-        coinKey: DAI
-        priceUSD: '1'
-        logoURI: https://static.debank.com/image/matic_token/logo_url/0x8f3cf7ad23cd3cadbd9735aff958023239c6a063/549c4205dbb199f1b8b03af783f35e71.png
+        key: pol
+        name: Polygon
+        coin: MATIC
+        id: 137
+        mainnet: true
+        logoURI: https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/polygon.svg
+        tokenlistUrl: https://unpkg.com/quickswap-default-token-list@1.0.71/build/quickswap-default.tokenlist.json
+        faucetUrls:
+        - https://stakely.io/faucet/polygon-matic
+        metamask:
+          chainId: '0x89'
+          blockExplorerUrls:
+          - https://polygonscan.com/
+          - https://explorer-mainnet.maticvigil.com/
+          chainName: Matic(Polygon) Mainnet
+          nativeCurrency:
+            name: MATIC
+            symbol: MATIC
+            decimals: 18
+          rpcUrls:
+          - https://polygon-rpc.com/
+          - https://polygon.llamarpc.com/
     ChainsResponse:
       title: Root Type for ChainsResponse
       description: ''
@@ -219,102 +268,52 @@ components:
             - https://rpc.gnosischain.com/
             - https://rpc.xdaichain.com/
             - https://dai.poa.network/
-    Chain:
-      title: Root Type for Chain
-      description: Representation of a chain
+    Token:
+      title: Root Type for Token
+      description: Representation of a Token
       required:
-      - coin
-      - id
-      - key
-      - mainnet
+      - address
+      - chainId
+      - decimals
       - name
+      - symbol
       type: object
       properties:
-        key:
-          description: Short string represenation of the chain
+        address:
+          description: Address of the token
           type: string
-        chainType:
-          description: Type of the chain
+        decimals:
+          format: number
+          description: Number of decimals the token uses
+          type: number
+        symbol:
+          description: Symbol of the token
+          type: string
+        chainId:
+          format: number
+          description: Id of the token's chain
+          type: number
+        coinKey:
+          description: Identifier for the token
           type: string
         name:
-          description: Name of the chain
+          description: Name of the token
           type: string
-        coin:
-          description: The native coin of the chain
-          type: string
-        id:
-          format: number
-          description: Unique id of the chain
-          type: number
-        mainnet:
-          description: Whether the chain is mainnet or not
-          type: boolean
         logoURI:
-          description: Logo of the chain
+          description: Logo of the token
           type: string
-        tokenlistUrl:
-          description: Url to the list of available tokens
+        priceUSD:
+          description: Token price in USD
           type: string
-        faucetUrls:
-          description: List of available faucets
-          type: array
-          items:
-            type: string
-        multicallAddress:
-          description: The multicall contract address
-          type: string
-        metamask:
-          description: Information about the chain from metamask. Contains data about RPCs and block explorers
-          type: object
-          properties:
-            chainId:
-              type: string
-            blockExplorerUrls:
-              type: array
-              items:
-                type: string
-            chainName:
-              type: string
-            nativeCurrency:
-              type: object
-              properties:
-                name:
-                  type: string
-                symbol:
-                  type: string
-                decimals:
-                  format: number
-                  type: number
-            rpcUrls:
-              type: array
-              items:
-                type: string
-        nativeToken:
-          $ref: '#/components/schemas/Token'
-          description: The native token info for the chain
       example:
-        key: pol
-        name: Polygon
-        coin: MATIC
-        id: 137
-        mainnet: true
-        logoURI: https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/polygon.svg
-        tokenlistUrl: https://unpkg.com/quickswap-default-token-list@1.0.71/build/quickswap-default.tokenlist.json
-        faucetUrls:
-        - https://stakely.io/faucet/polygon-matic
-        metamask:
-          chainId: '0x89'
-          blockExplorerUrls:
-          - https://polygonscan.com/
-          - https://explorer-mainnet.maticvigil.com/
-          chainName: Matic(Polygon) Mainnet
-          nativeCurrency:
-            name: MATIC
-            symbol: MATIC
-            decimals: 18
-          rpcUrls:
-          - https://polygon-rpc.com/
-          - https://polygon.llamarpc.com/
+        address: '0x8f3cf7ad23cd3cadbd9735aff958023239c6a063'
+        symbol: DAI
+        decimals: 18
+        chainId: 137
+        name: (PoS) Dai Stablecoin
+        coinKey: DAI
+        priceUSD: '1'
+        logoURI: https://static.debank.com/image/matic_token/logo_url/0x8f3cf7ad23cd3cadbd9735aff958023239c6a063/549c4205dbb199f1b8b03af783f35e71.png
   responses:
     ChainsResponse:
       content:
@@ -483,8 +482,3 @@ components:
                     logoURI: https://static.debank.com/image/xdai_token/logo_url/xdai/1207e67652b691ef3bfe04f89f4b5362.png
                     priceUSD: '1.0002'
       description: ''
-  securitySchemes:
-    x-lifi-api-key:
-      type: apiKey
-      in: header
-      name: x-lifi-api-key

@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: LI.FI Earn advanced Earn Vaults API
+  title: LI.FI Earn Earn Vaults API
   description: Enterprise DeFi yield discovery and tracking API
   version: 0.1.0
   contact: {}
@@ -294,6 +294,65 @@ paths:
                 $ref: '#/components/schemas/ValidationError'
 components:
   schemas:
+    NotFoundError:
+      type: object
+      additionalProperties: false
+      required:
+      - statusCode
+      - message
+      properties:
+        statusCode:
+          type: integer
+          description: HTTP status code.
+          example: 404
+        message:
+          type: string
+          description: Error message describing what was not found.
+          example: Vault not found
+    ValidationError:
+      type: object
+      additionalProperties: false
+      required:
+      - statusCode
+      - message
+      - errors
+      properties:
+        statusCode:
+          type: number
+          description: HTTP status code. Always `400` for validation errors.
+          example: 400
+        message:
+          type: string
+          description: Human-readable summary of the validation failure.
+          example: Validation failed
+        errors:
+          type: array
+          description: List of individual validation errors.
+          items:
+            type: object
+            additionalProperties: false
+            required:
+            - code
+            - message
+            - path
+            properties:
+              code:
+                type: string
+                description: Machine-readable error code.
+                example: invalid_type
+              message:
+                type: string
+                description: Description of this specific validation failure.
+                example: Expected integer, received string
+              path:
+                type: array
+                description: JSON path to the field that failed validation.
+                items:
+                  oneOf:
+                  - type: string
+                  - type: number
+                example:
+                - chainId
     Vault:
       type: object
       additionalProperties: false
@@ -473,13 +532,15 @@ components:
               - total
               properties:
                 base:
-                  type: number
-                  nullable: true
+                  type:
+                  - number
+                  - 'null'
                   description: Base APY from lending fees and protocol yield, expressed as a decimal (e.g., `0.0534` = 5.34%). Null if unavailable.
                   example: 0.0534
                 reward:
-                  type: number
-                  nullable: true
+                  type:
+                  - number
+                  - 'null'
                   description: Additional APY from token incentives, expressed as a decimal. Null if no rewards.
                   example: null
                 total:
@@ -487,13 +548,15 @@ components:
                   description: Total APY (base + reward), expressed as a decimal.
                   example: 0.0534
             apy1d:
-              type: number
-              nullable: true
+              type:
+              - number
+              - 'null'
               description: 1-day trailing APY, expressed as a decimal. Null if insufficient data.
               example: 0.0521
             apy7d:
-              type: number
-              nullable: true
+              type:
+              - number
+              - 'null'
               description: 7-day trailing APY, expressed as a decimal. Null if insufficient data.
               example: 0.0538
             apy30d:
@@ -598,65 +661,6 @@ components:
                 - instant
                 - complex
                 example: instant
-    ValidationError:
-      type: object
-      additionalProperties: false
-      required:
-      - statusCode
-      - message
-      - errors
-      properties:
-        statusCode:
-          type: number
-          description: HTTP status code. Always `400` for validation errors.
-          example: 400
-        message:
-          type: string
-          description: Human-readable summary of the validation failure.
-          example: Validation failed
-        errors:
-          type: array
-          description: List of individual validation errors.
-          items:
-            type: object
-            additionalProperties: false
-            required:
-            - code
-            - message
-            - path
-            properties:
-              code:
-                type: string
-                description: Machine-readable error code.
-                example: invalid_type
-              message:
-                type: string
-                description: Description of this specific validation failure.
-                example: Expected integer, received string
-              path:
-                type: array
-                description: JSON path to the field that failed validation.
-                items:
-                  oneOf:
-                  - type: string
-                  - type: number
-                example:
-                - chainId
-    NotFoundError:
-      type: object
-      additionalProperties: false
-      required:
-      - statusCode
-      - message
-      properties:
-        statusCode:
-          type: integer
-          description: HTTP status code.
-          example: 404
-        message:
-          type: string
-          description: Error message describing what was not found.
-          example: Vault not found
   securitySchemes:
     x-lifi-api-key:
       type: apiKey

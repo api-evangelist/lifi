@@ -1,14 +1,13 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: LI.FI Earn advanced Integrators API
-  description: Enterprise DeFi yield discovery and tracking API
-  version: 0.1.0
-  contact: {}
+  title: LI.FI Integrators API
+  version: 1.0.0
+  description: LI.FI provides the best cross-chain swap across all liquidity pools and bridges.
 servers:
-- url: https://earn.li.fi
-  description: Production
-security:
-- x-lifi-api-key: []
+- url: https://li.quest
+  description: LI.FI Production Environment
+- url: https://staging.li.quest
+  description: LI.FI Staging Environment
 tags:
 - name: Integrators
 paths:
@@ -86,62 +85,24 @@ paths:
       tags:
       - Integrators
 components:
-  responses:
-    InvalidIntegratorWithdrawalRequest:
-      description: None of the requested tokens has a balance
-    InvalidIntegratorRequest:
-      description: Integrator with the name ${integratorId} is not found
-    IntegratorResponse:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/IntegratorResponse'
-          examples:
-            ExampleIntegratorResponse:
-              value:
-                integratorId: fee-demo
-                feeBalances:
-                - chainId: 137
-                  tokenBalances:
-                  - token:
-                      address: '0x0000000000000000000000000000000000000000'
-                      symbol: MATIC
-                      decimals: 18
-                      chainId: 137
-                      name: MATIC
-                      coinKey: MATIC
-                      priceUSD: '0.742896'
-                      logoURI: https://static.debank.com/image/matic_token/logo_url/matic/6f5a6b6f0732a7a235131bd7804d357c.png
-                    amount: 0
-                    amountUsd: 0
-      description: Response of the Integrator request
-    IntegratorWithdrawalTransactionResponse:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/IntegratorWithdrawalResponse'
-          examples:
-            ExampleIntegratorResponse:
-              value:
-                transactionRequest:
-                  data: 0x
-                  to: '0xbD6C7B0d2f68c2b7805d88388319cfB6EcB50eA9'
-      description: Response of the integrator's fee withdrawal transaction request
   schemas:
-    TokenBalances:
+    IntegratorWithdrawalResponse:
+      title: Root Type for IntegratorWithdrawalResponse
+      description: Transaction request for withdrawing integrator's collected fees for the specified chain
+      required:
+      - transactionRequest
       type: object
       properties:
-        token:
-          $ref: '#/components/schemas/Token'
+        transactionRequest:
+          description: The transaction request
           type: object
-        amount:
-          description: Fee amount in tokens
-          type: string
-          example: '0'
-        amountUsd:
-          description: Fee amount in USD
-          type: string
-          example: '0'
+          properties:
+            data:
+              description: The transaction's data
+              type: string
+            to:
+              description: The FeeCollector's contract address for the specified chain
+              type: string
     IntegratorResponse:
       title: Root Type for IntegratorResponse
       description: Integrator's fee balance by chain
@@ -173,6 +134,17 @@ components:
               logoURI: https://static.debank.com/image/matic_token/logo_url/matic/6f5a6b6f0732a7a235131bd7804d357c.png
             amount: 0
             amountUsd: 0
+    FeeBalances:
+      type: object
+      properties:
+        chainId:
+          description: The id of the chain
+          type: number
+          example: 137
+        tokenBalances:
+          type: array
+          items:
+            $ref: '#/components/schemas/TokenBalances'
     Token:
       title: Root Type for Token
       description: Representation of a Token
@@ -219,36 +191,58 @@ components:
         coinKey: DAI
         priceUSD: '1'
         logoURI: https://static.debank.com/image/matic_token/logo_url/0x8f3cf7ad23cd3cadbd9735aff958023239c6a063/549c4205dbb199f1b8b03af783f35e71.png
-    FeeBalances:
+    TokenBalances:
       type: object
       properties:
-        chainId:
-          description: The id of the chain
-          type: number
-          example: 137
-        tokenBalances:
-          type: array
-          items:
-            $ref: '#/components/schemas/TokenBalances'
-    IntegratorWithdrawalResponse:
-      title: Root Type for IntegratorWithdrawalResponse
-      description: Transaction request for withdrawing integrator's collected fees for the specified chain
-      required:
-      - transactionRequest
-      type: object
-      properties:
-        transactionRequest:
-          description: The transaction request
+        token:
+          $ref: '#/components/schemas/Token'
           type: object
-          properties:
-            data:
-              description: The transaction's data
-              type: string
-            to:
-              description: The FeeCollector's contract address for the specified chain
-              type: string
-  securitySchemes:
-    x-lifi-api-key:
-      type: apiKey
-      in: header
-      name: x-lifi-api-key
+        amount:
+          description: Fee amount in tokens
+          type: string
+          example: '0'
+        amountUsd:
+          description: Fee amount in USD
+          type: string
+          example: '0'
+  responses:
+    InvalidIntegratorWithdrawalRequest:
+      description: None of the requested tokens has a balance
+    InvalidIntegratorRequest:
+      description: Integrator with the name ${integratorId} is not found
+    IntegratorWithdrawalTransactionResponse:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/IntegratorWithdrawalResponse'
+          examples:
+            ExampleIntegratorResponse:
+              value:
+                transactionRequest:
+                  data: 0x
+                  to: '0xbD6C7B0d2f68c2b7805d88388319cfB6EcB50eA9'
+      description: Response of the integrator's fee withdrawal transaction request
+    IntegratorResponse:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/IntegratorResponse'
+          examples:
+            ExampleIntegratorResponse:
+              value:
+                integratorId: fee-demo
+                feeBalances:
+                - chainId: 137
+                  tokenBalances:
+                  - token:
+                      address: '0x0000000000000000000000000000000000000000'
+                      symbol: MATIC
+                      decimals: 18
+                      chainId: 137
+                      name: MATIC
+                      coinKey: MATIC
+                      priceUSD: '0.742896'
+                      logoURI: https://static.debank.com/image/matic_token/logo_url/matic/6f5a6b6f0732a7a235131bd7804d357c.png
+                    amount: 0
+                    amountUsd: 0
+      description: Response of the Integrator request

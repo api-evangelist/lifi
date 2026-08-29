@@ -1,14 +1,13 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: LI.FI Earn advanced Status API
-  description: Enterprise DeFi yield discovery and tracking API
-  version: 0.1.0
-  contact: {}
+  title: LI.FI Status API
+  version: 1.0.0
+  description: LI.FI provides the best cross-chain swap across all liquidity pools and bridges.
 servers:
-- url: https://earn.li.fi
-  description: Production
-security:
-- x-lifi-api-key: []
+- url: https://li.quest
+  description: LI.FI Production Environment
+- url: https://staging.li.quest
+  description: LI.FI Staging Environment
 tags:
 - name: Status
 paths:
@@ -65,9 +64,6 @@ paths:
       - Status
 components:
   schemas:
-    BridgesEnum:
-      type: string
-      description: Identifier for a bridge tool. Retrieve the latest bridge keys from the `/v1/tools` endpoint. Keywords such as `all`, `none`, `default`, and `[]` are also supported where applicable.
     IncludedSwapSteps:
       title: Root type for included swaps or protocol steps in the status response
       description: The included steps contain tool name and details, sending and receiving token data and amounts.
@@ -104,6 +100,9 @@ components:
         bridgedAmount:
           description: The amount that was sent to the bridge
           type: string
+    BridgesEnum:
+      type: string
+      description: Identifier for a bridge tool. Retrieve the latest bridge keys from the `/v1/tools` endpoint. Keywords such as `all`, `none`, `default`, and `[]` are also supported where applicable.
     TransactionInfo:
       title: Root Type for TransactionInfo
       description: A transaction info object
@@ -185,6 +184,60 @@ components:
         gasUsed: '1000'
         timestamp: 1720545119
         value: '0'
+    Token:
+      title: Root Type for Token
+      description: Representation of a Token
+      required:
+      - address
+      - chainId
+      - decimals
+      - name
+      - symbol
+      type: object
+      properties:
+        address:
+          description: Address of the token
+          type: string
+        decimals:
+          format: number
+          description: Number of decimals the token uses
+          type: number
+        symbol:
+          description: Symbol of the token
+          type: string
+        chainId:
+          format: number
+          description: Id of the token's chain
+          type: number
+        coinKey:
+          description: Identifier for the token
+          type: string
+        name:
+          description: Name of the token
+          type: string
+        logoURI:
+          description: Logo of the token
+          type: string
+        priceUSD:
+          description: Token price in USD
+          type: string
+      example:
+        address: '0x8f3cf7ad23cd3cadbd9735aff958023239c6a063'
+        symbol: DAI
+        decimals: 18
+        chainId: 137
+        name: (PoS) Dai Stablecoin
+        coinKey: DAI
+        priceUSD: '1'
+        logoURI: https://static.debank.com/image/matic_token/logo_url/0x8f3cf7ad23cd3cadbd9735aff958023239c6a063/549c4205dbb199f1b8b03af783f35e71.png
+    Metadata:
+      title: Root type for Transaction Metadata
+      description: The metadata of the transaction which includes integrator data, etc.
+      type: object
+      properties:
+        integrator:
+          description: Integrator ID
+          type: string
     StatusResponse:
       title: Root Type for StatusResponse
       description: The current status of a transfer
@@ -348,63 +401,7 @@ components:
         lifiExplorerLink: https://scan.li.fi/tx/0xd3ad8fb8798d8440f3a1ec7fd51e102a88e4690f9365fad4eff1a17020376b4a
         metadata:
           integrator: jumper.exchange
-    Metadata:
-      title: Root type for Transaction Metadata
-      description: The metadata of the transaction which includes integrator data, etc.
-      type: object
-      properties:
-        integrator:
-          description: Integrator ID
-          type: string
-    Token:
-      title: Root Type for Token
-      description: Representation of a Token
-      required:
-      - address
-      - chainId
-      - decimals
-      - name
-      - symbol
-      type: object
-      properties:
-        address:
-          description: Address of the token
-          type: string
-        decimals:
-          format: number
-          description: Number of decimals the token uses
-          type: number
-        symbol:
-          description: Symbol of the token
-          type: string
-        chainId:
-          format: number
-          description: Id of the token's chain
-          type: number
-        coinKey:
-          description: Identifier for the token
-          type: string
-        name:
-          description: Name of the token
-          type: string
-        logoURI:
-          description: Logo of the token
-          type: string
-        priceUSD:
-          description: Token price in USD
-          type: string
-      example:
-        address: '0x8f3cf7ad23cd3cadbd9735aff958023239c6a063'
-        symbol: DAI
-        decimals: 18
-        chainId: 137
-        name: (PoS) Dai Stablecoin
-        coinKey: DAI
-        priceUSD: '1'
-        logoURI: https://static.debank.com/image/matic_token/logo_url/0x8f3cf7ad23cd3cadbd9735aff958023239c6a063/549c4205dbb199f1b8b03af783f35e71.png
   responses:
-    InvalidStatusRequest:
-      description: The passed parameters are invalid
     StatusResponse:
       content:
         application/json:
@@ -544,8 +541,5 @@ components:
                   integrator: dev.jumper.exchange
                 bridgeExplorerLink: https://layerzeroscan.com/tx/0xe1ffdcf09d5aa92a2d89b1b39db3f8cadf09428a296cce0d5e387595ac83d08f
       description: Response of the Status request
-  securitySchemes:
-    x-lifi-api-key:
-      type: apiKey
-      in: header
-      name: x-lifi-api-key
+    InvalidStatusRequest:
+      description: The passed parameters are invalid

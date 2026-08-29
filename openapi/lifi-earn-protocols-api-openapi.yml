@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: LI.FI Earn advanced Earn Protocols API
+  title: LI.FI Earn Earn Protocols API
   description: Enterprise DeFi yield discovery and tracking API
   version: 0.1.0
   contact: {}

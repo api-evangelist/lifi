@@ -1,14 +1,13 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: LI.FI Earn advanced Gas API
-  description: Enterprise DeFi yield discovery and tracking API
-  version: 0.1.0
-  contact: {}
+  title: LI.FI Gas API
+  version: 1.0.0
+  description: LI.FI provides the best cross-chain swap across all liquidity pools and bridges.
 servers:
-- url: https://earn.li.fi
-  description: Production
-security:
-- x-lifi-api-key: []
+- url: https://li.quest
+  description: LI.FI Production Environment
+- url: https://staging.li.quest
+  description: LI.FI Staging Environment
 tags:
 - name: Gas
 paths:
@@ -139,17 +138,41 @@ paths:
       description: This endpoint can be used to get the most recent gas prices for the supplied chainId.
 components:
   schemas:
-    GasPrice:
+    LIFuelStatus:
       type: object
       properties:
-        standard:
+        status:
+          $ref: '#/components/schemas/LIFuelStatusStateEnum'
+        sending:
+          $ref: '#/components/schemas/TxInfo'
+        receiving:
+          $ref: '#/components/schemas/TxInfo'
+    LIFuelStatusStateEnum:
+      enum:
+      - NOT_FOUND
+      - PENDING
+      - DONE
+    TxInfo:
+      type: object
+      properties:
+        txHash:
+          type: string
+          example: '0x74546ce8aac58d33c212474293dcfeeadecef115847da75131a2ff6692e03b96'
+        txLink:
+          type: string
+          example: https://polygonscan.com/tx/0x74546ce8aac58d33c212474293dcfeeadecef115847da75131a2ff6692e03b96
+        amount:
+          description: The amount of token that will be / has been relayed
+          type: string
+          example: '10000'
+        token:
+          $ref: '#/components/schemas/Token'
+        chainId:
           type: number
-        fast:
+          example: 137
+        block:
           type: number
-        fastest:
-          type: number
-        lastUpdated:
-          type: number
+          example: 39397739
     Token:
       title: Root Type for Token
       description: Representation of a Token
@@ -196,42 +219,24 @@ components:
         coinKey: DAI
         priceUSD: '1'
         logoURI: https://static.debank.com/image/matic_token/logo_url/0x8f3cf7ad23cd3cadbd9735aff958023239c6a063/549c4205dbb199f1b8b03af783f35e71.png
-    LIFuelStatus:
+    GasPrice:
       type: object
       properties:
-        status:
-          $ref: '#/components/schemas/LIFuelStatusStateEnum'
-        sending:
-          $ref: '#/components/schemas/TxInfo'
-        receiving:
-          $ref: '#/components/schemas/TxInfo'
-    TxInfo:
-      type: object
-      properties:
-        txHash:
-          type: string
-          example: '0x74546ce8aac58d33c212474293dcfeeadecef115847da75131a2ff6692e03b96'
-        txLink:
-          type: string
-          example: https://polygonscan.com/tx/0x74546ce8aac58d33c212474293dcfeeadecef115847da75131a2ff6692e03b96
-        amount:
-          description: The amount of token that will be / has been relayed
-          type: string
-          example: '10000'
-        token:
-          $ref: '#/components/schemas/Token'
-        chainId:
+        standard:
           type: number
-          example: 137
-        block:
+        fast:
           type: number
-          example: 39397739
-    LIFuelStatusStateEnum:
-      enum:
-      - NOT_FOUND
-      - PENDING
-      - DONE
+        fastest:
+          type: number
+        lastUpdated:
+          type: number
   responses:
+    LIFuelStatusResponse:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/LIFuelStatus'
+      description: The status of a lifuel operation
     GasSuggestionResponse:
       description: "{\n    \"available\": true,\n    \"recommended\": {\n        \"token\": {\n            \"address\": \"0x0000000000000000000000000000000000000000\",\n            \"chainId\": 137,\n            \"symbol\": \"MATIC\",\n            \"decimals\": 18,\n            \"name\": \"MATIC\",\n            \"priceUSD\": \"1.219821\",\n            \"logoURI\": \"https://static.debank.com/image/matic_token/logo_url/matic/6f5a6b6f0732a7a235131bd7804d357c.png\",\n            \"coinKey\": \"MATIC\"\n        },\n        \"amount\": \"190510922050970750\",\n        \"amountUsd\": \"0.23\"\n    },\n    \"limit\": {\n        \"token\": {\n            \"address\": \"0x0000000000000000000000000000000000000000\",\n            \"chainId\": 137,\n            \"symbol\": \"MATIC\",\n            \"decimals\": 18,\n            \"name\": \"MATIC\",\n            \"priceUSD\": \"1.219821\",\n            \"logoURI\": \"https://static.debank.com/image/matic_token/logo_url/matic/6f5a6b6f0732a7a235131bd7804d357c.png\",\n            \"coinKey\": \"MATIC\"\n        },\n        \"amount\": \"1639584824330782959\",\n        \"amountUsd\": \"2\"\n    },\n    \"fromToken\": {\n        \"address\": \"eth\",\n        \"symbol\": \"ETH\",\n        \"decimals\": 18,\n        \"chainId\": 1,\n        \"name\": \"ETH\",\n        \"coinKey\": \"ETH\",\n        \"priceUSD\": \"1622.39\",\n        \"logoURI\": \"https://static.debank.com/image/token/logo_url/eth/935ae4e4d1d12d59a99717a24f2540b5.png\"\n    },\n    \"fromAmount\": \"141766159801281\"\n}"
     GasPricesResponse:
@@ -242,14 +247,3 @@ components:
       description: Gas Prices for the supplied chainID
     InvalidRoutesRequest:
       description: Invalid Routes Request
-    LIFuelStatusResponse:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/LIFuelStatus'
-      description: The status of a lifuel operation
-  securitySchemes:
-    x-lifi-api-key:
-      type: apiKey
-      in: header
-      name: x-lifi-api-key

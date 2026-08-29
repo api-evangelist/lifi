@@ -1,14 +1,13 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: LI.FI Earn advanced Token API
-  description: Enterprise DeFi yield discovery and tracking API
-  version: 0.1.0
-  contact: {}
+  title: LI.FI Token API
+  version: 1.0.0
+  description: LI.FI provides the best cross-chain swap across all liquidity pools and bridges.
 servers:
-- url: https://earn.li.fi
-  description: Production
-security:
-- x-lifi-api-key: []
+- url: https://li.quest
+  description: LI.FI Production Environment
+- url: https://staging.li.quest
+  description: LI.FI Staging Environment
 tags:
 - name: Token
 paths:
@@ -49,8 +48,8 @@ paths:
       - Token
 components:
   responses:
-    NoTokenFound:
-      description: No token found for the given address and chain
+    InvalidChainResponse:
+      description: User passed an invalid chain id or abbreviation
     TokenResponse:
       content:
         application/json:
@@ -70,8 +69,8 @@ components:
                 priceUSD: '1'
                 logoURI: https://static.debank.com/image/matic_token/logo_url/0x8f3cf7ad23cd3cadbd9735aff958023239c6a063/549c4205dbb199f1b8b03af783f35e71.png
       description: ''
-    InvalidChainResponse:
-      description: User passed an invalid chain id or abbreviation
+    NoTokenFound:
+      description: No token found for the given address and chain
   schemas:
     Token:
       title: Root Type for Token
@@ -119,8 +118,3 @@ components:
         coinKey: DAI
         priceUSD: '1'
         logoURI: https://static.debank.com/image/matic_token/logo_url/0x8f3cf7ad23cd3cadbd9735aff958023239c6a063/549c4205dbb199f1b8b03af783f35e71.png
-  securitySchemes:
-    x-lifi-api-key:
-      type: apiKey
-      in: header
-      name: x-lifi-api-key

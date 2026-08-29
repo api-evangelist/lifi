@@ -1,14 +1,13 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: LI.FI Earn advanced Relayer API
-  description: Enterprise DeFi yield discovery and tracking API
-  version: 0.1.0
-  contact: {}
+  title: LI.FI Relayer API
+  version: 1.0.0
+  description: LI.FI provides the best cross-chain swap across all liquidity pools and bridges.
 servers:
-- url: https://earn.li.fi
-  description: Production
-security:
-- x-lifi-api-key: []
+- url: https://li.quest
+  description: LI.FI Production Environment
+- url: https://staging.li.quest
+  description: LI.FI Staging Environment
 tags:
 - name: Relayer
 paths:
@@ -104,10 +103,9 @@ paths:
         name: fee
         description: The percent of the integrator's fee that is taken from every transaction. 0.02 represents 2%. The maximum fee amount should be less than 100%.
         schema:
-          maximum: 1
-          exclusiveMaximum: true
           minimum: 0
           type: number
+          exclusiveMaximum: 1
         in: query
       - name: referrer
         description: A string containing tracking information about the referrer of the integrator
@@ -238,235 +236,61 @@ paths:
       - Relayer
 components:
   schemas:
-    RelayWithnessType:
-      title: Root Type for RelayWithnessType
+    PermittedTokenSchema:
+      title: Root Type for PermittedTokenSchema
       description: ''
       type: object
       properties:
-        LiFiCall:
-          type: array
-          items:
-            $ref: '#/components/schemas/RelayWitnessParameters'
+        token:
+          type: string
+        amount:
+          type: string
       example:
-        LiFiCall:
-        - type: address
-          name: diamondAddress
-        - type: bytes32
-          name: diamondCalldataHash
-    RelayQuoteData:
-      title: Root Type for RelayQuoteData
-      description: ''
-      type: object
-      properties:
-        quote:
-          $ref: '#/components/schemas/RelayQuote'
-          properties:
-            tokenOwner:
-              type: string
-            chainId:
-              format: int32
-              type: integer
-            permit:
-              type: object
-              properties:
-                permitted:
-                  type: object
-                  properties:
-                    token:
-                      type: string
-                    amount:
-                      type: string
-                spender:
-                  type: string
-                nonce:
-                  type: string
-                deadline:
-                  format: int32
-                  type: integer
-            witness:
-              type: object
-              properties:
-                witnessType:
-                  type: object
-                  properties:
-                    LiFiCall:
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          type:
-                            type: string
-                          name:
-                            type: string
-                witnessTypeName:
-                  type: string
-                witness:
-                  type: object
-                  properties:
-                    diamondAddress:
-                      type: string
-                    diamondCalldataHash:
-                      type: string
-            permitData:
-              type: object
-              properties:
-                domain:
-                  type: object
-                  properties:
-                    name:
-                      type: string
-                    chainId:
-                      format: int32
-                      type: integer
-                    verifyingContract:
-                      type: string
-                types:
-                  type: object
-                  properties:
-                    PermitWitnessTransferFrom:
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          type:
-                            type: string
-                          name:
-                            type: string
-                    TokenPermissions:
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          type:
-                            type: string
-                          name:
-                            type: string
-                    LiFiCall:
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          type:
-                            type: string
-                          name:
-                            type: string
-                values:
-                  type: object
-                  properties:
-                    permitted:
-                      type: object
-                      properties:
-                        token:
-                          type: string
-                        amount:
-                          type: string
-                    spender:
-                      type: string
-                    nonce:
-                      type: string
-                    deadline:
-                      format: int32
-                      type: integer
-                    witness:
-                      type: object
-                      properties:
-                        diamondAddress:
-                          type: string
-                        diamondCalldataHash:
-                          type: string
-            step:
-              type: object
-        approvalTxs:
-          type: array
-          items:
-            $ref: '#/components/schemas/ContractTransactionSchema'
-      example:
-        quote:
-          tokenOwner: '0xb9c0dE368BECE5e76B52545a8E377a4C118f597B'
-          chainId: 137
-          permit:
-            permitted:
-              token: '0xc2132D05D31c914a87C6611C10748AEb04B58e8F'
-              amount: '1000000'
-            spender: '0x6307119078556Fc8aD77781DFC67df20d75FB4f9'
-            nonce: '19'
-            deadline: 1738149521625
-          witness:
-            witnessType:
-              LiFiCall:
-              - type: address
-                name: diamondAddress
-              - type: bytes32
-                name: diamondCalldataHash
-            witnessTypeName: LiFiCall
-            witness:
-              diamondAddress: '0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE'
-              diamondCalldataHash: '0x78c758554f4213645a8ebcaa5c5c3eb7e6db4b90cf37df4adb54fb92a7fb2a78'
-          permitData:
-            domain:
-              name: Permit2
-              chainId: 137
-              verifyingContract: '0x000000000022D473030F116dDEE9F6B43aC78BA3'
-            types:
-              PermitWitnessTransferFrom:
-              - type: TokenPermissions
-                name: permitted
-              - type: address
-                name: spender
-              - type: uint256
-                name: nonce
-              - type: uint256
-                name: deadline
-              - type: LiFiCall
-                name: witness
-              TokenPermissions:
-              - type: address
-                name: token
-              - type: uint256
-                name: amount
-              LiFiCall:
-              - type: address
-                name: diamondAddress
-              - type: bytes32
-                name: diamondCalldataHash
-            values:
-              permitted:
-                token: '0xc2132D05D31c914a87C6611C10748AEb04B58e8F'
-                amount: '1000000'
-              spender: '0x6307119078556Fc8aD77781DFC67df20d75FB4f9'
-              nonce: '19'
-              deadline: 1738149521625
-              witness:
-                diamondAddress: '0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE'
-                diamondCalldataHash: '0x78c758554f4213645a8ebcaa5c5c3eb7e6db4b90cf37df4adb54fb92a7fb2a78'
-          step: {}
-        approvalTxs: []
-    RelayRequestSchema:
-      description: ''
+        token: '0xc2132D05D31c914a87C6611C10748AEb04B58e8F'
+        amount: '1000000'
+    IncludedStep:
+      title: Root Type for Internal Step
+      description: Object that represents one step of an `IncludedSteps` array in `Route`
       required:
-      - tokenOwner
-      - chainId
-      - callData
+      - id
+      - action
+      - estimate
+      - tool
+      - type
+      - toolDetails
       type: object
       properties:
-        tokenOwner:
-          description: ''
+        id:
+          description: Unique identifier of the step
           type: string
-        chainId:
-          description: ''
-          type: number
-        permit:
-          $ref: '#/components/schemas/RelayPermitSchema'
-          description: ''
-        signedPermitData:
-          description: ''
+        type:
+          description: The type of the step. `swap` executes a DEX swap on a single chain, `cross` bridges assets between chains, `lifi` runs LiFi's internal multi-action logic, and `protocol` represents protocol-level actions such as fee collection or vault interactions executed inside LiFi managed contracts.
+          enum:
+          - swap
+          - cross
+          - lifi
+          - protocol
           type: string
-        callData:
-          description: ''
+        tool:
+          description: The tool used for this step. E.g. `allbridge`
           type: string
-    QuoteExchangesEnum:
-      type: string
-      description: 'Exchange tool identifier or keyword. Retrieve current exchange keys from the `/v1/tools` endpoint. Supported keywords: `all`, `none`, `default`, `[]`.'
+        toolDetails:
+          description: The details of the tool used for this step. E.g. `allbridge`
+          type: object
+          properties:
+            key:
+              description: The tool key
+              type: string
+            name:
+              description: The tool name
+              type: string
+            logoURI:
+              description: The tool logo URL
+              type: string
+        action:
+          $ref: '#/components/schemas/Action'
+        estimate:
+          $ref: '#/components/schemas/Estimate'
     RelayTransactionStatusResponse:
       title: Root Type for RelayTransactionStatusResponse
       description: ''
@@ -710,6 +534,95 @@ components:
           type: array
           items:
             type: string
+    RelayPermitWithWitness:
+      title: Root Type for RelayPermitWithWitness
+      description: ''
+      type: object
+      properties:
+        permitted:
+          $ref: '#/components/schemas/PermittedTokenSchema'
+          properties:
+            token:
+              type: string
+            amount:
+              type: string
+        spender:
+          type: string
+        nonce:
+          type: string
+        deadline:
+          format: int32
+          type: integer
+        witness:
+          $ref: '#/components/schemas/RelayWitness'
+          properties:
+            diamondAddress:
+              type: string
+            diamondCalldataHash:
+              type: string
+      example:
+        permitted:
+          token: '0xc2132D05D31c914a87C6611C10748AEb04B58e8F'
+          amount: '1000000'
+        spender: '0x6307119078556Fc8aD77781DFC67df20d75FB4f9'
+        nonce: '19'
+        deadline: 1738149521625
+        witness:
+          diamondAddress: '0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE'
+          diamondCalldataHash: '0x78c758554f4213645a8ebcaa5c5c3eb7e6db4b90cf37df4adb54fb92a7fb2a78'
+    QuoteExchangesEnum:
+      type: string
+      description: 'Exchange tool identifier or keyword. Retrieve current exchange keys from the `/v1/tools` endpoint. Supported keywords: `all`, `none`, `default`, `[]`.'
+    ContractTransactionSchema:
+      description: ''
+      type: object
+      properties:
+        to:
+          description: ''
+          type: string
+        from:
+          description: ''
+          type: string
+        nonce:
+          description: ''
+          type: number
+        gasLimit:
+          description: ''
+          type: string
+        gasPrice:
+          description: ''
+          type: string
+        data:
+          description: ''
+          type: string
+        value:
+          description: ''
+          type: string
+        chainId:
+          description: ''
+          type: string
+        type:
+          description: ''
+          type: number
+        accessList:
+          description: ''
+          type: array
+          items:
+            $ref: '#/components/schemas/RelayAccessList'
+        maxPriorityFeePerGas:
+          description: ''
+          type: string
+        maxFeePerGas:
+          description: ''
+          type: string
+        customData:
+          description: ''
+        enableCcipRead:
+          description: ''
+          type: boolean
+        blockTag:
+          description: ''
+          type: string
     Token:
       title: Root Type for Token
       description: Representation of a Token
@@ -756,306 +669,6 @@ components:
         coinKey: DAI
         priceUSD: '1'
         logoURI: https://static.debank.com/image/matic_token/logo_url/0x8f3cf7ad23cd3cadbd9735aff958023239c6a063/549c4205dbb199f1b8b03af783f35e71.png
-    IncludedSwapSteps:
-      title: Root type for included swaps or protocol steps in the status response
-      description: The included steps contain tool name and details, sending and receiving token data and amounts.
-      type: object
-      properties:
-        tool:
-          description: The tool used for this step
-          type: string
-        toolDetails:
-          description: The details of the tool used for this step. E.g. `1inch` or `feeProtocol`
-          type: object
-          properties:
-            key:
-              description: The tool key
-              type: string
-            name:
-              description: The tool name
-              type: string
-            logoURI:
-              description: The tool logo URL
-              type: string
-        fromAmount:
-          description: The amount that was sent to the tool
-          type: string
-        fromToken:
-          description: The token that was sent to the tool
-          type: string
-        toAmount:
-          description: The amount that was received from the tool
-          type: string
-        toToken:
-          description: The token that was received from the tool
-          type: string
-        bridgedAmount:
-          description: The amount that was sent to the bridge
-          type: string
-    Metadata:
-      title: Root type for Transaction Metadata
-      description: The metadata of the transaction which includes integrator data, etc.
-      type: object
-      properties:
-        integrator:
-          description: Integrator ID
-          type: string
-    QuoteBridgesEnum:
-      type: string
-      description: 'Bridge tool identifier or keyword. Retrieve current bridge keys from the `/v1/tools` endpoint. Supported keywords: `all`, `none`, `default`, `[]`.'
-    RelayResponse:
-      title: Root Type for RelayResponse
-      description: ''
-      type: object
-      properties:
-        status:
-          type: string
-        data:
-          $ref: '#/components/schemas/RelayResponseData'
-          properties:
-            taskId:
-              type: string
-      example:
-        status: ok
-        data:
-          taskId: string
-    Estimate:
-      title: Root Type for Estimate
-      description: An estimate for the current transfer
-      required:
-      - fromAmount
-      - approvalAddress
-      - toAmount
-      - toAmountMin
-      - tool
-      - executionDuration
-      type: object
-      properties:
-        tool:
-          description: The tools that is being used for this step
-          type: string
-        fromAmount:
-          description: The amount that should be transferred including all decimals
-          type: string
-        fromAmountUSD:
-          description: The amount that should be transferred in USD equivalent
-          type: string
-        toAmount:
-          description: The estimated resulting amount of the `toToken` including all decimals
-          type: string
-        toAmountMin:
-          description: The minimal outcome of the transfer including all decimals
-          type: string
-        toAmountUSD:
-          description: The estimated resulting amount of the `toToken` in USD equivalent
-          type: string
-        approvalAddress:
-          description: The contract address for the approval
-          type: string
-        feeCosts:
-          description: Fees included in the transfer
-          type: array
-          items:
-            $ref: '#/components/schemas/FeeCost'
-        gasCosts:
-          description: Gas costs included in the transfer
-          type: array
-          items:
-            $ref: '#/components/schemas/GasCost'
-        executionDuration:
-          description: The time needed to complete the following step
-          type: number
-        data:
-          description: Arbitrary data that depends on the the used tool
-          type: object
-          properties:
-            bid:
-              type: object
-              properties:
-                user:
-                  type: string
-                router:
-                  type: string
-                initiator:
-                  type: string
-                sendingChainId:
-                  format: number
-                  type: number
-                sendingAssetId:
-                  type: string
-                amount:
-                  type: string
-                receivingChainId:
-                  format: number
-                  type: number
-                receivingAssetId:
-                  type: string
-                amountReceived:
-                  type: string
-                receivingAddress:
-                  type: string
-                transactionId:
-                  type: string
-                expiry:
-                  format: number
-                  type: number
-                callDataHash:
-                  type: string
-                callTo:
-                  type: string
-                encryptedCallData:
-                  type: string
-                sendingChainTxManagerAddress:
-                  type: string
-                receivingChainTxManagerAddress:
-                  type: string
-                bidExpiry:
-                  format: number
-                  type: number
-            bidSignature:
-              type: string
-            gasFeeInReceivingToken:
-              type: string
-            totalFee:
-              type: string
-            metaTxRelayerFee:
-              type: string
-            routerFee:
-              type: string
-      example:
-        fromAmount: '1000000000000000000'
-        toAmount: '999500000000000000'
-        toAmountMin: '999500000000000000'
-        tool: allbridge
-        executionDuration: 60
-        approvalAddress: '0x115909BDcbaB21954bEb4ab65FC2aBEE9866fa93'
-        feeCosts:
-        - name: Gas Fee
-          description: Covers gas expense for sending funds to user on receiving chain.
-          percentage: '0'
-          token:
-            address: '0x63e62989d9eb2d37dfdb1f93a22f063635b07d51'
-            symbol: MIVA
-            decimals: 18
-            chainId: 100
-            name: Minerva Wallet SuperToken
-            coinKey: MIVA
-            priceUSD: '0.0455272371751059'
-            logoURI: ''
-          amount: '0'
-          amountUSD: '0.00'
-          included: true
-        - name: Relay Fee
-          description: Covers gas expense for claiming user funds on receiving chain.
-          percentage: '0'
-          token:
-            address: '0x63e62989d9eb2d37dfdb1f93a22f063635b07d51'
-            symbol: MIVA
-            decimals: 18
-            chainId: 100
-            name: Minerva Wallet SuperToken
-            coinKey: MIVA
-            priceUSD: '0.0455272371751059'
-            logoURI: ''
-          amount: '0'
-          amountUSD: '0.00'
-          included: true
-        - name: Router Fee
-          description: Router service fee.
-          percentage: '0.0005'
-          token:
-            address: '0x63e62989d9eb2d37dfdb1f93a22f063635b07d51'
-            symbol: MIVA
-            decimals: 18
-            chainId: 100
-            name: Minerva Wallet SuperToken
-            coinKey: MIVA
-            priceUSD: '0.0455272371751059'
-            logoURI: ''
-          amount: '500000000000000'
-          amountUSD: '22763618587552.95'
-          included: true
-        gasCosts:
-        - type: SEND
-          price: '1.22'
-          estimate: '140000'
-          limit: '175000'
-          amount: '170800'
-          amountUSD: '0.00'
-          token:
-            address: '0x0000000000000000000000000000000000000000'
-            symbol: xDai
-            decimals: 18
-            chainId: 100
-            name: xDai
-            coinKey: xDai
-            priceUSD: '1'
-            logoURI: https://static.debank.com/image/xdai_token/logo_url/xdai/1207e67652b691ef3bfe04f89f4b5362.png
-        data:
-          bid:
-            user: '0x10fBFF9b9450D3A2d9d1612d6dE3726fACD8809E'
-            router: '0xeE2Ef40F688607CB23618d9312d62392786d13EB'
-            initiator: '0x10fBFF9b9450D3A2d9d1612d6dE3726fACD8809E'
-            sendingChainId: 100
-            sendingAssetId: '0x63e62989d9eb2d37dfdb1f93a22f063635b07d51'
-            amount: '1000000000000000000'
-            receivingChainId: 137
-            receivingAssetId: '0xc0b2983a17573660053beeed6fdb1053107cf387'
-            amountReceived: '999500000000000000'
-            receivingAddress: '0x10fBFF9b9450D3A2d9d1612d6dE3726fACD8809E'
-            transactionId: '0x9f54c1764e19367c44706f4a6253941b81e9ec524af5590091aa8ae67e7644ed'
-            expiry: 1643369368
-            callDataHash: '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470'
-            callTo: '0x0000000000000000000000000000000000000000'
-            encryptedCallData: 0x
-            sendingChainTxManagerAddress: '0x115909BDcbaB21954bEb4ab65FC2aBEE9866fa93'
-            receivingChainTxManagerAddress: '0x6090De2EC76eb1Dc3B5d632734415c93c44Fd113'
-            bidExpiry: 1643110469
-          gasFeeInReceivingToken: '0'
-          totalFee: '500000000000000'
-          metaTxRelayerFee: '0'
-          routerFee: '500000000000000'
-    RelayWitness:
-      title: Root Type for RelayWitness
-      description: ''
-      type: object
-      properties:
-        diamondAddress:
-          type: string
-        diamondCalldataHash:
-          type: string
-      example:
-        diamondAddress: '0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE'
-        diamondCalldataHash: '0x78c758554f4213645a8ebcaa5c5c3eb7e6db4b90cf37df4adb54fb92a7fb2a78'
-    UnavailableRoutes:
-      type: object
-      properties:
-        filteredOut:
-          description: An object containing information about routes that were intentionally filtered out.
-          type: array
-          items:
-            properties:
-              overallPath:
-                description: The complete representation of the attempted route.
-                type: string
-                example: 100:USDC-hop-137:USDC-137:USDC~137:SUSHI
-              reason:
-                description: Out best attempt at describing the failure.
-                type: string
-        failed:
-          description: An object containing information about failed routes.
-          type: array
-          items:
-            properties:
-              overallPath:
-                description: The complete representation of the attempted route.
-                type: string
-                example: 100:USDC-hop-137:USDC-137:USDC~137:SUSHI
-              subpaths:
-                description: An object with all subpaths that generated one or more errors
-                type: object
-                additionalProperties:
-                  $ref: '#/components/schemas/ToolError'
     RelayQuote:
       title: Root Type for RelayQuote
       description: ''
@@ -1813,154 +1426,62 @@ components:
                   logoURI: https://static.debank.com/image/matic_token/logo_url/matic/6f5a6b6f0732a7a235131bd7804d357c.png
                   priceUSD: '0.4333'
               executionDuration: 30
-    PermittedTokenSchema:
-      title: Root Type for PermittedTokenSchema
+    QuoteBridgesEnum:
+      type: string
+      description: 'Bridge tool identifier or keyword. Retrieve current bridge keys from the `/v1/tools` endpoint. Supported keywords: `all`, `none`, `default`, `[]`.'
+    RelayWitnessFull:
+      title: Root Type for RelayWitness
       description: ''
       type: object
       properties:
-        token:
-          type: string
-        amount:
-          type: string
-      example:
-        token: '0xc2132D05D31c914a87C6611C10748AEb04B58e8F'
-        amount: '1000000'
-    ToolError:
-      title: An error returned by a tool (Exchange or Bridge)
-      description: Describes why a certain operation (like a quote request) failed.
-      type: object
-      properties:
-        errorType:
-          description: The type of error that occurred.
-          enum:
-          - NO_QUOTE
-          type: string
-        code:
-          description: The error code.
-          enum:
-          - NO_POSSIBLE_ROUTE
-          - INSUFFICIENT_LIQUIDITY
-          - TOOL_TIMEOUT
-          - UNKNOWN_ERROR
-          - RPC_ERROR
-          - AMOUNT_TOO_LOW
-          - AMOUNT_TOO_HIGH
-          - FEES_HIGHER_THAN_AMOUNT
-          - DIFFERENT_RECIPIENT_NOT_SUPPORTED
-          - TOOL_SPECIFIC_ERROR
-          - CANNOT_GUARANTEE_MIN_AMOUNT
-          - RATE_LIMIT_EXCEEDED
-          type: string
-        action:
-          $ref: '#/components/schemas/Action'
-        tool:
-          description: The tool that emitted the error.
-          type: string
-        message:
-          description: A human-readable message describing the error.
-          type: string
-    IncludedStep:
-      title: Root Type for Internal Step
-      description: Object that represents one step of an `IncludedSteps` array in `Route`
-      required:
-      - id
-      - action
-      - estimate
-      - tool
-      - type
-      - toolDetails
-      type: object
-      properties:
-        id:
-          description: Unique identifier of the step
-          type: string
-        type:
-          description: The type of the step. `swap` executes a DEX swap on a single chain, `cross` bridges assets between chains, `lifi` runs LiFi's internal multi-action logic, and `protocol` represents protocol-level actions such as fee collection or vault interactions executed inside LiFi managed contracts.
-          enum:
-          - swap
-          - cross
-          - lifi
-          - protocol
-          type: string
-        tool:
-          description: The tool used for this step. E.g. `allbridge`
-          type: string
-        toolDetails:
-          description: The details of the tool used for this step. E.g. `allbridge`
-          type: object
+        witnessType:
+          $ref: '#/components/schemas/RelayWithnessType'
           properties:
-            key:
-              description: The tool key
+            LiFiCall:
+              type: array
+              items:
+                type: object
+                properties:
+                  type:
+                    type: string
+                  name:
+                    type: string
+        witnessTypeName:
+          type: string
+        witness:
+          $ref: '#/components/schemas/RelayWitness'
+          properties:
+            diamondAddress:
               type: string
-            name:
-              description: The tool name
+            diamondCalldataHash:
               type: string
-            logoURI:
-              description: The tool logo URL
-              type: string
-        action:
-          $ref: '#/components/schemas/Action'
-        estimate:
-          $ref: '#/components/schemas/Estimate'
-    RelayTransactionMetadata:
-      title: Root Type for RelayTransactionMetadata
-      description: Extra information about a relay transaction
+      example:
+        witnessType:
+          LiFiCall:
+          - type: address
+            name: diamondAddress
+          - type: bytes32
+            name: diamondCalldataHash
+        witnessTypeName: LiFiCall
+        witness:
+          diamondAddress: '0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE'
+          diamondCalldataHash: '0x78c758554f4213645a8ebcaa5c5c3eb7e6db4b90cf37df4adb54fb92a7fb2a78'
+    RelayResponse:
+      title: Root Type for RelayResponse
+      description: ''
       type: object
       properties:
-        chainId:
-          format: int32
-          type: integer
-        txHash:
+        status:
           type: string
+        data:
+          $ref: '#/components/schemas/RelayResponseData'
+          properties:
+            taskId:
+              type: string
       example:
-        chainId: 137
-        txHash: '0x1425098ed5ecc5192070ac32a69dd924268b9df5e7a69764142473e9d022321a'
-    GasCost:
-      title: Root Type for GasCost
-      description: Gas costs included in the transfer
-      required:
-      - token
-      - type
-      - amount
-      type: object
-      properties:
-        type:
-          description: Can be one of `SUM`, `APPROVE` or `SEND`
-          type: string
-        price:
-          description: Suggested current standard price for the chain
-          type: string
-        estimate:
-          description: Estimation how much gas will be needed
-          type: string
-        limit:
-          description: Suggested gas limit
-          type: string
-        amount:
-          description: Amount of the gas cost
-          type: string
-        amountUSD:
-          description: Amount of the gas cost in USD
-          type: string
-        token:
-          $ref: '#/components/schemas/Token'
-          description: The used gas token
-      example:
-        type: SEND
-        price: '1.22'
-        estimate: '140000'
-        limit: '175000'
-        amount: '170800'
-        amountUSD: '0.00'
-        token:
-          address: '0x0000000000000000000000000000000000000000'
-          symbol: xDai
-          decimals: 18
-          chainId: 100
-          name: xDai
-          coinKey: xDai
-          priceUSD: '1'
-          logoURI: https://static.debank.com/image/xdai_token/logo_url/xdai/1207e67652b691ef3bfe04f89f4b5362.png
+        status: ok
+        data:
+          taskId: string
     RelayPermitSchema:
       title: Root Type for RelayPermitSchema
       description: A set of parameters specifying the token, permitted amount, spender address, nonce (for uniqueness), and deadline (for expiration) in a Permit2 allowance grant.
@@ -1992,585 +1513,27 @@ components:
         spender: '0x6307119078556Fc8aD77781DFC67df20d75FB4f9'
         nonce: '19'
         deadline: 1738149521625
-    RelayTransactionStatus:
-      title: Root Type for RelayTransactionStatus
-      description: Status details of a relay transaction
-      type: object
-      properties:
-        status:
-          type: string
-        message:
-          type: string
-        metadata:
-          $ref: '#/components/schemas/RelayTransactionMetadata'
-          description: Extra information about a relay transaction
-          properties:
-            chainId:
-              format: int32
-              type: integer
-            txHash:
-              type: string
-        transactionStatus:
-          $ref: '#/components/schemas/StatusResponse'
-          description: Details about the transaction
-          properties:
-            transactionId:
-              type: string
-            sending:
-              type: object
-              properties:
-                txHash:
-                  type: string
-                txLink:
-                  type: string
-                amount:
-                  type: string
-                token:
-                  type: object
-                  properties:
-                    address:
-                      type: string
-                    chainId:
-                      format: int32
-                      type: integer
-                    symbol:
-                      type: string
-                    decimals:
-                      format: int32
-                      type: integer
-                    name:
-                      type: string
-                    coinKey:
-                      type: string
-                    logoURI:
-                      type: string
-                    priceUSD:
-                      type: string
-                chainId:
-                  format: int32
-                  type: integer
-                gasPrice:
-                  type: string
-                gasUsed:
-                  type: string
-                gasToken:
-                  type: object
-                  properties:
-                    address:
-                      type: string
-                    chainId:
-                      format: int32
-                      type: integer
-                    symbol:
-                      type: string
-                    decimals:
-                      format: int32
-                      type: integer
-                    name:
-                      type: string
-                    coinKey:
-                      type: string
-                    logoURI:
-                      type: string
-                    priceUSD:
-                      type: string
-                gasAmount:
-                  type: string
-                gasAmountUSD:
-                  type: string
-                amountUSD:
-                  type: string
-                timestamp:
-                  format: int32
-                  type: integer
-            receiving:
-              type: object
-              properties:
-                txHash:
-                  type: string
-                txLink:
-                  type: string
-                amount:
-                  type: string
-                token:
-                  type: object
-                  properties:
-                    address:
-                      type: string
-                    chainId:
-                      format: int32
-                      type: integer
-                    symbol:
-                      type: string
-                    decimals:
-                      format: int32
-                      type: integer
-                    name:
-                      type: string
-                    coinKey:
-                      type: string
-                    logoURI:
-                      type: string
-                    priceUSD:
-                      type: string
-                chainId:
-                  format: int32
-                  type: integer
-                gasPrice:
-                  type: string
-                gasUsed:
-                  type: string
-                gasToken:
-                  type: object
-                  properties:
-                    address:
-                      type: string
-                    chainId:
-                      format: int32
-                      type: integer
-                    symbol:
-                      type: string
-                    decimals:
-                      format: int32
-                      type: integer
-                    name:
-                      type: string
-                    coinKey:
-                      type: string
-                    logoURI:
-                      type: string
-                    priceUSD:
-                      type: string
-                gasAmount:
-                  type: string
-                gasAmountUSD:
-                  type: string
-                amountUSD:
-                  type: string
-                timestamp:
-                  format: int32
-                  type: integer
-      example:
-        status: DONE
-        message: All done
-        metadata:
-          chainId: 137
-          txHash: '0x1425098ed5ecc5192070ac32a69dd924268b9df5e7a69764142473e9d022321a'
-        transactionStatus:
-          transactionId: '0xaddfdf22eeacd02f006e04bbb58f683394807664f62e150b078db0598ab64daa'
-          sending:
-            txHash: '0x1425098ed5ecc5192070ac32a69dd924268b9df5e7a69764142473e9d022321a'
-            txLink: https://polygonscan.com/tx/0x1425098ed5ecc5192070ac32a69dd924268b9df5e7a69764142473e9d022321a
-            amount: '1000000'
-            token:
-              address: '0xc2132D05D31c914a87C6611C10748AEb04B58e8F'
-              chainId: 137
-              symbol: USDT
-              decimals: 6
-              name: USDT
-              coinKey: USDT
-              logoURI: https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xdAC17F958D2ee523a2206206994597C13D831ec7/logo.png
-              priceUSD: '0.99989'
-            chainId: 137
-            gasPrice: '85184881231'
-            gasUsed: '361568'
-            gasToken:
-              address: '0x0000000000000000000000000000000000000000'
-              chainId: 137
-              symbol: POL
-              decimals: 18
-              name: Polygon Ecosystem Token
-              coinKey: POL
-              logoURI: https://static.debank.com/image/matic_token/logo_url/matic/6f5a6b6f0732a7a235131bd7804d357c.png
-              priceUSD: '0.4506'
-            gasAmount: '30800127136930208'
-            gasAmountUSD: '0.0139'
-            amountUSD: '0.9999'
-            timestamp: 1736518025
-          receiving:
-            txHash: '0x1425098ed5ecc5192070ac32a69dd924268b9df5e7a69764142473e9d022321a'
-            txLink: https://polygonscan.com/tx/0x1425098ed5ecc5192070ac32a69dd924268b9df5e7a69764142473e9d022321a
-            amount: '820847'
-            token:
-              address: '0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359'
-              chainId: 137
-              symbol: USDC
-              decimals: 6
-              name: USD Coin
-              coinKey: USDC
-              logoURI: https://static.debank.com/image/coin/logo_url/usdc/e87790bfe0b3f2ea855dc29069b38818.png
-              priceUSD: '1.000100010001'
-            chainId: 137
-            gasPrice: '85184881231'
-            gasUsed: '361568'
-            gasToken:
-              address: '0x0000000000000000000000000000000000000000'
-              chainId: 137
-              symbol: POL
-              decimals: 18
-              name: Polygon Ecosystem Token
-              coinKey: POL
-              logoURI: https://static.debank.com/image/matic_token/logo_url/matic/6f5a6b6f0732a7a235131bd7804d357c.png
-              priceUSD: '0.4506'
-            gasAmount: '30800127136930208'
-            gasAmountUSD: '0.0139'
-            amountUSD: '0.8209'
-            timestamp: 1736518025
-    ContractTransactionSchema:
+    RelayResponseData:
+      title: Root Type for RelayResponseData
       description: ''
       type: object
       properties:
-        to:
-          description: ''
-          type: string
-        from:
-          description: ''
-          type: string
-        nonce:
-          description: ''
-          type: number
-        gasLimit:
-          description: ''
-          type: string
-        gasPrice:
-          description: ''
-          type: string
-        data:
-          description: ''
-          type: string
-        value:
-          description: ''
-          type: string
-        chainId:
-          description: ''
-          type: string
-        type:
-          description: ''
-          type: number
-        accessList:
-          description: ''
-          type: array
-          items:
-            $ref: '#/components/schemas/RelayAccessList'
-        maxPriorityFeePerGas:
-          description: ''
-          type: string
-        maxFeePerGas:
-          description: ''
-          type: string
-        customData:
-          description: ''
-        enableCcipRead:
-          description: ''
-          type: boolean
-        blockTag:
-          description: ''
-          type: string
-    TransactionInfo:
-      title: Root Type for TransactionInfo
-      description: A transaction info object
-      required:
-      - txLink
-      - amount
-      - txHash
-      - token
-      - chainId
-      type: object
-      properties:
-        txHash:
-          description: The hash of the transaction
-          type: string
-        txLink:
-          description: Link to a block explorer showing the transaction
-          type: string
-        amount:
-          description: The amount of the transaction
-          type: string
-        token:
-          $ref: '#/components/schemas/Token'
-          description: Information about the token
-        chainId:
-          description: The id of the chain
-          type: number
-        gasToken:
-          $ref: '#/components/schemas/Token'
-          description: The token in which gas was paid
-        gasAmount:
-          description: The amount of the gas that was paid
-          type: string
-        gasAmountUSD:
-          description: The amount of the gas that was paid in USD
-          type: string
-        gasPrice:
-          description: The price of the gas
-          type: string
-        gasUsed:
-          description: The amount of the gas that was used
-          type: string
-        timestamp:
-          description: The transaction timestamp
-          type: number
-        value:
-          description: The transaction value
-          type: string
-        includedSteps:
-          description: An array of swap or protocol steps included in the LI.FI transaction
-          type: array
-          items:
-            $ref: '#/components/schemas/IncludedSwapSteps'
-      example:
-        txHash: '0xd3ad8fb8798d8440f3a1ec7fd51e102a88e4690f9365fad4eff1a17020376b4a'
-        txLink: https://polygonscan.com/tx/0xd3ad8fb8798d8440f3a1ec7fd51e102a88e4690f9365fad4eff1a17020376b4a
-        amount: '13000000'
-        token:
-          address: '0xd69b31c3225728cc57ddaf9be532a4ee1620be51'
-          symbol: anyUSDC
-          decimals: 6
-          chainId: 137
-          name: USDC
-          coinKey: anyUSDC
-          priceUSD: '0'
-          logoURI: ''
-        gasToken:
-          address: '0x0000000000000000000000000000000000001010'
-          symbol: MATIC
-          decimals: 18
-          chainId: 137
-          name: MATIC
-          coinKey: MATIC
-          priceUSD: '0'
-          logoURI: ''
-        chainId: 137
-        gasAmount: '10000'
-        gasAmountUSD: '0.0'
-        gasPrice: '1000'
-        gasUsed: '1000'
-        timestamp: 1720545119
-        value: '0'
-    StatusResponse:
-      title: Root Type for StatusResponse
-      description: The current status of a transfer
-      required:
-      - sending
-      - status
-      - tool
-      type: object
-      properties:
-        sending:
-          $ref: '#/components/schemas/TransactionInfo'
-          description: The transaction on the sending chain
-        receiving:
-          $ref: '#/components/schemas/TransactionInfo'
-          description: The transaction on the receiving chain
-        feeCosts:
-          description: An array of fee costs for the transaction
-          type: array
-          items:
-            type: object
-            properties:
-              name:
-                type: string
-              description:
-                type: string
-              percentage:
-                type: string
-              token:
-                type: object
-                properties:
-                  address:
-                    type: string
-                  decimals:
-                    format: number
-                    type: number
-                  symbol:
-                    type: string
-                  chainId:
-                    format: number
-                    type: number
-                  coinKey:
-                    type: string
-                  name:
-                    type: string
-                  logoURI:
-                    type: string
-              amount:
-                type: string
-              amountUSD:
-                type: string
-              included:
-                type: boolean
-        status:
-          description: The current status of the transfer. Can be `PENDING`, `DONE`, `NOT_FOUND` or `FAILED`
-          enum:
-          - NOT_FOUND
-          - INVALID
-          - PENDING
-          - DONE
-          - FAILED
-          type: string
-        substatus:
-          description: 'A more specific substatus. This is available for PENDING and DONE statuses. More information can be found here: https://docs.li.fi/introduction/user-flows-and-examples/status-tracking'
-          enum:
-          - WAIT_SOURCE_CONFIRMATIONS
-          - WAIT_DESTINATION_TRANSACTION
-          - BRIDGE_NOT_AVAILABLE
-          - CHAIN_NOT_AVAILABLE
-          - REFUND_IN_PROGRESS
-          - UNKNOWN_ERROR
-          - COMPLETED
-          - PARTIAL
-          - REFUNDED
-        substatusMessage:
-          description: A message that describes the substatus
-          type: string
-        tool:
-          description: The tool used for this transfer
-          type: string
-        transactionId:
-          description: The ID of this transfer (NOT a transaction hash).
-          type: string
-        fromAddress:
-          description: The address of the sender.
-          type: string
-        toAddress:
-          description: The address of the receiver.
-          type: string
-        lifiExplorerLink:
-          description: The link to the LI.FI explorer.
-          type: string
-        metadata:
-          $ref: '#/components/schemas/Metadata'
-          description: The transaction metadata which includes integrator's string, etc.
-      example:
-        sending:
-          txHash: '0xd3ad8fb8798d8440f3a1ec7fd51e102a88e4690f9365fad4eff1a17020376b4a'
-          txLink: https://polygonscan.com/tx/0xd3ad8fb8798d8440f3a1ec7fd51e102a88e4690f9365fad4eff1a17020376b4a
-          amount: '13000000'
-          token:
-            address: '0xd69b31c3225728cc57ddaf9be532a4ee1620be51'
-            symbol: anyUSDC
-            decimals: 6
-            chainId: 137
-            name: USDC
-            coinKey: anyUSDC
-            priceUSD: '0'
-            logoURI: ''
-          chainId: 137
-          gasToken:
-            address: '0x0000000000000000000000000000000000001010'
-            symbol: MATIC
-            decimals: 18
-            chainId: 137
-            name: MATIC
-            coinKey: MATIC
-            priceUSD: '0'
-            logoURI: ''
-          gasAmount: '10000'
-          gasAmountUSD: '0.0'
-          gasPrice: '1000'
-          gasUsed: '1000'
-          timestamp: 1720545119
-          value: '0'
-        receiving:
-          txHash: '0xba2793065e20835ef60993144d92e6bc1a86529a70e16c357f66ad13774868ad'
-          txLink: https://bscscan.com/tx/0xba2793065e20835ef60993144d92e6bc1a86529a70e16c357f66ad13774868ad
-          amount: '12100000000000000000'
-          token:
-            address: '0x8965349fb649a33a30cbfda057d8ec2c48abe2a2'
-            symbol: anyUSDC
-            decimals: 18
-            chainId: 56
-            name: USDC
-            coinKey: anyUSDC
-            priceUSD: '0'
-            logoURI: ''
-          chainId: 56
-          gasToken:
-            address: '0x0000000000000000000000000000000000001010'
-            symbol: BNB
-            decimals: 18
-            chainId: 56
-            name: BNB
-            coinKey: BNB
-            priceUSD: '0'
-            logoURI: ''
-          gasAmount: '10000'
-          gasAmountUSD: '0.0'
-          gasPrice: '1000'
-          gasUsed: '1000'
-          timestamp: 1720560232
-          value: '0'
-        tool: anyswap
-        status: DONE
-        substatus: COMPLETED
-        substatusMessage: The transfer is complete.
-        transactionId: '0x0000000000000000000000000000000000001010'
-        fromAddress: '0x0000000000000000000000000000000000001010'
-        toAddress: '0x0000000000000000000000000000000000001010'
-        lifiExplorerLink: https://scan.li.fi/tx/0xd3ad8fb8798d8440f3a1ec7fd51e102a88e4690f9365fad4eff1a17020376b4a
-        metadata:
-          integrator: jumper.exchange
-    Action:
-      title: Root Type for Action
-      description: Object describing what happens in a `Step`
-      required:
-      - fromToken
-      - fromAmount
-      - fromChainId
-      - toChainId
-      - toToken
-      type: object
-      properties:
-        fromChainId:
-          format: number
-          description: The id of the chain where the transfer should start
-          type: number
-        fromAmount:
-          description: The amount that should be transferred including all decimals
-          type: string
-        fromToken:
-          $ref: '#/components/schemas/Token'
-          description: The sending token
-        toChainId:
-          format: number
-          description: The id of the chain where the transfer should end
-          type: number
-        toToken:
-          $ref: '#/components/schemas/Token'
-          description: The token that should be transferred to
-        slippage:
-          format: double
-          description: The maximum allowed slippage
-          type: number
-        fromAddress:
-          description: The sending wallet address
-          type: string
-        toAddress:
-          description: The receiving wallet address
+        taskId:
           type: string
       example:
-        fromChainId: 100
-        fromAmount: '1000000000000000000'
-        fromToken:
-          address: '0x63e62989d9eb2d37dfdb1f93a22f063635b07d51'
-          symbol: MIVA
-          decimals: 18
-          chainId: 100
-          name: Minerva Wallet SuperToken
-          coinKey: MIVA
-          priceUSD: '0.0455272371751059'
-          logoURI: ''
-        toChainId: 137
-        toToken:
-          address: '0xc0b2983a17573660053beeed6fdb1053107cf387'
-          symbol: MIVA
-          decimals: 18
-          chainId: 137
-          name: Minerva Wallet SuperToken
-          coinKey: MIVA
-          priceUSD: '0'
-          logoURI: ''
-        slippage: 0.003
+        taskId: string
+    RelayWitness:
+      title: Root Type for RelayWitness
+      description: ''
+      type: object
+      properties:
+        diamondAddress:
+          type: string
+        diamondCalldataHash:
+          type: string
+      example:
+        diamondAddress: '0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE'
+        diamondCalldataHash: '0x78c758554f4213645a8ebcaa5c5c3eb7e6db4b90cf37df4adb54fb92a7fb2a78'
     Step:
       title: Root Type for Step
       description: Object that represents one step of a `Route`
@@ -2747,6 +1710,231 @@ components:
             metaTxRelayerFee: '0'
             routerFee: '500000000000000'
         integrator: fee-demo
+    RelayQuoteData:
+      title: Root Type for RelayQuoteData
+      description: ''
+      type: object
+      properties:
+        quote:
+          $ref: '#/components/schemas/RelayQuote'
+          properties:
+            tokenOwner:
+              type: string
+            chainId:
+              format: int32
+              type: integer
+            permit:
+              type: object
+              properties:
+                permitted:
+                  type: object
+                  properties:
+                    token:
+                      type: string
+                    amount:
+                      type: string
+                spender:
+                  type: string
+                nonce:
+                  type: string
+                deadline:
+                  format: int32
+                  type: integer
+            witness:
+              type: object
+              properties:
+                witnessType:
+                  type: object
+                  properties:
+                    LiFiCall:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          type:
+                            type: string
+                          name:
+                            type: string
+                witnessTypeName:
+                  type: string
+                witness:
+                  type: object
+                  properties:
+                    diamondAddress:
+                      type: string
+                    diamondCalldataHash:
+                      type: string
+            permitData:
+              type: object
+              properties:
+                domain:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    chainId:
+                      format: int32
+                      type: integer
+                    verifyingContract:
+                      type: string
+                types:
+                  type: object
+                  properties:
+                    PermitWitnessTransferFrom:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          type:
+                            type: string
+                          name:
+                            type: string
+                    TokenPermissions:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          type:
+                            type: string
+                          name:
+                            type: string
+                    LiFiCall:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          type:
+                            type: string
+                          name:
+                            type: string
+                values:
+                  type: object
+                  properties:
+                    permitted:
+                      type: object
+                      properties:
+                        token:
+                          type: string
+                        amount:
+                          type: string
+                    spender:
+                      type: string
+                    nonce:
+                      type: string
+                    deadline:
+                      format: int32
+                      type: integer
+                    witness:
+                      type: object
+                      properties:
+                        diamondAddress:
+                          type: string
+                        diamondCalldataHash:
+                          type: string
+            step:
+              type: object
+        approvalTxs:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContractTransactionSchema'
+      example:
+        quote:
+          tokenOwner: '0xb9c0dE368BECE5e76B52545a8E377a4C118f597B'
+          chainId: 137
+          permit:
+            permitted:
+              token: '0xc2132D05D31c914a87C6611C10748AEb04B58e8F'
+              amount: '1000000'
+            spender: '0x6307119078556Fc8aD77781DFC67df20d75FB4f9'
+            nonce: '19'
+            deadline: 1738149521625
+          witness:
+            witnessType:
+              LiFiCall:
+              - type: address
+                name: diamondAddress
+              - type: bytes32
+                name: diamondCalldataHash
+            witnessTypeName: LiFiCall
+            witness:
+              diamondAddress: '0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE'
+              diamondCalldataHash: '0x78c758554f4213645a8ebcaa5c5c3eb7e6db4b90cf37df4adb54fb92a7fb2a78'
+          permitData:
+            domain:
+              name: Permit2
+              chainId: 137
+              verifyingContract: '0x000000000022D473030F116dDEE9F6B43aC78BA3'
+            types:
+              PermitWitnessTransferFrom:
+              - type: TokenPermissions
+                name: permitted
+              - type: address
+                name: spender
+              - type: uint256
+                name: nonce
+              - type: uint256
+                name: deadline
+              - type: LiFiCall
+                name: witness
+              TokenPermissions:
+              - type: address
+                name: token
+              - type: uint256
+                name: amount
+              LiFiCall:
+              - type: address
+                name: diamondAddress
+              - type: bytes32
+                name: diamondCalldataHash
+            values:
+              permitted:
+                token: '0xc2132D05D31c914a87C6611C10748AEb04B58e8F'
+                amount: '1000000'
+              spender: '0x6307119078556Fc8aD77781DFC67df20d75FB4f9'
+              nonce: '19'
+              deadline: 1738149521625
+              witness:
+                diamondAddress: '0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE'
+                diamondCalldataHash: '0x78c758554f4213645a8ebcaa5c5c3eb7e6db4b90cf37df4adb54fb92a7fb2a78'
+          step: {}
+        approvalTxs: []
+    UnavailableRoutes:
+      type: object
+      properties:
+        filteredOut:
+          description: An object containing information about routes that were intentionally filtered out.
+          type: array
+          items:
+            properties:
+              overallPath:
+                description: The complete representation of the attempted route.
+                type: string
+                example: 100:USDC-hop-137:USDC-137:USDC~137:SUSHI
+              reason:
+                description: Out best attempt at describing the failure.
+                type: string
+        failed:
+          description: An object containing information about failed routes.
+          type: array
+          items:
+            properties:
+              overallPath:
+                description: The complete representation of the attempted route.
+                type: string
+                example: 100:USDC-hop-137:USDC-137:USDC~137:SUSHI
+              subpaths:
+                description: An object with all subpaths that generated one or more errors
+                type: object
+                additionalProperties:
+                  $ref: '#/components/schemas/ToolError'
+    Metadata:
+      title: Root type for Transaction Metadata
+      description: The metadata of the transaction which includes integrator data, etc.
+      type: object
+      properties:
+        integrator:
+          description: Integrator ID
+          type: string
     RelayQuoteResponse:
       title: Root Type for RelayQuoteResponse
       description: ''
@@ -3519,100 +2707,335 @@ components:
                       priceUSD: '0.4333'
                   executionDuration: 30
           approvalTxs: []
-    RelayPermitWithWitness:
-      title: Root Type for RelayPermitWithWitness
+    Action:
+      title: Root Type for Action
+      description: Object describing what happens in a `Step`
+      required:
+      - fromToken
+      - fromAmount
+      - fromChainId
+      - toChainId
+      - toToken
+      type: object
+      properties:
+        fromChainId:
+          format: number
+          description: The id of the chain where the transfer should start
+          type: number
+        fromAmount:
+          description: The amount that should be transferred including all decimals
+          type: string
+        fromToken:
+          $ref: '#/components/schemas/Token'
+          description: The sending token
+        toChainId:
+          format: number
+          description: The id of the chain where the transfer should end
+          type: number
+        toToken:
+          $ref: '#/components/schemas/Token'
+          description: The token that should be transferred to
+        slippage:
+          format: double
+          description: The maximum allowed slippage
+          type: number
+        fromAddress:
+          description: The sending wallet address
+          type: string
+        toAddress:
+          description: The receiving wallet address
+          type: string
+      example:
+        fromChainId: 100
+        fromAmount: '1000000000000000000'
+        fromToken:
+          address: '0x63e62989d9eb2d37dfdb1f93a22f063635b07d51'
+          symbol: MIVA
+          decimals: 18
+          chainId: 100
+          name: Minerva Wallet SuperToken
+          coinKey: MIVA
+          priceUSD: '0.0455272371751059'
+          logoURI: ''
+        toChainId: 137
+        toToken:
+          address: '0xc0b2983a17573660053beeed6fdb1053107cf387'
+          symbol: MIVA
+          decimals: 18
+          chainId: 137
+          name: Minerva Wallet SuperToken
+          coinKey: MIVA
+          priceUSD: '0'
+          logoURI: ''
+        slippage: 0.003
+    Estimate:
+      title: Root Type for Estimate
+      description: An estimate for the current transfer
+      required:
+      - fromAmount
+      - approvalAddress
+      - toAmount
+      - toAmountMin
+      - tool
+      - executionDuration
+      type: object
+      properties:
+        tool:
+          description: The tools that is being used for this step
+          type: string
+        fromAmount:
+          description: The amount that should be transferred including all decimals
+          type: string
+        fromAmountUSD:
+          description: The amount that should be transferred in USD equivalent
+          type: string
+        toAmount:
+          description: The estimated resulting amount of the `toToken` including all decimals
+          type: string
+        toAmountMin:
+          description: The minimal outcome of the transfer including all decimals
+          type: string
+        toAmountUSD:
+          description: The estimated resulting amount of the `toToken` in USD equivalent
+          type: string
+        approvalAddress:
+          description: The contract address for the approval
+          type: string
+        feeCosts:
+          description: Fees included in the transfer
+          type: array
+          items:
+            $ref: '#/components/schemas/FeeCost'
+        gasCosts:
+          description: Gas costs included in the transfer
+          type: array
+          items:
+            $ref: '#/components/schemas/GasCost'
+        executionDuration:
+          description: The time needed to complete the following step
+          type: number
+        data:
+          description: Arbitrary data that depends on the the used tool
+          type: object
+          properties:
+            bid:
+              type: object
+              properties:
+                user:
+                  type: string
+                router:
+                  type: string
+                initiator:
+                  type: string
+                sendingChainId:
+                  format: number
+                  type: number
+                sendingAssetId:
+                  type: string
+                amount:
+                  type: string
+                receivingChainId:
+                  format: number
+                  type: number
+                receivingAssetId:
+                  type: string
+                amountReceived:
+                  type: string
+                receivingAddress:
+                  type: string
+                transactionId:
+                  type: string
+                expiry:
+                  format: number
+                  type: number
+                callDataHash:
+                  type: string
+                callTo:
+                  type: string
+                encryptedCallData:
+                  type: string
+                sendingChainTxManagerAddress:
+                  type: string
+                receivingChainTxManagerAddress:
+                  type: string
+                bidExpiry:
+                  format: number
+                  type: number
+            bidSignature:
+              type: string
+            gasFeeInReceivingToken:
+              type: string
+            totalFee:
+              type: string
+            metaTxRelayerFee:
+              type: string
+            routerFee:
+              type: string
+      example:
+        fromAmount: '1000000000000000000'
+        toAmount: '999500000000000000'
+        toAmountMin: '999500000000000000'
+        tool: allbridge
+        executionDuration: 60
+        approvalAddress: '0x115909BDcbaB21954bEb4ab65FC2aBEE9866fa93'
+        feeCosts:
+        - name: Gas Fee
+          description: Covers gas expense for sending funds to user on receiving chain.
+          percentage: '0'
+          token:
+            address: '0x63e62989d9eb2d37dfdb1f93a22f063635b07d51'
+            symbol: MIVA
+            decimals: 18
+            chainId: 100
+            name: Minerva Wallet SuperToken
+            coinKey: MIVA
+            priceUSD: '0.0455272371751059'
+            logoURI: ''
+          amount: '0'
+          amountUSD: '0.00'
+          included: true
+        - name: Relay Fee
+          description: Covers gas expense for claiming user funds on receiving chain.
+          percentage: '0'
+          token:
+            address: '0x63e62989d9eb2d37dfdb1f93a22f063635b07d51'
+            symbol: MIVA
+            decimals: 18
+            chainId: 100
+            name: Minerva Wallet SuperToken
+            coinKey: MIVA
+            priceUSD: '0.0455272371751059'
+            logoURI: ''
+          amount: '0'
+          amountUSD: '0.00'
+          included: true
+        - name: Router Fee
+          description: Router service fee.
+          percentage: '0.0005'
+          token:
+            address: '0x63e62989d9eb2d37dfdb1f93a22f063635b07d51'
+            symbol: MIVA
+            decimals: 18
+            chainId: 100
+            name: Minerva Wallet SuperToken
+            coinKey: MIVA
+            priceUSD: '0.0455272371751059'
+            logoURI: ''
+          amount: '500000000000000'
+          amountUSD: '22763618587552.95'
+          included: true
+        gasCosts:
+        - type: SEND
+          price: '1.22'
+          estimate: '140000'
+          limit: '175000'
+          amount: '170800'
+          amountUSD: '0.00'
+          token:
+            address: '0x0000000000000000000000000000000000000000'
+            symbol: xDai
+            decimals: 18
+            chainId: 100
+            name: xDai
+            coinKey: xDai
+            priceUSD: '1'
+            logoURI: https://static.debank.com/image/xdai_token/logo_url/xdai/1207e67652b691ef3bfe04f89f4b5362.png
+        data:
+          bid:
+            user: '0x10fBFF9b9450D3A2d9d1612d6dE3726fACD8809E'
+            router: '0xeE2Ef40F688607CB23618d9312d62392786d13EB'
+            initiator: '0x10fBFF9b9450D3A2d9d1612d6dE3726fACD8809E'
+            sendingChainId: 100
+            sendingAssetId: '0x63e62989d9eb2d37dfdb1f93a22f063635b07d51'
+            amount: '1000000000000000000'
+            receivingChainId: 137
+            receivingAssetId: '0xc0b2983a17573660053beeed6fdb1053107cf387'
+            amountReceived: '999500000000000000'
+            receivingAddress: '0x10fBFF9b9450D3A2d9d1612d6dE3726fACD8809E'
+            transactionId: '0x9f54c1764e19367c44706f4a6253941b81e9ec524af5590091aa8ae67e7644ed'
+            expiry: 1643369368
+            callDataHash: '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470'
+            callTo: '0x0000000000000000000000000000000000000000'
+            encryptedCallData: 0x
+            sendingChainTxManagerAddress: '0x115909BDcbaB21954bEb4ab65FC2aBEE9866fa93'
+            receivingChainTxManagerAddress: '0x6090De2EC76eb1Dc3B5d632734415c93c44Fd113'
+            bidExpiry: 1643110469
+          gasFeeInReceivingToken: '0'
+          totalFee: '500000000000000'
+          metaTxRelayerFee: '0'
+          routerFee: '500000000000000'
+    RelayWithnessType:
+      title: Root Type for RelayWithnessType
       description: ''
       type: object
       properties:
-        permitted:
-          $ref: '#/components/schemas/PermittedTokenSchema'
-          properties:
-            token:
-              type: string
-            amount:
-              type: string
-        spender:
-          type: string
-        nonce:
-          type: string
-        deadline:
-          format: int32
-          type: integer
-        witness:
-          $ref: '#/components/schemas/RelayWitness'
-          properties:
-            diamondAddress:
-              type: string
-            diamondCalldataHash:
-              type: string
+        LiFiCall:
+          type: array
+          items:
+            $ref: '#/components/schemas/RelayWitnessParameters'
       example:
-        permitted:
-          token: '0xc2132D05D31c914a87C6611C10748AEb04B58e8F'
-          amount: '1000000'
-        spender: '0x6307119078556Fc8aD77781DFC67df20d75FB4f9'
-        nonce: '19'
-        deadline: 1738149521625
-        witness:
-          diamondAddress: '0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE'
-          diamondCalldataHash: '0x78c758554f4213645a8ebcaa5c5c3eb7e6db4b90cf37df4adb54fb92a7fb2a78'
-    RelayWitnessFull:
-      title: Root Type for RelayWitness
-      description: ''
+        LiFiCall:
+        - type: address
+          name: diamondAddress
+        - type: bytes32
+          name: diamondCalldataHash
+    ToolError:
+      title: An error returned by a tool (Exchange or Bridge)
+      description: Describes why a certain operation (like a quote request) failed.
       type: object
       properties:
-        witnessType:
-          $ref: '#/components/schemas/RelayWithnessType'
-          properties:
-            LiFiCall:
-              type: array
-              items:
-                type: object
-                properties:
-                  type:
-                    type: string
-                  name:
-                    type: string
-        witnessTypeName:
+        errorType:
+          description: The type of error that occurred.
+          enum:
+          - NO_QUOTE
           type: string
-        witness:
-          $ref: '#/components/schemas/RelayWitness'
-          properties:
-            diamondAddress:
-              type: string
-            diamondCalldataHash:
-              type: string
-      example:
-        witnessType:
-          LiFiCall:
-          - type: address
-            name: diamondAddress
-          - type: bytes32
-            name: diamondCalldataHash
-        witnessTypeName: LiFiCall
-        witness:
-          diamondAddress: '0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE'
-          diamondCalldataHash: '0x78c758554f4213645a8ebcaa5c5c3eb7e6db4b90cf37df4adb54fb92a7fb2a78'
-    RelayResponseData:
-      title: Root Type for RelayResponseData
+        code:
+          description: The error code.
+          enum:
+          - NO_POSSIBLE_ROUTE
+          - INSUFFICIENT_LIQUIDITY
+          - TOOL_TIMEOUT
+          - UNKNOWN_ERROR
+          - RPC_ERROR
+          - AMOUNT_TOO_LOW
+          - AMOUNT_TOO_HIGH
+          - FEES_HIGHER_THAN_AMOUNT
+          - DIFFERENT_RECIPIENT_NOT_SUPPORTED
+          - TOOL_SPECIFIC_ERROR
+          - CANNOT_GUARANTEE_MIN_AMOUNT
+          - RATE_LIMIT_EXCEEDED
+          type: string
+        action:
+          $ref: '#/components/schemas/Action'
+        tool:
+          description: The tool that emitted the error.
+          type: string
+        message:
+          description: A human-readable message describing the error.
+          type: string
+    RelayRequestSchema:
       description: ''
+      required:
+      - tokenOwner
+      - chainId
+      - callData
       type: object
       properties:
-        taskId:
+        tokenOwner:
+          description: ''
           type: string
-      example:
-        taskId: string
-    RelayWitnessParameters:
-      title: Root Type for RelayWitnessLifiCallParameters
-      description: ''
-      type: object
-      properties:
-        type:
+        chainId:
+          description: ''
+          type: number
+        permit:
+          $ref: '#/components/schemas/RelayPermitSchema'
+          description: ''
+        signedPermitData:
+          description: ''
           type: string
-        name:
+        callData:
+          description: ''
           type: string
-      example:
-        type: bytes32
-        name: diamondCalldataHash
     FeeCost:
       title: Root Type for FeeCost
       description: Fees included in the transfer
@@ -3660,21 +3083,602 @@ components:
           logoURI: ''
         amount: '0'
         amountUSD: '0.00'
-  responses:
-    InvalidQuoteRequest:
-      description: Invalid quote request
-    RelayerStatusResponse:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RelayTransactionStatusResponse'
+    IncludedSwapSteps:
+      title: Root type for included swaps or protocol steps in the status response
+      description: The included steps contain tool name and details, sending and receiving token data and amounts.
+      type: object
+      properties:
+        tool:
+          description: The tool used for this step
+          type: string
+        toolDetails:
+          description: The details of the tool used for this step. E.g. `1inch` or `feeProtocol`
+          type: object
+          properties:
+            key:
+              description: The tool key
+              type: string
+            name:
+              description: The tool name
+              type: string
+            logoURI:
+              description: The tool logo URL
+              type: string
+        fromAmount:
+          description: The amount that was sent to the tool
+          type: string
+        fromToken:
+          description: The token that was sent to the tool
+          type: string
+        toAmount:
+          description: The amount that was received from the tool
+          type: string
+        toToken:
+          description: The token that was received from the tool
+          type: string
+        bridgedAmount:
+          description: The amount that was sent to the bridge
+          type: string
+    RelayTransactionMetadata:
+      title: Root Type for RelayTransactionMetadata
+      description: Extra information about a relay transaction
+      type: object
+      properties:
+        chainId:
+          format: int32
+          type: integer
+        txHash:
+          type: string
+      example:
+        chainId: 137
+        txHash: '0x1425098ed5ecc5192070ac32a69dd924268b9df5e7a69764142473e9d022321a'
+    GasCost:
+      title: Root Type for GasCost
+      description: Gas costs included in the transfer
+      required:
+      - token
+      - type
+      - amount
+      type: object
+      properties:
+        type:
+          description: Can be one of `SUM`, `APPROVE` or `SEND`
+          type: string
+        price:
+          description: Suggested current standard price for the chain
+          type: string
+        estimate:
+          description: Estimation how much gas will be needed
+          type: string
+        limit:
+          description: Suggested gas limit
+          type: string
+        amount:
+          description: Amount of the gas cost
+          type: string
+        amountUSD:
+          description: Amount of the gas cost in USD
+          type: string
+        token:
+          $ref: '#/components/schemas/Token'
+          description: The used gas token
+      example:
+        type: SEND
+        price: '1.22'
+        estimate: '140000'
+        limit: '175000'
+        amount: '170800'
+        amountUSD: '0.00'
+        token:
+          address: '0x0000000000000000000000000000000000000000'
+          symbol: xDai
+          decimals: 18
+          chainId: 100
+          name: xDai
+          coinKey: xDai
+          priceUSD: '1'
+          logoURI: https://static.debank.com/image/xdai_token/logo_url/xdai/1207e67652b691ef3bfe04f89f4b5362.png
+    TransactionInfo:
+      title: Root Type for TransactionInfo
+      description: A transaction info object
+      required:
+      - txLink
+      - amount
+      - txHash
+      - token
+      - chainId
+      type: object
+      properties:
+        txHash:
+          description: The hash of the transaction
+          type: string
+        txLink:
+          description: Link to a block explorer showing the transaction
+          type: string
+        amount:
+          description: The amount of the transaction
+          type: string
+        token:
+          $ref: '#/components/schemas/Token'
+          description: Information about the token
+        chainId:
+          description: The id of the chain
+          type: number
+        gasToken:
+          $ref: '#/components/schemas/Token'
+          description: The token in which gas was paid
+        gasAmount:
+          description: The amount of the gas that was paid
+          type: string
+        gasAmountUSD:
+          description: The amount of the gas that was paid in USD
+          type: string
+        gasPrice:
+          description: The price of the gas
+          type: string
+        gasUsed:
+          description: The amount of the gas that was used
+          type: string
+        timestamp:
+          description: The transaction timestamp
+          type: number
+        value:
+          description: The transaction value
+          type: string
+        includedSteps:
+          description: An array of swap or protocol steps included in the LI.FI transaction
+          type: array
+          items:
+            $ref: '#/components/schemas/IncludedSwapSteps'
+      example:
+        txHash: '0xd3ad8fb8798d8440f3a1ec7fd51e102a88e4690f9365fad4eff1a17020376b4a'
+        txLink: https://polygonscan.com/tx/0xd3ad8fb8798d8440f3a1ec7fd51e102a88e4690f9365fad4eff1a17020376b4a
+        amount: '13000000'
+        token:
+          address: '0xd69b31c3225728cc57ddaf9be532a4ee1620be51'
+          symbol: anyUSDC
+          decimals: 6
+          chainId: 137
+          name: USDC
+          coinKey: anyUSDC
+          priceUSD: '0'
+          logoURI: ''
+        gasToken:
+          address: '0x0000000000000000000000000000000000001010'
+          symbol: MATIC
+          decimals: 18
+          chainId: 137
+          name: MATIC
+          coinKey: MATIC
+          priceUSD: '0'
+          logoURI: ''
+        chainId: 137
+        gasAmount: '10000'
+        gasAmountUSD: '0.0'
+        gasPrice: '1000'
+        gasUsed: '1000'
+        timestamp: 1720545119
+        value: '0'
+    RelayTransactionStatus:
+      title: Root Type for RelayTransactionStatus
+      description: Status details of a relay transaction
+      type: object
+      properties:
+        status:
+          type: string
+        message:
+          type: string
+        metadata:
+          $ref: '#/components/schemas/RelayTransactionMetadata'
+          description: Extra information about a relay transaction
+          properties:
+            chainId:
+              format: int32
+              type: integer
+            txHash:
+              type: string
+        transactionStatus:
+          $ref: '#/components/schemas/StatusResponse'
+          description: Details about the transaction
+          properties:
+            transactionId:
+              type: string
+            sending:
+              type: object
+              properties:
+                txHash:
+                  type: string
+                txLink:
+                  type: string
+                amount:
+                  type: string
+                token:
+                  type: object
+                  properties:
+                    address:
+                      type: string
+                    chainId:
+                      format: int32
+                      type: integer
+                    symbol:
+                      type: string
+                    decimals:
+                      format: int32
+                      type: integer
+                    name:
+                      type: string
+                    coinKey:
+                      type: string
+                    logoURI:
+                      type: string
+                    priceUSD:
+                      type: string
+                chainId:
+                  format: int32
+                  type: integer
+                gasPrice:
+                  type: string
+                gasUsed:
+                  type: string
+                gasToken:
+                  type: object
+                  properties:
+                    address:
+                      type: string
+                    chainId:
+                      format: int32
+                      type: integer
+                    symbol:
+                      type: string
+                    decimals:
+                      format: int32
+                      type: integer
+                    name:
+                      type: string
+                    coinKey:
+                      type: string
+                    logoURI:
+                      type: string
+                    priceUSD:
+                      type: string
+                gasAmount:
+                  type: string
+                gasAmountUSD:
+                  type: string
+                amountUSD:
+                  type: string
+                timestamp:
+                  format: int32
+                  type: integer
+            receiving:
+              type: object
+              properties:
+                txHash:
+                  type: string
+                txLink:
+                  type: string
+                amount:
+                  type: string
+                token:
+                  type: object
+                  properties:
+                    address:
+                      type: string
+                    chainId:
+                      format: int32
+                      type: integer
+                    symbol:
+                      type: string
+                    decimals:
+                      format: int32
+                      type: integer
+                    name:
+                      type: string
+                    coinKey:
+                      type: string
+                    logoURI:
+                      type: string
+                    priceUSD:
+                      type: string
+                chainId:
+                  format: int32
+                  type: integer
+                gasPrice:
+                  type: string
+                gasUsed:
+                  type: string
+                gasToken:
+                  type: object
+                  properties:
+                    address:
+                      type: string
+                    chainId:
+                      format: int32
+                      type: integer
+                    symbol:
+                      type: string
+                    decimals:
+                      format: int32
+                      type: integer
+                    name:
+                      type: string
+                    coinKey:
+                      type: string
+                    logoURI:
+                      type: string
+                    priceUSD:
+                      type: string
+                gasAmount:
+                  type: string
+                gasAmountUSD:
+                  type: string
+                amountUSD:
+                  type: string
+                timestamp:
+                  format: int32
+                  type: integer
+      example:
+        status: DONE
+        message: All done
+        metadata:
+          chainId: 137
+          txHash: '0x1425098ed5ecc5192070ac32a69dd924268b9df5e7a69764142473e9d022321a'
+        transactionStatus:
+          transactionId: '0xaddfdf22eeacd02f006e04bbb58f683394807664f62e150b078db0598ab64daa'
+          sending:
+            txHash: '0x1425098ed5ecc5192070ac32a69dd924268b9df5e7a69764142473e9d022321a'
+            txLink: https://polygonscan.com/tx/0x1425098ed5ecc5192070ac32a69dd924268b9df5e7a69764142473e9d022321a
+            amount: '1000000'
+            token:
+              address: '0xc2132D05D31c914a87C6611C10748AEb04B58e8F'
+              chainId: 137
+              symbol: USDT
+              decimals: 6
+              name: USDT
+              coinKey: USDT
+              logoURI: https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xdAC17F958D2ee523a2206206994597C13D831ec7/logo.png
+              priceUSD: '0.99989'
+            chainId: 137
+            gasPrice: '85184881231'
+            gasUsed: '361568'
+            gasToken:
+              address: '0x0000000000000000000000000000000000000000'
+              chainId: 137
+              symbol: POL
+              decimals: 18
+              name: Polygon Ecosystem Token
+              coinKey: POL
+              logoURI: https://static.debank.com/image/matic_token/logo_url/matic/6f5a6b6f0732a7a235131bd7804d357c.png
+              priceUSD: '0.4506'
+            gasAmount: '30800127136930208'
+            gasAmountUSD: '0.0139'
+            amountUSD: '0.9999'
+            timestamp: 1736518025
+          receiving:
+            txHash: '0x1425098ed5ecc5192070ac32a69dd924268b9df5e7a69764142473e9d022321a'
+            txLink: https://polygonscan.com/tx/0x1425098ed5ecc5192070ac32a69dd924268b9df5e7a69764142473e9d022321a
+            amount: '820847'
+            token:
+              address: '0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359'
+              chainId: 137
+              symbol: USDC
+              decimals: 6
+              name: USD Coin
+              coinKey: USDC
+              logoURI: https://static.debank.com/image/coin/logo_url/usdc/e87790bfe0b3f2ea855dc29069b38818.png
+              priceUSD: '1.000100010001'
+            chainId: 137
+            gasPrice: '85184881231'
+            gasUsed: '361568'
+            gasToken:
+              address: '0x0000000000000000000000000000000000000000'
+              chainId: 137
+              symbol: POL
+              decimals: 18
+              name: Polygon Ecosystem Token
+              coinKey: POL
+              logoURI: https://static.debank.com/image/matic_token/logo_url/matic/6f5a6b6f0732a7a235131bd7804d357c.png
+              priceUSD: '0.4506'
+            gasAmount: '30800127136930208'
+            gasAmountUSD: '0.0139'
+            amountUSD: '0.8209'
+            timestamp: 1736518025
+    RelayWitnessParameters:
+      title: Root Type for RelayWitnessLifiCallParameters
       description: ''
+      type: object
+      properties:
+        type:
+          type: string
+        name:
+          type: string
+      example:
+        type: bytes32
+        name: diamondCalldataHash
+    StatusResponse:
+      title: Root Type for StatusResponse
+      description: The current status of a transfer
+      required:
+      - sending
+      - status
+      - tool
+      type: object
+      properties:
+        sending:
+          $ref: '#/components/schemas/TransactionInfo'
+          description: The transaction on the sending chain
+        receiving:
+          $ref: '#/components/schemas/TransactionInfo'
+          description: The transaction on the receiving chain
+        feeCosts:
+          description: An array of fee costs for the transaction
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              description:
+                type: string
+              percentage:
+                type: string
+              token:
+                type: object
+                properties:
+                  address:
+                    type: string
+                  decimals:
+                    format: number
+                    type: number
+                  symbol:
+                    type: string
+                  chainId:
+                    format: number
+                    type: number
+                  coinKey:
+                    type: string
+                  name:
+                    type: string
+                  logoURI:
+                    type: string
+              amount:
+                type: string
+              amountUSD:
+                type: string
+              included:
+                type: boolean
+        status:
+          description: The current status of the transfer. Can be `PENDING`, `DONE`, `NOT_FOUND` or `FAILED`
+          enum:
+          - NOT_FOUND
+          - INVALID
+          - PENDING
+          - DONE
+          - FAILED
+          type: string
+        substatus:
+          description: 'A more specific substatus. This is available for PENDING and DONE statuses. More information can be found here: https://docs.li.fi/introduction/user-flows-and-examples/status-tracking'
+          enum:
+          - WAIT_SOURCE_CONFIRMATIONS
+          - WAIT_DESTINATION_TRANSACTION
+          - BRIDGE_NOT_AVAILABLE
+          - CHAIN_NOT_AVAILABLE
+          - REFUND_IN_PROGRESS
+          - UNKNOWN_ERROR
+          - COMPLETED
+          - PARTIAL
+          - REFUNDED
+        substatusMessage:
+          description: A message that describes the substatus
+          type: string
+        tool:
+          description: The tool used for this transfer
+          type: string
+        transactionId:
+          description: The ID of this transfer (NOT a transaction hash).
+          type: string
+        fromAddress:
+          description: The address of the sender.
+          type: string
+        toAddress:
+          description: The address of the receiver.
+          type: string
+        lifiExplorerLink:
+          description: The link to the LI.FI explorer.
+          type: string
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+          description: The transaction metadata which includes integrator's string, etc.
+      example:
+        sending:
+          txHash: '0xd3ad8fb8798d8440f3a1ec7fd51e102a88e4690f9365fad4eff1a17020376b4a'
+          txLink: https://polygonscan.com/tx/0xd3ad8fb8798d8440f3a1ec7fd51e102a88e4690f9365fad4eff1a17020376b4a
+          amount: '13000000'
+          token:
+            address: '0xd69b31c3225728cc57ddaf9be532a4ee1620be51'
+            symbol: anyUSDC
+            decimals: 6
+            chainId: 137
+            name: USDC
+            coinKey: anyUSDC
+            priceUSD: '0'
+            logoURI: ''
+          chainId: 137
+          gasToken:
+            address: '0x0000000000000000000000000000000000001010'
+            symbol: MATIC
+            decimals: 18
+            chainId: 137
+            name: MATIC
+            coinKey: MATIC
+            priceUSD: '0'
+            logoURI: ''
+          gasAmount: '10000'
+          gasAmountUSD: '0.0'
+          gasPrice: '1000'
+          gasUsed: '1000'
+          timestamp: 1720545119
+          value: '0'
+        receiving:
+          txHash: '0xba2793065e20835ef60993144d92e6bc1a86529a70e16c357f66ad13774868ad'
+          txLink: https://bscscan.com/tx/0xba2793065e20835ef60993144d92e6bc1a86529a70e16c357f66ad13774868ad
+          amount: '12100000000000000000'
+          token:
+            address: '0x8965349fb649a33a30cbfda057d8ec2c48abe2a2'
+            symbol: anyUSDC
+            decimals: 18
+            chainId: 56
+            name: USDC
+            coinKey: anyUSDC
+            priceUSD: '0'
+            logoURI: ''
+          chainId: 56
+          gasToken:
+            address: '0x0000000000000000000000000000000000001010'
+            symbol: BNB
+            decimals: 18
+            chainId: 56
+            name: BNB
+            coinKey: BNB
+            priceUSD: '0'
+            logoURI: ''
+          gasAmount: '10000'
+          gasAmountUSD: '0.0'
+          gasPrice: '1000'
+          gasUsed: '1000'
+          timestamp: 1720560232
+          value: '0'
+        tool: anyswap
+        status: DONE
+        substatus: COMPLETED
+        substatusMessage: The transfer is complete.
+        transactionId: '0x0000000000000000000000000000000000001010'
+        fromAddress: '0x0000000000000000000000000000000000001010'
+        toAddress: '0x0000000000000000000000000000000000001010'
+        lifiExplorerLink: https://scan.li.fi/tx/0xd3ad8fb8798d8440f3a1ec7fd51e102a88e4690f9365fad4eff1a17020376b4a
+        metadata:
+          integrator: jumper.exchange
+  responses:
     RelayResponse:
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/RelayResponse'
       description: ''
+    RelayerQuoteResponse:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RelayQuoteResponse'
+      description: ''
+    RelayerStatusResponse:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RelayTransactionStatusResponse'
+      description: ''
+    InvalidQuoteRequest:
+      description: Invalid quote request
     QuoteNotFound:
       content:
         application/json:
@@ -3690,14 +3694,3 @@ components:
                 items:
                   $ref: '#/components/schemas/UnavailableRoutes'
       description: Unable to find a quote for the requested transfer.
-    RelayerQuoteResponse:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RelayQuoteResponse'
-      description: ''
-  securitySchemes:
-    x-lifi-api-key:
-      type: apiKey
-      in: header
-      name: x-lifi-api-key
