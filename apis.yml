@@ -10,6 +10,18 @@ description: >-
   yield discovery and portfolio tracking, an intent/solver marketplace built on
   the Open Intents Framework, an embeddable Widget, a TypeScript SDK, a CLI and
   a hosted MCP server for AI agents.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: unknown
   onboarding: self-serve
