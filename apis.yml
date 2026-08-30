@@ -115,7 +115,7 @@ apis:
   humanURL: https://docs.li.fi/api-reference/introduction
   baseURL: https://li.quest
   tags:
-  - Call Data
+  - Calldata
   tags_raw:
   - Calldata
   properties:
