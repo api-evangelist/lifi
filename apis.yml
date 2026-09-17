@@ -112,22 +112,6 @@ apis:
     url: https://docs.li.fi/api-reference/introduction
   - type: Documentation
     url: https://docs.li.fi/earn/overview
-- aid: lifi:lifi-calldata-api
-  name: LI.FI Calldata API
-  description: The Calldata API from LI.FI — 1 operation(s) for calldata.
-  humanURL: https://docs.li.fi/api-reference/introduction
-  baseURL: https://li.quest
-  tags:
-  - Call Data
-  tags_raw:
-  - Calldata
-  properties:
-  - type: OpenAPI
-    url: openapi/lifi-calldata-api-openapi.yml
-  - type: Documentation
-    url: https://docs.li.fi/api-reference/introduction
-  - type: Documentation
-    url: https://docs.li.fi/earn/overview
 - aid: lifi:lifi-chains-api
   name: LI.FI Chains API
   description: The Chains API from LI.FI — 1 operation(s) for chains.
@@ -322,6 +306,20 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/lifi-tools-api-openapi.yml
+  - type: Documentation
+    url: https://docs.li.fi/api-reference/introduction
+  - type: Documentation
+    url: https://docs.li.fi/earn/overview
+- aid: lifi:lifi-call-data-api
+  name: LI.FI Call Data API
+  description: The Call Data API from LI.FI — 1 operation(s) for call data.
+  humanURL: https://docs.li.fi/lifi-intents/intents-api/api-overview
+  baseURL: https://order.li.fi
+  tags:
+  - Call Data
+  properties:
+  - type: OpenAPI
+    url: openapi/lifi-call-data-api-openapi.yml
   - type: Documentation
     url: https://docs.li.fi/api-reference/introduction
   - type: Documentation
