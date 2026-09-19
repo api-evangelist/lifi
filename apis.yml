@@ -51,6 +51,19 @@ tags:
 - Crypto Web3
 - Blockchain
 - Cross-Chain
+- Bridge
+- DEX Aggregation
+- DeFi
+- Payments
+- Liquidity
+- Yield
+- Intents
+- Agents
+tags_raw:
+- Company
+- Crypto Web3
+- Blockchain
+- Cross-Chain
 - Bridges
 - DEX Aggregation
 - DeFi
@@ -274,6 +287,8 @@ apis:
   humanURL: https://docs.li.fi/api-reference/introduction
   baseURL: https://li.quest
   tags:
+  - Tokens
+  tags_raw:
   - Token
   properties:
   - type: OpenAPI
