@@ -32,6 +32,8 @@ paths:
       summary: Get status information about a lifuel transaction
       tags:
       - Gas
+      operationId: getV1GasStatus
+      x-operation-id-source: derived
   /v1/gas/refetch:
     get:
       parameters:
@@ -58,9 +60,11 @@ paths:
         '200':
           $ref: '#/components/responses/LIFuelStatusResponse'
       deprecated: true
-      summary: In case a transaction was missed by a relayer, this endpoint can be used to force a tx to be re-fetched.
+      summary: In case a transaction was missed by a relayer, this endpoint can be used to…
       tags:
       - Gas
+      operationId: getV1GasRefetch
+      x-operation-id-source: derived
   /v1/gas/suggestion/{chain}:
     get:
       parameters:
@@ -97,6 +101,8 @@ paths:
         If `fromChain` and `fromToken` are specified, the result will contain information about how much `fromToken` amount the user has to send to receive the suggested gas amount on the requested chain.'
       tags:
       - Gas
+      operationId: getV1GasSuggestionByChain
+      x-operation-id-source: derived
   /v1/gas/prices:
     get:
       tags:
@@ -112,6 +118,8 @@ paths:
           $ref: '#/components/responses/GasPricesResponse'
       summary: Get gas prices for enabled chains
       description: This endpoint can be used to get the most recent gas prices for the enabled chains in the server.
+      operationId: getV1GasPrices
+      x-operation-id-source: derived
   /v1/gas/prices/{chainId}:
     get:
       tags:
@@ -136,17 +144,10 @@ paths:
           $ref: '#/components/responses/InvalidRoutesRequest'
       summary: Get gas price for the specified chainId
       description: This endpoint can be used to get the most recent gas prices for the supplied chainId.
+      operationId: getV1GasPricesByChainId
+      x-operation-id-source: derived
 components:
   schemas:
-    LIFuelStatus:
-      type: object
-      properties:
-        status:
-          $ref: '#/components/schemas/LIFuelStatusStateEnum'
-        sending:
-          $ref: '#/components/schemas/TxInfo'
-        receiving:
-          $ref: '#/components/schemas/TxInfo'
     LIFuelStatusStateEnum:
       enum:
       - NOT_FOUND
@@ -219,6 +220,15 @@ components:
         coinKey: DAI
         priceUSD: '1'
         logoURI: https://static.debank.com/image/matic_token/logo_url/0x8f3cf7ad23cd3cadbd9735aff958023239c6a063/549c4205dbb199f1b8b03af783f35e71.png
+    LIFuelStatus:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/LIFuelStatusStateEnum'
+        sending:
+          $ref: '#/components/schemas/TxInfo'
+        receiving:
+          $ref: '#/components/schemas/TxInfo'
     GasPrice:
       type: object
       properties:

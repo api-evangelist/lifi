@@ -22,9 +22,7 @@ paths:
         **This endpoint is scoped to LI.FI Earn (vaults).** Only chains where Earn currently has indexed vaults are returned — it is not a general list of all chains the LI.FI platform supports, and it should not be used to determine SDK / Swaps / Bridges chain coverage.
 
 
-        If you are integrating Swaps or Bridges (via the LI.FI SDK or the main API), call [`GET https://li.quest/v1/chains`](/api-reference/get-information-about-all-currently-supported-chains) instead. That endpoint returns every chain supported by the LI.FI Aggregation API.
-
-        '
+        If you are integrating Swaps or Bridges (via the LI.FI SDK or the main API), call `GET https://li.quest/v1/chains` instead. That endpoint returns every chain supported by the LI.FI Aggregation API.'
       tags:
       - Earn Chains
       parameters: []

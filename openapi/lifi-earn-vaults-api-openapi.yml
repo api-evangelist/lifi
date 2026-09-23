@@ -309,50 +309,6 @@ components:
           type: string
           description: Error message describing what was not found.
           example: Vault not found
-    ValidationError:
-      type: object
-      additionalProperties: false
-      required:
-      - statusCode
-      - message
-      - errors
-      properties:
-        statusCode:
-          type: number
-          description: HTTP status code. Always `400` for validation errors.
-          example: 400
-        message:
-          type: string
-          description: Human-readable summary of the validation failure.
-          example: Validation failed
-        errors:
-          type: array
-          description: List of individual validation errors.
-          items:
-            type: object
-            additionalProperties: false
-            required:
-            - code
-            - message
-            - path
-            properties:
-              code:
-                type: string
-                description: Machine-readable error code.
-                example: invalid_type
-              message:
-                type: string
-                description: Description of this specific validation failure.
-                example: Expected integer, received string
-              path:
-                type: array
-                description: JSON path to the field that failed validation.
-                items:
-                  oneOf:
-                  - type: string
-                  - type: number
-                example:
-                - chainId
     Vault:
       type: object
       additionalProperties: false
@@ -661,6 +617,50 @@ components:
                 - instant
                 - complex
                 example: instant
+    ValidationError:
+      type: object
+      additionalProperties: false
+      required:
+      - statusCode
+      - message
+      - errors
+      properties:
+        statusCode:
+          type: number
+          description: HTTP status code. Always `400` for validation errors.
+          example: 400
+        message:
+          type: string
+          description: Human-readable summary of the validation failure.
+          example: Validation failed
+        errors:
+          type: array
+          description: List of individual validation errors.
+          items:
+            type: object
+            additionalProperties: false
+            required:
+            - code
+            - message
+            - path
+            properties:
+              code:
+                type: string
+                description: Machine-readable error code.
+                example: invalid_type
+              message:
+                type: string
+                description: Description of this specific validation failure.
+                example: Expected integer, received string
+              path:
+                type: array
+                description: JSON path to the field that failed validation.
+                items:
+                  oneOf:
+                  - type: string
+                  - type: number
+                example:
+                - chainId
   securitySchemes:
     x-lifi-api-key:
       type: apiKey

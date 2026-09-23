@@ -9,7 +9,7 @@ servers:
 - url: https://staging.li.quest
   description: LI.FI Staging Environment
 tags:
-- name: Calldata
+- name: Call Data
 paths:
   /v1/calldata/parse:
     parameters:
@@ -38,7 +38,9 @@ paths:
       summary: Parse transaction call data (BETA)
       description: This endpoint allows to pass transaction call data. It will then parse the call data based on known and on-chain ABIs to provide a JSON overview of the internal transaction information.
       tags:
-      - Calldata
+      - Call Data
+      operationId: getV1CalldataParse
+      x-operation-id-source: derived
 components:
   responses:
     ParsedCallDataResponse:

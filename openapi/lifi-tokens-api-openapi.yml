@@ -54,6 +54,8 @@ paths:
       description: This endpoint can be used to fetch all tokens known to the LI.FI services.
       tags:
       - Tokens
+      operationId: getV1Tokens
+      x-operation-id-source: derived
 components:
   schemas:
     Token:

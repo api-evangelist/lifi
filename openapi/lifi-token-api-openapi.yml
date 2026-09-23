@@ -43,13 +43,17 @@ paths:
       summary: Fetch information about a Token
       description: 'This endpoint can be used to get more information about a token by its address or symbol and its chain.
 
-        If you want to learn more about how to use this endpoint please have a look at our [guide](/api-reference/fetch-information-about-a-token).'
+        If you want to learn more about how to use this endpoint please have a look at our guide.'
       tags:
       - Token
+      operationId: getV1Token
+      x-operation-id-source: derived
 components:
   responses:
     InvalidChainResponse:
       description: User passed an invalid chain id or abbreviation
+    NoTokenFound:
+      description: No token found for the given address and chain
     TokenResponse:
       content:
         application/json:
@@ -69,8 +73,6 @@ components:
                 priceUSD: '1'
                 logoURI: https://static.debank.com/image/matic_token/logo_url/0x8f3cf7ad23cd3cadbd9735aff958023239c6a063/549c4205dbb199f1b8b03af783f35e71.png
       description: ''
-    NoTokenFound:
-      description: No token found for the given address and chain
   schemas:
     Token:
       title: Root Type for Token
