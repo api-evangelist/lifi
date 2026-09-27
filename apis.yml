@@ -96,7 +96,7 @@ apis:
   - type: InteractiveDocumentation
     url: https://order.li.fi/docs
 - aid: lifi:lifi-advanced-api
-  name: LI.FI advanced API
+  name: LI.FI Advanced API
   description: The advanced API from LI.FI — 3 operation(s) for advanced.
   humanURL: https://docs.li.fi/api-reference/introduction
   baseURL: https://li.quest
