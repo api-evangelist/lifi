@@ -57,19 +57,6 @@ paths:
       operationId: getV1Tokens
       x-operation-id-source: derived
 components:
-  responses:
-    TokensResponse:
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              '1':
-                description: The requested tokens
-                type: array
-                items:
-                  $ref: '#/components/schemas/Token'
-      description: ''
   schemas:
     Token:
       title: Root Type for Token
@@ -117,3 +104,16 @@ components:
         coinKey: DAI
         priceUSD: '1'
         logoURI: https://static.debank.com/image/matic_token/logo_url/0x8f3cf7ad23cd3cadbd9735aff958023239c6a063/549c4205dbb199f1b8b03af783f35e71.png
+  responses:
+    TokensResponse:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              '1':
+                description: The requested tokens
+                type: array
+                items:
+                  $ref: '#/components/schemas/Token'
+      description: ''

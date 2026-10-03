@@ -90,6 +90,18 @@ paths:
       x-operation-id-source: derived
 components:
   responses:
+    IntegratorWithdrawalTransactionResponse:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/IntegratorWithdrawalResponse'
+          examples:
+            ExampleIntegratorResponse:
+              value:
+                transactionRequest:
+                  data: 0x
+                  to: '0xbD6C7B0d2f68c2b7805d88388319cfB6EcB50eA9'
+      description: Response of the integrator's fee withdrawal transaction request
     IntegratorResponse:
       content:
         application/json:
@@ -116,21 +128,57 @@ components:
       description: Response of the Integrator request
     InvalidIntegratorRequest:
       description: Integrator with the name ${integratorId} is not found
-    IntegratorWithdrawalTransactionResponse:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/IntegratorWithdrawalResponse'
-          examples:
-            ExampleIntegratorResponse:
-              value:
-                transactionRequest:
-                  data: 0x
-                  to: '0xbD6C7B0d2f68c2b7805d88388319cfB6EcB50eA9'
-      description: Response of the integrator's fee withdrawal transaction request
     InvalidIntegratorWithdrawalRequest:
       description: None of the requested tokens has a balance
   schemas:
+    IntegratorResponse:
+      title: Root Type for IntegratorResponse
+      description: Integrator's fee balance by chain
+      required:
+      - integratorId
+      type: object
+      properties:
+        integratorId:
+          description: The integrator's name or wallet address
+          type: string
+        feeBalances:
+          description: The fee balances of the integrator
+          type: array
+          items:
+            $ref: '#/components/schemas/FeeBalances'
+      example:
+        integratorId: fee-demo
+        feeBalances:
+        - chainId: 137
+          tokenBalances:
+          - token:
+              address: '0x0000000000000000000000000000000000000000'
+              symbol: MATIC
+              decimals: 18
+              chainId: 137
+              name: MATIC
+              coinKey: MATIC
+              priceUSD: '0.742896'
+              logoURI: https://static.debank.com/image/matic_token/logo_url/matic/6f5a6b6f0732a7a235131bd7804d357c.png
+            amount: 0
+            amountUsd: 0
+    IntegratorWithdrawalResponse:
+      title: Root Type for IntegratorWithdrawalResponse
+      description: Transaction request for withdrawing integrator's collected fees for the specified chain
+      required:
+      - transactionRequest
+      type: object
+      properties:
+        transactionRequest:
+          description: The transaction request
+          type: object
+          properties:
+            data:
+              description: The transaction's data
+              type: string
+            to:
+              description: The FeeCollector's contract address for the specified chain
+              type: string
     Token:
       title: Root Type for Token
       description: Representation of a Token
@@ -188,23 +236,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/TokenBalances'
-    IntegratorWithdrawalResponse:
-      title: Root Type for IntegratorWithdrawalResponse
-      description: Transaction request for withdrawing integrator's collected fees for the specified chain
-      required:
-      - transactionRequest
-      type: object
-      properties:
-        transactionRequest:
-          description: The transaction request
-          type: object
-          properties:
-            data:
-              description: The transaction's data
-              type: string
-            to:
-              description: The FeeCollector's contract address for the specified chain
-              type: string
     TokenBalances:
       type: object
       properties:
@@ -219,34 +250,3 @@ components:
           description: Fee amount in USD
           type: string
           example: '0'
-    IntegratorResponse:
-      title: Root Type for IntegratorResponse
-      description: Integrator's fee balance by chain
-      required:
-      - integratorId
-      type: object
-      properties:
-        integratorId:
-          description: The integrator's name or wallet address
-          type: string
-        feeBalances:
-          description: The fee balances of the integrator
-          type: array
-          items:
-            $ref: '#/components/schemas/FeeBalances'
-      example:
-        integratorId: fee-demo
-        feeBalances:
-        - chainId: 137
-          tokenBalances:
-          - token:
-              address: '0x0000000000000000000000000000000000000000'
-              symbol: MATIC
-              decimals: 18
-              chainId: 137
-              name: MATIC
-              coinKey: MATIC
-              priceUSD: '0.742896'
-              logoURI: https://static.debank.com/image/matic_token/logo_url/matic/6f5a6b6f0732a7a235131bd7804d357c.png
-            amount: 0
-            amountUsd: 0
