@@ -46,6 +46,10 @@ x-backed-by:
 specificationVersion: '0.23'
 created: '2026-07-17'
 modified: '2026-07-19'
+x-docs-platform: mintlify
+x-docs-platform-confidence: medium
+x-docs-platform-checked: 2026-10-03
+x-docs-hosting: vercel
 tags:
 - Company
 - Crypto Web3
@@ -59,6 +63,8 @@ tags:
 - Yield
 - Intents
 - Agents
+- Web3
+- Cryptocurrency
 tags_raw:
 - Company
 - Crypto Web3
@@ -72,6 +78,8 @@ tags_raw:
 - Yield
 - Intents
 - Agents
+- Web3
+- Cryptocurrency
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
