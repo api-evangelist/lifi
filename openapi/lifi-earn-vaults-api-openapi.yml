@@ -294,21 +294,6 @@ paths:
                 $ref: '#/components/schemas/ValidationError'
 components:
   schemas:
-    NotFoundError:
-      type: object
-      additionalProperties: false
-      required:
-      - statusCode
-      - message
-      properties:
-        statusCode:
-          type: integer
-          description: HTTP status code.
-          example: 404
-        message:
-          type: string
-          description: Error message describing what was not found.
-          example: Vault not found
     ValidationError:
       type: object
       additionalProperties: false
@@ -353,6 +338,21 @@ components:
                   - type: number
                 example:
                 - chainId
+    NotFoundError:
+      type: object
+      additionalProperties: false
+      required:
+      - statusCode
+      - message
+      properties:
+        statusCode:
+          type: integer
+          description: HTTP status code.
+          example: 404
+        message:
+          type: string
+          description: Error message describing what was not found.
+          example: Vault not found
     Vault:
       type: object
       additionalProperties: false

@@ -147,33 +147,28 @@ paths:
       operationId: getV1GasPricesByChainId
       x-operation-id-source: derived
 components:
-  responses:
-    LIFuelStatusResponse:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/LIFuelStatus'
-      description: The status of a lifuel operation
-    GasSuggestionResponse:
-      description: "{\n    \"available\": true,\n    \"recommended\": {\n        \"token\": {\n            \"address\": \"0x0000000000000000000000000000000000000000\",\n            \"chainId\": 137,\n            \"symbol\": \"MATIC\",\n            \"decimals\": 18,\n            \"name\": \"MATIC\",\n            \"priceUSD\": \"1.219821\",\n            \"logoURI\": \"https://static.debank.com/image/matic_token/logo_url/matic/6f5a6b6f0732a7a235131bd7804d357c.png\",\n            \"coinKey\": \"MATIC\"\n        },\n        \"amount\": \"190510922050970750\",\n        \"amountUsd\": \"0.23\"\n    },\n    \"limit\": {\n        \"token\": {\n            \"address\": \"0x0000000000000000000000000000000000000000\",\n            \"chainId\": 137,\n            \"symbol\": \"MATIC\",\n            \"decimals\": 18,\n            \"name\": \"MATIC\",\n            \"priceUSD\": \"1.219821\",\n            \"logoURI\": \"https://static.debank.com/image/matic_token/logo_url/matic/6f5a6b6f0732a7a235131bd7804d357c.png\",\n            \"coinKey\": \"MATIC\"\n        },\n        \"amount\": \"1639584824330782959\",\n        \"amountUsd\": \"2\"\n    },\n    \"fromToken\": {\n        \"address\": \"eth\",\n        \"symbol\": \"ETH\",\n        \"decimals\": 18,\n        \"chainId\": 1,\n        \"name\": \"ETH\",\n        \"coinKey\": \"ETH\",\n        \"priceUSD\": \"1622.39\",\n        \"logoURI\": \"https://static.debank.com/image/token/logo_url/eth/935ae4e4d1d12d59a99717a24f2540b5.png\"\n    },\n    \"fromAmount\": \"141766159801281\"\n}"
-    InvalidRoutesRequest:
-      description: Invalid Routes Request
-    GasPricesResponse:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/GasPrice'
-      description: Gas Prices for the supplied chainID
   schemas:
-    LIFuelStatus:
+    TxInfo:
       type: object
       properties:
-        status:
-          $ref: '#/components/schemas/LIFuelStatusStateEnum'
-        sending:
-          $ref: '#/components/schemas/TxInfo'
-        receiving:
-          $ref: '#/components/schemas/TxInfo'
+        txHash:
+          type: string
+          example: '0x74546ce8aac58d33c212474293dcfeeadecef115847da75131a2ff6692e03b96'
+        txLink:
+          type: string
+          example: https://polygonscan.com/tx/0x74546ce8aac58d33c212474293dcfeeadecef115847da75131a2ff6692e03b96
+        amount:
+          description: The amount of token that will be / has been relayed
+          type: string
+          example: '10000'
+        token:
+          $ref: '#/components/schemas/Token'
+        chainId:
+          type: number
+          example: 137
+        block:
+          type: number
+          example: 39397739
     LIFuelStatusStateEnum:
       enum:
       - NOT_FOUND
@@ -225,27 +220,15 @@ components:
         coinKey: DAI
         priceUSD: '1'
         logoURI: https://static.debank.com/image/matic_token/logo_url/0x8f3cf7ad23cd3cadbd9735aff958023239c6a063/549c4205dbb199f1b8b03af783f35e71.png
-    TxInfo:
+    LIFuelStatus:
       type: object
       properties:
-        txHash:
-          type: string
-          example: '0x74546ce8aac58d33c212474293dcfeeadecef115847da75131a2ff6692e03b96'
-        txLink:
-          type: string
-          example: https://polygonscan.com/tx/0x74546ce8aac58d33c212474293dcfeeadecef115847da75131a2ff6692e03b96
-        amount:
-          description: The amount of token that will be / has been relayed
-          type: string
-          example: '10000'
-        token:
-          $ref: '#/components/schemas/Token'
-        chainId:
-          type: number
-          example: 137
-        block:
-          type: number
-          example: 39397739
+        status:
+          $ref: '#/components/schemas/LIFuelStatusStateEnum'
+        sending:
+          $ref: '#/components/schemas/TxInfo'
+        receiving:
+          $ref: '#/components/schemas/TxInfo'
     GasPrice:
       type: object
       properties:
@@ -257,3 +240,20 @@ components:
           type: number
         lastUpdated:
           type: number
+  responses:
+    LIFuelStatusResponse:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/LIFuelStatus'
+      description: The status of a lifuel operation
+    GasSuggestionResponse:
+      description: "{\n    \"available\": true,\n    \"recommended\": {\n        \"token\": {\n            \"address\": \"0x0000000000000000000000000000000000000000\",\n            \"chainId\": 137,\n            \"symbol\": \"MATIC\",\n            \"decimals\": 18,\n            \"name\": \"MATIC\",\n            \"priceUSD\": \"1.219821\",\n            \"logoURI\": \"https://static.debank.com/image/matic_token/logo_url/matic/6f5a6b6f0732a7a235131bd7804d357c.png\",\n            \"coinKey\": \"MATIC\"\n        },\n        \"amount\": \"190510922050970750\",\n        \"amountUsd\": \"0.23\"\n    },\n    \"limit\": {\n        \"token\": {\n            \"address\": \"0x0000000000000000000000000000000000000000\",\n            \"chainId\": 137,\n            \"symbol\": \"MATIC\",\n            \"decimals\": 18,\n            \"name\": \"MATIC\",\n            \"priceUSD\": \"1.219821\",\n            \"logoURI\": \"https://static.debank.com/image/matic_token/logo_url/matic/6f5a6b6f0732a7a235131bd7804d357c.png\",\n            \"coinKey\": \"MATIC\"\n        },\n        \"amount\": \"1639584824330782959\",\n        \"amountUsd\": \"2\"\n    },\n    \"fromToken\": {\n        \"address\": \"eth\",\n        \"symbol\": \"ETH\",\n        \"decimals\": 18,\n        \"chainId\": 1,\n        \"name\": \"ETH\",\n        \"coinKey\": \"ETH\",\n        \"priceUSD\": \"1622.39\",\n        \"logoURI\": \"https://static.debank.com/image/token/logo_url/eth/935ae4e4d1d12d59a99717a24f2540b5.png\"\n    },\n    \"fromAmount\": \"141766159801281\"\n}"
+    InvalidRoutesRequest:
+      description: Invalid Routes Request
+    GasPricesResponse:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GasPrice'
+      description: Gas Prices for the supplied chainID

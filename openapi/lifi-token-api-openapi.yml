@@ -49,6 +49,30 @@ paths:
       operationId: getV1Token
       x-operation-id-source: derived
 components:
+  responses:
+    NoTokenFound:
+      description: No token found for the given address and chain
+    InvalidChainResponse:
+      description: User passed an invalid chain id or abbreviation
+    TokenResponse:
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Token'
+          examples:
+            ExampleTokenResponse:
+              value:
+                address: '0x8f3cf7ad23cd3cadbd9735aff958023239c6a063'
+                symbol: DAI
+                decimals: 18
+                chainId: 137
+                name: (PoS) Dai Stablecoin
+                coinKey: DAI
+                priceUSD: '1'
+                logoURI: https://static.debank.com/image/matic_token/logo_url/0x8f3cf7ad23cd3cadbd9735aff958023239c6a063/549c4205dbb199f1b8b03af783f35e71.png
+      description: ''
   schemas:
     Token:
       title: Root Type for Token
@@ -96,27 +120,3 @@ components:
         coinKey: DAI
         priceUSD: '1'
         logoURI: https://static.debank.com/image/matic_token/logo_url/0x8f3cf7ad23cd3cadbd9735aff958023239c6a063/549c4205dbb199f1b8b03af783f35e71.png
-  responses:
-    NoTokenFound:
-      description: No token found for the given address and chain
-    InvalidChainResponse:
-      description: User passed an invalid chain id or abbreviation
-    TokenResponse:
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/Token'
-          examples:
-            ExampleTokenResponse:
-              value:
-                address: '0x8f3cf7ad23cd3cadbd9735aff958023239c6a063'
-                symbol: DAI
-                decimals: 18
-                chainId: 137
-                name: (PoS) Dai Stablecoin
-                coinKey: DAI
-                priceUSD: '1'
-                logoURI: https://static.debank.com/image/matic_token/logo_url/0x8f3cf7ad23cd3cadbd9735aff958023239c6a063/549c4205dbb199f1b8b03af783f35e71.png
-      description: ''
