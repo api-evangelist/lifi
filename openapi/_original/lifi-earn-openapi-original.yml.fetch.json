@@ -1,0 +1,12 @@
+{
+ "url": "https://docs.li.fi/earn-openapi.yaml",
+ "requested_url": "https://docs.li.fi/earn-openapi.yaml",
+ "status": 200,
+ "content_type": "text/yaml",
+ "bytes": 32707,
+ "sha256": "198cedb486a14d64e0267592c85684f123d4b5762d064c4f16b91c3317f30846",
+ "fetched_at": "2026-10-04",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "equivalent",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the provider's current document describes the same operations (Jaccard 1.0), but the bytes differ, so the archive is an earlier or reformatted copy."
+}
