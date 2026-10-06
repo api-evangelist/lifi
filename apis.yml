@@ -45,7 +45,7 @@ x-backed-by:
 - multicoin-capital
 specificationVersion: '0.23'
 created: '2026-07-17'
-modified: '2026-07-19'
+modified: '2026-10-06'
 x-docs-platform: mintlify
 x-docs-platform-confidence: medium
 x-docs-platform-checked: 2026-10-03
@@ -348,6 +348,8 @@ apis:
   - type: Documentation
     url: https://docs.li.fi/earn/overview
 common:
+- url: https://blog.li.fi/feed
+  type: BlogRSS
 - type: Website
   url: https://li.fi
 - type: DeveloperPortal
