@@ -48,102 +48,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    Chain:
-      title: Root Type for Chain
-      description: Representation of a chain
-      required:
-      - coin
-      - id
-      - key
-      - mainnet
-      - name
-      type: object
-      properties:
-        key:
-          description: Short string represenation of the chain
-          type: string
-        chainType:
-          description: Type of the chain
-          type: string
-        name:
-          description: Name of the chain
-          type: string
-        coin:
-          description: The native coin of the chain
-          type: string
-        id:
-          format: number
-          description: Unique id of the chain
-          type: number
-        mainnet:
-          description: Whether the chain is mainnet or not
-          type: boolean
-        logoURI:
-          description: Logo of the chain
-          type: string
-        tokenlistUrl:
-          description: Url to the list of available tokens
-          type: string
-        faucetUrls:
-          description: List of available faucets
-          type: array
-          items:
-            type: string
-        multicallAddress:
-          description: The multicall contract address
-          type: string
-        metamask:
-          description: Information about the chain from metamask. Contains data about RPCs and block explorers
-          type: object
-          properties:
-            chainId:
-              type: string
-            blockExplorerUrls:
-              type: array
-              items:
-                type: string
-            chainName:
-              type: string
-            nativeCurrency:
-              type: object
-              properties:
-                name:
-                  type: string
-                symbol:
-                  type: string
-                decimals:
-                  format: number
-                  type: number
-            rpcUrls:
-              type: array
-              items:
-                type: string
-        nativeToken:
-          $ref: '#/components/schemas/Token'
-          description: The native token info for the chain
-      example:
-        key: pol
-        name: Polygon
-        coin: MATIC
-        id: 137
-        mainnet: true
-        logoURI: https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/polygon.svg
-        tokenlistUrl: https://unpkg.com/quickswap-default-token-list@1.0.71/build/quickswap-default.tokenlist.json
-        faucetUrls:
-        - https://stakely.io/faucet/polygon-matic
-        metamask:
-          chainId: '0x89'
-          blockExplorerUrls:
-          - https://polygonscan.com/
-          - https://explorer-mainnet.maticvigil.com/
-          chainName: Matic(Polygon) Mainnet
-          nativeCurrency:
-            name: MATIC
-            symbol: MATIC
-            decimals: 18
-          rpcUrls:
-          - https://polygon-rpc.com/
-          - https://polygon.llamarpc.com/
     ChainsResponse:
       title: Root Type for ChainsResponse
       description: ''
@@ -316,6 +220,102 @@ components:
         coinKey: DAI
         priceUSD: '1'
         logoURI: https://static.debank.com/image/matic_token/logo_url/0x8f3cf7ad23cd3cadbd9735aff958023239c6a063/549c4205dbb199f1b8b03af783f35e71.png
+    Chain:
+      title: Root Type for Chain
+      description: Representation of a chain
+      required:
+      - coin
+      - id
+      - key
+      - mainnet
+      - name
+      type: object
+      properties:
+        key:
+          description: Short string represenation of the chain
+          type: string
+        chainType:
+          description: Type of the chain
+          type: string
+        name:
+          description: Name of the chain
+          type: string
+        coin:
+          description: The native coin of the chain
+          type: string
+        id:
+          format: number
+          description: Unique id of the chain
+          type: number
+        mainnet:
+          description: Whether the chain is mainnet or not
+          type: boolean
+        logoURI:
+          description: Logo of the chain
+          type: string
+        tokenlistUrl:
+          description: Url to the list of available tokens
+          type: string
+        faucetUrls:
+          description: List of available faucets
+          type: array
+          items:
+            type: string
+        multicallAddress:
+          description: The multicall contract address
+          type: string
+        metamask:
+          description: Information about the chain from metamask. Contains data about RPCs and block explorers
+          type: object
+          properties:
+            chainId:
+              type: string
+            blockExplorerUrls:
+              type: array
+              items:
+                type: string
+            chainName:
+              type: string
+            nativeCurrency:
+              type: object
+              properties:
+                name:
+                  type: string
+                symbol:
+                  type: string
+                decimals:
+                  format: number
+                  type: number
+            rpcUrls:
+              type: array
+              items:
+                type: string
+        nativeToken:
+          $ref: '#/components/schemas/Token'
+          description: The native token info for the chain
+      example:
+        key: pol
+        name: Polygon
+        coin: MATIC
+        id: 137
+        mainnet: true
+        logoURI: https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/polygon.svg
+        tokenlistUrl: https://unpkg.com/quickswap-default-token-list@1.0.71/build/quickswap-default.tokenlist.json
+        faucetUrls:
+        - https://stakely.io/faucet/polygon-matic
+        metamask:
+          chainId: '0x89'
+          blockExplorerUrls:
+          - https://polygonscan.com/
+          - https://explorer-mainnet.maticvigil.com/
+          chainName: Matic(Polygon) Mainnet
+          nativeCurrency:
+            name: MATIC
+            symbol: MATIC
+            decimals: 18
+          rpcUrls:
+          - https://polygon-rpc.com/
+          - https://polygon.llamarpc.com/
   responses:
     ChainsResponse:
       content:
