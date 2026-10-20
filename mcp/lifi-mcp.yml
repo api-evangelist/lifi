@@ -31,85 +31,158 @@ typical_workflow:
 - sign and broadcast externally
 - get-status
 tools:
-- name: get-tokens
-  category: Token Information
-  description: Retrieve all tokens supported by LI.FI.
-  source_operation: openapi/lifi-openapi-original.yml#GET /v1/tokens
-- name: get-token
-  category: Token Information
-  description: Get details about a specific token including price, decimals, and contract address.
-  source_operation: openapi/lifi-openapi-original.yml#GET /v1/token
-- name: get-chains
-  category: Chain Information
-  description: List all supported blockchain networks.
-  source_operation: openapi/lifi-openapi-original.yml#GET /v1/chains
+- name: get-allowance
+  description: 'Check how many ERC20 tokens a spender is approved to use on behalf of an owner (EVM chains
+    only). IMPORTANT: Before executing a swap with ERC20 tokens, verify the allowance is >= the swap amount.
+    If insufficient, the user must approve tokens first. The spender address for LI.FI swaps is returned
+    in the get-quote response.'
+  category: Balance & Allowance
+  source_operation: null
+  note: Served by direct RPC reads, not a LI.FI REST endpoint.
 - name: get-chain-by-id
+  description: Look up chain details by numeric chain ID. Returns chain name, native token info, RPC URLs,
+    and block explorer. Use this to convert a chain ID to human-readable information or to get RPC URLs.
   category: Chain Information
-  description: Look up a chain by its numeric ID.
   source_operation: openapi/lifi-openapi-original.yml#GET /v1/chains
 - name: get-chain-by-name
+  description: Look up chain details by name or key. Performs case-insensitive matching against chain
+    name, key, or ID. Use this when you know the chain name but need its ID or RPC URL.
   category: Chain Information
-  description: Look up a chain by name (case-insensitive).
   source_operation: openapi/lifi-openapi-original.yml#GET /v1/chains
-- name: get-quote
-  category: Quote & Swap
-  description: Get the best route for a swap. Primary tool. Returns the optimal route, fees, estimated
-    time, and a transactionRequest ready for signing.
-  source_operation: openapi/lifi-openapi-original.yml#GET /v1/quote
-- name: get-routes
-  category: Quote & Swap
-  description: Get multiple route options for comparison.
-  source_operation: openapi/lifi-openapi-original.yml#POST /v1/advanced/routes
-- name: get-step-transaction
-  category: Quote & Swap
-  description: Convert a route step into an executable transaction.
-  source_operation: openapi/lifi-openapi-original.yml#POST /v1/advanced/stepTransaction
-- name: get-status
-  category: Quote & Swap
-  description: Track the progress of a cross-chain transfer.
-  source_operation: openapi/lifi-openapi-original.yml#GET /v1/status
-- name: get-quote-with-calls
-  category: Quote & Swap
-  description: Get a quote with custom contract calls (Zaps) for bridge-plus-deposit flows.
-  source_operation: openapi/lifi-openapi-original.yml#POST /v1/quote/contractCalls
+- name: get-chains
+  description: Get a list of all blockchain networks supported by LI.FI. Returns chain IDs, names, native
+    tokens, RPC URLs, and block explorer URLs. Use this to discover available chains or get RPC URLs for
+    blockchain interactions.
+  category: Chain Information
+  source_operation: openapi/lifi-openapi-original.yml#GET /v1/chains
 - name: get-connections
+  description: Discover which token pairs can be swapped between chains. Use this to check if a specific
+    swap route exists before calling get-quote. Returns available bridges and their supported tokens for
+    the specified route.
   category: Discovery & Routing
-  description: Check available swap routes between chains.
   source_operation: openapi/lifi-openapi-original.yml#GET /v1/connections
-- name: get-tools
-  category: Discovery & Routing
-  description: List available bridges and DEXes with their key and name values.
-  source_operation: openapi/lifi-openapi-original.yml#GET /v1/tools
+- name: get-earn-chains
+  description: List blockchain networks that have indexed yield vaults in the Earn API. Returns chain
+    IDs, names, and CAIP-2 identifiers. This is a SUBSET of all LI.FI-supported chains (use get-chains
+    for the full list) — only chains with active yield vaults are included. Use chain IDs from this response
+    as the 'chainId' filter in get-earn-vaults.
+- name: get-earn-portfolio
+  description: 'Check a wallet''s active yield positions (vault deposits, staking, lending) across all
+    supported protocols and chains in a single call. Returns each position with protocol name, asset details,
+    balance in native units and USD value, and chain. Use this when a user asks about their yield earnings,
+    DeFi positions, or where they are earning interest. Note: this returns yield positions only — for
+    token balances use get-token-balances instead.'
+- name: get-earn-protocols
+  description: List all yield protocols integrated with the Earn API. Returns protocol names in kebab-case
+    format (e.g., 'morpho-v1', 'aave-v3', 'euler-v2', 'pendle', 'ethena-usde', 'maple') and their app
+    URLs. Use these exact protocol name strings as the 'protocol' filter in get-earn-vaults to find vaults
+    for a specific protocol.
+- name: get-earn-vault
+  description: Get full details for a specific yield vault by chain and contract address. Returns vault
+    name, APY breakdown (base/reward/total), historical APY (apy1d/apy7d/apy30d), TVL in USD, underlying
+    tokens with addresses and decimals, protocol info, and deposit/redeem pack details. Use this after
+    finding a vault via get-earn-vaults — pass the chainId and address fields from that response. To deposit
+    into this vault, call get-quote with toChain=vault's chainId and toToken=vault's address.
+- name: get-earn-vaults
+  description: 'Search and discover yield-earning vaults (DeFi yield, APY, interest, staking, lending)
+    across 20+ protocols and 17+ chains. This is the PRIMARY tool for finding yield opportunities — use
+    it when a user asks about earning yield, best APY, or DeFi deposits. Returns for each vault: name,
+    APY breakdown (analytics.apy.total/base/reward as percentages), TVL (analytics.tvl.usd), underlying
+    tokens, protocol, chain, and deposit support (isTransactional). Results are cursor-paginated via response
+    ''nextCursor''. Workflow: discover vaults here → get-earn-vault for full details → get-quote with
+    the vault''s address as toToken and vault''s chainId as toChain to generate a deposit transaction.'
 - name: get-gas-prices
+  description: Get current gas prices for all supported EVM chains. Returns fast/standard/slow gas prices
+    in gwei. Useful for estimating transaction costs before executing swaps or for monitoring network
+    congestion.
   category: Gas Information
-  description: Get current gas prices for all supported chains.
   source_operation: openapi/lifi-openapi-original.yml#GET /v1/gas/prices
 - name: get-gas-suggestion
+  description: Get recommended gas parameters for a specific chain including base fee, priority fee, and
+    estimated costs. More detailed than get-gas-prices for a single chain. Useful when constructing transactions
+    manually.
   category: Gas Information
-  description: Get detailed gas parameters for a specific chain.
   source_operation: openapi/lifi-openapi-original.yml#GET /v1/gas/suggestion/{chain}
 - name: get-native-token-balance
+  description: Check the native token balance of any wallet address. Supports EVM chains (ETH, MATIC,
+    etc.) and Solana (SOL). Returns the balance in the smallest unit (wei for EVM, lamports for Solana)
+    along with the token symbol and decimals.
   category: Balance & Allowance
-  description: Check the native token balance for a wallet address.
   source_operation: null
   note: Served by direct RPC reads, not a LI.FI REST endpoint.
+- name: get-quote
+  description: 'Get a quote for swapping, bridging, or depositing into yield vaults. This is the PRIMARY
+    tool for any token operation. Returns the best route including expected output amount, fees, estimated
+    time, and a transactionRequest object. For yield vault deposits: set toToken to the vault contract
+    address from get-earn-vaults (the Composer routes the deposit automatically, even cross-chain). For
+    vault withdrawals: set fromToken to the vault''s share token address. For ERC20 tokens, you may need
+    to approve tokens first if allowance is insufficient.'
+  category: Quote & Swap
+  source_operation: openapi/lifi-openapi-original.yml#GET /v1/quote
+- name: get-quote-with-calls
+  description: 'Get a quote that includes custom smart contract calls on the destination chain, also known
+    as ''Zaps'' (EVM chains only). This enables complex DeFi operations in a single transaction: bridge
+    tokens AND deposit into a vault, stake in a protocol, or interact with any contract. The contract
+    calls execute atomically after the bridge completes.'
+  category: Quote & Swap
+  source_operation: openapi/lifi-openapi-original.yml#POST /v1/quote/contractCalls
+- name: get-routes
+  description: Get multiple route options for a swap to compare alternatives. Unlike get-quote which returns
+    the single best route, this returns several options ranked by the specified order preference. Useful
+    when you want to show users multiple choices or when the best route fails. Use get-step-transaction
+    to get executable transaction data for a chosen route.
+  category: Quote & Swap
+  source_operation: openapi/lifi-openapi-original.yml#POST /v1/advanced/routes
+- name: get-status
+  description: Check the status of an in-progress or completed cross-chain transfer. Use this to track
+    bridge transactions which can take minutes to hours. Returns status (PENDING, DONE, FAILED), source/destination
+    transaction hashes, and any error messages.
+  category: Quote & Swap
+  source_operation: openapi/lifi-openapi-original.yml#GET /v1/status
+- name: get-step-transaction
+  description: Convert a route step from get-routes into executable transaction data. Use this when you've
+    chosen a specific route from get-routes and need the transaction to sign and send. Returns the same
+    transactionRequest format as get-quote.
+  category: Quote & Swap
+  source_operation: openapi/lifi-openapi-original.yml#POST /v1/advanced/stepTransaction
+- name: get-token
+  description: Get detailed information about a specific token including its address, symbol, decimals,
+    and current price. Use this to verify token details before a swap or to look up a token by its symbol.
+  category: Token Information
+  source_operation: openapi/lifi-openapi-original.yml#GET /v1/token
 - name: get-token-balance
+  description: Check the token balance of any wallet address. Supports EVM chains (ERC20 tokens) and Solana
+    (SPL tokens). Returns the balance in the token's smallest unit along with symbol and decimals. Use
+    this before swaps to verify sufficient balance.
   category: Balance & Allowance
-  description: Check an ERC20 token balance for a wallet address.
   source_operation: null
   note: Served by direct RPC reads, not a LI.FI REST endpoint.
-- name: get-allowance
-  category: Balance & Allowance
-  description: Check token spending approval before a swap.
-  source_operation: null
-  note: Served by direct RPC reads, not a LI.FI REST endpoint.
-- name: test-api-key
-  category: API Key & Health
-  description: Verify that an API key is valid; returns key status and rate limit information.
-  source_operation: null
+- name: get-token-balances
+  description: Check multiple ERC20 token balances for a wallet in a single call using Multicall3. Much
+    more efficient than calling get-token-balance repeatedly. Also returns the native token balance. Use
+    this to scan a wallet's portfolio across many tokens on one chain.
+- name: get-tokens
+  description: Retrieve a list of all tokens supported by LI.FI across multiple chains. Use this to discover
+    available tokens before executing swaps. Returns token addresses, symbols, decimals, and price information.
+    Can filter by chain or minimum price to reduce response size.
+  category: Token Information
+  source_operation: openapi/lifi-openapi-original.yml#GET /v1/tokens
+- name: get-tools
+  description: List all available bridges and DEX aggregators that LI.FI can route through. Use this to
+    discover which protocols are available or to get bridge/exchange names for filtering in get-quote.
+    Returns key (identifier to use in API calls) and name (human-readable).
+  category: Discovery & Routing
+  source_operation: openapi/lifi-openapi-original.yml#GET /v1/tools
 - name: health-check
+  description: Check the health status of the LiFi MCP server. Returns server version and API connectivity
+    status. Use this for health monitoring and orchestration.
   category: API Key & Health
-  description: Check server health and version.
+  source_operation: null
+- name: test-api-key
+  description: Test if the LI.FI API key provided in the request header is valid. Returns key status and
+    rate limit information. Requires API key to be passed via Authorization header (Bearer token) or X-LiFi-Api-Key
+    header.
+  category: API Key & Health
   source_operation: null
 related_servers:
 - name: LI.FI Intents MCP Server
@@ -149,3 +222,4 @@ tool_quality:
   scored: false
   note: Facts from the saved tools/list capture (mcp_tool_quality.py); recorded, not scored. Checks learned
     from Glimind's agent-readiness audit.
+tools_count: 25
