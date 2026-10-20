@@ -1,0 +1,840 @@
+{
+  "endpoint": "https://mcp.li.quest/mcp",
+  "captured": "2026-10-20",
+  "method": "initialize + tools/list (anonymous, no tool called; roadmap#992)",
+  "protocol_version": "2025-06-18",
+  "server_info": {
+    "name": "lifi-mcp",
+    "version": "2.0.0"
+  },
+  "result": {
+    "tools": [
+      {
+        "annotations": {
+          "title": "Check ERC20 Allowance",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        "description": "Check how many ERC20 tokens a spender is approved to use on behalf of an owner (EVM chains only). IMPORTANT: Before executing a swap with ERC20 tokens, verify the allowance is >= the swap amount. If insufficient, the user must approve tokens first. The spender address for LI.FI swaps is returned in the get-quote response.",
+        "inputSchema": {
+          "properties": {
+            "chain": {
+              "description": "Chain identifier - either numeric ID (e.g., '1' for Ethereum) or name (e.g., 'ethereum'). The RPC URL is looked up automatically.",
+              "type": "string"
+            },
+            "ownerAddress": {
+              "description": "Wallet address that owns the tokens (the 'fromAddress' in swaps).",
+              "type": "string"
+            },
+            "rpcUrl": {
+              "description": "Optional: Custom RPC endpoint URL. Overrides the default RPC for the chain.",
+              "type": "string"
+            },
+            "spenderAddress": {
+              "description": "Contract address that would spend the tokens. For LI.FI swaps, use the address from transactionRequest.to in the get-quote response.",
+              "type": "string"
+            },
+            "tokenAddress": {
+              "description": "ERC20 token contract address to check allowance for.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "chain",
+            "tokenAddress",
+            "ownerAddress",
+            "spenderAddress"
+          ],
+          "type": "object"
+        },
+        "name": "get-allowance"
+      },
+      {
+        "annotations": {
+          "title": "Look Up Chain by ID",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        "description": "Look up chain details by numeric chain ID. Returns chain name, native token info, RPC URLs, and block explorer. Use this to convert a chain ID to human-readable information or to get RPC URLs.",
+        "inputSchema": {
+          "properties": {
+            "id": {
+              "description": "Numeric chain ID (e.g., '1' for Ethereum, '137' for Polygon, '42161' for Arbitrum, '10' for Optimism, '56' for BSC).",
+              "type": "string"
+            }
+          },
+          "required": [
+            "id"
+          ],
+          "type": "object"
+        },
+        "name": "get-chain-by-id"
+      },
+      {
+        "annotations": {
+          "title": "Look Up Chain by Name",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        "description": "Look up chain details by name or key. Performs case-insensitive matching against chain name, key, or ID. Use this when you know the chain name but need its ID or RPC URL.",
+        "inputSchema": {
+          "properties": {
+            "name": {
+              "description": "Chain name (e.g., 'Ethereum', 'Polygon'), key (e.g., 'eth', 'pol'), or ID as string (e.g., '1').",
+              "type": "string"
+            }
+          },
+          "required": [
+            "name"
+          ],
+          "type": "object"
+        },
+        "name": "get-chain-by-name"
+      },
+      {
+        "annotations": {
+          "title": "List Supported Chains",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        "description": "Get a list of all blockchain networks supported by LI.FI. Returns chain IDs, names, native tokens, RPC URLs, and block explorer URLs. Use this to discover available chains or get RPC URLs for blockchain interactions.",
+        "inputSchema": {
+          "properties": {
+            "chainTypes": {
+              "description": "Filter by chain type: 'EVM' for Ethereum-compatible chains (Ethereum, Polygon, Arbitrum, etc.), 'SVM' for Solana. Comma-separated for multiple.",
+              "type": "string"
+            }
+          },
+          "required": [],
+          "type": "object"
+        },
+        "name": "get-chains"
+      },
+      {
+        "annotations": {
+          "title": "Find Swap Routes",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        "description": "Discover which token pairs can be swapped between chains. Use this to check if a specific swap route exists before calling get-quote. Returns available bridges and their supported tokens for the specified route.",
+        "inputSchema": {
+          "properties": {
+            "allowBridges": {
+              "description": "Filter to show only specific bridges (e.g., ['stargate', 'hop']).",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "chainTypes": {
+              "description": "Filter by chain type: 'EVM', 'SVM', or comma-separated combination.",
+              "type": "string"
+            },
+            "fromChain": {
+              "description": "Source chain ID (e.g., '1' for Ethereum). Omit to see connections from all chains.",
+              "type": "string"
+            },
+            "fromToken": {
+              "description": "Source token address to filter connections for a specific token.",
+              "type": "string"
+            },
+            "toChain": {
+              "description": "Destination chain ID. Omit to see connections to all chains.",
+              "type": "string"
+            },
+            "toToken": {
+              "description": "Destination token address to filter for specific token pairs.",
+              "type": "string"
+            }
+          },
+          "required": [],
+          "type": "object"
+        },
+        "name": "get-connections"
+      },
+      {
+        "annotations": {
+          "title": "List Earn-Supported Chains",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        "description": "List blockchain networks that have indexed yield vaults in the Earn API. Returns chain IDs, names, and CAIP-2 identifiers. This is a SUBSET of all LI.FI-supported chains (use get-chains for the full list) — only chains with active yield vaults are included. Use chain IDs from this response as the 'chainId' filter in get-earn-vaults.",
+        "inputSchema": {
+          "properties": {},
+          "required": [],
+          "type": "object"
+        },
+        "name": "get-earn-chains"
+      },
+      {
+        "annotations": {
+          "title": "Check Yield Portfolio",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        "description": "Check a wallet's active yield positions (vault deposits, staking, lending) across all supported protocols and chains in a single call. Returns each position with protocol name, asset details, balance in native units and USD value, and chain. Use this when a user asks about their yield earnings, DeFi positions, or where they are earning interest. Note: this returns yield positions only — for token balances use get-token-balances instead.",
+        "inputSchema": {
+          "properties": {
+            "walletAddress": {
+              "description": "Wallet address to check yield positions for (0x... EVM format).",
+              "type": "string"
+            }
+          },
+          "required": [
+            "walletAddress"
+          ],
+          "type": "object"
+        },
+        "name": "get-earn-portfolio"
+      },
+      {
+        "annotations": {
+          "title": "List Yield Protocols",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        "description": "List all yield protocols integrated with the Earn API. Returns protocol names in kebab-case format (e.g., 'morpho-v1', 'aave-v3', 'euler-v2', 'pendle', 'ethena-usde', 'maple') and their app URLs. Use these exact protocol name strings as the 'protocol' filter in get-earn-vaults to find vaults for a specific protocol.",
+        "inputSchema": {
+          "properties": {},
+          "required": [],
+          "type": "object"
+        },
+        "name": "get-earn-protocols"
+      },
+      {
+        "annotations": {
+          "title": "Get Vault Details",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        "description": "Get full details for a specific yield vault by chain and contract address. Returns vault name, APY breakdown (base/reward/total), historical APY (apy1d/apy7d/apy30d), TVL in USD, underlying tokens with addresses and decimals, protocol info, and deposit/redeem pack details. Use this after finding a vault via get-earn-vaults — pass the chainId and address fields from that response. To deposit into this vault, call get-quote with toChain=vault's chainId and toToken=vault's address.",
+        "inputSchema": {
+          "properties": {
+            "address": {
+              "description": "Vault contract address (0x... format). From the vault's address field in get-earn-vaults response.",
+              "type": "string"
+            },
+            "chainId": {
+              "description": "Chain ID where the vault is deployed (e.g., '8453' for Base, '1' for Ethereum). From the vault's chainId field.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "chainId",
+            "address"
+          ],
+          "type": "object"
+        },
+        "name": "get-earn-vault"
+      },
+      {
+        "annotations": {
+          "title": "Search Yield Vaults",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        "description": "Search and discover yield-earning vaults (DeFi yield, APY, interest, staking, lending) across 20+ protocols and 17+ chains. This is the PRIMARY tool for finding yield opportunities — use it when a user asks about earning yield, best APY, or DeFi deposits. Returns for each vault: name, APY breakdown (analytics.apy.total/base/reward as percentages), TVL (analytics.tvl.usd), underlying tokens, protocol, chain, and deposit support (isTransactional). Results are cursor-paginated via response 'nextCursor'. Workflow: discover vaults here → get-earn-vault for full details → get-quote with the vault's address as toToken and vault's chainId as toChain to generate a deposit transaction.",
+        "inputSchema": {
+          "properties": {
+            "asset": {
+              "description": "Filter by underlying asset symbol (e.g., 'USDC', 'ETH', 'WBTC'). Matches the token deposited into the vault.",
+              "type": "string"
+            },
+            "chainId": {
+              "description": "Filter by chain ID (e.g., '8453' for Base, '1' for Ethereum, '42161' for Arbitrum). Use get-earn-chains to see all supported chains.",
+              "type": "string"
+            },
+            "cursor": {
+              "description": "Pagination cursor from a previous response's 'nextCursor' field to fetch the next page.",
+              "type": "string"
+            },
+            "limit": {
+              "description": "Maximum number of vaults to return per page (e.g., '10', '25'). Default varies.",
+              "type": "string"
+            },
+            "protocol": {
+              "description": "Filter by protocol name in kebab-case (e.g., 'morpho-v1', 'aave-v3', 'euler-v2', 'pendle'). Use get-earn-protocols to list all available protocol names.",
+              "type": "string"
+            },
+            "sortBy": {
+              "description": "Sort metric: 'apy' (annual percentage yield) or 'tvl' (total value locked in USD).",
+              "type": "string"
+            },
+            "sortDirection": {
+              "description": "Sort order: 'asc' (lowest first) or 'desc' (highest first). Defaults to 'desc'.",
+              "type": "string"
+            },
+            "tags": {
+              "description": "Filter by vault tags: 'stablecoin' (USD-pegged assets), 'single' (single-asset vaults).",
+              "type": "string"
+            }
+          },
+          "required": [],
+          "type": "object"
+        },
+        "name": "get-earn-vaults"
+      },
+      {
+        "annotations": {
+          "title": "Get Gas Prices (All Chains)",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        "description": "Get current gas prices for all supported EVM chains. Returns fast/standard/slow gas prices in gwei. Useful for estimating transaction costs before executing swaps or for monitoring network congestion.",
+        "inputSchema": {
+          "properties": {},
+          "required": [],
+          "type": "object"
+        },
+        "name": "get-gas-prices"
+      },
+      {
+        "annotations": {
+          "title": "Get Gas Suggestion",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        "description": "Get recommended gas parameters for a specific chain including base fee, priority fee, and estimated costs. More detailed than get-gas-prices for a single chain. Useful when constructing transactions manually.",
+        "inputSchema": {
+          "properties": {
+            "chainId": {
+              "description": "Chain ID to get gas suggestions for (e.g., '1' for Ethereum, '137' for Polygon).",
+              "type": "string"
+            }
+          },
+          "required": [
+            "chainId"
+          ],
+          "type": "object"
+        },
+        "name": "get-gas-suggestion"
+      },
+      {
+        "annotations": {
+          "title": "Check Native Token Balance",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        "description": "Check the native token balance of any wallet address. Supports EVM chains (ETH, MATIC, etc.) and Solana (SOL). Returns the balance in the smallest unit (wei for EVM, lamports for Solana) along with the token symbol and decimals.",
+        "inputSchema": {
+          "properties": {
+            "address": {
+              "description": "Wallet address to check balance for. EVM: 0x-prefixed hex (42 chars). Solana: Base58-encoded address (32-44 chars).",
+              "type": "string"
+            },
+            "chain": {
+              "description": "Chain identifier - either numeric ID (e.g., '1' for Ethereum, '137' for Polygon, '1151111081099710' for Solana) or name (e.g., 'ethereum', 'solana'). For Solana addresses, defaults to Solana mainnet if omitted.",
+              "type": "string"
+            },
+            "rpcUrl": {
+              "description": "Optional: Custom RPC endpoint URL. If provided, overrides the default RPC for the chain. Use this if you have your own RPC endpoint (e.g., Alchemy, Infura, Helius).",
+              "type": "string"
+            }
+          },
+          "required": [
+            "chain",
+            "address"
+          ],
+          "type": "object"
+        },
+        "name": "get-native-token-balance"
+      },
+      {
+        "annotations": {
+          "title": "Get Swap Quote",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        "description": "Get a quote for swapping, bridging, or depositing into yield vaults. This is the PRIMARY tool for any token operation. Returns the best route including expected output amount, fees, estimated time, and a transactionRequest object. For yield vault deposits: set toToken to the vault contract address from get-earn-vaults (the Composer routes the deposit automatically, even cross-chain). For vault withdrawals: set fromToken to the vault's share token address. For ERC20 tokens, you may need to approve tokens first if allowance is insufficient.",
+        "inputSchema": {
+          "properties": {
+            "allowBridges": {
+              "description": "Whitelist specific bridges (e.g., ['stargate', 'hop', 'across']). Use get-tools to see available bridges.",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "allowExchanges": {
+              "description": "Whitelist specific DEXes (e.g., ['uniswap', 'sushiswap', '1inch']). Use get-tools to see available exchanges.",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "fromAddress": {
+              "description": "Sender's wallet address. EVM: 0x-prefixed hex address. Solana: Base58-encoded address.",
+              "type": "string"
+            },
+            "fromAmount": {
+              "description": "Amount to swap in the token's smallest unit. For EVM tokens use wei (e.g., '1000000000000000000' for 1 ETH). For Solana use lamports (e.g., '1000000000' for 1 SOL).",
+              "type": "string"
+            },
+            "fromChain": {
+              "description": "Source chain ID (e.g., '1' for Ethereum, '137' for Polygon, '42161' for Arbitrum, '10' for Optimism).",
+              "type": "string"
+            },
+            "fromToken": {
+              "description": "Source token address. For EVM: use '0x0000000000000000000000000000000000000000' for native tokens (ETH, MATIC, etc.) or the ERC20 contract address. For Solana: use '11111111111111111111111111111111' for native SOL or the SPL token mint address.",
+              "type": "string"
+            },
+            "integrator": {
+              "description": "Your integrator identifier for tracking and fee sharing. Contact LI.FI for an integrator ID.",
+              "type": "string"
+            },
+            "order": {
+              "description": "Route optimization preference: 'RECOMMENDED' (balanced), 'FASTEST' (minimize time), 'CHEAPEST' (minimize fees), 'SAFEST' (most reliable bridges).",
+              "type": "string"
+            },
+            "slippage": {
+              "description": "Maximum acceptable slippage as a decimal (e.g., '0.03' for 3%, '0.005' for 0.5%). Higher values increase success rate but may result in worse rates.",
+              "type": "string"
+            },
+            "toAddress": {
+              "description": "Recipient's wallet address (EVM or Solana format). Defaults to fromAddress if not specified. Use for cross-chain bridges where source and destination chains differ.",
+              "type": "string"
+            },
+            "toChain": {
+              "description": "Destination chain ID. Use same as fromChain for same-chain swaps, different for cross-chain bridges.",
+              "type": "string"
+            },
+            "toToken": {
+              "description": "Destination token address or vault address. For standard swaps: ERC20 contract address or '0x0000000000000000000000000000000000000000' for native tokens. For yield vault deposits: use the vault contract address from get-earn-vaults (Composer auto-routes the deposit). For Solana: use '11111111111111111111111111111111' for native SOL or SPL token mint.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "fromChain",
+            "toChain",
+            "fromToken",
+            "toToken",
+            "fromAddress",
+            "fromAmount"
+          ],
+          "type": "object"
+        },
+        "name": "get-quote"
+      },
+      {
+        "annotations": {
+          "title": "Get Quote with Contract Calls",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        "description": "Get a quote that includes custom smart contract calls on the destination chain, also known as 'Zaps' (EVM chains only). This enables complex DeFi operations in a single transaction: bridge tokens AND deposit into a vault, stake in a protocol, or interact with any contract. The contract calls execute atomically after the bridge completes.",
+        "inputSchema": {
+          "properties": {
+            "contractCalls": {
+              "description": "Array of contract calls to execute on destination. Each object needs: 'toContractAddress' (target contract), 'toContractCallData' (encoded function call), 'toContractGasLimit' (gas for this call).",
+              "items": {
+                "properties": {
+                  "toContractAddress": {
+                    "description": "Target contract address (0x... format)",
+                    "type": "string"
+                  },
+                  "toContractCallData": {
+                    "description": "ABI-encoded function call data (0x... format)",
+                    "type": "string"
+                  },
+                  "toContractGasLimit": {
+                    "description": "Gas limit for this contract call",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "toContractAddress",
+                  "toContractCallData",
+                  "toContractGasLimit"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "fromAddress": {
+              "description": "Sender's wallet address (0x... format).",
+              "type": "string"
+            },
+            "fromAmount": {
+              "description": "Amount in smallest unit (wei).",
+              "type": "string"
+            },
+            "fromChain": {
+              "description": "Source chain ID (e.g., '1' for Ethereum).",
+              "type": "string"
+            },
+            "fromToken": {
+              "description": "Source token address to bridge (0x... format).",
+              "type": "string"
+            },
+            "slippage": {
+              "description": "Maximum slippage as decimal (e.g., '0.03' for 3%).",
+              "type": "string"
+            },
+            "toChain": {
+              "description": "Destination chain ID where contract calls will execute.",
+              "type": "string"
+            },
+            "toToken": {
+              "description": "Intermediate token on destination chain (0x... format, before contract calls).",
+              "type": "string"
+            }
+          },
+          "required": [
+            "fromChain",
+            "toChain",
+            "fromToken",
+            "toToken",
+            "fromAddress",
+            "fromAmount",
+            "contractCalls"
+          ],
+          "type": "object"
+        },
+        "name": "get-quote-with-calls"
+      },
+      {
+        "annotations": {
+          "title": "Get Route Options",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        "description": "Get multiple route options for a swap to compare alternatives. Unlike get-quote which returns the single best route, this returns several options ranked by the specified order preference. Useful when you want to show users multiple choices or when the best route fails. Use get-step-transaction to get executable transaction data for a chosen route.",
+        "inputSchema": {
+          "properties": {
+            "fromAddress": {
+              "description": "Sender's wallet address (EVM 0x-prefixed or Solana Base58 format).",
+              "type": "string"
+            },
+            "fromAmount": {
+              "description": "Amount in the token's smallest unit (wei for EVM, lamports for Solana). E.g., '1000000' for 1 USDC.",
+              "type": "string"
+            },
+            "fromChainId": {
+              "description": "Source chain ID (e.g., '1' for Ethereum, '137' for Polygon).",
+              "type": "string"
+            },
+            "fromTokenAddress": {
+              "description": "Source token contract address. For EVM: use '0x0000000000000000000000000000000000000000' for native tokens. For Solana: use '11111111111111111111111111111111' for native SOL or the SPL token mint address.",
+              "type": "string"
+            },
+            "integrator": {
+              "description": "Your integrator identifier for tracking and fee sharing. Contact LI.FI for an integrator ID.",
+              "type": "string"
+            },
+            "order": {
+              "description": "How to rank routes: 'RECOMMENDED', 'FASTEST', 'CHEAPEST', or 'SAFEST'.",
+              "type": "string"
+            },
+            "slippage": {
+              "description": "Maximum slippage as decimal (e.g., '0.03' for 3%).",
+              "type": "string"
+            },
+            "toAddress": {
+              "description": "Recipient wallet address (EVM or Solana format). Defaults to fromAddress.",
+              "type": "string"
+            },
+            "toChainId": {
+              "description": "Destination chain ID for cross-chain swaps, or same as fromChainId for same-chain.",
+              "type": "string"
+            },
+            "toTokenAddress": {
+              "description": "Destination token contract address on the target chain (EVM hex or Solana Base58 format).",
+              "type": "string"
+            }
+          },
+          "required": [
+            "fromChainId",
+            "toChainId",
+            "fromTokenAddress",
+            "toTokenAddress",
+            "fromAddress",
+            "fromAmount"
+          ],
+          "type": "object"
+        },
+        "name": "get-routes"
+      },
+      {
+        "annotations": {
+          "title": "Check Transfer Status",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        "description": "Check the status of an in-progress or completed cross-chain transfer. Use this to track bridge transactions which can take minutes to hours. Returns status (PENDING, DONE, FAILED), source/destination transaction hashes, and any error messages.",
+        "inputSchema": {
+          "properties": {
+            "bridge": {
+              "description": "Bridge name used for the transfer (e.g., 'stargate', 'hop'). Speeds up status lookup if known.",
+              "type": "string"
+            },
+            "fromChain": {
+              "description": "Source chain ID. Helps identify the correct transaction if txHash exists on multiple chains.",
+              "type": "string"
+            },
+            "toChain": {
+              "description": "Destination chain ID. Required for some bridges to track the receiving transaction.",
+              "type": "string"
+            },
+            "txHash": {
+              "description": "The transaction hash from the source chain.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "txHash"
+          ],
+          "type": "object"
+        },
+        "name": "get-status"
+      },
+      {
+        "annotations": {
+          "title": "Build Step Transaction",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        "description": "Convert a route step from get-routes into executable transaction data. Use this when you've chosen a specific route from get-routes and need the transaction to sign and send. Returns the same transactionRequest format as get-quote.",
+        "inputSchema": {
+          "properties": {
+            "step": {
+              "description": "A step object from the get-routes response. Pass the entire step object including its 'action', 'estimate', and other properties.",
+              "properties": {},
+              "type": "object"
+            }
+          },
+          "required": [
+            "step"
+          ],
+          "type": "object"
+        },
+        "name": "get-step-transaction"
+      },
+      {
+        "annotations": {
+          "title": "Look Up Token",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        "description": "Get detailed information about a specific token including its address, symbol, decimals, and current price. Use this to verify token details before a swap or to look up a token by its symbol.",
+        "inputSchema": {
+          "properties": {
+            "chain": {
+              "description": "Chain identifier - either numeric ID (e.g., '1' for Ethereum, '137' for Polygon) or name (e.g., 'ethereum', 'polygon').",
+              "type": "string"
+            },
+            "token": {
+              "description": "Token identifier - either contract address or symbol (e.g., 'USDC'). For EVM: use '0x0000000000000000000000000000000000000000' for native tokens. For Solana: use '11111111111111111111111111111111' for native SOL.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "chain",
+            "token"
+          ],
+          "type": "object"
+        },
+        "name": "get-token"
+      },
+      {
+        "annotations": {
+          "title": "Check Token Balance",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        "description": "Check the token balance of any wallet address. Supports EVM chains (ERC20 tokens) and Solana (SPL tokens). Returns the balance in the token's smallest unit along with symbol and decimals. Use this before swaps to verify sufficient balance.",
+        "inputSchema": {
+          "properties": {
+            "chain": {
+              "description": "Chain identifier - either numeric ID (e.g., '1' for Ethereum, '1151111081099710' for Solana) or name (e.g., 'ethereum', 'solana'). For Solana addresses, defaults to Solana mainnet if omitted.",
+              "type": "string"
+            },
+            "rpcUrl": {
+              "description": "Optional: Custom RPC endpoint URL. Overrides the default RPC for the chain.",
+              "type": "string"
+            },
+            "tokenAddress": {
+              "description": "Token contract address. EVM: 0x-prefixed ERC20 address. Solana: Base58-encoded SPL token mint address.",
+              "type": "string"
+            },
+            "walletAddress": {
+              "description": "Wallet address to check balance for. EVM: 0x-prefixed hex. Solana: Base58-encoded address.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "chain",
+            "tokenAddress",
+            "walletAddress"
+          ],
+          "type": "object"
+        },
+        "name": "get-token-balance"
+      },
+      {
+        "annotations": {
+          "title": "Check Multiple Token Balances",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        "description": "Check multiple ERC20 token balances for a wallet in a single call using Multicall3. Much more efficient than calling get-token-balance repeatedly. Also returns the native token balance. Use this to scan a wallet's portfolio across many tokens on one chain.",
+        "inputSchema": {
+          "properties": {
+            "chain": {
+              "description": "Chain identifier - numeric ID (e.g., '1') or name (e.g., 'ethereum').",
+              "type": "string"
+            },
+            "rpcUrl": {
+              "description": "Optional: Custom RPC endpoint URL.",
+              "type": "string"
+            },
+            "tokenAddresses": {
+              "description": "Array of ERC20 token contract addresses to check (e.g., ['0xA0b8...', '0x6B17...']).",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "walletAddress": {
+              "description": "Wallet address to check balances for (0x... format).",
+              "type": "string"
+            }
+          },
+          "required": [
+            "chain",
+            "walletAddress",
+            "tokenAddresses"
+          ],
+          "type": "object"
+        },
+        "name": "get-token-balances"
+      },
+      {
+        "annotations": {
+          "title": "List Tokens",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        "description": "Retrieve a list of all tokens supported by LI.FI across multiple chains. Use this to discover available tokens before executing swaps. Returns token addresses, symbols, decimals, and price information. Can filter by chain or minimum price to reduce response size.",
+        "inputSchema": {
+          "properties": {
+            "chainTypes": {
+              "description": "Filter by chain type: 'EVM' for Ethereum-compatible chains, 'SVM' for Solana. Comma-separated for multiple (e.g., 'EVM,SVM').",
+              "type": "string"
+            },
+            "chains": {
+              "description": "Comma-separated chain IDs to filter tokens (e.g., '1,137,42161' for Ethereum, Polygon, Arbitrum). Omit for all chains.",
+              "type": "string"
+            },
+            "minPriceUSD": {
+              "description": "Minimum token price in USD to filter out low-value tokens (e.g., '0.01' for tokens worth at least 1 cent).",
+              "type": "string"
+            }
+          },
+          "required": [],
+          "type": "object"
+        },
+        "name": "get-tokens"
+      },
+      {
+        "annotations": {
+          "title": "List Bridges & DEXes",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        "description": "List all available bridges and DEX aggregators that LI.FI can route through. Use this to discover which protocols are available or to get bridge/exchange names for filtering in get-quote. Returns key (identifier to use in API calls) and name (human-readable).",
+        "inputSchema": {
+          "properties": {
+            "chains": {
+              "description": "Filter to show only tools available on specific chains (e.g., ['1', '137'] for Ethereum and Polygon).",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          "required": [],
+          "type": "object"
+        },
+        "name": "get-tools"
+      },
+      {
+        "annotations": {
+          "title": "Server Health Check",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        "description": "Check the health status of the LiFi MCP server. Returns server version and API connectivity status. Use this for health monitoring and orchestration.",
+        "inputSchema": {
+          "properties": {},
+          "required": [],
+          "type": "object"
+        },
+        "name": "health-check"
+      },
+      {
+        "annotations": {
+          "title": "Validate LI.FI API Key",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        "description": "Test if the LI.FI API key provided in the request header is valid. Returns key status and rate limit information. Requires API key to be passed via Authorization header (Bearer token) or X-LiFi-Api-Key header.",
+        "inputSchema": {
+          "properties": {},
+          "required": [],
+          "type": "object"
+        },
+        "name": "test-api-key"
+      }
+    ]
+  }
+}
