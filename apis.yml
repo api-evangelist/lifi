@@ -347,6 +347,8 @@ apis:
   - type: Documentation
     url: https://docs.li.fi/earn/overview
 common:
+- type: PostmanWorkspace
+  url: https://www.postman.com/kinlaneapi/lifi/overview
 - url: https://blog.li.fi/feed
   type: BlogRSS
 - type: Website
