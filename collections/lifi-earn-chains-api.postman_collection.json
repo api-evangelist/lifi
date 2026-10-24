@@ -1,103 +1,107 @@
 {
+  "info": {
+    "_postman_id": "35ca40c6-2b45-4b51-8464-aa0809f4b8bf",
+    "name": "LI.FI Earn Earn Chains API",
+    "description": "Enterprise DeFi yield discovery and tracking API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T02:19:33.000Z",
+    "updatedAt": "2026-10-22T02:19:33.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-35ca40c6-2b45-4b51-8464-aa0809f4b8bf"
+  },
   "item": [
     {
-      "id": "af89a449-0088-49eb-8a72-e5af600dd6ab",
-      "name": "Earn Chains",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
+      "name": "v1",
       "item": [
         {
-          "id": "edf10218-0534-403c-898b-cd593fd8ea52",
-          "name": "List chains supported by LI.FI Earn",
-          "request": {
-            "name": "List chains supported by LI.FI Earn",
-            "description": {
-              "content": "Returns the list of chains that have at least one Earn vault available. Derived from current vault data.\n\n**This endpoint is scoped to LI.FI Earn (vaults).** Only chains where Earn currently has indexed vaults are returned — it is not a general list of all chains the LI.FI platform supports, and it should not be used to determine SDK / Swaps / Bridges chain coverage.\n\nIf you are integrating Swaps or Bridges (via the LI.FI SDK or the main API), call [`GET https://li.quest/v1/chains`](/api-reference/get-information-about-all-currently-supported-chains) instead. That endpoint returns every chain supported by the LI.FI Aggregation API.\n",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v1",
-                "chains"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "chains",
+          "item": [
             {
-              "id": "a01a9f17-54e3-4c86-90b0-b0522ce565b9",
-              "name": "Supported chains",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "chains"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+              "name": "List chains supported by LI.FI Earn",
+              "id": "b71afc6e-d26c-4c2d-b13d-1a3e70e63c93",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
                 "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-lifi-api-key",
-                    "value": "<API Key>"
-                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/v1/chains",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "chains"
+                  ]
+                },
+                "description": "Returns the list of chains that have at least one Earn vault available. Derived from current vault data.\n\n**This endpoint is scoped to LI.FI Earn (vaults).** Only chains where Earn currently has indexed vaults are returned \u2014 it is not a general list of all chains the LI.FI platform supports, and it should not be used to determine SDK / Swaps / Bridges chain coverage.\n\nIf you are integrating Swaps or Bridges (via the LI.FI SDK or the main API), call `GET https://li.quest/v1/chains` instead. That endpoint returns every chain supported by the LI.FI Aggregation API."
               },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "response": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "id": "2a0f5113-fd78-4782-8ff8-b866eff73441",
+                  "name": "Supported chains",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-lifi-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/chains",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "chains"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "[\n  {\n    \"name\": \"<string>\",\n    \"chainId\": \"<integer>\",\n    \"networkCaip\": \"<string>\"\n  },\n  {\n    \"name\": \"<string>\",\n    \"chainId\": \"<integer>\",\n    \"networkCaip\": \"<string>\"\n  }\n]",
+                  "createdAt": "2026-10-22T02:19:33.000Z",
+                  "updatedAt": "2026-10-22T02:19:33.000Z",
+                  "uid": "35240-2a0f5113-fd78-4782-8ff8-b866eff73441"
                 }
               ],
-              "body": "[\n  {\n    \"name\": \"Ethereum\",\n    \"chainId\": 1,\n    \"networkCaip\": \"eip155:1\"\n  },\n  {\n    \"name\": \"Base\",\n    \"chainId\": 8453,\n    \"networkCaip\": \"eip155:8453\"\n  },\n  {\n    \"name\": \"Arbitrum One\",\n    \"chainId\": 42161,\n    \"networkCaip\": \"eip155:42161\"\n  }\n]",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "createdAt": "2026-10-22T02:19:33.000Z",
+              "updatedAt": "2026-10-22T02:19:33.000Z",
+              "uid": "35240-b71afc6e-d26c-4c2d-b13d-1a3e70e63c93"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "af95179e-c530-4714-a6ad-13ab27e1adcb",
+          "createdAt": "2026-10-22T02:19:33.000Z",
+          "updatedAt": "2026-10-22T02:19:33.000Z",
+          "uid": "35240-af95179e-c530-4714-a6ad-13ab27e1adcb"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://earn.li.fi",
-      "key": "baseUrl"
+      "id": "25632f99-dfb7-4b46-a7dc-09e6d00ad80c",
+      "createdAt": "2026-10-22T02:19:33.000Z",
+      "updatedAt": "2026-10-22T02:19:33.000Z",
+      "uid": "35240-25632f99-dfb7-4b46-a7dc-09e6d00ad80c"
     }
   ],
   "auth": {
@@ -105,25 +109,25 @@
     "apikey": [
       {
         "key": "key",
-        "value": "x-lifi-api-key"
+        "value": "x-lifi-api-key",
+        "type": "string"
       },
       {
         "key": "value",
-        "value": "{{apiKey}}"
+        "value": "{{apiKey}}",
+        "type": "string"
       },
       {
         "key": "in",
-        "value": "header"
+        "value": "header",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "53fb3771-b11c-410d-8bd1-6a84633b6d1d",
-    "name": "LI.FI Earn advanced Earn Chains API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "Enterprise DeFi yield discovery and tracking API",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://earn.li.fi"
     }
-  }
+  ]
 }

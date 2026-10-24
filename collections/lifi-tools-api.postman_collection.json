@@ -1,97 +1,31 @@
 {
+  "info": {
+    "_postman_id": "4c658176-5cd3-4e86-8652-016e9cdc6387",
+    "name": "LI.FI Tools API",
+    "description": "LI.FI provides the best cross-chain swap across all liquidity pools and bridges.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T02:20:48.000Z",
+    "updatedAt": "2026-10-22T02:20:48.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-4c658176-5cd3-4e86-8652-016e9cdc6387"
+  },
   "item": [
     {
-      "id": "25a50be5-7d05-40ba-98af-60bcb68c2d15",
-      "name": "Tools",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
+      "name": "v1",
       "item": [
         {
-          "id": "22d554d4-47ab-4a66-ad1e-987bccdeaf70",
-          "name": "Get available bridges and exchanges",
-          "request": {
-            "name": "Get available bridges and exchanges",
-            "description": {
-              "content": "This endpoint can be used to get information about the bridges and exchanges available trough our service",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v1",
-                "tools"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "chains",
-                  "value": "<string>",
-                  "description": "The ids of the chains that should be taken into consideration."
-                },
-                {
-                  "disabled": false,
-                  "key": "chains",
-                  "value": "<string>",
-                  "description": "The ids of the chains that should be taken into consideration."
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "disabled": false,
-                "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
-                "key": "x-lifi-api-key",
-                "value": "<string>"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "tools",
+          "item": [
             {
-              "id": "68d2b830-a446-4068-8831-bed776952494",
-              "name": "Object listing all the currently enabled bridges and exchanges.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "tools"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "chains",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "chains",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": []
-                },
+              "name": "Get available bridges and exchanges",
+              "id": "7d8b1578-582e-4385-bf4d-a841e49288fa",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-lifi-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "disabled": false,
                     "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
                     "key": "x-lifi-api-key",
                     "value": "<string>"
@@ -101,63 +35,103 @@
                     "value": "application/json"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/v1/tools?chains=<string>&chains=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "tools"
+                  ],
+                  "query": [
+                    {
+                      "description": "The ids of the chains that should be taken into consideration.",
+                      "key": "chains",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The ids of the chains that should be taken into consideration.",
+                      "key": "chains",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "description": "This endpoint can be used to get information about the bridges and exchanges available trough our service"
               },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "response": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "id": "af3ec0e7-dacc-4d4c-8eaa-697e3efdf006",
+                  "name": "Object listing all the currently enabled bridges and exchanges.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
+                        "key": "x-lifi-api-key",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/tools?chains=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "tools"
+                      ],
+                      "query": [
+                        {
+                          "description": "The ids of the chains that should be taken into consideration.",
+                          "key": "chains",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"exchanges\": [\n    {\n      \"key\": \"<string>\",\n      \"name\": \"<string>\",\n      \"logoURI\": \"<string>\",\n      \"supportedChains\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"name\": \"<string>\",\n      \"logoURI\": \"<string>\",\n      \"supportedChains\": \"<string>\"\n    }\n  ],\n  \"bridges\": [\n    {\n      \"key\": \"<string>\",\n      \"name\": \"<string>\",\n      \"logoURI\": \"<string>\",\n      \"supportedChains\": [\n        {\n          \"fromChainId\": \"<string>\",\n          \"toChainId\": \"<string>\"\n        },\n        {\n          \"fromChainId\": \"<string>\",\n          \"toChainId\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"key\": \"<string>\",\n      \"name\": \"<string>\",\n      \"logoURI\": \"<string>\",\n      \"supportedChains\": [\n        {\n          \"fromChainId\": \"<string>\",\n          \"toChainId\": \"<string>\"\n        },\n        {\n          \"fromChainId\": \"<string>\",\n          \"toChainId\": \"<string>\"\n        }\n      ]\n    }\n  ]\n}",
+                  "createdAt": "2026-10-22T02:20:49.000Z",
+                  "updatedAt": "2026-10-22T02:20:49.000Z",
+                  "uid": "35240-af3ec0e7-dacc-4d4c-8eaa-697e3efdf006"
                 }
               ],
-              "body": "{\n  \"exchanges\": [\n    {\n      \"key\": \"string\",\n      \"name\": \"0x\",\n      \"logoURI\": \"https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/exchanges/zerox.svg\",\n      \"supportedChains\": \"string\"\n    },\n    {\n      \"key\": \"string\",\n      \"name\": \"0x\",\n      \"logoURI\": \"https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/exchanges/zerox.svg\",\n      \"supportedChains\": \"string\"\n    }\n  ],\n  \"bridges\": [\n    {\n      \"key\": \"string\",\n      \"name\": \"Connext\",\n      \"logoURI\": \"https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/bridges/relay.svg\",\n      \"supportedChains\": [\n        {\n          \"fromChainId\": \"string\",\n          \"toChainId\": \"string\"\n        },\n        {\n          \"fromChainId\": \"string\",\n          \"toChainId\": \"string\"\n        }\n      ]\n    },\n    {\n      \"key\": \"string\",\n      \"name\": \"Connext\",\n      \"logoURI\": \"https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/bridges/relay.svg\",\n      \"supportedChains\": [\n        {\n          \"fromChainId\": \"string\",\n          \"toChainId\": \"string\"\n        },\n        {\n          \"fromChainId\": \"string\",\n          \"toChainId\": \"string\"\n        }\n      ]\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "createdAt": "2026-10-22T02:20:49.000Z",
+              "updatedAt": "2026-10-22T02:20:49.000Z",
+              "uid": "35240-7d8b1578-582e-4385-bf4d-a841e49288fa"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "49203481-a124-43d2-95fa-64b26aa5aa47",
+          "createdAt": "2026-10-22T02:20:49.000Z",
+          "updatedAt": "2026-10-22T02:20:49.000Z",
+          "uid": "35240-49203481-a124-43d2-95fa-64b26aa5aa47"
         }
       ],
-      "event": []
+      "id": "d7626c72-d085-4b68-86b5-7bb404df653a",
+      "createdAt": "2026-10-22T02:20:49.000Z",
+      "updatedAt": "2026-10-22T02:20:49.000Z",
+      "uid": "35240-d7626c72-d085-4b68-86b5-7bb404df653a"
     }
   ],
-  "event": [],
   "variable": [
     {
-      "type": "string",
-      "value": "https://earn.li.fi",
-      "key": "baseUrl"
+      "key": "baseUrl",
+      "value": "https://li.quest"
     }
-  ],
-  "auth": {
-    "type": "apikey",
-    "apikey": [
-      {
-        "key": "key",
-        "value": "x-lifi-api-key"
-      },
-      {
-        "key": "value",
-        "value": "{{apiKey}}"
-      },
-      {
-        "key": "in",
-        "value": "header"
-      }
-    ]
-  },
-  "info": {
-    "_postman_id": "474b444b-820d-4f85-a84a-f05d3aa961c5",
-    "name": "LI.FI Earn advanced Tools API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "Enterprise DeFi yield discovery and tracking API",
-      "type": "text/plain"
-    }
-  }
+  ]
 }

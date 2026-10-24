@@ -1,116 +1,31 @@
 {
+  "info": {
+    "_postman_id": "2a3dc6bc-17bd-4df5-b5a2-8de8388296eb",
+    "name": "LI.FI Tokens API",
+    "description": "LI.FI provides the best cross-chain swap across all liquidity pools and bridges.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T02:20:42.000Z",
+    "updatedAt": "2026-10-22T02:20:42.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-2a3dc6bc-17bd-4df5-b5a2-8de8388296eb"
+  },
   "item": [
     {
-      "id": "5ffb0877-25c3-4432-bb8f-3893f4cb9703",
-      "name": "Tokens",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
+      "name": "v1",
       "item": [
         {
-          "id": "36bc2e62-c910-414a-bc9b-3f7a3dd7193d",
-          "name": "Fetch all known tokens",
-          "request": {
-            "name": "Fetch all known tokens",
-            "description": {
-              "content": "This endpoint can be used to fetch all tokens known to the LI.FI services.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v1",
-                "tokens"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "chains",
-                  "value": "<string>",
-                  "description": "Restrict the resulting tokens to the given chains"
-                },
-                {
-                  "disabled": false,
-                  "key": "tags",
-                  "value": "<string>",
-                  "description": "Restrict the resulting tokens to the given token tags (comma separated)"
-                },
-                {
-                  "disabled": false,
-                  "key": "chainTypes",
-                  "value": "<string>",
-                  "description": "Restrict the resulting tokens to the given chainTypes. Available values: EVM, SVM, UTXO, MVM, TVM."
-                },
-                {
-                  "disabled": false,
-                  "key": "minPriceUSD",
-                  "value": "<number>",
-                  "description": "Filters results by minimum token price in USD. Minimum value for this parameter is 0. Defaults to 0.0001 USD."
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "disabled": false,
-                "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
-                "key": "x-lifi-api-key",
-                "value": "<string>"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "tokens",
+          "item": [
             {
-              "id": "aedbe610-58d9-41e0-af67-f9a0eec4370c",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "tokens"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "chains",
-                      "value": "POL,DAI"
-                    },
-                    {
-                      "key": "tags",
-                      "value": "stablecoin"
-                    },
-                    {
-                      "key": "chainTypes",
-                      "value": "EVM,SVM,UTXO,MVM,TVM"
-                    },
-                    {
-                      "key": "minPriceUSD",
-                      "value": "0.01"
-                    }
-                  ],
-                  "variable": []
-                },
+              "name": "Fetch all known tokens",
+              "id": "5f3c220c-739a-4d41-bfc6-85e52b39ad9f",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-lifi-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "disabled": false,
                     "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
                     "key": "x-lifi-api-key",
                     "value": "<string>"
@@ -120,63 +35,128 @@
                     "value": "application/json"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/v1/tokens?chains=<string>&tags=<string>&chainTypes=<string>&minPriceUSD=<number>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "tokens"
+                  ],
+                  "query": [
+                    {
+                      "description": "Restrict the resulting tokens to the given chains",
+                      "key": "chains",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Restrict the resulting tokens to the given token tags (comma separated)",
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Restrict the resulting tokens to the given chainTypes. Available values: EVM, SVM, UTXO, MVM, TVM.",
+                      "key": "chainTypes",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filters results by minimum token price in USD. Minimum value for this parameter is 0. Defaults to 0.0001 USD.",
+                      "key": "minPriceUSD",
+                      "value": "<number>"
+                    }
+                  ]
+                },
+                "description": "This endpoint can be used to fetch all tokens known to the LI.FI services."
               },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "response": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "id": "15e6d4ed-5d4f-4a2d-b02d-d353c8cdaaa3",
+                  "name": "New Response",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
+                        "key": "x-lifi-api-key",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/tokens?chains=<string>&tags=<string>&chainTypes=<string>&minPriceUSD=<number>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "tokens"
+                      ],
+                      "query": [
+                        {
+                          "description": "Restrict the resulting tokens to the given chains",
+                          "key": "chains",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Restrict the resulting tokens to the given token tags (comma separated)",
+                          "key": "tags",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Restrict the resulting tokens to the given chainTypes. Available values: EVM, SVM, UTXO, MVM, TVM.",
+                          "key": "chainTypes",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Filters results by minimum token price in USD. Minimum value for this parameter is 0. Defaults to 0.0001 USD.",
+                          "key": "minPriceUSD",
+                          "value": "<number>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"1\": [\n    {\n      \"address\": \"<string>\",\n      \"chainId\": \"<number>\",\n      \"decimals\": \"<number>\",\n      \"name\": \"<string>\",\n      \"symbol\": \"<string>\",\n      \"coinKey\": \"<string>\",\n      \"logoURI\": \"<string>\",\n      \"priceUSD\": \"<string>\"\n    },\n    {\n      \"address\": \"<string>\",\n      \"chainId\": \"<number>\",\n      \"decimals\": \"<number>\",\n      \"name\": \"<string>\",\n      \"symbol\": \"<string>\",\n      \"coinKey\": \"<string>\",\n      \"logoURI\": \"<string>\",\n      \"priceUSD\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-10-22T02:20:42.000Z",
+                  "updatedAt": "2026-10-22T02:20:42.000Z",
+                  "uid": "35240-15e6d4ed-5d4f-4a2d-b02d-d353c8cdaaa3"
                 }
               ],
-              "body": "{\n  \"1\": [\n    {\n      \"address\": \"0x8f3cf7ad23cd3cadbd9735aff958023239c6a063\",\n      \"symbol\": \"DAI\",\n      \"decimals\": 18,\n      \"chainId\": 137,\n      \"name\": \"(PoS) Dai Stablecoin\",\n      \"coinKey\": \"DAI\",\n      \"priceUSD\": \"1\",\n      \"logoURI\": \"https://static.debank.com/image/matic_token/logo_url/0x8f3cf7ad23cd3cadbd9735aff958023239c6a063/549c4205dbb199f1b8b03af783f35e71.png\"\n    },\n    {\n      \"address\": \"0x8f3cf7ad23cd3cadbd9735aff958023239c6a063\",\n      \"symbol\": \"DAI\",\n      \"decimals\": 18,\n      \"chainId\": 137,\n      \"name\": \"(PoS) Dai Stablecoin\",\n      \"coinKey\": \"DAI\",\n      \"priceUSD\": \"1\",\n      \"logoURI\": \"https://static.debank.com/image/matic_token/logo_url/0x8f3cf7ad23cd3cadbd9735aff958023239c6a063/549c4205dbb199f1b8b03af783f35e71.png\"\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "createdAt": "2026-10-22T02:20:42.000Z",
+              "updatedAt": "2026-10-22T02:20:42.000Z",
+              "uid": "35240-5f3c220c-739a-4d41-bfc6-85e52b39ad9f"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "6d61ccd4-9d52-4551-8ee5-83ae6c00b094",
+          "createdAt": "2026-10-22T02:20:42.000Z",
+          "updatedAt": "2026-10-22T02:20:42.000Z",
+          "uid": "35240-6d61ccd4-9d52-4551-8ee5-83ae6c00b094"
         }
       ],
-      "event": []
+      "id": "c8881ced-88c6-4617-bd7e-f2efc545de95",
+      "createdAt": "2026-10-22T02:20:42.000Z",
+      "updatedAt": "2026-10-22T02:20:42.000Z",
+      "uid": "35240-c8881ced-88c6-4617-bd7e-f2efc545de95"
     }
   ],
-  "event": [],
   "variable": [
     {
-      "type": "string",
-      "value": "https://earn.li.fi",
-      "key": "baseUrl"
+      "key": "baseUrl",
+      "value": "https://li.quest"
     }
-  ],
-  "auth": {
-    "type": "apikey",
-    "apikey": [
-      {
-        "key": "key",
-        "value": "x-lifi-api-key"
-      },
-      {
-        "key": "value",
-        "value": "{{apiKey}}"
-      },
-      {
-        "key": "in",
-        "value": "header"
-      }
-    ]
-  },
-  "info": {
-    "_postman_id": "38ad20ef-c905-4807-abb4-2eb07adf7cd9",
-    "name": "LI.FI Earn advanced Tokens API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "Enterprise DeFi yield discovery and tracking API",
-      "type": "text/plain"
-    }
-  }
+  ]
 }

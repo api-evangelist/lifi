@@ -1,266 +1,31 @@
 {
+  "info": {
+    "_postman_id": "f5703154-9fff-4d20-8b68-a18f03316c2a",
+    "name": "LI.FI Connections API",
+    "description": "LI.FI provides the best cross-chain swap across all liquidity pools and bridges.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T02:19:25.000Z",
+    "updatedAt": "2026-10-22T02:19:26.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-f5703154-9fff-4d20-8b68-a18f03316c2a"
+  },
   "item": [
     {
-      "id": "5b75bae9-b28c-4d93-92e8-5f6938a232a9",
-      "name": "Connections",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
+      "name": "v1",
       "item": [
         {
-          "id": "471543af-1bda-4d73-9fb7-d30041eacbb6",
-          "name": "Returns all possible connections between two chains.",
-          "request": {
-            "name": "Returns all possible connections between two chains.",
-            "description": {
-              "content": "This endpoint gives information about all possible transfers between chains.\n`fromChain` and `toChain` are required. Additional filters such as token, bridge, and exchange can be used to narrow the result further.\nInformation about which chains and tokens are supported can be taken from the response of the /v1/chains endpoint.\nInformation about which bridges and exchanges are supported can be taken from the response of the `/v1/tools` endpoint.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v1",
-                "connections"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "fromChain",
-                  "value": "<string>",
-                  "description": "(Required) The chain that should be the start of the possible connections."
-                },
-                {
-                  "disabled": false,
-                  "key": "toChain",
-                  "value": "<string>",
-                  "description": "(Required) The chain that should be the end of the possible connections."
-                },
-                {
-                  "disabled": false,
-                  "key": "fromToken",
-                  "value": "<string>",
-                  "description": "Only return connections starting with this token."
-                },
-                {
-                  "disabled": false,
-                  "key": "toToken",
-                  "value": "<string>",
-                  "description": "Only return connections ending with this token."
-                },
-                {
-                  "disabled": false,
-                  "key": "chainTypes",
-                  "value": "<string>",
-                  "description": "Restrict the resulting connections to the given chainTypes. Available values: EVM, SVM, UTXO, MVM, TVM."
-                },
-                {
-                  "disabled": false,
-                  "key": "allowBridges",
-                  "value": "<string>",
-                  "description": "List of bridges that are allowed for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint."
-                },
-                {
-                  "disabled": false,
-                  "key": "allowBridges",
-                  "value": "<string>",
-                  "description": "List of bridges that are allowed for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint."
-                },
-                {
-                  "disabled": false,
-                  "key": "denyBridges",
-                  "value": "<string>",
-                  "description": "List of bridges that are not allowed for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint."
-                },
-                {
-                  "disabled": false,
-                  "key": "denyBridges",
-                  "value": "<string>",
-                  "description": "List of bridges that are not allowed for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint."
-                },
-                {
-                  "disabled": false,
-                  "key": "preferBridges",
-                  "value": "<string>",
-                  "description": "List of bridges that should be preferred for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint."
-                },
-                {
-                  "disabled": false,
-                  "key": "preferBridges",
-                  "value": "<string>",
-                  "description": "List of bridges that should be preferred for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint."
-                },
-                {
-                  "disabled": false,
-                  "key": "allowExchanges",
-                  "value": "<string>",
-                  "description": "List of exchanges that are allowed for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint."
-                },
-                {
-                  "disabled": false,
-                  "key": "allowExchanges",
-                  "value": "<string>",
-                  "description": "List of exchanges that are allowed for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint."
-                },
-                {
-                  "disabled": false,
-                  "key": "denyExchanges",
-                  "value": "<string>",
-                  "description": "List of exchanges that are not allowed for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint."
-                },
-                {
-                  "disabled": false,
-                  "key": "denyExchanges",
-                  "value": "<string>",
-                  "description": "List of exchanges that are not allowed for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint."
-                },
-                {
-                  "disabled": false,
-                  "key": "preferExchanges",
-                  "value": "<string>",
-                  "description": "List of exchanges that should be preferred for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint."
-                },
-                {
-                  "disabled": false,
-                  "key": "preferExchanges",
-                  "value": "<string>",
-                  "description": "List of exchanges that should be preferred for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint."
-                },
-                {
-                  "disabled": false,
-                  "key": "allowSwitchChain",
-                  "value": "true",
-                  "description": "Whether connections that require chain switch should be included in the response."
-                },
-                {
-                  "disabled": false,
-                  "key": "allowDestinationCall",
-                  "value": "true",
-                  "description": "Whether connections that includes destination call should be included in the response."
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "disabled": false,
-                "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
-                "key": "x-lifi-api-key",
-                "value": "<string>"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "connections",
+          "item": [
             {
-              "id": "c97ee521-a8ee-49a7-8267-ed05bf292736",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "connections"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "fromChain",
-                      "value": "POL"
-                    },
-                    {
-                      "key": "toChain",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "fromToken",
-                      "value": "DAI"
-                    },
-                    {
-                      "key": "toToken",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "chainTypes",
-                      "value": "EVM,SVM,UTXO,MVM,TVM"
-                    },
-                    {
-                      "key": "allowBridges",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "allowBridges",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "denyBridges",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "denyBridges",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "preferBridges",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "preferBridges",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "allowExchanges",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "allowExchanges",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "denyExchanges",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "denyExchanges",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "preferExchanges",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "preferExchanges",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "allowSwitchChain",
-                      "value": "true"
-                    },
-                    {
-                      "key": "allowDestinationCall",
-                      "value": "true"
-                    }
-                  ],
-                  "variable": []
-                },
+              "name": "Returns all possible connections between two chains",
+              "id": "34271bee-d4dd-4371-8c7c-705f809941e9",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-lifi-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "disabled": false,
                     "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
                     "key": "x-lifi-api-key",
                     "value": "<string>"
@@ -270,63 +35,248 @@
                     "value": "application/json"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/v1/connections?fromChain=<string>&toChain=<string>&fromToken=<string>&toToken=<string>&chainTypes=<string>&allowBridges=<string>&allowBridges=<string>&denyBridges=<string>&denyBridges=<string>&preferBridges=<string>&preferBridges=<string>&allowExchanges=<string>&allowExchanges=<string>&denyExchanges=<string>&denyExchanges=<string>&preferExchanges=<string>&preferExchanges=<string>&allowSwitchChain=true&allowDestinationCall=true",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "connections"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The chain that should be the start of the possible connections.",
+                      "key": "fromChain",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) The chain that should be the end of the possible connections.",
+                      "key": "toChain",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Only return connections starting with this token.",
+                      "key": "fromToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Only return connections ending with this token.",
+                      "key": "toToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Restrict the resulting connections to the given chainTypes. Available values: EVM, SVM, UTXO, MVM, TVM.",
+                      "key": "chainTypes",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "List of bridges that are allowed for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint.",
+                      "key": "allowBridges",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "List of bridges that are allowed for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint.",
+                      "key": "allowBridges",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "List of bridges that are not allowed for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint.",
+                      "key": "denyBridges",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "List of bridges that are not allowed for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint.",
+                      "key": "denyBridges",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "List of bridges that should be preferred for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint.",
+                      "key": "preferBridges",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "List of bridges that should be preferred for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint.",
+                      "key": "preferBridges",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "List of exchanges that are allowed for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint.",
+                      "key": "allowExchanges",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "List of exchanges that are allowed for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint.",
+                      "key": "allowExchanges",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "List of exchanges that are not allowed for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint.",
+                      "key": "denyExchanges",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "List of exchanges that are not allowed for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint.",
+                      "key": "denyExchanges",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "List of exchanges that should be preferred for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint.",
+                      "key": "preferExchanges",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "List of exchanges that should be preferred for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint.",
+                      "key": "preferExchanges",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Whether connections that require chain switch should be included in the response.",
+                      "key": "allowSwitchChain",
+                      "value": "true"
+                    },
+                    {
+                      "description": "Whether connections that includes destination call should be included in the response.",
+                      "key": "allowDestinationCall",
+                      "value": "true"
+                    }
+                  ]
+                },
+                "description": "This endpoint gives information about all possible transfers between chains.\n`fromChain` and `toChain` are required. Additional filters such as token, bridge, and exchange can be used to narrow the result further.\nInformation about which chains and tokens are supported can be taken from the response of the /v1/chains endpoint.\nInformation about which bridges and exchanges are supported can be taken from the response of the `/v1/tools` endpoint."
               },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "response": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "id": "5b95a33e-798b-46e4-93da-7a54f4a025df",
+                  "name": "New Response",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
+                        "key": "x-lifi-api-key",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/connections?fromChain=<string>&toChain=<string>&fromToken=<string>&toToken=<string>&chainTypes=<string>&allowBridges=<string>&denyBridges=<string>&preferBridges=<string>&allowExchanges=<string>&denyExchanges=<string>&preferExchanges=<string>&allowSwitchChain=true&allowDestinationCall=true",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "connections"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) The chain that should be the start of the possible connections.",
+                          "key": "fromChain",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) The chain that should be the end of the possible connections.",
+                          "key": "toChain",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Only return connections starting with this token.",
+                          "key": "fromToken",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Only return connections ending with this token.",
+                          "key": "toToken",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Restrict the resulting connections to the given chainTypes. Available values: EVM, SVM, UTXO, MVM, TVM.",
+                          "key": "chainTypes",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "List of bridges that are allowed for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint.",
+                          "key": "allowBridges",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "List of bridges that are not allowed for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint.",
+                          "key": "denyBridges",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "List of bridges that should be preferred for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint.",
+                          "key": "preferBridges",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "List of exchanges that are allowed for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint.",
+                          "key": "allowExchanges",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "List of exchanges that are not allowed for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint.",
+                          "key": "denyExchanges",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "List of exchanges that should be preferred for this transaction. Retrieve the current catalog from the `/v1/tools` endpoint.",
+                          "key": "preferExchanges",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Whether connections that require chain switch should be included in the response.",
+                          "key": "allowSwitchChain",
+                          "value": "true"
+                        },
+                        {
+                          "description": "Whether connections that includes destination call should be included in the response.",
+                          "key": "allowDestinationCall",
+                          "value": "true"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"connections\": [\n    {\n      \"toTokens\": [\n        {\n          \"address\": \"<string>\",\n          \"chainId\": \"<number>\"\n        },\n        {\n          \"address\": \"<string>\",\n          \"chainId\": \"<number>\"\n        }\n      ],\n      \"toChainId\": \"<number>\",\n      \"fromTokens\": [\n        {\n          \"address\": \"<string>\",\n          \"chainId\": \"<number>\"\n        },\n        {\n          \"address\": \"<string>\",\n          \"chainId\": \"<number>\"\n        }\n      ],\n      \"fromChainId\": \"<number>\"\n    },\n    {\n      \"toTokens\": [\n        {\n          \"address\": \"<string>\",\n          \"chainId\": \"<number>\"\n        },\n        {\n          \"address\": \"<string>\",\n          \"chainId\": \"<number>\"\n        }\n      ],\n      \"toChainId\": \"<number>\",\n      \"fromTokens\": [\n        {\n          \"address\": \"<string>\",\n          \"chainId\": \"<number>\"\n        },\n        {\n          \"address\": \"<string>\",\n          \"chainId\": \"<number>\"\n        }\n      ],\n      \"fromChainId\": \"<number>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-10-22T02:19:26.000Z",
+                  "updatedAt": "2026-10-22T02:19:26.000Z",
+                  "uid": "35240-5b95a33e-798b-46e4-93da-7a54f4a025df"
                 }
               ],
-              "body": "{\n  \"connections\": [\n    {\n      \"fromChainId\": 137,\n      \"toChainId\": 1,\n      \"fromTokens\": [\n        {\n          \"address\": \"0x8f3cf7ad23cd3cadbd9735aff958023239c6a063\",\n          \"chainId\": 137\n        }\n      ],\n      \"toTokens\": [\n        {\n          \"address\": \"0x6b175474e89094c44da98b954eedeac495271d0f\",\n          \"chainId\": 1\n        },\n        {\n          \"address\": \"0x0000000000000000000000000000000000000000\",\n          \"chainId\": 1\n        }\n      ]\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "createdAt": "2026-10-22T02:19:26.000Z",
+              "updatedAt": "2026-10-22T02:19:26.000Z",
+              "uid": "35240-34271bee-d4dd-4371-8c7c-705f809941e9"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "f08f7fd2-715e-40b6-869d-7eb6823e3810",
+          "createdAt": "2026-10-22T02:19:26.000Z",
+          "updatedAt": "2026-10-22T02:19:26.000Z",
+          "uid": "35240-f08f7fd2-715e-40b6-869d-7eb6823e3810"
         }
       ],
-      "event": []
+      "id": "3def4013-8ab0-406e-9c9a-636fd8773df6",
+      "createdAt": "2026-10-22T02:19:26.000Z",
+      "updatedAt": "2026-10-22T02:19:26.000Z",
+      "uid": "35240-3def4013-8ab0-406e-9c9a-636fd8773df6"
     }
   ],
-  "event": [],
   "variable": [
     {
-      "type": "string",
-      "value": "https://earn.li.fi",
-      "key": "baseUrl"
+      "key": "baseUrl",
+      "value": "https://li.quest"
     }
-  ],
-  "auth": {
-    "type": "apikey",
-    "apikey": [
-      {
-        "key": "key",
-        "value": "x-lifi-api-key"
-      },
-      {
-        "key": "value",
-        "value": "{{apiKey}}"
-      },
-      {
-        "key": "in",
-        "value": "header"
-      }
-    ]
-  },
-  "info": {
-    "_postman_id": "74f777ee-f277-4452-99c1-a1e805beae69",
-    "name": "LI.FI Earn advanced Connections API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "Enterprise DeFi yield discovery and tracking API",
-      "type": "text/plain"
-    }
-  }
+  ]
 }

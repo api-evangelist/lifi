@@ -1,177 +1,192 @@
 {
+  "info": {
+    "_postman_id": "a4057aec-aee5-45d8-be59-1ccef705733b",
+    "name": "LI.FI Earn Earn Portfolio API",
+    "description": "Enterprise DeFi yield discovery and tracking API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T02:19:40.000Z",
+    "updatedAt": "2026-10-22T02:19:41.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-a4057aec-aee5-45d8-be59-1ccef705733b"
+  },
   "item": [
     {
-      "id": "31e50d2d-d91e-426d-b1cc-28cef7d5b509",
-      "name": "Earn Portfolio",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
+      "name": "v1",
       "item": [
         {
-          "id": "0d814a52-45cb-4694-b9bd-147735335768",
-          "name": "Get portfolio positions for a user",
-          "request": {
-            "name": "Get portfolio positions for a user",
-            "description": {
-              "content": "Returns a user's DeFi positions across all supported protocols and chains.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v1",
-                "portfolio",
-                ":userAddress",
-                "positions"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "userAddress",
-                  "description": "(Required) User's wallet address (0x-prefixed, 40 hex characters)."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "portfolio",
+          "item": [
             {
-              "id": "d03be87c-0486-4458-ada6-2729765fccf5",
-              "name": "User portfolio positions",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "portfolio",
-                    ":userAddress",
-                    "positions"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "userAddress",
-                      "description": "(Required) User's wallet address (0x-prefixed, 40 hex characters)."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-lifi-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "name": "{userAddress}",
+              "item": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "name": "positions",
+                  "item": [
+                    {
+                      "name": "Get portfolio positions for a user",
+                      "id": "da758a7c-19a9-4e2a-ac5b-61fcde8511ad",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/portfolio/:userAddress/positions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "portfolio",
+                            ":userAddress",
+                            "positions"
+                          ],
+                          "variable": [
+                            {
+                              "id": "3a648204-043e-4ddc-8ef6-481fdeb85f9f",
+                              "key": "userAddress",
+                              "value": "0xBD12E66F9ead5706B34c6Dd4bcE56FBeB9f2160d",
+                              "description": "(Required) User's wallet address (0x-prefixed, 40 hex characters)."
+                            }
+                          ]
+                        },
+                        "description": "Returns a user's DeFi positions across all supported protocols and chains."
+                      },
+                      "response": [
+                        {
+                          "id": "9db94b94-d1f1-4468-a80c-f62a014a3ef1",
+                          "name": "User portfolio positions",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "x-lifi-api-key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/portfolio/:userAddress/positions",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "portfolio",
+                                ":userAddress",
+                                "positions"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "userAddress"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"positions\": [\n    {\n      \"chainId\": \"<integer>\",\n      \"address\": \"<string,null>\",\n      \"protocolName\": \"<string,null>\",\n      \"asset\": {\n        \"address\": \"<string>\",\n        \"name\": \"<string>\",\n        \"symbol\": \"<string>\",\n        \"decimals\": \"<integer>\"\n      },\n      \"balanceUsd\": \"<string,null>\",\n      \"balanceNative\": \"<string>\"\n    },\n    {\n      \"chainId\": \"<integer>\",\n      \"address\": \"<string,null>\",\n      \"protocolName\": \"<string,null>\",\n      \"asset\": {\n        \"address\": \"<string>\",\n        \"name\": \"<string>\",\n        \"symbol\": \"<string>\",\n        \"decimals\": \"<integer>\"\n      },\n      \"balanceUsd\": \"<string,null>\",\n      \"balanceNative\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-10-22T02:19:41.000Z",
+                          "updatedAt": "2026-10-22T02:19:41.000Z",
+                          "uid": "35240-9db94b94-d1f1-4468-a80c-f62a014a3ef1"
+                        },
+                        {
+                          "id": "22db4d3d-beb9-4698-a0a5-a6be181fbae0",
+                          "name": "Invalid wallet address format",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "x-lifi-api-key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/portfolio/:userAddress/positions",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "portfolio",
+                                ":userAddress",
+                                "positions"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "userAddress"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"statusCode\": \"<number>\",\n  \"message\": \"<string>\",\n  \"errors\": [\n    {\n      \"code\": \"<string>\",\n      \"message\": \"<string>\",\n      \"path\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"code\": \"<string>\",\n      \"message\": \"<string>\",\n      \"path\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ]\n}",
+                          "createdAt": "2026-10-22T02:19:41.000Z",
+                          "updatedAt": "2026-10-22T02:19:41.000Z",
+                          "uid": "35240-22db4d3d-beb9-4698-a0a5-a6be181fbae0"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T02:19:41.000Z",
+                      "updatedAt": "2026-10-22T02:19:41.000Z",
+                      "uid": "35240-da758a7c-19a9-4e2a-ac5b-61fcde8511ad"
+                    }
+                  ],
+                  "id": "e4a04cbe-a3a3-4971-b608-c0e02d90d694",
+                  "createdAt": "2026-10-22T02:19:41.000Z",
+                  "updatedAt": "2026-10-22T02:19:41.000Z",
+                  "uid": "35240-e4a04cbe-a3a3-4971-b608-c0e02d90d694"
                 }
               ],
-              "body": "{\n  \"positions\": [\n    {\n      \"chainId\": 1,\n      \"address\": \"0xa17581a9e3356d9a858b789d68b4d866e593ae94\",\n      \"protocolName\": \"aave-v3\",\n      \"asset\": {\n        \"address\": \"0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48\",\n        \"name\": \"USD Coin\",\n        \"symbol\": \"USDC\",\n        \"decimals\": 6\n      },\n      \"balanceUsd\": \"1523.45\",\n      \"balanceNative\": \"1523450000\"\n    },\n    {\n      \"chainId\": 8453,\n      \"address\": \"0x7BfA7C4f149E7415b73bdeDfe609237e29CBF34A\",\n      \"protocolName\": \"morpho\",\n      \"asset\": {\n        \"address\": \"0x7BfA7C4f149E7415b73bdeDfe609237e29CBF34A\",\n        \"name\": \"Morpho USDC Vault\",\n        \"symbol\": \"mUSDC\",\n        \"decimals\": 18\n      },\n      \"balanceUsd\": \"5000.00\",\n      \"balanceNative\": \"4901960784313725490196\"\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "d16bcd62-a4e1-4af4-aec8-bb585f13a55d",
-              "name": "Invalid wallet address format",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "portfolio",
-                    ":userAddress",
-                    "positions"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "userAddress",
-                      "description": "(Required) User's wallet address (0x-prefixed, 40 hex characters)."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-lifi-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"statusCode\": 400,\n  \"message\": \"Validation failed\",\n  \"errors\": [\n    {\n      \"code\": \"invalid_type\",\n      \"message\": \"Expected integer, received string\",\n      \"path\": [\n        \"chainId\"\n      ]\n    },\n    {\n      \"code\": \"invalid_type\",\n      \"message\": \"Expected integer, received string\",\n      \"path\": [\n        \"chainId\"\n      ]\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "fe916775-0df5-4a17-a5d5-d58d9e3944f1",
+              "createdAt": "2026-10-22T02:19:41.000Z",
+              "updatedAt": "2026-10-22T02:19:41.000Z",
+              "uid": "35240-fe916775-0df5-4a17-a5d5-d58d9e3944f1"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "7c0b78c8-3238-43ab-8235-56ad4f90218b",
+          "createdAt": "2026-10-22T02:19:41.000Z",
+          "updatedAt": "2026-10-22T02:19:41.000Z",
+          "uid": "35240-7c0b78c8-3238-43ab-8235-56ad4f90218b"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://earn.li.fi",
-      "key": "baseUrl"
+      "id": "09da9b93-36b5-4add-b2b5-4e657c99f953",
+      "createdAt": "2026-10-22T02:19:41.000Z",
+      "updatedAt": "2026-10-22T02:19:41.000Z",
+      "uid": "35240-09da9b93-36b5-4add-b2b5-4e657c99f953"
     }
   ],
   "auth": {
@@ -179,25 +194,25 @@
     "apikey": [
       {
         "key": "key",
-        "value": "x-lifi-api-key"
+        "value": "x-lifi-api-key",
+        "type": "string"
       },
       {
         "key": "value",
-        "value": "{{apiKey}}"
+        "value": "{{apiKey}}",
+        "type": "string"
       },
       {
         "key": "in",
-        "value": "header"
+        "value": "header",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "34efa815-7674-4bbc-8e39-e2c86b6d4f95",
-    "name": "LI.FI Earn advanced Earn Portfolio API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "Enterprise DeFi yield discovery and tracking API",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://earn.li.fi"
     }
-  }
+  ]
 }

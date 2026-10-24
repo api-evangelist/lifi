@@ -1,653 +1,620 @@
 {
+  "info": {
+    "_postman_id": "b60c18ea-da8d-4260-b8ee-e25ab336f315",
+    "name": "LI.FI Gas API",
+    "description": "LI.FI provides the best cross-chain swap across all liquidity pools and bridges.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T02:20:01.000Z",
+    "updatedAt": "2026-10-22T02:20:02.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-b60c18ea-da8d-4260-b8ee-e25ab336f315"
+  },
   "item": [
     {
-      "id": "daa55823-491a-45b2-bc07-a65159867d4f",
-      "name": "Gas",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
+      "name": "v1",
       "item": [
         {
-          "id": "d28642e1-bee7-4370-8841-e3e1ad34adaf",
-          "name": "Get status information about a lifuel transaction",
-          "request": {
-            "name": "Get status information about a lifuel transaction",
-            "description": {},
-            "url": {
-              "path": [
-                "v1",
-                "gas",
-                "status"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "txHash",
-                  "value": "<string>",
-                  "description": "(Required) The transaction hash that started the gas refilling process"
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "disabled": false,
-                "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
-                "key": "x-lifi-api-key",
-                "value": "<string>"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "gas",
+          "item": [
             {
-              "id": "3798b489-81a6-4750-831b-fbcb2c8f162c",
-              "name": "The status of a lifuel operation",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "gas",
-                    "status"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
+              "name": "status",
+              "item": [
+                {
+                  "name": "Get status information about a lifuel transaction",
+                  "id": "6025a875-e7d3-47a7-831d-c87fc7bf910f",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
+                        "key": "x-lifi-api-key",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/gas/status?txHash=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "gas",
+                        "status"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) The transaction hash that started the gas refilling process",
+                          "key": "txHash",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "response": [
                     {
-                      "key": "txHash",
-                      "value": "0x74546ce8aac58d33c212474293dcfeeadecef115847da75131a2ff6692e03b96"
+                      "id": "27fa282b-74a6-400e-83f2-c03b2d51f921",
+                      "name": "The status of a lifuel operation",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
+                            "key": "x-lifi-api-key",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/gas/status?txHash=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "gas",
+                            "status"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) The transaction hash that started the gas refilling process",
+                              "key": "txHash",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"status\": \"DONE\",\n  \"sending\": {\n    \"txHash\": \"<string>\",\n    \"txLink\": \"<string>\",\n    \"amount\": \"<string>\",\n    \"token\": {\n      \"address\": \"<string>\",\n      \"chainId\": \"<number>\",\n      \"decimals\": \"<number>\",\n      \"name\": \"<string>\",\n      \"symbol\": \"<string>\",\n      \"coinKey\": \"<string>\",\n      \"logoURI\": \"<string>\",\n      \"priceUSD\": \"<string>\"\n    },\n    \"chainId\": \"<number>\",\n    \"block\": \"<number>\"\n  },\n  \"receiving\": {\n    \"txHash\": \"<string>\",\n    \"txLink\": \"<string>\",\n    \"amount\": \"<string>\",\n    \"token\": {\n      \"address\": \"<string>\",\n      \"chainId\": \"<number>\",\n      \"decimals\": \"<number>\",\n      \"name\": \"<string>\",\n      \"symbol\": \"<string>\",\n      \"coinKey\": \"<string>\",\n      \"logoURI\": \"<string>\",\n      \"priceUSD\": \"<string>\"\n    },\n    \"chainId\": \"<number>\",\n    \"block\": \"<number>\"\n  }\n}",
+                      "createdAt": "2026-10-22T02:20:02.000Z",
+                      "updatedAt": "2026-10-22T02:20:02.000Z",
+                      "uid": "35240-27fa282b-74a6-400e-83f2-c03b2d51f921"
                     }
                   ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-lifi-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
-                    "key": "x-lifi-api-key",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "createdAt": "2026-10-22T02:20:02.000Z",
+                  "updatedAt": "2026-10-22T02:20:02.000Z",
+                  "uid": "35240-6025a875-e7d3-47a7-831d-c87fc7bf910f"
                 }
               ],
-              "body": "{\n  \"status\": \"string\",\n  \"sending\": {\n    \"txHash\": \"0x74546ce8aac58d33c212474293dcfeeadecef115847da75131a2ff6692e03b96\",\n    \"txLink\": \"https://polygonscan.com/tx/0x74546ce8aac58d33c212474293dcfeeadecef115847da75131a2ff6692e03b96\",\n    \"amount\": \"10000\",\n    \"token\": {\n      \"address\": \"0x8f3cf7ad23cd3cadbd9735aff958023239c6a063\",\n      \"symbol\": \"DAI\",\n      \"decimals\": 18,\n      \"chainId\": 137,\n      \"name\": \"(PoS) Dai Stablecoin\",\n      \"coinKey\": \"DAI\",\n      \"priceUSD\": \"1\",\n      \"logoURI\": \"https://static.debank.com/image/matic_token/logo_url/0x8f3cf7ad23cd3cadbd9735aff958023239c6a063/549c4205dbb199f1b8b03af783f35e71.png\"\n    },\n    \"chainId\": 137,\n    \"block\": 39397739\n  },\n  \"receiving\": {\n    \"txHash\": \"0x74546ce8aac58d33c212474293dcfeeadecef115847da75131a2ff6692e03b96\",\n    \"txLink\": \"https://polygonscan.com/tx/0x74546ce8aac58d33c212474293dcfeeadecef115847da75131a2ff6692e03b96\",\n    \"amount\": \"10000\",\n    \"token\": {\n      \"address\": \"0x8f3cf7ad23cd3cadbd9735aff958023239c6a063\",\n      \"symbol\": \"DAI\",\n      \"decimals\": 18,\n      \"chainId\": 137,\n      \"name\": \"(PoS) Dai Stablecoin\",\n      \"coinKey\": \"DAI\",\n      \"priceUSD\": \"1\",\n      \"logoURI\": \"https://static.debank.com/image/matic_token/logo_url/0x8f3cf7ad23cd3cadbd9735aff958023239c6a063/549c4205dbb199f1b8b03af783f35e71.png\"\n    },\n    \"chainId\": 137,\n    \"block\": 39397739\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "0a5d0a98-6358-4e65-aec8-4fd5c0875945",
+              "createdAt": "2026-10-22T02:20:02.000Z",
+              "updatedAt": "2026-10-22T02:20:02.000Z",
+              "uid": "35240-0a5d0a98-6358-4e65-aec8-4fd5c0875945"
+            },
+            {
+              "name": "refetch",
+              "item": [
+                {
+                  "name": "In case a transaction was missed by a relayer, this endpoint can be used to\u2026",
+                  "id": "0f3dab1c-650f-4d7b-89af-7c34bf15865c",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
+                        "key": "x-lifi-api-key",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/gas/refetch?txHash=<string>&chainId=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "gas",
+                        "refetch"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) The transaction hash that started the gas refilling process",
+                          "key": "txHash",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) The chain where the deposit was originally made",
+                          "key": "chainId",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "id": "567b6ceb-0f73-414c-a78f-b6b029d0815b",
+                      "name": "The status of a lifuel operation",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
+                            "key": "x-lifi-api-key",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/gas/refetch?txHash=<string>&chainId=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "gas",
+                            "refetch"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) The transaction hash that started the gas refilling process",
+                              "key": "txHash",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "(Required) The chain where the deposit was originally made",
+                              "key": "chainId",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"status\": \"DONE\",\n  \"sending\": {\n    \"txHash\": \"<string>\",\n    \"txLink\": \"<string>\",\n    \"amount\": \"<string>\",\n    \"token\": {\n      \"address\": \"<string>\",\n      \"chainId\": \"<number>\",\n      \"decimals\": \"<number>\",\n      \"name\": \"<string>\",\n      \"symbol\": \"<string>\",\n      \"coinKey\": \"<string>\",\n      \"logoURI\": \"<string>\",\n      \"priceUSD\": \"<string>\"\n    },\n    \"chainId\": \"<number>\",\n    \"block\": \"<number>\"\n  },\n  \"receiving\": {\n    \"txHash\": \"<string>\",\n    \"txLink\": \"<string>\",\n    \"amount\": \"<string>\",\n    \"token\": {\n      \"address\": \"<string>\",\n      \"chainId\": \"<number>\",\n      \"decimals\": \"<number>\",\n      \"name\": \"<string>\",\n      \"symbol\": \"<string>\",\n      \"coinKey\": \"<string>\",\n      \"logoURI\": \"<string>\",\n      \"priceUSD\": \"<string>\"\n    },\n    \"chainId\": \"<number>\",\n    \"block\": \"<number>\"\n  }\n}",
+                      "createdAt": "2026-10-22T02:20:02.000Z",
+                      "updatedAt": "2026-10-22T02:20:02.000Z",
+                      "uid": "35240-567b6ceb-0f73-414c-a78f-b6b029d0815b"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T02:20:02.000Z",
+                  "updatedAt": "2026-10-22T02:20:02.000Z",
+                  "uid": "35240-0f3dab1c-650f-4d7b-89af-7c34bf15865c"
+                }
+              ],
+              "id": "d7cec88d-b6c0-4b2a-84b6-b2602ba3eaf7",
+              "createdAt": "2026-10-22T02:20:02.000Z",
+              "updatedAt": "2026-10-22T02:20:02.000Z",
+              "uid": "35240-d7cec88d-b6c0-4b2a-84b6-b2602ba3eaf7"
+            },
+            {
+              "name": "suggestion",
+              "item": [
+                {
+                  "name": "{chain}",
+                  "item": [
+                    {
+                      "name": "Get a gas suggestion for the specified chain",
+                      "id": "7c2ffd4d-ff12-43c4-a61e-c50c0d9cc057",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
+                            "key": "x-lifi-api-key",
+                            "value": "<string>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/gas/suggestion/:chain?fromChain=<string>&fromToken=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "gas",
+                            "suggestion",
+                            ":chain"
+                          ],
+                          "query": [
+                            {
+                              "description": "If `fromChain` and `fromToken` are specified, the result will contain information about how much `fromToken` amount the user has to send to receive the suggested gas amount on the requested chain.",
+                              "key": "fromChain",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "If `fromChain` and `fromToken` are specified, the result will contain information about how much `fromToken` amount the user has to send to receive the suggested gas amount on the requested chain.",
+                              "key": "fromToken",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "df241a43-0651-483d-90cf-1a71ba9e21a5",
+                              "key": "chain",
+                              "value": "<string>",
+                              "description": "(Required) Chain from which gas prices should be shown (can be a chain id or a chain key)"
+                            }
+                          ]
+                        },
+                        "description": "Endpoint to retrieve a suggestion on how much gas is needed on the requested chain. The suggestion is based on the average price of 10 approvals and 10 uniswap based swaps via LI.FI on the specified chain.\nIf `fromChain` and `fromToken` are specified, the result will contain information about how much `fromToken` amount the user has to send to receive the suggested gas amount on the requested chain."
+                      },
+                      "response": [
+                        {
+                          "id": "29a4e18a-93a8-4ebd-9c3f-006a6d4ea128",
+                          "name": "{\n    \"available\": true,\n    \"recommended\": {\n        \"token\": {\n            \"address\": \"0x0000000000000000000000000000000000000000\",\n            \"chainId\": 137,\n            \"symbol\": \"MATIC\",\n            \"decimals\": 18,\n            \"name\": \"MATIC\",\n     ",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
+                                "key": "x-lifi-api-key",
+                                "value": "<string>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/gas/suggestion/:chain?fromChain=<string>&fromToken=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "gas",
+                                "suggestion",
+                                ":chain"
+                              ],
+                              "query": [
+                                {
+                                  "description": "If `fromChain` and `fromToken` are specified, the result will contain information about how much `fromToken` amount the user has to send to receive the suggested gas amount on the requested chain.",
+                                  "key": "fromChain",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "If `fromChain` and `fromToken` are specified, the result will contain information about how much `fromToken` amount the user has to send to receive the suggested gas amount on the requested chain.",
+                                  "key": "fromToken",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "chain"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T02:20:02.000Z",
+                          "updatedAt": "2026-10-22T02:20:02.000Z",
+                          "uid": "35240-29a4e18a-93a8-4ebd-9c3f-006a6d4ea128"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T02:20:02.000Z",
+                      "updatedAt": "2026-10-22T02:20:02.000Z",
+                      "uid": "35240-7c2ffd4d-ff12-43c4-a61e-c50c0d9cc057"
+                    }
+                  ],
+                  "id": "98f71ccd-8704-4ae3-be8f-c87d684a3224",
+                  "createdAt": "2026-10-22T02:20:02.000Z",
+                  "updatedAt": "2026-10-22T02:20:02.000Z",
+                  "uid": "35240-98f71ccd-8704-4ae3-be8f-c87d684a3224"
+                }
+              ],
+              "id": "7007a417-940b-4fae-a813-31029293aa4c",
+              "createdAt": "2026-10-22T02:20:02.000Z",
+              "updatedAt": "2026-10-22T02:20:02.000Z",
+              "uid": "35240-7007a417-940b-4fae-a813-31029293aa4c"
+            },
+            {
+              "name": "prices",
+              "item": [
+                {
+                  "name": "{chainId}",
+                  "item": [
+                    {
+                      "name": "Get gas price for the specified chainId",
+                      "id": "e21e97b6-efc9-4e12-8020-492f3229c8cb",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
+                            "key": "x-lifi-api-key",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/gas/prices/:chainId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "gas",
+                            "prices",
+                            ":chainId"
+                          ],
+                          "variable": [
+                            {
+                              "id": "dda1b235-c206-4873-b333-490c54fa74ec",
+                              "key": "chainId",
+                              "value": "<string>",
+                              "description": "(Required) ChaindId from which gas prices should be shown"
+                            }
+                          ]
+                        },
+                        "description": "This endpoint can be used to get the most recent gas prices for the supplied chainId."
+                      },
+                      "response": [
+                        {
+                          "id": "d6a34d85-802a-43e8-ba14-63aced568835",
+                          "name": "Gas Prices for the supplied chainID",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
+                                "key": "x-lifi-api-key",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/gas/prices/:chainId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "gas",
+                                "prices",
+                                ":chainId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "chainId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"standard\": \"<number>\",\n  \"fast\": \"<number>\",\n  \"fastest\": \"<number>\",\n  \"lastUpdated\": \"<number>\"\n}",
+                          "createdAt": "2026-10-22T02:20:02.000Z",
+                          "updatedAt": "2026-10-22T02:20:02.000Z",
+                          "uid": "35240-d6a34d85-802a-43e8-ba14-63aced568835"
+                        },
+                        {
+                          "id": "460c64a4-29cb-4468-95da-5541333c96e2",
+                          "name": "Invalid Routes Request",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
+                                "key": "x-lifi-api-key",
+                                "value": "<string>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/gas/prices/:chainId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "gas",
+                                "prices",
+                                ":chainId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "chainId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T02:20:02.000Z",
+                          "updatedAt": "2026-10-22T02:20:02.000Z",
+                          "uid": "35240-460c64a4-29cb-4468-95da-5541333c96e2"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T02:20:02.000Z",
+                      "updatedAt": "2026-10-22T02:20:02.000Z",
+                      "uid": "35240-e21e97b6-efc9-4e12-8020-492f3229c8cb"
+                    }
+                  ],
+                  "id": "c02776db-0842-4894-a652-da225ac28164",
+                  "createdAt": "2026-10-22T02:20:02.000Z",
+                  "updatedAt": "2026-10-22T02:20:02.000Z",
+                  "uid": "35240-c02776db-0842-4894-a652-da225ac28164"
+                },
+                {
+                  "name": "Get gas prices for enabled chains",
+                  "id": "d753afac-1823-40de-8429-da7c2918530f",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
+                        "key": "x-lifi-api-key",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/gas/prices",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "gas",
+                        "prices"
+                      ]
+                    },
+                    "description": "This endpoint can be used to get the most recent gas prices for the enabled chains in the server."
+                  },
+                  "response": [
+                    {
+                      "id": "3b1b799e-a154-42da-9f9c-2e6e1e0d7ff0",
+                      "name": "Gas Prices for the supplied chainID",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
+                            "key": "x-lifi-api-key",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/gas/prices",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "gas",
+                            "prices"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"standard\": \"<number>\",\n  \"fast\": \"<number>\",\n  \"fastest\": \"<number>\",\n  \"lastUpdated\": \"<number>\"\n}",
+                      "createdAt": "2026-10-22T02:20:02.000Z",
+                      "updatedAt": "2026-10-22T02:20:02.000Z",
+                      "uid": "35240-3b1b799e-a154-42da-9f9c-2e6e1e0d7ff0"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T02:20:02.000Z",
+                  "updatedAt": "2026-10-22T02:20:02.000Z",
+                  "uid": "35240-d753afac-1823-40de-8429-da7c2918530f"
+                }
+              ],
+              "id": "8dc5dd87-9544-4353-b710-c2d3737e6c4f",
+              "createdAt": "2026-10-22T02:20:02.000Z",
+              "updatedAt": "2026-10-22T02:20:02.000Z",
+              "uid": "35240-8dc5dd87-9544-4353-b710-c2d3737e6c4f"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "a535d593-1561-4e8f-9395-f33e73dd3627",
-          "name": "In case a transaction was missed by a relayer, this endpoint can be used to force a tx to be re-fetched.",
-          "request": {
-            "name": "In case a transaction was missed by a relayer, this endpoint can be used to force a tx to be re-fetched.",
-            "description": {},
-            "url": {
-              "path": [
-                "v1",
-                "gas",
-                "refetch"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "txHash",
-                  "value": "<string>",
-                  "description": "(Required) The transaction hash that started the gas refilling process"
-                },
-                {
-                  "disabled": false,
-                  "key": "chainId",
-                  "value": "<string>",
-                  "description": "(Required) The chain where the deposit was originally made"
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "disabled": false,
-                "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
-                "key": "x-lifi-api-key",
-                "value": "<string>"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "12b0c1d1-aab6-414a-a0d7-b6cbfb6aa774",
-              "name": "The status of a lifuel operation",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "gas",
-                    "refetch"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "txHash",
-                      "value": "0x74546ce8aac58d33c212474293dcfeeadecef115847da75131a2ff6692e03b96"
-                    },
-                    {
-                      "key": "chainId",
-                      "value": "POL"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-lifi-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
-                    "key": "x-lifi-api-key",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"status\": \"string\",\n  \"sending\": {\n    \"txHash\": \"0x74546ce8aac58d33c212474293dcfeeadecef115847da75131a2ff6692e03b96\",\n    \"txLink\": \"https://polygonscan.com/tx/0x74546ce8aac58d33c212474293dcfeeadecef115847da75131a2ff6692e03b96\",\n    \"amount\": \"10000\",\n    \"token\": {\n      \"address\": \"0x8f3cf7ad23cd3cadbd9735aff958023239c6a063\",\n      \"symbol\": \"DAI\",\n      \"decimals\": 18,\n      \"chainId\": 137,\n      \"name\": \"(PoS) Dai Stablecoin\",\n      \"coinKey\": \"DAI\",\n      \"priceUSD\": \"1\",\n      \"logoURI\": \"https://static.debank.com/image/matic_token/logo_url/0x8f3cf7ad23cd3cadbd9735aff958023239c6a063/549c4205dbb199f1b8b03af783f35e71.png\"\n    },\n    \"chainId\": 137,\n    \"block\": 39397739\n  },\n  \"receiving\": {\n    \"txHash\": \"0x74546ce8aac58d33c212474293dcfeeadecef115847da75131a2ff6692e03b96\",\n    \"txLink\": \"https://polygonscan.com/tx/0x74546ce8aac58d33c212474293dcfeeadecef115847da75131a2ff6692e03b96\",\n    \"amount\": \"10000\",\n    \"token\": {\n      \"address\": \"0x8f3cf7ad23cd3cadbd9735aff958023239c6a063\",\n      \"symbol\": \"DAI\",\n      \"decimals\": 18,\n      \"chainId\": 137,\n      \"name\": \"(PoS) Dai Stablecoin\",\n      \"coinKey\": \"DAI\",\n      \"priceUSD\": \"1\",\n      \"logoURI\": \"https://static.debank.com/image/matic_token/logo_url/0x8f3cf7ad23cd3cadbd9735aff958023239c6a063/549c4205dbb199f1b8b03af783f35e71.png\"\n    },\n    \"chainId\": 137,\n    \"block\": 39397739\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "ca17ac24-cc07-43a1-9092-a36444852eaf",
-          "name": "Get a gas suggestion for the specified chain",
-          "request": {
-            "name": "Get a gas suggestion for the specified chain",
-            "description": {
-              "content": "Endpoint to retrieve a suggestion on how much gas is needed on the requested chain. The suggestion is based on the average price of 10 approvals and 10 uniswap based swaps via LI.FI on the specified chain.\nIf `fromChain` and `fromToken` are specified, the result will contain information about how much `fromToken` amount the user has to send to receive the suggested gas amount on the requested chain.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v1",
-                "gas",
-                "suggestion",
-                ":chain"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "fromChain",
-                  "value": "<string>",
-                  "description": "If `fromChain` and `fromToken` are specified, the result will contain information about how much `fromToken` amount the user has to send to receive the suggested gas amount on the requested chain."
-                },
-                {
-                  "disabled": false,
-                  "key": "fromToken",
-                  "value": "<string>",
-                  "description": "If `fromChain` and `fromToken` are specified, the result will contain information about how much `fromToken` amount the user has to send to receive the suggested gas amount on the requested chain."
-                }
-              ],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "chain",
-                  "description": "(Required) Chain from which gas prices should be shown (can be a chain id or a chain key)"
-                }
-              ]
-            },
-            "header": [
-              {
-                "disabled": false,
-                "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
-                "key": "x-lifi-api-key",
-                "value": "<string>"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "e876d4ff-4709-4ba5-9471-cd76a9ef945f",
-              "name": "{\n    \"available\": true,\n    \"recommended\": {\n        \"token\": {\n            \"address\": \"0x0000000000000000000000000000000000000000\",\n            \"chainId\": 137,\n            \"symbol\": \"MATIC\",\n            \"decimals\": 18,\n            \"name\": \"MATIC\",\n            \"priceUSD\": \"1.219821\",\n            \"logoURI\": \"https://static.debank.com/image/matic_token/logo_url/matic/6f5a6b6f0732a7a235131bd7804d357c.png\",\n            \"coinKey\": \"MATIC\"\n        },\n        \"amount\": \"190510922050970750\",\n        \"amountUsd\": \"0.23\"\n    },\n    \"limit\": {\n        \"token\": {\n            \"address\": \"0x0000000000000000000000000000000000000000\",\n            \"chainId\": 137,\n            \"symbol\": \"MATIC\",\n            \"decimals\": 18,\n            \"name\": \"MATIC\",\n            \"priceUSD\": \"1.219821\",\n            \"logoURI\": \"https://static.debank.com/image/matic_token/logo_url/matic/6f5a6b6f0732a7a235131bd7804d357c.png\",\n            \"coinKey\": \"MATIC\"\n        },\n        \"amount\": \"1639584824330782959\",\n        \"amountUsd\": \"2\"\n    },\n    \"fromToken\": {\n        \"address\": \"eth\",\n        \"symbol\": \"ETH\",\n        \"decimals\": 18,\n        \"chainId\": 1,\n        \"name\": \"ETH\",\n        \"coinKey\": \"ETH\",\n        \"priceUSD\": \"1622.39\",\n        \"logoURI\": \"https://static.debank.com/image/token/logo_url/eth/935ae4e4d1d12d59a99717a24f2540b5.png\"\n    },\n    \"fromAmount\": \"141766159801281\"\n}",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "gas",
-                    "suggestion",
-                    ":chain"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "fromChain",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "fromToken",
-                      "value": "xDai"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "chain",
-                      "description": "(Required) Chain from which gas prices should be shown (can be a chain id or a chain key)"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-lifi-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
-                    "key": "x-lifi-api-key",
-                    "value": "<string>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "50560ab4-920d-48e5-b7b0-6aaca5300e2a",
-          "name": "Get gas prices for enabled chains",
-          "request": {
-            "name": "Get gas prices for enabled chains",
-            "description": {
-              "content": "This endpoint can be used to get the most recent gas prices for the enabled chains in the server.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v1",
-                "gas",
-                "prices"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "disabled": false,
-                "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
-                "key": "x-lifi-api-key",
-                "value": "<string>"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "3a338130-14b3-4e49-9dd2-b6dc26d2273b",
-              "name": "Gas Prices for the supplied chainID",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "gas",
-                    "prices"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-lifi-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
-                    "key": "x-lifi-api-key",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"standard\": 6104.368467468569,\n  \"fast\": 2298.9039360261777,\n  \"fastest\": 3141.940597137932,\n  \"lastUpdated\": 1297.8157991507856\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "c59a2239-f8ab-4dc2-a132-277329d1badd",
-          "name": "Get gas price for the specified chainId",
-          "request": {
-            "name": "Get gas price for the specified chainId",
-            "description": {
-              "content": "This endpoint can be used to get the most recent gas prices for the supplied chainId.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v1",
-                "gas",
-                "prices",
-                ":chainId"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "chainId",
-                  "description": "(Required) ChaindId from which gas prices should be shown"
-                }
-              ]
-            },
-            "header": [
-              {
-                "disabled": false,
-                "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
-                "key": "x-lifi-api-key",
-                "value": "<string>"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "0cbe2408-0db3-461b-9a67-ef60d6503c1d",
-              "name": "Gas Prices for the supplied chainID",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "gas",
-                    "prices",
-                    ":chainId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "chainId",
-                      "description": "(Required) ChaindId from which gas prices should be shown"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-lifi-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
-                    "key": "x-lifi-api-key",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"standard\": 6104.368467468569,\n  \"fast\": 2298.9039360261777,\n  \"fastest\": 3141.940597137932,\n  \"lastUpdated\": 1297.8157991507856\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "60a2212b-5a72-4700-b16b-c4540fc65954",
-              "name": "Invalid Routes Request",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "gas",
-                    "prices",
-                    ":chainId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "chainId",
-                      "description": "(Required) ChaindId from which gas prices should be shown"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-lifi-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
-                    "key": "x-lifi-api-key",
-                    "value": "<string>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "8d0fddce-2676-4e75-811e-1e3af6f22f54",
+          "createdAt": "2026-10-22T02:20:02.000Z",
+          "updatedAt": "2026-10-22T02:20:02.000Z",
+          "uid": "35240-8d0fddce-2676-4e75-811e-1e3af6f22f54"
         }
       ],
-      "event": []
+      "id": "6ea01548-a507-4535-80c3-d155fb02403d",
+      "createdAt": "2026-10-22T02:20:02.000Z",
+      "updatedAt": "2026-10-22T02:20:02.000Z",
+      "uid": "35240-6ea01548-a507-4535-80c3-d155fb02403d"
     }
   ],
-  "event": [],
   "variable": [
     {
-      "type": "string",
-      "value": "https://earn.li.fi",
-      "key": "baseUrl"
+      "key": "baseUrl",
+      "value": "https://li.quest"
     }
-  ],
-  "auth": {
-    "type": "apikey",
-    "apikey": [
-      {
-        "key": "key",
-        "value": "x-lifi-api-key"
-      },
-      {
-        "key": "value",
-        "value": "{{apiKey}}"
-      },
-      {
-        "key": "in",
-        "value": "header"
-      }
-    ]
-  },
-  "info": {
-    "_postman_id": "f39fab99-f8a1-466d-b458-f7cca8fc2206",
-    "name": "LI.FI Earn advanced Gas API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "Enterprise DeFi yield discovery and tracking API",
-      "type": "text/plain"
-    }
-  }
+  ]
 }

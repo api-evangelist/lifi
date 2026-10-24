@@ -1,96 +1,31 @@
 {
+  "info": {
+    "_postman_id": "fd50bbfe-b4b4-409d-a500-092f1cb77302",
+    "name": "LI.FI Token API",
+    "description": "LI.FI provides the best cross-chain swap across all liquidity pools and bridges.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T02:20:35.000Z",
+    "updatedAt": "2026-10-22T02:20:35.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-fd50bbfe-b4b4-409d-a500-092f1cb77302"
+  },
   "item": [
     {
-      "id": "2c910968-a18f-4557-90d8-ca551e35c675",
-      "name": "Token",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
+      "name": "v1",
       "item": [
         {
-          "id": "6868a26a-3282-4121-9239-c67ecdb7f4a3",
-          "name": "Fetch information about a Token",
-          "request": {
-            "name": "Fetch information about a Token",
-            "description": {
-              "content": "This endpoint can be used to get more information about a token by its address or symbol and its chain.\nIf you want to learn more about how to use this endpoint please have a look at our [guide](/api-reference/fetch-information-about-a-token).",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v1",
-                "token"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "chain",
-                  "value": "<string>",
-                  "description": "(Required) Id or key of the chain that contains the token"
-                },
-                {
-                  "disabled": false,
-                  "key": "token",
-                  "value": "<string>",
-                  "description": "(Required) Address or symbol of the token on the requested chain"
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "disabled": false,
-                "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
-                "key": "x-lifi-api-key",
-                "value": "<string>"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "token",
+          "item": [
             {
-              "id": "dd4f4083-f937-418e-8edf-e3df35ee3b01",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "token"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "chain",
-                      "value": "POL"
-                    },
-                    {
-                      "key": "token",
-                      "value": "DAI"
-                    }
-                  ],
-                  "variable": []
-                },
+              "name": "Fetch information about a Token",
+              "id": "c0381b25-a929-4e39-8ef9-0f3bc712b0bd",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-lifi-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "disabled": false,
                     "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
                     "key": "x-lifi-api-key",
                     "value": "<string>"
@@ -100,173 +35,200 @@
                     "value": "application/json"
                   }
                 ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"address\": \"0x8f3cf7ad23cd3cadbd9735aff958023239c6a063\",\n  \"symbol\": \"DAI\",\n  \"decimals\": 18,\n  \"chainId\": 137,\n  \"name\": \"(PoS) Dai Stablecoin\",\n  \"coinKey\": \"DAI\",\n  \"priceUSD\": \"1\",\n  \"logoURI\": \"https://static.debank.com/image/matic_token/logo_url/0x8f3cf7ad23cd3cadbd9735aff958023239c6a063/549c4205dbb199f1b8b03af783f35e71.png\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "5db97d27-b8ea-4fe1-bc98-6f4de48dab39",
-              "name": "User passed an invalid chain id or abbreviation",
-              "originalRequest": {
                 "url": {
+                  "raw": "{{baseUrl}}/v1/token?chain=<string>&token=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "v1",
                     "token"
                   ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
                   "query": [
                     {
+                      "description": "(Required) Id or key of the chain that contains the token",
                       "key": "chain",
-                      "value": "POL"
+                      "value": "<string>"
                     },
                     {
+                      "description": "(Required) Address or symbol of the token on the requested chain",
                       "key": "token",
-                      "value": "DAI"
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "description": "This endpoint can be used to get more information about a token by its address or symbol and its chain.\nIf you want to learn more about how to use this endpoint please have a look at our guide."
+              },
+              "response": [
+                {
+                  "id": "39d55e26-1d62-448a-bb0a-f52b9199c0d2",
+                  "name": "New Response",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
+                        "key": "x-lifi-api-key",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/token?chain=<string>&token=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "token"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Id or key of the chain that contains the token",
+                          "key": "chain",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) Address or symbol of the token on the requested chain",
+                          "key": "token",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
                     }
                   ],
-                  "variable": []
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "[\n  {\n    \"address\": \"<string>\",\n    \"chainId\": \"<number>\",\n    \"decimals\": \"<number>\",\n    \"name\": \"<string>\",\n    \"symbol\": \"<string>\",\n    \"coinKey\": \"<string>\",\n    \"logoURI\": \"<string>\",\n    \"priceUSD\": \"<string>\"\n  },\n  {\n    \"address\": \"<string>\",\n    \"chainId\": \"<number>\",\n    \"decimals\": \"<number>\",\n    \"name\": \"<string>\",\n    \"symbol\": \"<string>\",\n    \"coinKey\": \"<string>\",\n    \"logoURI\": \"<string>\",\n    \"priceUSD\": \"<string>\"\n  }\n]",
+                  "createdAt": "2026-10-22T02:20:35.000Z",
+                  "updatedAt": "2026-10-22T02:20:35.000Z",
+                  "uid": "35240-39d55e26-1d62-448a-bb0a-f52b9199c0d2"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-lifi-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
-                    "key": "x-lifi-api-key",
-                    "value": "<string>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "846a754f-42e2-46b3-8c6b-4ba148b3904b",
-              "name": "No token found for the given address and chain",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "token"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "chain",
-                      "value": "POL"
-                    },
-                    {
-                      "key": "token",
-                      "value": "DAI"
+                  "id": "13d75097-2727-481e-a85c-c3c355cd7fd0",
+                  "name": "User passed an invalid chain id or abbreviation",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
+                        "key": "x-lifi-api-key",
+                        "value": "<string>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/token?chain=<string>&token=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "token"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Id or key of the chain that contains the token",
+                          "key": "chain",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) Address or symbol of the token on the requested chain",
+                          "key": "token",
+                          "value": "<string>"
+                        }
+                      ]
                     }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-lifi-api-key",
-                    "value": "<API Key>"
                   },
-                  {
-                    "disabled": false,
-                    "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
-                    "key": "x-lifi-api-key",
-                    "value": "<string>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T02:20:35.000Z",
+                  "updatedAt": "2026-10-22T02:20:35.000Z",
+                  "uid": "35240-13d75097-2727-481e-a85c-c3c355cd7fd0"
+                },
                 {
-                  "key": "Content-Type",
-                  "value": "text/plain"
+                  "id": "be26488c-361a-4502-89dc-968705373186",
+                  "name": "No token found for the given address and chain",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
+                        "key": "x-lifi-api-key",
+                        "value": "<string>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/token?chain=<string>&token=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "token"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Id or key of the chain that contains the token",
+                          "key": "chain",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) Address or symbol of the token on the requested chain",
+                          "key": "token",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T02:20:35.000Z",
+                  "updatedAt": "2026-10-22T02:20:35.000Z",
+                  "uid": "35240-be26488c-361a-4502-89dc-968705373186"
                 }
               ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
+              "createdAt": "2026-10-22T02:20:35.000Z",
+              "updatedAt": "2026-10-22T02:20:35.000Z",
+              "uid": "35240-c0381b25-a929-4e39-8ef9-0f3bc712b0bd"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "aaf04772-9814-4904-8901-d2aa4bea238b",
+          "createdAt": "2026-10-22T02:20:35.000Z",
+          "updatedAt": "2026-10-22T02:20:35.000Z",
+          "uid": "35240-aaf04772-9814-4904-8901-d2aa4bea238b"
         }
       ],
-      "event": []
+      "id": "209a45a1-a685-40f5-bf7e-60d784306ae9",
+      "createdAt": "2026-10-22T02:20:35.000Z",
+      "updatedAt": "2026-10-22T02:20:35.000Z",
+      "uid": "35240-209a45a1-a685-40f5-bf7e-60d784306ae9"
     }
   ],
-  "event": [],
   "variable": [
     {
-      "type": "string",
-      "value": "https://earn.li.fi",
-      "key": "baseUrl"
+      "key": "baseUrl",
+      "value": "https://li.quest"
     }
-  ],
-  "auth": {
-    "type": "apikey",
-    "apikey": [
-      {
-        "key": "key",
-        "value": "x-lifi-api-key"
-      },
-      {
-        "key": "value",
-        "value": "{{apiKey}}"
-      },
-      {
-        "key": "in",
-        "value": "header"
-      }
-    ]
-  },
-  "info": {
-    "_postman_id": "3cd64eb6-5900-4e48-8ea3-133a2960b1e6",
-    "name": "LI.FI Earn advanced Token API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "Enterprise DeFi yield discovery and tracking API",
-      "type": "text/plain"
-    }
-  }
+  ]
 }

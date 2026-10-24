@@ -1,0 +1,140 @@
+{
+  "info": {
+    "_postman_id": "29691073-4f2f-4113-a6e9-c8b6e5b55752",
+    "name": "LI.FI Calldata API",
+    "description": "LI.FI provides the best cross-chain swap across all liquidity pools and bridges.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T02:20:54.000Z",
+    "updatedAt": "2026-10-22T02:20:55.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-29691073-4f2f-4113-a6e9-c8b6e5b55752"
+  },
+  "item": [
+    {
+      "name": "v1",
+      "item": [
+        {
+          "name": "calldata",
+          "item": [
+            {
+              "name": "parse",
+              "item": [
+                {
+                  "name": "Parse transaction call data (BETA)",
+                  "id": "a2bab655-fe66-49ff-89ce-5263e7b30a75",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
+                        "key": "x-lifi-api-key",
+                        "value": "<string>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/calldata/parse?chainId=<string>&callData=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "calldata",
+                        "parse"
+                      ],
+                      "query": [
+                        {
+                          "description": "The chainId that the transaction is built for (or has been sent on)",
+                          "key": "chainId",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) The call data to parse",
+                          "key": "callData",
+                          "value": "<string>"
+                        }
+                      ]
+                    },
+                    "description": "This endpoint allows to pass transaction call data. It will then parse the call data based on known and on-chain ABIs to provide a JSON overview of the internal transaction information."
+                  },
+                  "response": [
+                    {
+                      "id": "8f56aa95-7252-43cc-8d31-66fd5b872991",
+                      "name": "[\n    {\n        \"functionName\": \"swapTokensGeneric\",\n        \"functionParameters\": {\n            \"_transactionId\": \"0x40b0592501720ece27ef8614385fbef4bdbb5b2050ebaaa3563e72fee959e249\",\n            \"_integrator\": \"jumper.exchange\",\n            \"_referrer\":",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
+                            "key": "x-lifi-api-key",
+                            "value": "<string>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/calldata/parse?chainId=<string>&callData=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "calldata",
+                            "parse"
+                          ],
+                          "query": [
+                            {
+                              "description": "The chainId that the transaction is built for (or has been sent on)",
+                              "key": "chainId",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "(Required) The call data to parse",
+                              "key": "callData",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T02:20:55.000Z",
+                      "updatedAt": "2026-10-22T02:20:55.000Z",
+                      "uid": "35240-8f56aa95-7252-43cc-8d31-66fd5b872991"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T02:20:55.000Z",
+                  "updatedAt": "2026-10-22T02:20:55.000Z",
+                  "uid": "35240-a2bab655-fe66-49ff-89ce-5263e7b30a75"
+                }
+              ],
+              "id": "55f2e831-1974-4539-b619-2c71f53ce16e",
+              "createdAt": "2026-10-22T02:20:55.000Z",
+              "updatedAt": "2026-10-22T02:20:55.000Z",
+              "uid": "35240-55f2e831-1974-4539-b619-2c71f53ce16e"
+            }
+          ],
+          "id": "4cd4adca-f989-44d0-96b3-5978ed83c9a9",
+          "createdAt": "2026-10-22T02:20:55.000Z",
+          "updatedAt": "2026-10-22T02:20:55.000Z",
+          "uid": "35240-4cd4adca-f989-44d0-96b3-5978ed83c9a9"
+        }
+      ],
+      "id": "9422e027-86be-41e2-9e58-baa403325d7e",
+      "createdAt": "2026-10-22T02:20:55.000Z",
+      "updatedAt": "2026-10-22T02:20:55.000Z",
+      "uid": "35240-9422e027-86be-41e2-9e58-baa403325d7e"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://li.quest"
+    }
+  ]
+}

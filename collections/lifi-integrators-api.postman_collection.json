@@ -1,498 +1,431 @@
 {
+  "info": {
+    "_postman_id": "9312e282-4b99-4bd7-a511-8a8f6e789453",
+    "name": "LI.FI Integrators API",
+    "description": "LI.FI provides the best cross-chain swap across all liquidity pools and bridges.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T02:20:09.000Z",
+    "updatedAt": "2026-10-22T02:20:09.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-9312e282-4b99-4bd7-a511-8a8f6e789453"
+  },
   "item": [
     {
-      "id": "fca5bc9f-dcfa-40f9-a099-48bea6b7ccef",
-      "name": "Integrators",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
+      "name": "v1",
       "item": [
         {
-          "id": "924ff3bc-e896-4877-be1d-7efbbecb42d9",
-          "name": "Get integrator's collected fees data for all supported chains",
-          "request": {
-            "name": "Get integrator's collected fees data for all supported chains",
-            "description": {
-              "content": "This endpoint can be used to request all integrator's collected fees data by tokens for all supported chains.\nThe endpoint returns an `Integrator` object which contains the integrator id and an array of fee balances for all supported chains.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v1",
-                "integrators",
-                ":integratorId"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "integratorId",
-                  "description": "(Required) Id of the integrator that requests fee balances"
-                }
-              ]
-            },
-            "header": [
-              {
-                "disabled": false,
-                "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
-                "key": "x-lifi-api-key",
-                "value": "<string>"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "integrators",
+          "item": [
             {
-              "id": "17c580cf-935c-470f-b593-7d9c2a00e7a0",
-              "name": "Response of the Integrator request",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "integrators",
-                    ":integratorId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "integratorId",
-                      "description": "(Required) Id of the integrator that requests fee balances"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-lifi-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
-                    "key": "x-lifi-api-key",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "name": "{integratorId}",
+              "item": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "name": "withdraw",
+                  "item": [
+                    {
+                      "name": "{chainId}",
+                      "item": [
+                        {
+                          "name": "Get transaction request for withdrawing collected integrator's fees by chain",
+                          "id": "8a47a7c7-ad97-49a4-a9e8-673a5d83791c",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
+                                "key": "x-lifi-api-key",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/integrators/:integratorId/withdraw/:chainId?tokenAddresses=<string>&tokenAddresses=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "integrators",
+                                ":integratorId",
+                                "withdraw",
+                                ":chainId"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Specify tokens from which funds should be withdraw",
+                                  "key": "tokenAddresses",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Specify tokens from which funds should be withdraw",
+                                  "key": "tokenAddresses",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "id": "3c122b36-7095-4047-abe4-f6c627d6c26c",
+                                  "key": "integratorId",
+                                  "value": "<string>",
+                                  "description": "(Required) Id of the integrator that requests fee withdrawal"
+                                },
+                                {
+                                  "id": "0bc07bec-27c1-4313-b1bb-36f82c170dc7",
+                                  "key": "chainId",
+                                  "value": "<string>",
+                                  "description": "(Required) Specify chainId from which funds should be withdrawn"
+                                }
+                              ]
+                            },
+                            "description": "This endpoint can be used to get transaction request for withdrawing integrator's collected fees the specified chain. If a list of token addresses is provided, the generated transaction will only withdraw the specified funds.\nIf there is no collected fees for the provided token's addresses, the `400` error will be thrown.\nThe endpoint returns a `IntegratorWithdrawalTransactionResponse` object which contains the transaction request."
+                          },
+                          "response": [
+                            {
+                              "id": "83c6ef38-fb44-4ca0-9f9b-642a99a9883e",
+                              "name": "Response of the integrator's fee withdrawal transaction request",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
+                                    "key": "x-lifi-api-key",
+                                    "value": "<string>"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v1/integrators/:integratorId/withdraw/:chainId?tokenAddresses=<string>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v1",
+                                    "integrators",
+                                    ":integratorId",
+                                    "withdraw",
+                                    ":chainId"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Specify tokens from which funds should be withdraw",
+                                      "key": "tokenAddresses",
+                                      "value": "<string>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "integratorId"
+                                    },
+                                    {
+                                      "key": "chainId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"transactionRequest\": {\n    \"data\": \"<string>\",\n    \"to\": \"<string>\"\n  }\n}",
+                              "createdAt": "2026-10-22T02:20:10.000Z",
+                              "updatedAt": "2026-10-22T02:20:10.000Z",
+                              "uid": "35240-83c6ef38-fb44-4ca0-9f9b-642a99a9883e"
+                            },
+                            {
+                              "id": "0a4abb97-a90e-4895-a0b5-4ca45473f07e",
+                              "name": "None of the requested tokens has a balance",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
+                                    "key": "x-lifi-api-key",
+                                    "value": "<string>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v1/integrators/:integratorId/withdraw/:chainId?tokenAddresses=<string>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v1",
+                                    "integrators",
+                                    ":integratorId",
+                                    "withdraw",
+                                    ":chainId"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Specify tokens from which funds should be withdraw",
+                                      "key": "tokenAddresses",
+                                      "value": "<string>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "integratorId"
+                                    },
+                                    {
+                                      "key": "chainId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-10-22T02:20:10.000Z",
+                              "updatedAt": "2026-10-22T02:20:10.000Z",
+                              "uid": "35240-0a4abb97-a90e-4895-a0b5-4ca45473f07e"
+                            },
+                            {
+                              "id": "d2ed5fe7-e728-4ff0-ada3-53c0915a6cb1",
+                              "name": "Integrator with the name ${integratorId} is not found",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
+                                    "key": "x-lifi-api-key",
+                                    "value": "<string>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v1/integrators/:integratorId/withdraw/:chainId?tokenAddresses=<string>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v1",
+                                    "integrators",
+                                    ":integratorId",
+                                    "withdraw",
+                                    ":chainId"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Specify tokens from which funds should be withdraw",
+                                      "key": "tokenAddresses",
+                                      "value": "<string>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "integratorId"
+                                    },
+                                    {
+                                      "key": "chainId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-10-22T02:20:10.000Z",
+                              "updatedAt": "2026-10-22T02:20:10.000Z",
+                              "uid": "35240-d2ed5fe7-e728-4ff0-ada3-53c0915a6cb1"
+                            }
+                          ],
+                          "createdAt": "2026-10-22T02:20:10.000Z",
+                          "updatedAt": "2026-10-22T02:20:10.000Z",
+                          "uid": "35240-8a47a7c7-ad97-49a4-a9e8-673a5d83791c"
+                        }
+                      ],
+                      "id": "fdd3c98c-7e1e-4d30-8c0d-d92c892f0769",
+                      "createdAt": "2026-10-22T02:20:09.000Z",
+                      "updatedAt": "2026-10-22T02:20:09.000Z",
+                      "uid": "35240-fdd3c98c-7e1e-4d30-8c0d-d92c892f0769"
+                    }
+                  ],
+                  "id": "811f730b-21ce-446d-a610-8e0baa426436",
+                  "createdAt": "2026-10-22T02:20:09.000Z",
+                  "updatedAt": "2026-10-22T02:20:09.000Z",
+                  "uid": "35240-811f730b-21ce-446d-a610-8e0baa426436"
+                },
+                {
+                  "name": "Get integrator's collected fees data for all supported chains",
+                  "id": "10d34314-9447-410f-8832-83fbf7eec341",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
+                        "key": "x-lifi-api-key",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/integrators/:integratorId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "integrators",
+                        ":integratorId"
+                      ],
+                      "variable": [
+                        {
+                          "id": "d607d534-fc69-4943-bb6a-1c94e1eba778",
+                          "key": "integratorId",
+                          "value": "<string>",
+                          "description": "(Required) Id of the integrator that requests fee balances"
+                        }
+                      ]
+                    },
+                    "description": "This endpoint can be used to request all integrator's collected fees data by tokens for all supported chains.\nThe endpoint returns an `Integrator` object which contains the integrator id and an array of fee balances for all supported chains."
+                  },
+                  "response": [
+                    {
+                      "id": "fe1ed47e-97f0-4b36-a912-7def1c208e83",
+                      "name": "Response of the Integrator request",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
+                            "key": "x-lifi-api-key",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/integrators/:integratorId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "integrators",
+                            ":integratorId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "integratorId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"integratorId\": \"<string>\",\n  \"feeBalances\": [\n    {\n      \"chainId\": \"<number>\",\n      \"tokenBalances\": [\n        {\n          \"token\": {\n            \"address\": \"<string>\",\n            \"chainId\": \"<number>\",\n            \"decimals\": \"<number>\",\n            \"name\": \"<string>\",\n            \"symbol\": \"<string>\",\n            \"coinKey\": \"<string>\",\n            \"logoURI\": \"<string>\",\n            \"priceUSD\": \"<string>\"\n          },\n          \"amount\": \"<string>\",\n          \"amountUsd\": \"<string>\"\n        },\n        {\n          \"token\": {\n            \"address\": \"<string>\",\n            \"chainId\": \"<number>\",\n            \"decimals\": \"<number>\",\n            \"name\": \"<string>\",\n            \"symbol\": \"<string>\",\n            \"coinKey\": \"<string>\",\n            \"logoURI\": \"<string>\",\n            \"priceUSD\": \"<string>\"\n          },\n          \"amount\": \"<string>\",\n          \"amountUsd\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"chainId\": \"<number>\",\n      \"tokenBalances\": [\n        {\n          \"token\": {\n            \"address\": \"<string>\",\n            \"chainId\": \"<number>\",\n            \"decimals\": \"<number>\",\n            \"name\": \"<string>\",\n            \"symbol\": \"<string>\",\n            \"coinKey\": \"<string>\",\n            \"logoURI\": \"<string>\",\n            \"priceUSD\": \"<string>\"\n          },\n          \"amount\": \"<string>\",\n          \"amountUsd\": \"<string>\"\n        },\n        {\n          \"token\": {\n            \"address\": \"<string>\",\n            \"chainId\": \"<number>\",\n            \"decimals\": \"<number>\",\n            \"name\": \"<string>\",\n            \"symbol\": \"<string>\",\n            \"coinKey\": \"<string>\",\n            \"logoURI\": \"<string>\",\n            \"priceUSD\": \"<string>\"\n          },\n          \"amount\": \"<string>\",\n          \"amountUsd\": \"<string>\"\n        }\n      ]\n    }\n  ]\n}",
+                      "createdAt": "2026-10-22T02:20:10.000Z",
+                      "updatedAt": "2026-10-22T02:20:10.000Z",
+                      "uid": "35240-fe1ed47e-97f0-4b36-a912-7def1c208e83"
+                    },
+                    {
+                      "id": "995e45b9-84c3-48f6-b3f7-c83e5cc3672c",
+                      "name": "Integrator with the name ${integratorId} is not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
+                            "key": "x-lifi-api-key",
+                            "value": "<string>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/integrators/:integratorId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "integrators",
+                            ":integratorId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "integratorId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T02:20:10.000Z",
+                      "updatedAt": "2026-10-22T02:20:10.000Z",
+                      "uid": "35240-995e45b9-84c3-48f6-b3f7-c83e5cc3672c"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T02:20:10.000Z",
+                  "updatedAt": "2026-10-22T02:20:10.000Z",
+                  "uid": "35240-10d34314-9447-410f-8832-83fbf7eec341"
                 }
               ],
-              "body": "{\n  \"integratorId\": \"fee-demo\",\n  \"feeBalances\": [\n    {\n      \"chainId\": 137,\n      \"tokenBalances\": [\n        {\n          \"token\": {\n            \"address\": \"0x0000000000000000000000000000000000000000\",\n            \"symbol\": \"MATIC\",\n            \"decimals\": 18,\n            \"chainId\": 137,\n            \"name\": \"MATIC\",\n            \"coinKey\": \"MATIC\",\n            \"priceUSD\": \"0.742896\",\n            \"logoURI\": \"https://static.debank.com/image/matic_token/logo_url/matic/6f5a6b6f0732a7a235131bd7804d357c.png\"\n          },\n          \"amount\": 0,\n          \"amountUsd\": 0\n        }\n      ]\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "6c259d0e-8389-4ed2-8a7c-934b4d845add",
-              "name": "Integrator with the name ${integratorId} is not found",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "integrators",
-                    ":integratorId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "integratorId",
-                      "description": "(Required) Id of the integrator that requests fee balances"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-lifi-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
-                    "key": "x-lifi-api-key",
-                    "value": "<string>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
+              "id": "1c994fd1-cce5-4396-b5df-60014a2302bd",
+              "createdAt": "2026-10-22T02:20:09.000Z",
+              "updatedAt": "2026-10-22T02:20:09.000Z",
+              "uid": "35240-1c994fd1-cce5-4396-b5df-60014a2302bd"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "9fac1c9b-390c-4a64-9838-349b766c7a89",
-          "name": "Get transaction request for withdrawing collected integrator's fees by chain",
-          "request": {
-            "name": "Get transaction request for withdrawing collected integrator's fees by chain",
-            "description": {
-              "content": "This endpoint can be used to get transaction request for withdrawing integrator's collected fees the specified chain. If a list of token addresses is provided, the generated transaction will only withdraw the specified funds.\nIf there is no collected fees for the provided token's addresses, the `400` error will be thrown.\nThe endpoint returns a `IntegratorWithdrawalTransactionResponse` object which contains the transaction request.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v1",
-                "integrators",
-                ":integratorId",
-                "withdraw",
-                ":chainId"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "tokenAddresses",
-                  "value": "<string>",
-                  "description": "Specify tokens from which funds should be withdraw"
-                },
-                {
-                  "disabled": false,
-                  "key": "tokenAddresses",
-                  "value": "<string>",
-                  "description": "Specify tokens from which funds should be withdraw"
-                }
-              ],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "integratorId",
-                  "description": "(Required) Id of the integrator that requests fee withdrawal"
-                },
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "chainId",
-                  "description": "(Required) Specify chainId from which funds should be withdrawn"
-                }
-              ]
-            },
-            "header": [
-              {
-                "disabled": false,
-                "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
-                "key": "x-lifi-api-key",
-                "value": "<string>"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "1bdd8ae9-7aa0-4d14-9eb2-b3ea085b0bea",
-              "name": "Response of the integrator's fee withdrawal transaction request",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "integrators",
-                    ":integratorId",
-                    "withdraw",
-                    ":chainId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "tokenAddresses",
-                      "value": "0x0000000000000000000000000000000000000000"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "integratorId",
-                      "description": "(Required) Id of the integrator that requests fee withdrawal"
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "chainId",
-                      "description": "(Required) Specify chainId from which funds should be withdrawn"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-lifi-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
-                    "key": "x-lifi-api-key",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"transactionRequest\": {\n    \"data\": \"0x\",\n    \"to\": \"0xbD6C7B0d2f68c2b7805d88388319cfB6EcB50eA9\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "fa7be14f-7190-4b98-bdfa-25919d33b402",
-              "name": "None of the requested tokens has a balance",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "integrators",
-                    ":integratorId",
-                    "withdraw",
-                    ":chainId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "tokenAddresses",
-                      "value": "0x0000000000000000000000000000000000000000"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "integratorId",
-                      "description": "(Required) Id of the integrator that requests fee withdrawal"
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "chainId",
-                      "description": "(Required) Specify chainId from which funds should be withdrawn"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-lifi-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
-                    "key": "x-lifi-api-key",
-                    "value": "<string>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "468e7b78-f324-4523-8c9e-80863bd5ca21",
-              "name": "Integrator with the name ${integratorId} is not found",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "integrators",
-                    ":integratorId",
-                    "withdraw",
-                    ":chainId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "tokenAddresses",
-                      "value": "0x0000000000000000000000000000000000000000"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "integratorId",
-                      "description": "(Required) Id of the integrator that requests fee withdrawal"
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "chainId",
-                      "description": "(Required) Specify chainId from which funds should be withdrawn"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-lifi-api-key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Authentication header, register in the LI.FI Partner Portal (https://portal.li.fi/ ) to get your API Key.",
-                    "key": "x-lifi-api-key",
-                    "value": "<string>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "2000c1da-526c-46a8-9542-48fd266d59e5",
+          "createdAt": "2026-10-22T02:20:09.000Z",
+          "updatedAt": "2026-10-22T02:20:09.000Z",
+          "uid": "35240-2000c1da-526c-46a8-9542-48fd266d59e5"
         }
       ],
-      "event": []
+      "id": "7384e02e-6611-443e-9109-c6037da94626",
+      "createdAt": "2026-10-22T02:20:09.000Z",
+      "updatedAt": "2026-10-22T02:20:09.000Z",
+      "uid": "35240-7384e02e-6611-443e-9109-c6037da94626"
     }
   ],
-  "event": [],
   "variable": [
     {
-      "type": "string",
-      "value": "https://earn.li.fi",
-      "key": "baseUrl"
+      "key": "baseUrl",
+      "value": "https://li.quest"
     }
-  ],
-  "auth": {
-    "type": "apikey",
-    "apikey": [
-      {
-        "key": "key",
-        "value": "x-lifi-api-key"
-      },
-      {
-        "key": "value",
-        "value": "{{apiKey}}"
-      },
-      {
-        "key": "in",
-        "value": "header"
-      }
-    ]
-  },
-  "info": {
-    "_postman_id": "2eb9cc98-bd32-46d5-ad73-d0a77e4316dd",
-    "name": "LI.FI Earn advanced Integrators API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "Enterprise DeFi yield discovery and tracking API",
-      "type": "text/plain"
-    }
-  }
+  ]
 }
