@@ -64,53 +64,163 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-LI.FI is the routing and execution layer for cross-chain liquidity, payments, swaps and yield. A single integration gives an application access to more than 100 aggregated bridges, DEXs, DEX aggregators and intent-based solvers across 58+ chains spanning EVM, Solana, Bitcoin, SUI and TRON.
+LI.FI is the routing and execution layer for cross-chain liquidity, payments, swaps and yield. A single integration gives an application access to more than 100 aggregated bridges, DEXs, DEX aggregators and intent-based solvers across 58+ chains spanning EVM, Solana, Bitcoin, SUI and TRON. The LI.FI API returns an optimal route plus a ready-to-sign, unsigned transaction; the product set extends to Composer for one-click DeFi deposits across 20+ protocols, Earn for yield discovery and portfolio tracking, an intent/solver marketplace built on the Open Intents Framework, an embeddable Widget, a TypeScript SDK, a CLI and a hosted MCP server for AI agents.
 
-The LI.FI API returns an optimal route plus a ready-to-sign, unsigned transaction — LI.FI never takes custody. The product set extends to Composer for one-click DeFi deposits across 20+ protocols, Earn for yield discovery and portfolio tracking, an intent/solver marketplace built on the Open Intents Framework, an embeddable Widget, a TypeScript SDK, a CLI and a hosted MCP server.
+**Areas:** Company · Web3 · Blockchain · Cross-Chain · Bridge · DEX Aggregation · DeFi · Payments · Liquidity · Yield · Intents · Agents
 
-- Website — https://li.fi
-- Documentation — https://docs.li.fi
-- API reference — https://docs.li.fi/api-reference/introduction
-- Status — https://status.li.fi
-- GitHub — https://github.com/lifinance
+## LI.FI on APIs.io
 
-## APIs
+Everything profiled for LI.FI is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/lifi/](https://apis.io/providers/lifi/)** — or go straight to one of the APIs or properties below.
 
-| API | Base URL | Spec |
-|---|---|---|
-| LI.FI API | `https://li.quest` | `openapi/lifi-openapi-original.yml` |
-| LI.FI Earn Data API | `https://earn.li.fi` | `openapi/lifi-earn-openapi-original.yml` |
-| LI.FI Intents Order Server API | `https://order.li.fi` | docs only |
+### APIs (18)
 
-## Artifacts
+- [LI.FI Intents Order Server API](https://apis.io/apis/lifi/lifi-intents-order-server-api/) — Intent-based execution API for the LI.FI solver marketplace. Integrators request quotes and submit orders; solvers publish standing quote inventory and fill…
+- [LI.FI Advanced API](https://apis.io/apis/lifi/lifi-advanced-api/) — The advanced API from LI.FI — 3 operation(s) for advanced.
+- [LI.FI Analytics API](https://apis.io/apis/lifi/lifi-analytics-api/) — The Analytics API from LI.FI — 4 operation(s) for analytics.
+- [LI.FI Chains API](https://apis.io/apis/lifi/lifi-chains-api/) — The Chains API from LI.FI — 1 operation(s) for chains.
+- [LI.FI Connections API](https://apis.io/apis/lifi/lifi-connections-api/) — The Connections API from LI.FI — 1 operation(s) for connections.
+- [LI.FI Earn Chains API](https://apis.io/apis/lifi/lifi-earn-chains-api/) — The Earn Chains API from LI.FI — 1 operation(s) for earn chains.
+- [LI.FI Earn Portfolio API](https://apis.io/apis/lifi/lifi-earn-portfolio-api/) — The Earn Portfolio API from LI.FI — 1 operation(s) for earn portfolio.
+- [LI.FI Earn Protocols API](https://apis.io/apis/lifi/lifi-earn-protocols-api/) — The Earn Protocols API from LI.FI — 1 operation(s) for earn protocols.
+- [LI.FI Earn Vaults API](https://apis.io/apis/lifi/lifi-earn-vaults-api/) — The Earn Vaults API from LI.FI — 2 operation(s) for earn vaults.
+- [LI.FI Gas API](https://apis.io/apis/lifi/lifi-gas-api/) — The Gas API from LI.FI — 5 operation(s) for gas.
+- [LI.FI Integrators API](https://apis.io/apis/lifi/lifi-integrators-api/) — The Integrators API from LI.FI — 2 operation(s) for integrators.
+- [LI.FI Quote API](https://apis.io/apis/lifi/lifi-quote-api/) — The Quote API from LI.FI — 4 operation(s) for quote.
+- [LI.FI Relayer API](https://apis.io/apis/lifi/lifi-relayer-api/) — The Relayer API from LI.FI — 3 operation(s) for relayer.
+- [LI.FI Status API](https://apis.io/apis/lifi/lifi-status-api/) — The Status API from LI.FI — 1 operation(s) for status.
+- [LI.FI Token API](https://apis.io/apis/lifi/lifi-token-api/) — The Token API from LI.FI — 1 operation(s) for token.
+- [LI.FI Tokens API](https://apis.io/apis/lifi/lifi-tokens-api/) — The Tokens API from LI.FI — 1 operation(s) for tokens.
+- [LI.FI Tools API](https://apis.io/apis/lifi/lifi-tools-api/) — The Tools API from LI.FI — 1 operation(s) for tools.
+- [LI.FI Call Data API](https://apis.io/apis/lifi/lifi-call-data-api/) — The Call Data API from LI.FI — 1 operation(s) for call data.
 
-| Directory | What it holds |
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [lifi](https://apis.io/servers/lifi/lifi/)
+
+#### Agentic access (1)
+
+Which operations an agent can call, which act, and which need a human in the loop.
+
+- [Lifi Agentic Access](https://apis.io/agentic-access/lifi/lifi-agentic-access/)
+
+#### Collections (17)
+
+Postman and Open Collection request collections.
+
+- [LI.FI Earn advanced API](https://apis.io/collections/lifi/open-lifi-advanced-api/)
+- [LI.FI Earn advanced Analytics API](https://apis.io/collections/lifi/open-lifi-analytics-api/)
+- [LI.FI Earn advanced Calldata API](https://apis.io/collections/lifi/open-lifi-calldata-api/)
+- [LI.FI Earn advanced Chains API](https://apis.io/collections/lifi/open-lifi-chains-api/)
+- [LI.FI Earn advanced Connections API](https://apis.io/collections/lifi/open-lifi-connections-api/)
+- [LI.FI Earn advanced Earn Chains API](https://apis.io/collections/lifi/open-lifi-earn-chains-api/)
+- [LI.FI Earn advanced Earn Portfolio API](https://apis.io/collections/lifi/open-lifi-earn-portfolio-api/)
+- [LI.FI Earn advanced Earn Protocols API](https://apis.io/collections/lifi/open-lifi-earn-protocols-api/)
+- [LI.FI Earn advanced Earn Vaults API](https://apis.io/collections/lifi/open-lifi-earn-vaults-api/)
+- [LI.FI Earn advanced Gas API](https://apis.io/collections/lifi/open-lifi-gas-api/)
+- [LI.FI Earn advanced Integrators API](https://apis.io/collections/lifi/open-lifi-integrators-api/)
+- [LI.FI Earn advanced Quote API](https://apis.io/collections/lifi/open-lifi-quote-api/)
+- [LI.FI Earn advanced Relayer API](https://apis.io/collections/lifi/open-lifi-relayer-api/)
+- [LI.FI Earn advanced Status API](https://apis.io/collections/lifi/open-lifi-status-api/)
+- [LI.FI Earn advanced Token API](https://apis.io/collections/lifi/open-lifi-token-api/)
+- [LI.FI Earn advanced Tokens API](https://apis.io/collections/lifi/open-lifi-tokens-api/)
+- [LI.FI Earn advanced Tools API](https://apis.io/collections/lifi/open-lifi-tools-api/)
+
+#### Overlays (2)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Lifi Api Overlay](https://apis.io/overlays/lifi/lifi-api-overlay/)
+- [Lifi Earn Overlay](https://apis.io/overlays/lifi/lifi-earn-overlay/)
+
+#### Security (3)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Lifi Authentication](https://apis.io/security/lifi/lifi-authentication/)
+- [Lifi Domain Security](https://apis.io/security/lifi/lifi-domain-security/)
+- [Lifi Vulnerability Disclosure](https://apis.io/security/lifi/lifi-vulnerability-disclosure/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Lifi Rate Limits](https://apis.io/rate-limits/lifi/lifi-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://li.fi)
+- [Documentation](https://docs.li.fi)
+- [Getting started](https://docs.li.fi/introduction/introduction)
+- [API reference](https://docs.li.fi/api-reference/introduction)
+- [Pricing](https://li.fi/plans/)
+- [Sign up](https://portal.li.fi)
+- [Support](https://li.fi/contact-us)
+- [Blog](https://blog.li.fi)
+- [Security](https://docs.li.fi/introduction/learn-more/security-and-audits)
+- [Terms of service](https://li.fi/legal/terms-and-conditions/)
+- [Privacy policy](https://li.fi/legal/privacy-policy/)
+- [GitHub](https://github.com/lifinance)
+- [Status](https://status.li.fi)
+
+## API Evangelist rating
+
+**Kin Score 53.6** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
 |---|---|
-| `openapi/` | LI.FI API (OpenAPI 3.0.2, 28 paths) and Earn API (3.0.0, 5 paths) specs |
-| `overlays/` | API Evangelist enhancements over each spec, including the securityScheme LI.FI omits |
-| `authentication/` | API key profile across API, Earn, MCP and Intents surfaces |
-| `mcp/` | Hosted MCP server at `https://mcp.li.quest/mcp` and its 19 published tools |
-| `skills/` | Three packaged Agent Skills — transfer, yield deposit, route comparison |
-| `cli/` | `@lifi/cli` command surface |
-| `packages/` | Five first-party npm packages, verified against the registry |
-| `components/` | LI.FI Widget and the hosted surfaces (Playground, Explorer, Partner Portal) |
-| `llms/` | LI.FI's published `llms.txt` |
-| `well-known/` | `/.well-known/` probe results and the AI plugin descriptor |
-| `errors/` | Documented error-code registry (1000–1013 plus tool errors) and derived problem types |
-| `rate-limits/` | Per-endpoint limits, the two-hour rolling window model and `ratelimit-*` headers |
-| `conventions/` | Cross-cutting request/response semantics |
-| `lifecycle/` | Versioning, deprecations, removals, status page |
-| `changelog/` | Structured recent entries from the monthly changelog |
-| `sandbox/` | Environments and LI.FI's deliberate no-testnet testing policy |
-| `data-model/` | Entity graph derived from both specs |
-| `conformance/` | Standards conformance, asserted and refuted with evidence |
-| `security/` | Domain security probe, bug bounty and disclosure program |
-| `agentic-access/` | Recommended `x-agentic-access` contracts for 33 operations |
+| Discoverability | 75.0 |
+| Contract quality | 45.6 |
+| Contract governance | 4.5 |
+| Operational transparency | 76.3 |
+| Developer ergonomics | 80.4 |
+| Access clarity | 38.2 |
 
-## Notes
+**Agent readiness 38.9** — agent-ready (gated down from agent-native)
 
-- **No idempotency contract.** LI.FI documents no idempotency key. Safety is on-chain: a signed transaction is nonce-bound, and the enforced minimum-received amount reverts rather than filling badly.
-- **No test mode.** LI.FI retired testnet support because bridges and DEXs lack testnet liquidity, and advises testing on mainnet with small amounts on low-gas L2s.
-- **No OAuth.** Authentication is a single static `x-lifi-api-key` header, so no `scopes/` artifact exists.
-- **No published certifications.** Assurance is independent smart contract audits, annual Web2 penetration testing and a $1M Cantina bug bounty — not SOC 2 or ISO 27001.
-- **No event surface.** No AsyncAPI and no webhook catalog are published, so neither is claimed.
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | verified |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | verified |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | — |
+| Operation Distinctiveness | mostly |
+
+**Regulatory alignment 27.7** — Payments
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/lifi/](https://apis.io/providers/lifi/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for LI.FI: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/lifi/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
